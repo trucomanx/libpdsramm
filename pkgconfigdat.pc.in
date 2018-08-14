@@ -1,0 +1,13 @@
+prefix=@CMAKE_INSTALL_PREFIX@
+exec_prefix=${prefix}
+libdir=${exec_prefix}/@CMAKE_INSTALL_LIBDIR@
+includedir=${prefix}/@CMAKE_INSTALL_INCLUDEDIR@
+
+Name: @PROJECT_NAME@
+Description: @PROJECT_DESCRIPTION@
+URL: @PROJECT_URL@
+Version: @PROJECT_VERSION@
+Requires: @PKGCONFIG_REQUIRES@
+Libs: -L${libdir} -l@PROJECT_LIB_ABBREVIATION@
+Libs.private: @PKGCONFIG_LIB_PRIVATE@
+Cflags: -I${includedir}

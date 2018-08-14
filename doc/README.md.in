@@ -1,0 +1,12 @@
+# See the online reference manual
+
+An online version of the reference manual can be seen [here](http://www.nongnu.org/pdsplibrary/@PROJECT_NAME@/refman/html/index.html).
+
+
+# Download the last release code version
+
+A *.tar.gz file can be downloaded [here](http://download.savannah.gnu.org/releases/pdsplibrary/src/@PROJECT_NAME@/).
+
+# Download the last no release code version
+
+	bzr branch http://bzr.savannah.nongnu.org/r/pdsplibrary/@PROJECT_NAME@/

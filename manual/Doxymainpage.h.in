@@ -1,0 +1,135 @@
+/**
+	\mainpage @PROJECT_COMMENT@
+
+	<br>
+	\author Fernando Pujaico Rivera
+	\date \f$\mathrm{\today}\f$
+    \version @PROJECT_VERSION@
+
+	\tableofcontents
+
+	\section Download 1 Descargando la biblioteca
+
+    \subsection Descargando1 1.1 Descargando paquete *.tar.gz
+    La versión @PROJECT_VERSION@ de la biblioteca <b>@PROJECT_COMMENT@</b> (@PROJECT_NAME@) puede 
+    ser descargado en
+    <a href="http://download.savannah.gnu.org/releases/pdsplibrary/src/@PROJECT_NAME@/@PROJECT_NAME@-@PROJECT_VERSION@.tar.gz">@PROJECT_NAME@-@PROJECT_VERSION@.tar.gz</a>
+    o usando el comando:
+\code{.cpp}
+    wget http://download.savannah.gnu.org/releases/pdsplibrary/src/@PROJECT_NAME@/@PROJECT_NAME@-@PROJECT_VERSION@.tar.gz
+\endcode
+    Es necesario tener instalado wget.
+    \subsection Descargando2 1.2 Descargando el actual código fuente no versionado
+    El actual código fuente no oficial de <b>@PROJECT_COMMENT@</b> puede 
+    ser descargado usando el comando:
+\code{.cpp}
+    bzr branch bzr://bzr.savannah.nongnu.org/pdsplibrary/@PROJECT_NAME@
+\endcode
+    Es necesario tener instalado bazaar.
+
+	\section comp_subsec 2 Compilando e instalando la biblioteca
+	Para compilar la biblioteca <b>@PROJECT_COMMENT@</b> es necesario tener en cuenta
+	el siguiente diagrama de dependencias de la biblioteca. 
+	<center>
+	\image html compilar.png "Crear/Compilar la biblioteca @PROJECT_COMMENT@."
+	</center>
+	Como se puede ver, son necesarios los archivos de definiciones `*.hpp`  y 
+	las bibliotecas empaquetadas en binario (`*.a` o `*.so`).
+
+    \subsection CompilandoSurce1 2.1 Compilando e instalando desde código
+\code{.cpp}
+    # Creando directorio de compilación
+    mkdir build
+    cd build
+    
+    # Define donde se instalará la biblioteca, ejemplo: /usr/local
+    # Define donde está el código fuente la biblioteca, ejemplo: /path/of/source/@PROJECT_NAME@
+    cmake -DCMAKE_INSTALL_PREFIX=/usr/local  /path/of/source/@PROJECT_NAME@
+    
+    # Compila el codigo fuente
+    make
+    
+    # Instala la biblioteca
+    
+    sudo make install
+    
+\endcode
+
+    \subsection CompilandoSurce2 2.2 Compilando e instalando desde *.deb 
+\code{.cpp}
+    # Creando directorio de compilación
+    mkdir build
+    cd build
+    
+    # Define donde está el código fuente la biblioteca, ejemplo: /path/of/source/@PROJECT_NAME@
+    # Es obligatorio usar el el directorio de instalación en /usr
+    cmake -DCMAKE_INSTALL_PREFIX=/usr /path/of/source/@PROJECT_NAME@
+    
+    # Compilar y crea el paquete *.deb
+    make package    
+    
+    # Instala la biblioteca     
+    sudo dpkg -i @PROJECT_NAME@-@PROJECT_VERSION@_ARCHITECTURE.deb  
+\endcode
+    Donde ARCHITECTURE puede ser "i386", "amd64", etc.
+
+	\section link_subsec 3 Usando la biblioteca para compilar un programa
+	Una vez instalada la biblioteca <b>@PROJECT_COMMENT@</b>, para que esta pueda
+	ser	usada por algún otro proyecto, es necesario tener en cuenta el
+	siguiente diagrama de dependencia de la biblioteca. 
+	<center>
+	\image html enlazar.png "Usar/Enlazar dinámicamente la biblioteca @PROJECT_COMMENT@."
+	</center>
+	Para usar <b>@PROJECT_COMMENT@</b> en un proyecto (como example.cpp), 
+	se debe agregar la siguiente cabecera al inicio del código fuente.
+\code{.hpp}
+	#include <pds/@PROJECT_LIB_ABBREVIATION@.hpp>
+\endcode
+	Esto incluirá todas las definiciones de las funciones de la biblioteca
+    @PROJECT_COMMENT@.
+
+    \subsection Codigo 3.1 Código de ejemplo
+    
+\code{.cpp}
+@PROJECT_EXAMPLE@
+\endcode
+    example.cpp
+    \subsection Compilando 3.2 Compilando un ejemplo
+	Luego para compilar <b>enlazando estáticamente</b> (Statically linked) un archivo 
+    de código fuente llamado example.cpp, debe ser usado el siguiente comando
+\code{.hpp}
+	gcc -static -o example example.cpp -l@PROJECT_LIB_ABBREVIATION@ @DEVELOP_EXTRA_STATIC_LINK@
+\endcode
+    Por otro lado si se desea compilar <b>enlazando dinamicamente</b> (Dynamically linked) un archivo 
+    de código fuente llamado example.cpp, debe ser usado el siguiente comando
+\code{.hpp}
+	gcc -o example example.cpp -l@PROJECT_LIB_ABBREVIATION@ @DEVELOP_EXTRA_SHARED_LINK@
+\endcode
+
+    \subsection CompilandoPkgConfig 3.3 Compilando un ejemplo : usando pkg-config
+    Adicionalmente es posible usar pkg-config para obtener los datos de 
+    configuración del proceso de compilación.
+    \warning Es necesario tener instalado pkg-config
+
+\code{.hpp}
+ #Statically linked.
+
+	gcc -static -o example example.cpp `pkg-config --static --libs --cflags @PROJECT_NAME@`
+\endcode
+<br>
+\code{.hpp}
+ #Dynamically linked.
+
+	gcc -o example example.cpp `pkg-config --libs --cflags @PROJECT_NAME@`
+\endcode
+    
+    \section Version 4 Versión
+    Es posible conocer la version instalada de la biblioteca @PROJECT_NAME@ usando
+    el siguiente comando<br>
+\code{.hpp}
+    pkg-config --modversion @PROJECT_NAME@
+\endcode
+
+
+*/
+
