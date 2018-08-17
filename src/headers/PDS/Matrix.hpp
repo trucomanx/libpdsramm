@@ -272,6 +272,69 @@ public:
  * @{
  */
     /** 
+     *  \brief Cambia de signo a si mismo (A), el resultado es
+     * cargado en B. Este operador es similar al metodo unario - 
+     *
+     *  \f[ B \leftarrow -A \f]
+\code{.cpp}
+    PDS::Matrix A(4,4);
+    PDS::Matrix B;
+    
+    A.Fill(2.0);
+    
+    B=-A;
+    
+    std::cout<<B;
+\endcode
+     *  \return Retorna un nuevo objeto con el
+     *  resultado, o una matriz vazia (this->IsVoid() igual a true) en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Matrix operator -(void);
+    
+    /** 
+     *  \brief Cambia de signo a si mismo (A), el resultado es
+     * cargado en B. Este metodo es similar al operador unario - 
+     *
+     *  \f[ B \leftarrow -A \f]
+\code{.cpp}
+    PDS::Matrix A(4,4);
+    PDS::Matrix B;
+    
+    A.Fill(2.0);
+    
+    B=A.Minus();
+    
+    std::cout<<B;
+\endcode
+     *  \return Retorna un nuevo objeto con el
+     *  resultado, o una matriz vazia (this->IsVoid() igual a true) en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Matrix Minus(void);
+
+    /** 
+     *  \brief Transpuesta de si mismo (A), el resultado es
+     * cargado en B. 
+     *
+     *  \f[ B \leftarrow transpose(A) \f]
+\code{.cpp}
+    PDS::Matrix A(4,4);
+    PDS::Matrix B;
+    
+    A.FillRandU();
+    
+    B=A.T();
+    
+    std::cout<<B;
+\endcode
+     *  \return Retorna un nuevo objeto con el
+     *  resultado, o una matriz vazia (this->IsVoid() igual a true) en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Matrix T(void);
+
+    /** 
      *  \brief Suma con sigo mismo (A), una matriz B y el resultado es
      * cargado en C. Este operador 
      *  es similar al método Add() 
@@ -282,7 +345,7 @@ public:
     PDS::Matrix B(4,4);
     PDS::Matrix C;
     
-    B.Fill(2.0);
+    A.Fill(2.0);
     B.Fill(1.0);
     
     C=A+B;
@@ -308,7 +371,7 @@ public:
     PDS::Matrix B(4,4);
     PDS::Matrix C;
     
-    B.Fill(2.0);
+    A.Fill(2.0);
     B.Fill(1.0);
     
     C=A.Add(B);

@@ -40,16 +40,20 @@ int main(int argc, char** argv)
     PDS::Matrix C(3,3);
     PDS::Matrix D;
     
-    B.Fill(-1.0);
+    B.FillRandU();
     C.Fill(2.0);
     
     A.Print("A:\n");
     B.Print("B:\n");
     C.Print("C:\n");
     
-    D=A + B*C + C*A + B*B + A*B*C;
+    D=-A + B*C + C*A + B*B + A*B*C;
 
     D.Print("D:\n");
+    
+    D.T().Print("D.T():\n");
+    
+    (-D).Print("D.T():\n");
     
     return 0;
 }

@@ -133,11 +133,51 @@ bool PDS::Matrix::Accumulate(const PDS::Matrix &B)
     return true;
 }
 ////////////////////////////////////////////////////////////////////////
+PDS::Matrix PDS::Matrix::T(void)
+{
+    if( this->IsVoid() )   return PDS::Matrix();
 
+    PDS::Matrix Ans(this->ncol,this->nlin);
+
+    unsigned int lin,col;
+   
+    for(lin=0;lin<this->nlin;lin++)
+    for(col=0;col<this->ncol;col++)
+    {
+        Ans.array[col][lin]=this->array[lin][col];  
+    }
+
+    return Ans;
+}
+
+////////////////////////////////////////////////////////////////////////
+PDS::Matrix PDS::Matrix::operator -(void)
+{
+    return this->Minus();
+}
+
+PDS::Matrix PDS::Matrix::Minus(void)
+{
+    if( this->IsVoid() )   return PDS::Matrix();
+
+    PDS::Matrix Ans(this->nlin,this->ncol);
+
+    unsigned int lin,col;
+   
+    for(lin=0;lin<this->nlin;lin++)
+    for(col=0;col<this->ncol;col++)
+    {
+        Ans.array[lin][col]=-this->array[lin][col];
+    }
+
+    return Ans;
+}
+////////////////////////////////////////////////////////////////////////
 PDS::Matrix PDS::Matrix::operator +(const PDS::Matrix &B)
 {
     return this->Add(B);
 }
+
 PDS::Matrix PDS::Matrix::Add(const PDS::Matrix &B)
 {
     if( this->IsNotSimilarTo(B) )   return PDS::Matrix();
