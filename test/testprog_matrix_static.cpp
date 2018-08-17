@@ -42,13 +42,11 @@ int main(int argc, char** argv)
     A.Fill(2.0);
     B.Fill(1.0);
     
-    A+B;
-    std::cout<<"Answer:\n"<<PDS::Matrix::Answer;
+    C=A+B;
+    std::cout<<"C:\n"<<C;
     
-    A+B+B+A+A+B;
+    C=A+B+B+A+A+B;
     
     std::cout<<"C:\n"<<C;
-    std::cout<<"Answer:\n"<<PDS::Matrix::Answer;
-    
     return 0;
 }

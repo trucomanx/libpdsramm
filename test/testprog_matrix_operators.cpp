@@ -60,16 +60,16 @@ int main(int argc, char** argv)
     // + operator
     std::cout<<std::endl;
     
-    A.Add(B);
+    C=A.Add(B);
     
-    PDS::Matrix::Answer.Print("A+B\n");
+    C.Print("A+B\n");
     
     // * operator
     std::cout<<std::endl;
     
-    A.Mul(B);
+    C=A.Mul(B);
     
-    PDS::Matrix::Answer.Print("A*B\n");
+    C.Print("A*B\n");
     
     return 0;
 }

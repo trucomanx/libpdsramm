@@ -2,8 +2,6 @@
 
 #include <PDS/Matrix>
 
-PDS::Matrix PDS::Matrix::Answer = PDS::Matrix();
-
 double** PDS::Matrix::AllocateArray(unsigned int Nlin,unsigned int Ncol)
 {
     double **array=NULL;

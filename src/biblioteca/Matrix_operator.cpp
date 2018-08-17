@@ -32,7 +32,6 @@ PDS::Matrix& PDS::Matrix::operator = (const PDS::Matrix &A)
     if(false==this->Copy(A))
         this->MakeVoid();
 
-    PDS::Matrix::Answer.MakeVoid();
     //std::cout<<"used copy assignment\n";
     return *this;
 }
@@ -79,7 +78,6 @@ PDS::Matrix& PDS::Matrix::operator = (PDS::Matrix &&A)
     if(false==this->Move(A))
         this->MakeVoid();
 
-    //PDS::Matrix::Answer.MakeVoid();
     std::cout<<"used move assignment\n";
     return *this;
 }
@@ -138,15 +136,12 @@ bool PDS::Matrix::Accumulate(const PDS::Matrix &B)
 
 PDS::Matrix PDS::Matrix::operator +(const PDS::Matrix &B)
 {
-    if(false==this->Add(B))
-        PDS::Matrix::Answer.MakeVoid();
-    
-    return PDS::Matrix::Answer;
+    return this->Add(B);
 }
-bool PDS::Matrix::Add(const PDS::Matrix &B)
+PDS::Matrix PDS::Matrix::Add(const PDS::Matrix &B)
 {
-    if( this->IsNotSimilarTo(B) )   return false;
-    if( B.IsVoid() )                return true;
+    if( this->IsNotSimilarTo(B) )   return PDS::Matrix();
+    if( B.IsVoid() )                return PDS::Matrix();
 
     PDS::Matrix Ans(B.nlin,B.ncol);
 
@@ -160,23 +155,19 @@ bool PDS::Matrix::Add(const PDS::Matrix &B)
         Ans.array[lin][col]=this->array[lin][col]+B.array[lin][col];  
     }
 
-    if(PDS::Matrix::Answer.Move(Ans))   return true;
-    else                                return false;
+    return Ans;
 }
 
 
 ////////////////////////////////////////////////////////////////////////
 PDS::Matrix PDS::Matrix::operator *(const PDS::Matrix &B)
 {
-    if(false==this->Mul(B))
-        PDS::Matrix::Answer.MakeVoid();
-    
-    return PDS::Matrix::Answer;
+    return this->Mul(B);
 }
 
-bool PDS::Matrix::Mul(const PDS::Matrix &B)
+PDS::Matrix PDS::Matrix::Mul(const PDS::Matrix &B)
 {
-    if( this->IsNotMulBy(B) )    return false;
+    if( this->IsNotMulBy(B) )    return PDS::Matrix();
     
     PDS::Matrix Ans(this->nlin,B.ncol);
 
@@ -196,8 +187,7 @@ bool PDS::Matrix::Mul(const PDS::Matrix &B)
         
         Ans.array[lin][col]=S;
     }
-    if(PDS::Matrix::Answer.Move(Ans))   return true;
-    else                                return false;
+    return Ans;
 }
 ////////////////////////////////////////////////////////////////////////
 std::ostream& operator<<(std::ostream &out,const PDS::Matrix &mat)

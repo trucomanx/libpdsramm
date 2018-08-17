@@ -106,7 +106,7 @@ PDS::Matrix::Matrix(const Matrix &A)
         this->ncol=A.ncol;
     }
     //std::cout<<"Copy asignment contructor\n";
-    PDS::Matrix::Answer.MakeVoid();
+
     return;
 }
 /*

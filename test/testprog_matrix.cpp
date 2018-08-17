@@ -38,7 +38,7 @@ int main(int argc, char** argv)
     PDS::Matrix A = PDS::Eye(3);
     PDS::Matrix B (3,3);
     PDS::Matrix C(3,3);
-    
+    PDS::Matrix D;
     
     B.Fill(-1.0);
     C.Fill(2.0);
@@ -46,11 +46,10 @@ int main(int argc, char** argv)
     A.Print("A:\n");
     B.Print("B:\n");
     C.Print("C:\n");
-
-    PDS::Matrix D=A + B*C + C*A + B*B + A*B*C;
+    
+    D=A + B*C + C*A + B*B + A*B*C;
 
     D.Print("D:\n");
-    PDS::Matrix::Answer.Print("Answer:\n");
     
     return 0;
 }
