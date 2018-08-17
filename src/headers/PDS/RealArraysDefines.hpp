@@ -26,7 +26,7 @@
  */
     
 
-/** \defgroup DefinesGroup Módulo com macros.
+/** \defgroup DefinesGroup Macro Defines.
  *  \brief Algunas macros interesantes.
  *  
  * @{
@@ -72,7 +72,7 @@
 #endif
 
 
-/**
+/*!
  * @}
  */
 

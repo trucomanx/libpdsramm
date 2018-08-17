@@ -64,16 +64,14 @@ namespace PDS{
  */
 class Matrix
 {
-private:
+protected:
     /*! Un arreglo de Nlin lineas y Ncol elementos por linea. */
     double **array;
     /*! Número de lineas. */
     unsigned int nlin;
     /*! Número de columnas. */
     unsigned int ncol;
-
-    //static Matrix *TemporalMatrix;
-
+    
 public:
 
 /** @name Varios tipos de constructores
@@ -90,6 +88,14 @@ public:
 
     /** 
      *  \brief Crea un objeto de tipo PDS::Matrix
+     *  \param[in] N El numero de lineas y columnas de la matriz.
+     *  \return un objeto de tipo PDS::Matrix.
+     *  \ingroup MatrixGroup
+     */
+    Matrix(unsigned int N);
+    
+    /** 
+     *  \brief Crea un objeto de tipo PDS::Matrix
      *  \param[in] Nlin El numero de lineas de la matriz.
      *  \param[in] Ncol El numero de columnas de la matriz.
      *  \return un objeto de tipo PDS::Matrix.
@@ -97,12 +103,24 @@ public:
      */
     Matrix(unsigned int Nlin,unsigned int Ncol);
 
+    /** 
+     *  \brief Crea un objeto de tipo PDS::Matrix copiando datos desde 
+     *  otra matriz. Este es un Copy assignment constructor. 
+     *  \return un objeto de tipo PDS::Matrix.
+     *  \ingroup MatrixGroup
+     */
+    Matrix(const Matrix &A);
+
+
+    //Matrix(Matrix&& A);
+    
     ~Matrix(); 
+    
+/**
+ * @}
+ */
 
-
-//@}
-
-
+public:
 
 /** @name Métodos de estado
  *  Indican o establecen el estado de una matriz.
@@ -114,21 +132,21 @@ public:
      *  \return Retorna true si es nula e false si no.
      *  \ingroup MatrixGroup
      */
-    bool IsNull(void) const;
+    bool IsVoid(void) const;
 
     /** 
      *  \brief Verifica si la matriz NO es nula, es decir con lineas y columnas diferentes cero y arreglo diferente de NULL.
      *  \return Retorna true si NO es nula e false si lo es.
      *  \ingroup MatrixGroup
      */
-    bool IsNotNull(void) const;
+    bool IsNotVoid(void) const;
 
     /** 
      *  \brief libera los datos internos de la matriz y la convierte en una matriz nula.
      *  es decir con lineas y columnas cero.
      *  \ingroup MatrixGroup
      */
-    void MakeNull(void);
+    void MakeVoid(void);
 
     /** 
      *  \brief Verifica si las matrices son similares en tamanho.
@@ -139,27 +157,42 @@ public:
 
     /** 
      *  \brief Verifica si las matrices son similares en tamanho.
-     *  \return Retorna true si son similares y false si no.
+     *  \return Retorna false si son similares y true si no.
      *  \ingroup MatrixGroup
      */
     bool IsNotSimilarTo(const Matrix &B) const;
-//@}
+    
+    /** 
+     *  \brief Verifica si las matrices son multiplicables.
+     *  \return Retorna true si son multiplicables y false si no.
+     *  \ingroup MatrixGroup
+     */
+    bool IsMulBy(const Matrix &B) const;
 
+    /** 
+     *  \brief Verifica si las matrices son multiplicables.
+     *  \return Retorna false si son multiplicables y true si no.
+     *  \ingroup MatrixGroup
+     */
+    bool IsNotMulBy(const Matrix &B) const;
+/**
+ * @}
+ */
 
+public:
 
 /** @name Métodos de inicialización
  *  Establecen los valores de las matrices.
  * @{
  */
-
-
+    
     /** 
      *  \brief Inicializa la matriz con números aleatorios, distribuidos uniformemente,
      *  desde 0 a 1.0, incluyendo 0 y excluyendo 1.0.
      *  \return Retorna true si todo fue bien o false si no.
      *  \ingroup MatrixGroup
      */
-    bool InitRand(void);
+    bool FillRandU(void);
 
     /** 
      *  \brief Inicializa la matriz con un valor constante.
@@ -167,12 +200,13 @@ public:
      *  \return Retorna true si todo fue bien o false si no.
      *  \ingroup MatrixGroup
      */
-    bool Init(double val);
+    bool Fill(double val);
 
+/**
+ * @}
+ */
 
-//@}
-
-
+public:
 
 /** @name Métodos variados
  *  Herramientas gnereicas
@@ -186,16 +220,51 @@ public:
      */
     std::string ToString(void) const;
 
+    /** 
+     *  \brief Imprime en pantalla el cntenido de la matriz
+     *  \ingroup MatrixGroup
+     */
+    void Print(void) const;
 
+    /** 
+     *  \brief Imprime en pantalla el cntenido de la matriz despues del
+     * texto indicado en str.
+     * \param str Texto a mostrar antes de imprimir.
+     *  \ingroup MatrixGroup
+     */
+    void Print(std::string str) const;
 
-//@}
+/**
+ * @}
+ */
 
-
+public:
 
 /** @name Métodos Static
  *  Herramientas genericas que pueden ser usadas desde PDS::Matrix
  * @{
  */
+    
+    /** 
+     *  \brief Variable donde se almacena la respuesta de las operaciones
+     * que no acumulan resultado en si mismo, ejemplo: +,-,*,etc.
+     *
+     * Esta variable puede ser consultada siempre, pero su contenido es
+     * destruido (MakeVoid()) cada vez que se usa el operador =.
+\code{.cpp}
+    PDS::Matrix A(4,4);
+    PDS::Matrix B(4,4);
+    
+    A.FillRandU();
+    B.Fill(1.0);
+    
+    A+B;
+    
+    std::cout<<PDS::Matrix::Answer;
+\endcode
+     *  \ingroup MatrixGroup
+     */
+    static Matrix Answer;
     
     /** 
      *  \brief crea diamicamente un arreglo de Nlin lineas y Ncol clumnas
@@ -212,42 +281,142 @@ public:
      */
     static void ReleaseArray(double** &array,unsigned int Nlin);
 
-//@}
+/**
+ * @}
+ */
 
-
+public:
 
 /** @name Operadores y sus métodos equivalentes
  *  Descripcion de algunos operadores habilitados a trabajar con PDS::Matrix.
  * @{
  */
-
     /** 
-     *  \brief Suma y acumula en si mismo (B), una matriz A. Este es igual al
-     *  método Accumulate() 
+     *  \brief Suma con sigo mismo (A), una matriz B y el resultado es
+     * cargado en PDS::Matrix::Answer. Este operador 
+     *  es similar al método Add() 
+     *
+     *  \f[ Answer \leftarrow A+B \f]
+\code{.cpp}
+    PDS::Matrix A(4,4);
+    PDS::Matrix B(4,4);
+    
+    A.FillRandU();
+    B.Fill(1.0);
+    
+    A+B;
+    
+    std::cout<<PDS::Matrix::Answer;
+\endcode
+     *  \param[in] B la matriz a sumar
+     *  \return Retorna PDS::Matrix::Answer con el
+     *  resultado, o una matriz vazia (this->IsVoid() igual a true) en caso de error.
+     *  \see Add
+     *  \ingroup MatrixGroup
+     */
+    Matrix operator + (const Matrix &B);
+    
+    /** 
+     *  \brief Suma con sigo mismo (A), una matriz B y el resultado es
+     * cargado en PDS::Matrix::Answer. Este metodo 
+     *  es similar al operador + 
+     *
+     *  \f[ Answer \leftarrow A+B \f]
+\code{.cpp}
+    PDS::Matrix A(4,4);
+    PDS::Matrix B(4,4);
+    
+    A.FillRandU();
+    B.Fill(1.0);
+    
+    A.Add(B);
+    
+    std::cout<<PDS::Matrix::Answer;
+\endcode
+     *  \param[in] B la matriz a sumar
+*  \return Retorna true si tdo fue bien o false en caso de error.
+     *  Si hubo error entonces PDS::Matrix:Answer es una matriz vacia.
+     *  \ingroup MatrixGroup
+     */
+    bool Add(const Matrix &B);
+    
+    /** 
+     *  \brief Multiplica con sigo mismo (A), una matriz B y el resultado es
+     * cargado en PDS::Matrix::Answer. Este operador 
+     *  es similar al método Mul() 
+     *
+     *  \f[ Answer \leftarrow A+B \f]
+\code{.cpp}
+    PDS::Matrix A(4,4);
+    PDS::Matrix B(4,4);
+    
+    A.FillRandU();
+    B.Fill(1.0);
+    
+    A*B;
+    
+    std::cout<<PDS::Matrix::Answer;
+\endcode
+     *  \param[in] B la matriz a multiplicar
+     *  \return Retorna PDS::Matrix::Answer con el
+     *  resultado, o una matriz vazia (this->IsVoid() igual a true) en caso de error.
+     *  \see Add
+     *  \ingroup MatrixGroup
+     */
+    Matrix operator * (const Matrix &B);
+    
+    /** 
+     *  \brief Multiplica con sigo mismo (A), una matriz B y el resultado es
+     * cargado en PDS::Matrix::Answer. Este metodo 
+     *  es similar al operador * 
+     *
+     *  \f[ Answer \leftarrow A+B \f]
+\code{.cpp}
+    PDS::Matrix A(4,4);
+    PDS::Matrix B(4,4);
+    
+    A.FillRandU();
+    B.Fill(1.0);
+    
+    A.Mul(B);
+    
+    std::cout<<PDS::Matrix::Answer;
+\endcode
+     *  \param[in] B la matriz a multiplicar
+     *  \return Retorna true si tdo fue bien o false en caso de error.
+     *  Si hubo error entonces PDS::Matrix:Answer es una matriz vacia.
+     *  \ingroup MatrixGroup
+     */
+    bool Mul(const Matrix &B);
+    
+    /** 
+     *  \brief Suma y acumula en si mismo (B), una matriz A. Este operador 
+     *  es similar al método Accumulate() 
      *
      *  \f[ B \leftarrow B+A \f]
 \code{.cpp}
     PDS::Matrix A(4,4);
     PDS::Matrix B(4,4);
-    A.InitRand();
+    A.FillRandU();
     B+=A;
 \endcode
-     *  \param[in] A la matriz a acumular
-     *  \return Retorna true si todo fue bien o false si no. Si se retorna false
-     *  el acumulador no altera su contenido.
+     *  \param[in] B la matriz a acumular
+     *  \return Retorna el operador de la izquierda (acumulador) con el
+     *  resultado, o una matriz vazia (this->IsVoid() igual a true) en caso de error.
      *  \see Accumulate
      *  \ingroup MatrixGroup
      */
-    bool operator += (const Matrix &A);
+    Matrix& operator +=(const Matrix &B);
+
     /** 
-     *  \brief Suma y acumula en si mismo (B), una matriz A. Este es igual al
+     *  \brief Suma y acumula en si mismo (B), una matriz A. Este es similar al
      *  perador += 
      *
      *  \f[ B \leftarrow B+A \f]
 \code{.cpp}
     PDS::Matrix A(4,4);
     PDS::Matrix B(4,4);
-    A.InitRand();
+    A.FillRandU();
     B.Accumulate(A);
 \endcode
      *  \param[in] A la matriz a acumular
@@ -256,10 +425,10 @@ public:
      *  \ingroup MatrixGroup
      */
     bool Accumulate(const Matrix &A);
-
+    
     /** 
-     *  \brief Copia en si mismo (B), una matriz A. Este es igual al
-     *  método Copy() 
+     *  \brief Copia en si mismo (B), una matriz A. Este operador es 
+     *  similar al método Copy() 
      *
      *  \f[ B \leftarrow A \f]
      * Cuando acontece:
@@ -271,26 +440,20 @@ public:
 \code{.cpp}
     PDS::Matrix A=PDS::Matrix(nlin,ncol);
 \endcode
-     *  \param[in] A la matriz a acumular
-     *  \return Retorna true si todo fue bien o false si no. Si se retorna false
-     *  el receptor no altera su contenido.
+     *  \param[in] A la matriz a copiar
+     *  \return Retorna el operador de la izquierda (acumulador) con el
+     *  resultado, o una matriz vazia (this->IsVoid() igual a true) en caso de error.
      *  \see Copy
      *  \ingroup MatrixGroup
      */
-    bool operator = (const Matrix &A);
-
+    Matrix& operator = (const Matrix &A);
+    
     /** 
-     *  \brief Copia en si mismo (B), una matriz A. Este es igual al
-     *  operador = 
+     *  \brief Copia en si mismo (B), el contenido de una matriz A. Este 
+     *  metodo es similar a usar el operador = 
      *
      *  \f[ B \leftarrow A \f]
-\code{.cpp}
-    PDS::Matrix A(4,4);
-    PDS::Matrix B(4,4);
-    A.InitRand();
-    B=A;
-\endcode
-     *  \param[in] A la matriz a acumular
+     *  \param[in] A la matriz a copiar
      *  \return Retorna true si todo fue bien o false si no. Si se retorna false
      *  el receptor no altera su contenido.
      *  \see Copy
@@ -298,13 +461,32 @@ public:
      */
     bool Copy(const Matrix &A);
 
-//@}
+    /** 
+     *  \brief Mueve datos a si mismo (B), desde una matriz A. Esta operación 
+     *  covierte a la matriz A en una matriz vacia.
+     *
+     *  \f[ B \leftarrow A \f]
+     *  \f[ A \leftarrow 0 \f]
+     * 
+     * Internamente la funcion intercambia  el contenido moviendo direcciones de memoria.
+     *  \param[in] A la matriz a acumular
+     *  \return Retorna true si todo fue bien o false si no. Si se retorna false
+     *  el receptor no altera su contenido.
+     *  \see Copy
+     *  \ingroup MatrixGroup
+     */
+    bool Move(Matrix &A);
+    
+/**
+ * @}
+ */
 
 
-};
+};// class Matrix
 
+typedef Matrix Zeros;
 
-}
+} // namespace PDS
 
 
 /** @name Operadores no miembros
@@ -329,13 +511,14 @@ public:
      */
 std::ostream& operator<<(std::ostream &out,const PDS::Matrix &mat);
 
-
-//@}
-
-
-
-
 /**
+ * @}
+ */
+
+
+
+
+/*!
  * @}
  */
 

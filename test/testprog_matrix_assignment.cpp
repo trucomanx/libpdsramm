@@ -1,5 +1,5 @@
 /*
- * testprog_matrix_state.cpp
+ * testprog_matrix_assignment.cpp
  * 
  * Copyright 2011 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
  * 
@@ -20,7 +20,7 @@
  * 
  */
 
-/** \example testprog_matrix_state.cpp
+/** \example testprog_matrix_assignment.cpp
  *  \author Fernando Pujaico Rivera
  *  \date 18-04-2018
  *  \brief Programa para el testeo de las funciones de reducción e inversión de matrices.
@@ -33,26 +33,25 @@
     
 #include <iostream>
 #include <PDS/RealArrays>
+
+
     
 int main(int argc, char** argv)
 {
-    PDS::Matrix A;
-    PDS::Matrix B(3,3);
-    PDS::Matrix C(3,3);
+    PDS::Matrix C=PDS::Matrix(2,2);    
+    PDS::Matrix B;
     
-    C.FillRandU();
-    
-    if(A.IsVoid())      std::cout<<"A is NULL"<<std::endl;
-    else                std::cout<<"A is not NULL"<<std::endl;
+    std::cout<<"B.Move(C);\n";
+    B.Move(C);
+    std::cout<<B<<"\n";
 
-    if(B.IsNotVoid())   std::cout<<"B is not NULL"<<std::endl;
-    else                std::cout<<"B is NULL"<<std::endl;
+    if(C.IsVoid())  std::cout<<"C is null\n\n";
     
-    if(A.IsNotSimilarTo(B)) std::cout<<"A is not similar to B"<<std::endl;
-    else                    std::cout<<"A is similar to B"<<std::endl;
+    std::cout<<"Assignment operator\n";    
+    std::cout<<"C= PDS::Matrix(2,2);\n";
+    C=PDS::Matrix(2,2);
+    std::cout<<C;
 
-    if(B.IsSimilarTo(C))    std::cout<<"B is similar to C"<<std::endl;
-    else                    std::cout<<"B is not similar to C"<<std::endl;
     
     return 0;
 }

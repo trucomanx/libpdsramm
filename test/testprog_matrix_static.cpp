@@ -1,5 +1,5 @@
 /*
- * testprog_matrix_state.cpp
+ * testprog_matrix_static.cpp
  * 
  * Copyright 2011 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
  * 
@@ -20,39 +20,35 @@
  * 
  */
 
-/** \example testprog_matrix_state.cpp
+/** \example testprog_matrix_static.cpp
  *  \author Fernando Pujaico Rivera
  *  \date 18-04-2018
  *  \brief Programa para el testeo de las funciones de reducción e inversión de matrices.
  *  
- *  \n\n Este programa hace una prueba de la función para reducción de una matriz, 
- *  y de inversión de una matriz. Ambas funciones usan el método de gauss para 
- *  cumplir su objetivo.
  */
     
     
 #include <iostream>
 #include <PDS/RealArrays>
+
+
     
 int main(int argc, char** argv)
 {
-    PDS::Matrix A;
-    PDS::Matrix B(3,3);
-    PDS::Matrix C(3,3);
+    PDS::Matrix A(4,4);
+    PDS::Matrix B(4,4);
+    PDS::Matrix C;
     
-    C.FillRandU();
+    A.Fill(2.0);
+    B.Fill(1.0);
     
-    if(A.IsVoid())      std::cout<<"A is NULL"<<std::endl;
-    else                std::cout<<"A is not NULL"<<std::endl;
-
-    if(B.IsNotVoid())   std::cout<<"B is not NULL"<<std::endl;
-    else                std::cout<<"B is NULL"<<std::endl;
+    A+B;
+    std::cout<<"Answer:\n"<<PDS::Matrix::Answer;
     
-    if(A.IsNotSimilarTo(B)) std::cout<<"A is not similar to B"<<std::endl;
-    else                    std::cout<<"A is similar to B"<<std::endl;
-
-    if(B.IsSimilarTo(C))    std::cout<<"B is similar to C"<<std::endl;
-    else                    std::cout<<"B is not similar to C"<<std::endl;
+    A+B+B+A+A+B;
+    
+    std::cout<<"C:\n"<<C;
+    std::cout<<"Answer:\n"<<PDS::Matrix::Answer;
     
     return 0;
 }

@@ -25,9 +25,6 @@
  *  \date 18-04-2018
  *  \brief Programa para el testeo de las funciones de reducción e inversión de matrices.
  *  
- *  \n\n Este programa hace una prueba de la función para reducción de una matriz, 
- *  y de inversión de una matriz. Ambas funciones usan el método de gauss para 
- *  cumplir su objetivo.
  */
     
     
@@ -38,20 +35,22 @@
     
 int main(int argc, char** argv)
 {
-    PDS::Matrix A(2,2);
-    PDS::Matrix B(2,2);
-    PDS::Matrix C(2,2);
+    PDS::Matrix A = PDS::Eye(3);
+    PDS::Matrix B (3,3);
+    PDS::Matrix C(3,3);
     
-    A.Init(1.0);        // Init data with a value
     
-    B.InitRand();       // Init data randomly between [0.0, 1.0>.
+    B.Fill(-1.0);
+    C.Fill(2.0);
     
-    std::cout<<"A:\n"<<A;
-    std::cout<<"B:\n"<<B;
+    A.Print("A:\n");
+    B.Print("B:\n");
+    C.Print("C:\n");
+
+    PDS::Matrix D=A + B*C + C*A + B*B + A*B*C;
+
+    D.Print("D:\n");
+    PDS::Matrix::Answer.Print("Answer:\n");
     
-    C+=A;
-    C+=B;
-    
-    std::cout<<"C:\n"<<C;
     return 0;
 }

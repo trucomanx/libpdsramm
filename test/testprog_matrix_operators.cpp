@@ -25,9 +25,6 @@
  *  \date 18-04-2018
  *  \brief Programa para el testeo de las funciones de reducción e inversión de matrices.
  *  
- *  \n\n Este programa hace una prueba de la función para reducción de una matriz, 
- *  y de inversión de una matriz. Ambas funciones usan el método de gauss para 
- *  cumplir su objetivo.
  */
     
     
@@ -41,28 +38,38 @@ int main(int argc, char** argv)
     PDS::Matrix A(2,2);
     PDS::Matrix B(2,2);
     PDS::Matrix C;
-
+    
+    A.Fill(1.0);    std::cout<<"A:\n"<<A;
+    B.Fill(2.0);    std::cout<<"B:\n"<<B;
+    
     // = operator
     std::cout<<std::endl;
     
     C= PDS::Matrix(2,2);    // A Matrix object was created, the data were copied
                             // and later the Matrix object was destroyed.
     
-    if(C=A)         std::cout<<"true:C=A\n";
-    if(C.Copy(B))   std::cout<<"true:C=B\n";
-    
+    if((C=A).IsNotVoid())   C.Print("C=A\n");
+    if(C.Copy(B))           C.Print("C=B\n");
     
     // += operator
     std::cout<<std::endl;
-
-    A.Init(1.0);    std::cout<<"A:\n"<<A;
-    B.Init(2.0);    std::cout<<"B:\n"<<B;
     
-    if(C+=A)            std::cout<<"true:C+=A\n";
-    if(C.Accumulate(B)) std::cout<<"true:C+=B\n";
+    if((C+=A).IsNotVoid())  C.Print("C+=A\n");
+    if(C.Accumulate(B))     C.Print("C+=B\n");
     
-    std::cout<<"C:\n"<<C;
-
+    // + operator
+    std::cout<<std::endl;
+    
+    A.Add(B);
+    
+    PDS::Matrix::Answer.Print("A+B\n");
+    
+    // * operator
+    std::cout<<std::endl;
+    
+    A.Mul(B);
+    
+    PDS::Matrix::Answer.Print("A*B\n");
     
     return 0;
 }

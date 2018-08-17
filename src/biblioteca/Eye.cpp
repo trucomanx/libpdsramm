@@ -1,5 +1,5 @@
 /*
- * RealArrays.hpp
+ * Eye.cpp
  * 
  * Copyright 2018 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
  * 
@@ -20,32 +20,30 @@
  * 
  */
 
-/** \file RealArrays.hpp
- * \brief Archivo de definición de cabeceras.
- *
- *  Puedes habilitar todos los módulos de la biblioteca  
- *  usando este archivo, haciendo:
-   @verbatim
-	#include <PDS/RealArrays>
-   @endverbatim
- * O puedes habilitarlas una por una usando lo siguiente:
-   @verbatim
-    #include <PDS/RealArraysDefines>
-    #include <PDS/Matrix>
-   @endverbatim
- * 
- */
-    
-    
-#ifndef __PDS_REALARRAYS_HPP__
-#define __PDS_REALARRAYS_HPP__
-    
 
-#include <PDS/RealArraysDefines>
-#include <PDS/Matrix>
-#include <PDS/Ones>
 #include <PDS/Eye>
-#include <PDS/ColVector>
 
+PDS::Eye::Eye(void)
+{
+    return;
+}
+
+PDS::Eye::Eye(unsigned int N): PDS::Matrix(N)
+{
+    unsigned int lin,col;
     
-#endif /* __PDS_REALARRAYS_HPP__ */
+    if((this->nlin!=0)&&(this->ncol!=0)&&(this->array!=NULL))
+    {
+        for(lin=0;lin<N;lin++)
+        this->array[lin][lin]=1.0;
+    }
+}
+
+PDS::Eye::~Eye(void)
+{
+    PDS::Matrix::ReleaseArray(this->array,this->nlin);
+
+    this->nlin=0;
+    this->ncol=0;
+}
+

@@ -1,5 +1,5 @@
 /*
- * RealArrays.hpp
+ * Matrix_init.cpp
  * 
  * Copyright 2018 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
  * 
@@ -20,32 +20,37 @@
  * 
  */
 
-/** \file RealArrays.hpp
- * \brief Archivo de definición de cabeceras.
- *
- *  Puedes habilitar todos los módulos de la biblioteca  
- *  usando este archivo, haciendo:
-   @verbatim
-	#include <PDS/RealArrays>
-   @endverbatim
- * O puedes habilitarlas una por una usando lo siguiente:
-   @verbatim
-    #include <PDS/RealArraysDefines>
-    #include <PDS/Matrix>
-   @endverbatim
- * 
- */
-    
-    
-#ifndef __PDS_REALARRAYS_HPP__
-#define __PDS_REALARRAYS_HPP__
-    
-
-#include <PDS/RealArraysDefines>
+#include <cstdlib>
 #include <PDS/Matrix>
-#include <PDS/Ones>
-#include <PDS/Eye>
-#include <PDS/ColVector>
 
+
+bool PDS::Matrix::FillRandU(void)
+{
+    if(this->IsVoid())   return false;
     
-#endif /* __PDS_REALARRAYS_HPP__ */
+    unsigned int lin,col;
+
+    for(lin=0;lin<this->nlin;lin++)
+    for(col=0;col<this->ncol;col++)
+    {
+        this->array[lin][col]=rand()/(RAND_MAX+1.0);
+    }
+
+    return true;
+}
+
+bool PDS::Matrix::Fill(double val)
+{
+    if(this->IsVoid())   return false;
+
+    unsigned int lin,col;
+    
+    for(lin=0;lin<this->nlin;lin++)
+    for(col=0;col<this->ncol;col++)
+    {
+        this->array[lin][col]=val;
+    }
+
+    return true;
+}
+
