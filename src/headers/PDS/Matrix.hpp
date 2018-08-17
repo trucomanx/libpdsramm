@@ -233,6 +233,15 @@ public:
      *  \ingroup MatrixGroup
      */
     void Print(std::string str) const;
+    
+    /** 
+     *  \brief Aplica la funcion func a cada elemento de la matriz.
+     * \param func Función a aplicar, esta debe tener a forma double func(double).
+     * \return true si todo fue bien o false si la matriz era nula.
+     *  \ingroup MatrixGroup
+     */
+    bool Apply( double (*func)(double) );
+
 
 /**
  * @}
@@ -534,6 +543,8 @@ typedef Matrix Zeros;
 } // namespace PDS
 
 
+
+
 /** @name Operadores no miembros
  *  Descripcion de algunos operadores habilitados a trabajar con PDS::Matrix.
  * @{
@@ -560,8 +571,22 @@ std::ostream& operator<<(std::ostream &out,const PDS::Matrix &mat);
  * @}
  */
 
+/** @name Sobrecarga de funciones matematicas cmath
+ *  Descripcion de algunas funciones matematica que usan  PDS::Matrix.
+ * @{
+ */
 
-
+    /** 
+     *  \brief Retorna el el resultado de evaluar la funcion seno.  
+     *
+     *  \param[in] A La matriz a evaluar
+     *  \return Retorna la matriz evaluada.
+     *  \ingroup MatrixGroup
+     */
+PDS::Matrix sin(const PDS::Matrix A);
+/**
+ * @}
+ */
 
 /*!
  * @}

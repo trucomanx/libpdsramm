@@ -29,6 +29,7 @@
     
     
 #include <iostream>
+
 #include <PDS/RealArrays>
 
 
@@ -53,7 +54,9 @@ int main(int argc, char** argv)
     
     D.T().Print("D.T():\n");
     
-    (-D).Print("D.T():\n");
+    (-D).Print("-D:\n");
+    
+    sin(D).Print("sin(D):\n");
     
     return 0;
 }

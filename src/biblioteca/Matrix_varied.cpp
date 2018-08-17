@@ -2,13 +2,14 @@
 #include <PDS/Matrix>
 
 #include <sstream>
+#include <iomanip>      // std::setprecision
 namespace patch
 {
     template <typename T>
     std::string ToString(T val)
     {
         std::stringstream stream;
-        stream << val;
+        stream <<std::setprecision(12)<< val;
         return stream.str();
     }
 }
@@ -53,4 +54,19 @@ void PDS::Matrix::Print(std::string str) const
 void PDS::Matrix::Print(void) const
 {
     this->Print("");
+}
+
+
+bool PDS::Matrix::Apply( double (*func)(double) )
+{
+    if(this->IsVoid())   return false;
+    
+    unsigned int lin,col;
+
+    for(lin=0;lin<this->nlin;lin++)
+    for(col=0;col<this->ncol;col++)
+    {
+        this->array[lin][col]=(*func)(this->array[lin][col]);
+    }
+    return true;
 }
