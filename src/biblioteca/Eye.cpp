@@ -21,14 +21,14 @@
  */
 
 
-#include <PDS/Eye>
+#include <Pds/Eye>
 
-PDS::Eye::Eye(void)
+Pds::Eye::Eye(void)
 {
     return;
 }
 
-PDS::Eye::Eye(unsigned int N): PDS::Matrix(N)
+Pds::Eye::Eye(unsigned int N): Pds::Matrix(N)
 {
     unsigned int lin,col;
     
@@ -39,9 +39,9 @@ PDS::Eye::Eye(unsigned int N): PDS::Matrix(N)
     }
 }
 
-PDS::Eye::~Eye(void)
+Pds::Eye::~Eye(void)
 {
-    PDS::Matrix::ReleaseArray(this->array,this->nlin);
+    Pds::Matrix::ReleaseArray(this->array,this->nlin);
 
     this->nlin=0;
     this->ncol=0;

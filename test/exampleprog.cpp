@@ -1,12 +1,12 @@
 
 #include <iostream>
-#include <PDS/RealArrays.hpp>
+#include <Pds/RealArrays.hpp>
     
 int main(int argc, char** argv)
 {
-    PDS::Matrix A(2,2);
-    PDS::Matrix B(2,2);
-    PDS::Matrix C(2,2);
+    Pds::Matrix A(2,2);
+    Pds::Matrix B(2,2);
+    Pds::Matrix C(2,2);
     
     A.Fill(1.0);        // Fill data with a value
     

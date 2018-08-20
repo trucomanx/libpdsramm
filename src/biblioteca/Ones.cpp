@@ -21,14 +21,14 @@
  */
 
 
-#include <PDS/Ones>
+#include <Pds/Ones>
 
-PDS::Ones::Ones(void)
+Pds::Ones::Ones(void)
 {
     return;
 }
 
-PDS::Ones::Ones(unsigned int nlin,unsigned int ncol): PDS::Matrix(nlin,ncol)
+Pds::Ones::Ones(unsigned int nlin,unsigned int ncol): Pds::Matrix(nlin,ncol)
 {
     unsigned int lin,col;
     
@@ -40,7 +40,7 @@ PDS::Ones::Ones(unsigned int nlin,unsigned int ncol): PDS::Matrix(nlin,ncol)
     }
 }
 
-PDS::Ones::Ones(unsigned int N): PDS::Matrix(N)
+Pds::Ones::Ones(unsigned int N): Pds::Matrix(N)
 {
     unsigned int lin,col;
     
@@ -52,9 +52,9 @@ PDS::Ones::Ones(unsigned int N): PDS::Matrix(N)
     }
 }
 
-PDS::Ones::~Ones(void)
+Pds::Ones::~Ones(void)
 {
-    PDS::Matrix::ReleaseArray(this->array,this->nlin);
+    Pds::Matrix::ReleaseArray(this->array,this->nlin);
 
     this->nlin=0;
     this->ncol=0;

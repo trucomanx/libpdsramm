@@ -21,10 +21,10 @@
  */
 
 #include <cstdlib>
-#include <PDS/Matrix>
+#include <Pds/Matrix>
 
 
-bool PDS::Matrix::FillRandU(void)
+bool Pds::Matrix::FillRandU(void)
 {
     if(this->IsVoid())   return false;
     
@@ -39,7 +39,7 @@ bool PDS::Matrix::FillRandU(void)
     return true;
 }
 
-bool PDS::Matrix::Fill(double val)
+bool Pds::Matrix::Fill(double val)
 {
     if(this->IsVoid())   return false;
 

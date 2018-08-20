@@ -1,5 +1,5 @@
 /*
- * testprog_matrix_static.cpp
+ * testprog_matrix_static_array.cpp
  * 
  * Copyright 2011 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
  * 
@@ -20,33 +20,49 @@
  * 
  */
 
-/** \example testprog_matrix_static.cpp
+/** \example testprog_matrix_static_array.cpp
  *  \author Fernando Pujaico Rivera
  *  \date 18-04-2018
- *  \brief Programa para el testeo de las funciones de reducción e inversión de matrices.
+ *  \brief Programa para el testeo de las funciones.
  *  
  */
     
     
 #include <iostream>
-#include <PDS/RealArrays>
+#include <Pds/RealArrays>
 
 
     
 int main(int argc, char** argv)
 {
-    PDS::Matrix A(4,4);
-    PDS::Matrix B(4,4);
-    PDS::Matrix C;
+    std::string str;
     
-    A.Fill(2.0);
-    B.Fill(1.0);
+    unsigned int Nlin=2;
+    unsigned int Ncol=2;
+    double **array=NULL;
     
-    C=A+B;
-    std::cout<<"C:\n"<<C;
+    char filepath[]="filedat.txt";
     
-    C=A+B+B+A+A+B;
+    array=Pds::Matrix::AllocateArray(Nlin,Ncol);
+    if(array==NULL)   return 0; 
     
-    std::cout<<"C:\n"<<C;
+    array[0][0]=0.0/0.0;
+    array[0][1]=0.0/1.0;
+    array[1][0]=1.0/0.0;
+    array[1][1]=1.0/1.0;
+    
+    str=Pds::Matrix::ArrayToString(array,Nlin,Ncol);
+    std::cout<<str;
+
+
+    Pds::Matrix::SaveArray(filepath,array,Nlin,Ncol);
+
+    Pds::Matrix::ReleaseArray(array,Nlin);
+    std::cout<<std::endl<<"array="<<array<<std::endl<<std::endl;
+
+    Pds::Matrix::LoadArray(filepath,array,Nlin,Ncol);
+    str=Pds::Matrix::ArrayToString(array,Nlin,Ncol);
+    std::cout<<str;
+
     return 0;
 }

@@ -1,5 +1,5 @@
 /*
- * testprog_colvector.cpp
+ * testprog_matrix_static_matrix.cpp
  * 
  * Copyright 2011 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
  * 
@@ -20,30 +20,30 @@
  * 
  */
 
-/** \example testprog_colvector.cpp
+/** \example testprog_matrix_static_matrix.cpp
  *  \author Fernando Pujaico Rivera
  *  \date 18-04-2018
- *  \brief Programa para el testeo de las funciones de reducción e inversión de matrices.
+ *  \brief Programa para el testeo de las funciones.
  *  
  */
     
-    
-#include <iostream>
+        
 #include <Pds/RealArrays>
-
-
-    
+        
 int main(int argc, char** argv)
 {
-    Pds::ColVector A(3);
-    Pds::ColVector B(3);
-    Pds::ColVector C(3);
+    char filepath[]="filedat.txt";
+
+    Pds::Matrix A=Pds::Eye(5); 
+
+    bool state=Pds::Matrix::Save(filepath,A);
+    if(state==true) A.Print("A:\n");
+
+    Pds::Matrix B=Pds::Matrix::Load(filepath);
+    B.Print("B:\n");
     
-    C.FillRandU();       // Fill data randomly between [0.0, 1.0>.
-    
-    std::cout<<"C:\n"<<C;
-    std::cout<<"B:\n"<<B;
-    std::cout<<"A:\n"<<A;
+    Pds::Matrix C("filedat.txt");
+    C.Print("C:\n");
 
     return 0;
 }

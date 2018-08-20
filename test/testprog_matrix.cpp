@@ -30,16 +30,16 @@
     
 #include <iostream>
 
-#include <PDS/RealArrays>
+#include <Pds/RealArrays>
 
 
     
 int main(int argc, char** argv)
 {
-    PDS::Matrix A = PDS::Eye(3);
-    PDS::Matrix B (3,3);
-    PDS::Matrix C(3,3);
-    PDS::Matrix D;
+    Pds::Matrix A = Pds::Eye(3);
+    Pds::Matrix B(3,3);
+    Pds::Matrix C(3,3);
+    Pds::Matrix D;
     
     B.FillRandU();
     C.Fill(2.0);

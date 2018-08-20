@@ -21,9 +21,9 @@
  */
 
 
-#include <PDS/Matrix>
+#include <Pds/Matrix>
 
-PDS::Matrix::Matrix(void)
+Pds::Matrix::Matrix(void)
 {
 
     this->nlin=0;
@@ -31,7 +31,7 @@ PDS::Matrix::Matrix(void)
     this->array=NULL;
 }
 
-PDS::Matrix::Matrix(unsigned int N)
+Pds::Matrix::Matrix(unsigned int N)
 {
 
     this->nlin=N;
@@ -41,7 +41,7 @@ PDS::Matrix::Matrix(unsigned int N)
     if(N==0)    return;
 
     
-    this->array= PDS::Matrix::AllocateArray(N,N);
+    this->array= Pds::Matrix::AllocateArray(N,N);
     if(this->array==NULL) 
     {
         this->nlin=0;
@@ -52,7 +52,7 @@ PDS::Matrix::Matrix(unsigned int N)
     //std::cout<<"Matrix(n);\n";
 }
 
-PDS::Matrix::Matrix(unsigned int nlin,unsigned int ncol)
+Pds::Matrix::Matrix(unsigned int nlin,unsigned int ncol)
 {
 
     this->nlin=nlin;
@@ -68,7 +68,7 @@ PDS::Matrix::Matrix(unsigned int nlin,unsigned int ncol)
         return;
     }
     
-    this->array= PDS::Matrix::AllocateArray(nlin,ncol);
+    this->array= Pds::Matrix::AllocateArray(nlin,ncol);
     if(this->array==NULL) 
     {
         this->nlin=0;
@@ -80,7 +80,7 @@ PDS::Matrix::Matrix(unsigned int nlin,unsigned int ncol)
 }
 
 // Copy assignment  constructor
-PDS::Matrix::Matrix(const Matrix &A)
+Pds::Matrix::Matrix(const Matrix &A)
 {
     unsigned int lin,col;
     
@@ -93,7 +93,7 @@ PDS::Matrix::Matrix(const Matrix &A)
         if(A.IsVoid())  return;
 
 
-        this->array= PDS::Matrix::AllocateArray(A.nlin,A.ncol);
+        this->array= Pds::Matrix::AllocateArray(A.nlin,A.ncol);
         if(this->array==NULL)  return;
         
         for (lin = 0; lin < A.nlin; lin++)
@@ -109,37 +109,19 @@ PDS::Matrix::Matrix(const Matrix &A)
 
     return;
 }
-/*
-PDS::Matrix::Matrix(PDS::Matrix &&A)
+ 
+Pds::Matrix::Matrix(const char *filepath)
 {
-    if(this!=&A) //Comprueba que no se esté intentando igualar un objeto a sí mismo
-    {
-        this->nlin=0;
-        this->ncol=0;
-        this->array=NULL;
-        
-        if(A.IsVoid())  return;
-            
-        this->array = A.array;
-        this->nlin = A.nlin;
-        this->ncol = A.ncol;
-        
-        A.array=NULL;
-        A.nlin=0;
-        A.ncol=0;
-        
-    }
-    
-    std::cout<<"Move asignment contructor\n";
-    
-    return;
+    this->nlin=0;
+    this->ncol=0;
+    this->array=NULL;
+
+    Pds::Matrix::LoadArray(filepath,this->array,this->nlin,this->ncol);
 }
 
-*/
-
-PDS::Matrix::~Matrix(void)
+Pds::Matrix::~Matrix(void)
 {
-    PDS::Matrix::ReleaseArray(this->array,this->nlin);
+    Pds::Matrix::ReleaseArray(this->array,this->nlin);
 
     this->nlin=0;
     this->ncol=0;

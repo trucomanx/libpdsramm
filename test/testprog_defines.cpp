@@ -32,13 +32,13 @@
     
     
 #include <iostream>
-#include <PDS/RealArrays>
+#include <Pds/RealArrays>
     
 int main(int argc, char** argv)
 {
-    print_error_message("testing error");
-    print_warning_message("testing warning");
-    print_info_message("testing info");
+    pds_print_error_message("testing error");
+    pds_print_warning_message("testing warning");
+    pds_print_info_message("testing info");
     
     return 0;
 }

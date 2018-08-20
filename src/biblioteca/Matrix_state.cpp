@@ -21,10 +21,10 @@
  */
 
 
-#include <PDS/Matrix>
+#include <Pds/Matrix>
 
 
-bool PDS::Matrix::IsVoid(void) const
+bool Pds::Matrix::IsVoid(void) const
 {
     if((this->nlin)==0)    return true;
     if((this->ncol)==0)    return true;
@@ -33,7 +33,7 @@ bool PDS::Matrix::IsVoid(void) const
     return false;
 }
 
-bool PDS::Matrix::IsNotVoid(void) const
+bool Pds::Matrix::IsNotVoid(void) const
 {
     if((this->nlin)==0)    return false;
     if((this->ncol)==0)    return false;
@@ -42,14 +42,14 @@ bool PDS::Matrix::IsNotVoid(void) const
     return true;
 }
 
-void PDS::Matrix::MakeVoid(void)
+void Pds::Matrix::MakeVoid(void)
 {
-    PDS::Matrix::ReleaseArray(this->array,this->nlin);
+    Pds::Matrix::ReleaseArray(this->array,this->nlin);
     this->nlin=0;
     this->ncol=0;
 }
 
-bool PDS::Matrix::IsSimilarTo(const PDS::Matrix &B) const
+bool Pds::Matrix::IsSimilarTo(const Pds::Matrix &B) const
 {
     if((this->nlin)!=B.nlin)    return false;
     if((this->ncol)!=B.ncol)    return false;
@@ -60,7 +60,7 @@ bool PDS::Matrix::IsSimilarTo(const PDS::Matrix &B) const
     
     return true;
 }
-bool PDS::Matrix::IsNotSimilarTo(const PDS::Matrix &B) const
+bool Pds::Matrix::IsNotSimilarTo(const Pds::Matrix &B) const
 {
     if((this->nlin)!=B.nlin)    return true;
     if((this->ncol)!=B.ncol)    return true;
@@ -72,7 +72,7 @@ bool PDS::Matrix::IsNotSimilarTo(const PDS::Matrix &B) const
     return false;
 }
 
-bool PDS::Matrix::IsMulBy(const PDS::Matrix &B) const
+bool Pds::Matrix::IsMulBy(const Pds::Matrix &B) const
 {
     if(this->IsVoid())  return false;
     if(B.IsVoid())      return false;
@@ -82,7 +82,7 @@ bool PDS::Matrix::IsMulBy(const PDS::Matrix &B) const
     return true;
 }
 
-bool PDS::Matrix::IsNotMulBy(const PDS::Matrix &B) const
+bool Pds::Matrix::IsNotMulBy(const Pds::Matrix &B) const
 {
     if(this->IsVoid())  return true;
     if(B.IsVoid())      return true;
@@ -90,4 +90,16 @@ bool PDS::Matrix::IsNotMulBy(const PDS::Matrix &B) const
     if((this->ncol)!=B.nlin)    return true;
     
     return false;
+}
+
+
+bool Pds::Matrix::HasThePosition(double lin,double col) const
+{
+    if(this->IsVoid())  return false;
+    if(col<0)           return false;    
+    if(lin<0)           return false;
+    if(col>=this->ncol) return false;    
+    if(lin>=this->nlin) return false;
+    
+    return true;
 }

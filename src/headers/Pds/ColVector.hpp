@@ -50,14 +50,14 @@
  */
 
 
-#include <PDS/Matrix>
+#include <Pds/Matrix>
 
-namespace PDS{
+namespace Pds{
 
 /*! \class ColVector
  *  \brief La clase tipo  ColVector .
  *  Esta clase genera una matriz de Nlin lineas y 1 columna.
- *  Para usar incluir PDS/ColVector.
+ *  Para usar incluir Pds/ColVector.
  *  \ingroup ColVectorGroup
  *  \author Fernando Pujaico Rivera
  */
@@ -67,21 +67,21 @@ class ColVector: public Matrix
 public:
 
 /** @name Varios tipos de constructores
- *  Crean una objeto PDS::ColVector
+ *  Crean una objeto Pds::ColVector
  * @{
  */
 
     /** 
-     *  \brief Crea un objeto de tipo PDS::ColVector
-     *  \return un objeto de tipo PDS::ColVector.
+     *  \brief Crea un objeto de tipo Pds::ColVector
+     *  \return un objeto de tipo Pds::ColVector.
      *  \ingroup ColVectorGroup
      */
     ColVector(void);
     
     /** 
-     *  \brief Crea un objeto de tipo PDS::ColVector
+     *  \brief Crea un objeto de tipo Pds::ColVector
      *  \param[in] N El numero de lineas de la matriz.
-     *  \return un objeto de tipo PDS::ColVector.
+     *  \return un objeto de tipo Pds::ColVector.
      *  \ingroup ColVectorGroup
      */
     ColVector(unsigned int N);
@@ -98,7 +98,7 @@ public:
 
 typedef ColVector Vector;
 
-} // namespace PDS
+} // namespace Pds
 
 
 /*!

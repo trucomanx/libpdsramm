@@ -32,27 +32,52 @@
     
     
 #include <iostream>
-#include <PDS/RealArrays>
+#include <Pds/RealArrays>
     
 int main(int argc, char** argv)
 {
-    PDS::Matrix A;
-    PDS::Matrix B(3,3);
-    PDS::Matrix C(3,3);
+    Pds::Matrix A;
+    Pds::Matrix B(3,3);
+    Pds::Matrix C(3,3);
     
     C.FillRandU();
     
+    
+    pds_print_info_message("... is void?");
+    
     if(A.IsVoid())      std::cout<<"A is NULL"<<std::endl;
     else                std::cout<<"A is not NULL"<<std::endl;
-
+    
     if(B.IsNotVoid())   std::cout<<"B is not NULL"<<std::endl;
     else                std::cout<<"B is NULL"<<std::endl;
+    
+    if(C.IsNotVoid())   std::cout<<"C is not NULL"<<std::endl;
+    else                std::cout<<"C is NULL"<<std::endl;
+    
+    
+    pds_print_info_message("... is similar to ... ?");
     
     if(A.IsNotSimilarTo(B)) std::cout<<"A is not similar to B"<<std::endl;
     else                    std::cout<<"A is similar to B"<<std::endl;
 
     if(B.IsSimilarTo(C))    std::cout<<"B is similar to C"<<std::endl;
     else                    std::cout<<"B is not similar to C"<<std::endl;
+    
+    
+    pds_print_info_message("... is multipliable to ... ?");
+    
+    if(A.IsNotMulBy(C))     std::cout<<"A is not multipliable by C"<<std::endl;
+    else                    std::cout<<"A is multipliable by C"<<std::endl;
+    
+    if(B.IsMulBy(C))        std::cout<<"B is multipliable by C"<<std::endl;
+    else                    std::cout<<"B is not multipliable by C"<<std::endl;  
+    
+    
+    pds_print_info_message("... has the position ... ?");
+    
+    if(B.HasThePosition(1,1))   std::cout<<"B has the position (1,1)"<<std::endl;
+    else                        std::cout<<"B dont have the position (1,1)"<<std::endl;
+    
     
     return 0;
 }

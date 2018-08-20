@@ -37,40 +37,41 @@
 #define __PDS_REALARRAYSDEFINES_HPP__
     
     
-#ifndef print_error_message
+#ifndef pds_print_error_message
 /*!
- * \def print_error_message
+ * \def pds_print_error_message
  * Mensaje de error.
  * \ingroup DefinesGroup
 */
-#define print_error_message(msg) \
+#define pds_print_error_message(msg) \
     std::cout<<"----ERROR :: "<<__FILE__<<"::"<<__FUNCTION__<<"::line "<<__LINE__<<std::endl \
     <<"----ERROR :: "<<msg<<std::endl
 #endif
     
     
-#ifndef print_warning_message
+#ifndef pds_print_warning_message
 /*!
- * \def print_warning_message
+ * \def pds_print_warning_message
  * Mensaje de advertencia.
  * \ingroup DefinesGroup
 */
-#define print_warning_message(msg) \
+#define pds_print_warning_message(msg) \
     std::cout<<"--WARNING :: "<<__FILE__<<"::"<<__FUNCTION__<<"::line "<<__LINE__<<std::endl \
     <<"--WARNING :: "<<msg<<std::endl
 #endif
     
     
-#ifndef print_info_message
+#ifndef pds_print_info_message
 /*!
- * \def print_info_message
+ * \def pds_print_info_message
  * Mensaje con informaciones genericas.
  * \ingroup DefinesGroup
 */
-#define print_info_message(msg) \
+#define pds_print_info_message(msg) \
     std::cout<<"-----INFO :: "<<msg<<std::endl
 #endif
 
+#define PDS_SET_PRECISION 12
 
 /*!
  * @}

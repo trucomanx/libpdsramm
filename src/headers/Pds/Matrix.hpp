@@ -22,7 +22,6 @@
 
 /** \file Matrix.hpp
  *  \author Fernando Pujaico Rivera
- *  \date 01-04-2011
  *  \brief Funciones que trabajan con matrices.
  *  
  *  <br>Estas funciones trabajan con una matriz de la forma.<br>
@@ -53,12 +52,12 @@
 #include <string>
 #include <iostream>
 
-namespace PDS{
+namespace Pds{
 
 /*! \class Matrix
  *  \brief La clase tipo  Matrix .
  *  Esta clase genera una matriz de Nlin lineas y Ncol columnas.
- *  Para usar incluir PDS/Matrix.
+ *  Para usar incluir Pds/Matrix.
  *  \ingroup MatrixGroup
  *  \author Fernando Pujaico Rivera
  */
@@ -75,44 +74,50 @@ protected:
 public:
 
 /** @name Varios tipos de constructores
- *  Crean una objeto PDS::Matrix
+ *  Crean una objeto Pds::Matrix
  * @{
  */
 
     /** 
-     *  \brief Crea un objeto de tipo PDS::Matrix
-     *  \return un objeto de tipo PDS::Matrix.
+     *  \brief Crea un objeto de tipo Pds::Matrix
+     *  \return un objeto de tipo Pds::Matrix.
      *  \ingroup MatrixGroup
      */
     Matrix(void);
 
     /** 
-     *  \brief Crea un objeto de tipo PDS::Matrix
+     *  \brief Crea un objeto de tipo Pds::Matrix
      *  \param[in] N El numero de lineas y columnas de la matriz.
-     *  \return un objeto de tipo PDS::Matrix.
+     *  \return un objeto de tipo Pds::Matrix.
      *  \ingroup MatrixGroup
      */
     Matrix(unsigned int N);
     
     /** 
-     *  \brief Crea un objeto de tipo PDS::Matrix
+     *  \brief Crea un objeto de tipo Pds::Matrix
      *  \param[in] Nlin El numero de lineas de la matriz.
      *  \param[in] Ncol El numero de columnas de la matriz.
-     *  \return un objeto de tipo PDS::Matrix.
+     *  \return un objeto de tipo Pds::Matrix.
      *  \ingroup MatrixGroup
      */
     Matrix(unsigned int Nlin,unsigned int Ncol);
 
     /** 
-     *  \brief Crea un objeto de tipo PDS::Matrix copiando datos desde 
+     *  \brief Crea un objeto de tipo Pds::Matrix copiando datos desde 
      *  otra matriz. Este es un Copy assignment constructor. 
-     *  \return un objeto de tipo PDS::Matrix.
+     *  \return un objeto de tipo Pds::Matrix.
      *  \ingroup MatrixGroup
      */
     Matrix(const Matrix &A);
 
-
-    //Matrix(Matrix&& A);
+    /** 
+     *  \brief Crea un objeto de tipo Pds::Matrix copiando datos desde 
+     *  un archivo. 
+     *  \return un objeto de tipo Pds::Matrix.
+     *  \ingroup MatrixGroup
+     */
+    Matrix(const char *filepath);
+    
     
     ~Matrix(); 
     
@@ -150,6 +155,7 @@ public:
 
     /** 
      *  \brief Verifica si las matrices son similares en tamanho.
+     *  \param[in] B Matriz en consulta.
      *  \return Retorna true si son similares y false si no.
      *  \ingroup MatrixGroup
      */
@@ -157,6 +163,7 @@ public:
 
     /** 
      *  \brief Verifica si las matrices son similares en tamanho.
+     *  \param[in] B Matriz en consulta.
      *  \return Retorna false si son similares y true si no.
      *  \ingroup MatrixGroup
      */
@@ -164,6 +171,7 @@ public:
     
     /** 
      *  \brief Verifica si las matrices son multiplicables.
+     *  \param[in] B Matriz en consulta.
      *  \return Retorna true si son multiplicables y false si no.
      *  \ingroup MatrixGroup
      */
@@ -171,10 +179,21 @@ public:
 
     /** 
      *  \brief Verifica si las matrices son multiplicables.
+     *  \param[in] B Matriz en consulta.
      *  \return Retorna false si son multiplicables y true si no.
      *  \ingroup MatrixGroup
      */
     bool IsNotMulBy(const Matrix &B) const;
+
+    /** 
+     *  \brief Verifica si la posicion pertenece a la matriz.
+     *  \param[in] lin Linea en consulta.
+     *  \param[in] col columna en consulta.
+     *  \return Retorna true si pertenece y false si no.
+     *  \ingroup MatrixGroup
+     */
+    bool HasThePosition(double lin,double col) const;
+
 /**
  * @}
  */
@@ -215,7 +234,7 @@ public:
 
     /** 
      *  \brief Convierte los datos de la matriz en un std::string.
-     *  \return Retorna un string. Si la matriz es nula retorna un string sin caracteres.
+     *  \return Retorna un std::string. Si la matriz es nula retorna un string sin caracteres.
      *  \ingroup MatrixGroup
      */
     std::string ToString(void) const;
@@ -247,16 +266,48 @@ public:
  * @}
  */
 
+
 public:
 
-/** @name Métodos Static
- *  Herramientas genericas que pueden ser usadas desde PDS::Matrix
+/** @name Métodos Static con Matrices
+ *  Herramientas genericas que pueden ser usadas desde Pds::Matrix
+ * @{
+ */
+
+
+   /** 
+     *  \brief Lee de un archivo una matriz de Nlin lineas y Ncol columnas.
+     *  \param[in] filepath El archivo donde se leeran los datos.
+     *  \return Retorna una matriz no vacia si todo fue bien o una matriz vacia en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    static Pds::Matrix Load(const char* filepath);
+
+   /** 
+     *  \brief Escribe en un archivo una matriz de Nlin lineas y Ncol columnas.
+     *  \param[in] filepath El archivo donde se escribiran los datos.
+     *  \param[in] A matriz a escribir.
+     *  \return Retorna true si todo fue bien o false en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    static bool Save(const char* filepath,const Pds::Matrix &A);
+/**
+ * @}
+ */
+
+
+public:
+
+/** @name Métodos Static con arrays
+ *  Herramientas genericas que pueden ser usadas desde Pds::Matrix
  * @{
  */
     
   
     /** 
      *  \brief crea diamicamente un arreglo de Nlin lineas y Ncol clumnas
+     *  \param[in] Nlin El numero de lineas en el arreglo.
+     *  \param[in] Ncol El numero de columnas en el arreglo.
      *  \return Retorna un puntero al arreglo, o NULL si no consiguio reservar
      * la memoria. Esta memoria debe ser liberada siempre com ReleaseArray
      *  \ingroup MatrixGroup
@@ -266,9 +317,48 @@ public:
    /** 
      *  \brief Libera un arreglo de Nlin lineas y Ncol clumnas (arreglo de arreglos)
      * Adicionalmente carga con NULL al arreglo a liberar.
+     *  \param[in] array El arreglo de arreglos de de Nlin lineas y Ncol columnas
+     *  \param[in] Nlin El numero de lineas en el arreglo.
      *  \ingroup MatrixGroup
      */
     static void ReleaseArray(double** &array,unsigned int Nlin);
+
+
+   /** 
+     *  \brief Convierte a un sdt::string un arreglo de Nlin lineas y Ncol columnas (arreglo de arreglos).
+     *  \param[in] array El arreglo de arreglos de de Nlin lineas y Ncol columnas
+     *  \param[in] Nlin El numero de lineas en el arreglo.
+     *  \param[in] Ncol El numero de columnas en el arreglo.
+     *  \return Retorna un std::string. Si la matriz es nula retorna un string sin caracteres.
+     *  \ingroup MatrixGroup
+     */
+    static std::string ArrayToString(double **array,unsigned int Nlin,unsigned int Ncol);
+
+   /** 
+     *  \brief Salva en un archivo un arreglo de Nlin lineas y Ncol columnas (arreglo de arreglos).
+     *  \param[in] filepath El archivo donde se guardaran los datos.
+     *  \param[in] array El arreglo de arreglos de de Nlin lineas y Ncol columnas
+     *  \param[in] Nlin El numero de lineas en el arreglo.
+     *  \param[in] Ncol El numero de columnas en el arreglo.
+     *  \return Retorna true si todo fue bien o false si no.
+     *  \ingroup MatrixGroup
+     */
+    static bool SaveArray(const char* filepath,double **array,unsigned int Nlin,unsigned int Ncol);
+
+
+   /** 
+     *  \brief Lee de un archivo un arreglo de Nlin lineas y Ncol columnas (arreglo de arreglos).
+     *  \param[in] filepath El archivo donde se leeran los datos.
+     *  \param[out] array Donde se escribira el arreglo de arreglos de de Nlin lineas y Ncol columnas.
+     *  La funcion no libera a memoria de array, entonces se le debe entregar siempre un array==NULL.
+     *  \param[out] Nlin Donde se escribira el numero de lineas en el arreglo.
+     *  \param[out] Ncol Donde se escribira el numero de columnas en el arreglo.
+     *  \return Retorna true si todo fue bien o false si no. Si el numero de columnas 
+     *  no es constante se retorna false. Si la funcion retorna false entonces los valores
+     *  de entrada no son alterados.
+     *  \ingroup MatrixGroup
+     */
+    static bool LoadArray(const char* filepath,double** &array,unsigned int& Nlin,unsigned int& Ncol);
 
 /**
  * @}
@@ -277,7 +367,7 @@ public:
 public:
 
 /** @name Operadores y sus métodos equivalentes
- *  Descripcion de algunos operadores habilitados a trabajar con PDS::Matrix.
+ *  Descripcion de algunos operadores habilitados a trabajar con Pds::Matrix.
  * @{
  */
     /** 
@@ -286,8 +376,8 @@ public:
      *
      *  \f[ B \leftarrow -A \f]
 \code{.cpp}
-    PDS::Matrix A(4,4);
-    PDS::Matrix B;
+    Pds::Matrix A(4,4);
+    Pds::Matrix B;
     
     A.Fill(2.0);
     
@@ -307,8 +397,8 @@ public:
      *
      *  \f[ B \leftarrow -A \f]
 \code{.cpp}
-    PDS::Matrix A(4,4);
-    PDS::Matrix B;
+    Pds::Matrix A(4,4);
+    Pds::Matrix B;
     
     A.Fill(2.0);
     
@@ -328,8 +418,8 @@ public:
      *
      *  \f[ B \leftarrow transpose(A) \f]
 \code{.cpp}
-    PDS::Matrix A(4,4);
-    PDS::Matrix B;
+    Pds::Matrix A(4,4);
+    Pds::Matrix B;
     
     A.FillRandU();
     
@@ -350,9 +440,9 @@ public:
      *
      *  \f[ C \leftarrow A+B \f]
 \code{.cpp}
-    PDS::Matrix A(4,4);
-    PDS::Matrix B(4,4);
-    PDS::Matrix C;
+    Pds::Matrix A(4,4);
+    Pds::Matrix B(4,4);
+    Pds::Matrix C;
     
     A.Fill(2.0);
     B.Fill(1.0);
@@ -376,9 +466,9 @@ public:
      *
      *  \f[ C \leftarrow A+B \f]
 \code{.cpp}
-    PDS::Matrix A(4,4);
-    PDS::Matrix B(4,4);
-    PDS::Matrix C;
+    Pds::Matrix A(4,4);
+    Pds::Matrix B(4,4);
+    Pds::Matrix C;
     
     A.Fill(2.0);
     B.Fill(1.0);
@@ -400,9 +490,9 @@ public:
      *
      *  \f[ C \leftarrow A*B \f]
 \code{.cpp}
-    PDS::Matrix A(4,4);
-    PDS::Matrix B(4,4);
-    PDS::Matrix C;
+    Pds::Matrix A(4,4);
+    Pds::Matrix B(4,4);
+    Pds::Matrix C;
     
     A.Fill(2.0);
     B.Fill(1.0);
@@ -425,9 +515,9 @@ public:
      *
      *  \f[ C \leftarrow A*B \f]
 \code{.cpp}
-    PDS::Matrix A(4,4);
-    PDS::Matrix B(4,4);
-    PDS::Matrix C;
+    Pds::Matrix A(4,4);
+    Pds::Matrix B(4,4);
+    Pds::Matrix C;
     
     A.Fill(2.0);
     B.Fill(1.0);
@@ -449,8 +539,8 @@ public:
      *
      *  \f[ A \leftarrow A+B \f]
 \code{.cpp}
-    PDS::Matrix A(4,4);
-    PDS::Matrix B(4,4);
+    Pds::Matrix A(4,4);
+    Pds::Matrix B(4,4);
     B.Fill(1.0);
     A+=B;
 \endcode
@@ -468,8 +558,8 @@ public:
      *
      *  \f[ A \leftarrow A+B \f]
 \code{.cpp}
-    PDS::Matrix A(4,4);
-    PDS::Matrix B(4,4);
+    Pds::Matrix A(4,4);
+    Pds::Matrix B(4,4);
     B.Fill(1.0);
     A+=B;
 \endcode
@@ -487,12 +577,12 @@ public:
      *  \f[ B \leftarrow A \f]
      * Cuando acontece:
 \code{.cpp}
-    A=PDS::Matrix(nlin,ncol);
+    A=Pds::Matrix(nlin,ncol);
     B=A;
 \endcode
      * Cuando NO acontece:
 \code{.cpp}
-    PDS::Matrix A=PDS::Matrix(nlin,ncol);
+    Pds::Matrix A=Pds::Matrix(nlin,ncol);
 \endcode
      *  \param[in] A la matriz a copiar
      *  \return Retorna el operador de la izquierda (acumulador) con el
@@ -540,13 +630,13 @@ public:
 
 typedef Matrix Zeros;
 
-} // namespace PDS
+} // namespace Pds
 
 
 
 
 /** @name Operadores no miembros
- *  Descripcion de algunos operadores habilitados a trabajar con PDS::Matrix.
+ *  Descripcion de algunos operadores habilitados a trabajar con Pds::Matrix.
  * @{
  */
     /** 
@@ -562,17 +652,17 @@ typedef Matrix Zeros;
      *  \param[in] out La salida
      *  \param[in] mat La matriz a mostrar
      *  \return Retorna la misma salida estandar out.
-     *  \see PDS::Matrix::ToString();
+     *  \see Pds::Matrix::ToString();
      *  \ingroup MatrixGroup
      */
-std::ostream& operator<<(std::ostream &out,const PDS::Matrix &mat);
+std::ostream& operator<<(std::ostream &out,const Pds::Matrix &mat);
 
 /**
  * @}
  */
 
 /** @name Sobrecarga de funciones matematicas cmath
- *  Descripcion de algunas funciones matematica que usan  PDS::Matrix.
+ *  Descripcion de algunas funciones matematica que usan  Pds::Matrix.
  * @{
  */
 
@@ -583,12 +673,12 @@ std::ostream& operator<<(std::ostream &out,const PDS::Matrix &mat);
      *  \return Retorna la matriz evaluada.
      *  \ingroup MatrixGroup
      */
-PDS::Matrix sin(const PDS::Matrix A);
+Pds::Matrix sin(const Pds::Matrix A);
 /**
  * @}
  */
 
-/*!
+/**
  * @}
  */
 

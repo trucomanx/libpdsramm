@@ -21,12 +21,12 @@
  */
 
 
-#include <PDS/Matrix>
+#include <Pds/Matrix>
 #include <cmath>
 
-PDS::Matrix sin(const PDS::Matrix A)
+Pds::Matrix sin(const Pds::Matrix A)
 {
-    PDS::Matrix B=A;
+    Pds::Matrix B=A;
     B.Apply(sin);
     return B;
 } 

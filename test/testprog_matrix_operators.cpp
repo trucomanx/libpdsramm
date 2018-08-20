@@ -29,15 +29,15 @@
     
     
 #include <iostream>
-#include <PDS/RealArrays>
+#include <Pds/RealArrays>
 
 
     
 int main(int argc, char** argv)
 {
-    PDS::Matrix A(2,2);
-    PDS::Matrix B(2,2);
-    PDS::Matrix C;
+    Pds::Matrix A(2,2);
+    Pds::Matrix B(2,2);
+    Pds::Matrix C;
     
     A.Fill(1.0);    std::cout<<"A:\n"<<A;
     B.Fill(2.0);    std::cout<<"B:\n"<<B;
@@ -45,7 +45,7 @@ int main(int argc, char** argv)
     // = operator
     std::cout<<std::endl;
     
-    C= PDS::Matrix(2,2);    // A Matrix object was created, the data were copied
+    C= Pds::Matrix(2,2);    // A Matrix object was created, the data were copied
                             // and later the Matrix object was destroyed.
     
     if((C=A).IsNotVoid())   C.Print("C=A\n");

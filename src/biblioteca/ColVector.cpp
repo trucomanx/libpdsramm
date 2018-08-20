@@ -21,21 +21,21 @@
  */
 
 
-#include <PDS/ColVector>
+#include <Pds/ColVector>
 
-PDS::ColVector::ColVector(void)
+Pds::ColVector::ColVector(void)
 {
     return;
 }
 
-PDS::ColVector::ColVector(unsigned int N): PDS::Matrix(N,1)
+Pds::ColVector::ColVector(unsigned int N): Pds::Matrix(N,1)
 {
     return;
 }
 
-PDS::ColVector::~ColVector(void)
+Pds::ColVector::~ColVector(void)
 {
-    PDS::Matrix::ReleaseArray(this->array,this->nlin);
+    Pds::Matrix::ReleaseArray(this->array,this->nlin);
 
     this->nlin=0;
     this->ncol=0;

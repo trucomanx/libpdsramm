@@ -26,12 +26,12 @@
  *  Puedes habilitar todos los módulos de la biblioteca  
  *  usando este archivo, haciendo:
    @verbatim
-	#include <PDS/RealArrays>
+	#include <Pds/RealArrays>
    @endverbatim
  * O puedes habilitarlas una por una usando lo siguiente:
    @verbatim
-    #include <PDS/RealArraysDefines>
-    #include <PDS/Matrix>
+    #include <Pds/RealArraysDefines>
+    #include <Pds/Matrix>
    @endverbatim
  * 
  */
@@ -41,11 +41,12 @@
 #define __PDS_REALARRAYS_HPP__
     
 
-#include <PDS/RealArraysDefines>
-#include <PDS/Matrix>
-#include <PDS/Ones>
-#include <PDS/Eye>
-#include <PDS/ColVector>
+#include <Pds/RealArraysDefines>
+#include <Pds/RealArraysTools>
+#include <Pds/Matrix>
+#include <Pds/Ones>
+#include <Pds/Eye>
+#include <Pds/ColVector>
 
     
 #endif /* __PDS_REALARRAYS_HPP__ */

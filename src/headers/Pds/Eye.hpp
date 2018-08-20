@@ -1,7 +1,7 @@
 /*
- * Ones.hpp
+ * Eye.hpp
  * 
- * Copyright 2011 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
+ * Copyright 2018 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
  * 
  */
 
-/** \file Ones.hpp
+/** \file Eye.hpp
  *  \author Fernando Pujaico Rivera
  *  \date 01-04-2011
  *  \brief Funciones que trabajan con matrices.
@@ -32,11 +32,11 @@
 
 
 
-#ifndef __PDS_ONES_HPP__
-#define __PDS_ONES_HPP__
+#ifndef __PDS_EYE_HPP__
+#define __PDS_EYE_HPP__
 
 
-/** \defgroup OnesGroup Módulo Matrix: Ones.
+/** \defgroup EyeGroup Módulo Matrix: Eye.
  *  \brief Funciones que trabajan con matrices.
  *  
  *  <br>Estas funciones trabajan con una matriz de la forma.<br>
@@ -49,53 +49,43 @@
  * @{
  */
 
+#include <Pds/Matrix>
 
-#include <PDS/Matrix>
+namespace Pds{
 
-namespace PDS{
-
-/*! \class Ones
- *  \brief La clase tipo  Ones .
+/*! \class Eye
+ *  \brief La clase tipo  Eye .
  *  Esta clase genera una matriz de Nlin lineas y Ncol columnas.
- *  Para usar incluir PDS/Ones.
- *  \ingroup OnesGroup
+ *  Para usar incluir Pds/Eye.
+ *  \ingroup EyeGroup
  *  \author Fernando Pujaico Rivera
  */
-class Ones: public Matrix
+class Eye: public Matrix
 {
 
 public:
 
 /** @name Varios tipos de constructores
- *  Crean una objeto PDS::Ones
+ *  Crean una objeto Pds::Eye
  * @{
  */
 
     /** 
-     *  \brief Crea un objeto de tipo PDS::Ones
-     *  \return un objeto de tipo PDS::Ones.
-     *  \ingroup OnesGroup
+     *  \brief Crea un objeto de tipo Pds::Eye
+     *  \return un objeto de tipo Pds::Eye.
+     *  \ingroup EyeGroup
      */
-    Ones(void);
-
-    /** 
-     *  \brief Crea un objeto de tipo PDS::Ones
-     *  \param[in] Nlin El numero de lineas de la matriz.
-     *  \param[in] Ncol El numero de columnas de la matriz.
-     *  \return un objeto de tipo PDS::Ones.
-     *  \ingroup OnesGroup
-     */
-    Ones(unsigned int Nlin,unsigned int Ncol);
+    Eye(void);
     
     /** 
-     *  \brief Crea un objeto de tipo PDS::Ones
+     *  \brief Crea un objeto de tipo Pds::Eye
      *  \param[in] N El numero de lineas y columnas de la matriz.
-     *  \return un objeto de tipo PDS::Ones.
-     *  \ingroup OnesGroup
+     *  \return un objeto de tipo Pds::Eye.
+     *  \ingroup EyeGroup
      */
-    Ones(unsigned int N);
+    Eye(unsigned int N);
 
-    ~Ones(); 
+    ~Eye(); 
     
 /**
  * @}
@@ -103,10 +93,10 @@ public:
 
 
 
-}; // Class Ones
+}; // Class Eye
 
 
-} // namespace PDS
+} // namespace Pds
 
 
 /*!

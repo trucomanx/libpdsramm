@@ -23,11 +23,11 @@
 #include <string>
 #include <iostream>
 
-#include <PDS/Matrix>
+#include <Pds/Matrix>
 
 ////////////////////////////////////////////////////////////////////////
 
-PDS::Matrix& PDS::Matrix::operator = (const PDS::Matrix &A)
+Pds::Matrix& Pds::Matrix::operator = (const Pds::Matrix &A)
 {
     if(false==this->Copy(A))
         this->MakeVoid();
@@ -36,7 +36,7 @@ PDS::Matrix& PDS::Matrix::operator = (const PDS::Matrix &A)
     return *this;
 }
 
-bool PDS::Matrix::Copy(const PDS::Matrix &A)
+bool Pds::Matrix::Copy(const Pds::Matrix &A)
 {
     unsigned int lin,col;
     double **newarray=NULL;
@@ -50,7 +50,7 @@ bool PDS::Matrix::Copy(const PDS::Matrix &A)
             return true;
         }
 
-        newarray= PDS::Matrix::AllocateArray(A.nlin,A.ncol);
+        newarray= Pds::Matrix::AllocateArray(A.nlin,A.ncol);
         if(newarray==NULL) 
         {
             return false;
@@ -62,7 +62,7 @@ bool PDS::Matrix::Copy(const PDS::Matrix &A)
                 newarray[lin][col]=A.array[lin][col];
         }
 
-        PDS::Matrix::ReleaseArray(this->array,this->nlin);
+        Pds::Matrix::ReleaseArray(this->array,this->nlin);
         this->nlin=A.nlin;
         this->ncol=A.ncol;
         this->array=newarray;
@@ -73,7 +73,7 @@ bool PDS::Matrix::Copy(const PDS::Matrix &A)
 
 ////////////////////////////////////////////////////////////////////////
 /*
-PDS::Matrix& PDS::Matrix::operator = (PDS::Matrix &&A)
+Pds::Matrix& Pds::Matrix::operator = (Pds::Matrix &&A)
 {
     if(false==this->Move(A))
         this->MakeVoid();
@@ -83,7 +83,7 @@ PDS::Matrix& PDS::Matrix::operator = (PDS::Matrix &&A)
 }
 */
 
-bool PDS::Matrix::Move( PDS::Matrix &A)
+bool Pds::Matrix::Move( Pds::Matrix &A)
 {
     if(this!=&A) //Comprueba que no se esté intentando igualar un objeto a sí mismo
     {
@@ -93,7 +93,7 @@ bool PDS::Matrix::Move( PDS::Matrix &A)
         }
             
         if(this->IsNotVoid())
-            PDS::Matrix::ReleaseArray(this->array,this->nlin);
+            Pds::Matrix::ReleaseArray(this->array,this->nlin);
 
         this->array = A.array;
         this->nlin = A.nlin;
@@ -109,7 +109,7 @@ bool PDS::Matrix::Move( PDS::Matrix &A)
 
 ////////////////////////////////////////////////////////////////////////
 
-PDS::Matrix& PDS::Matrix::operator +=(const PDS::Matrix &B)
+Pds::Matrix& Pds::Matrix::operator +=(const Pds::Matrix &B)
 {
     if(false==this->Accumulate(B))
         this->MakeVoid();
@@ -117,7 +117,7 @@ PDS::Matrix& PDS::Matrix::operator +=(const PDS::Matrix &B)
     return *this;
 }
 
-bool PDS::Matrix::Accumulate(const PDS::Matrix &B)
+bool Pds::Matrix::Accumulate(const Pds::Matrix &B)
 {
     if( this->IsNotSimilarTo(B) )   return false;
     if( B.IsVoid() )                return true;
@@ -133,11 +133,11 @@ bool PDS::Matrix::Accumulate(const PDS::Matrix &B)
     return true;
 }
 ////////////////////////////////////////////////////////////////////////
-PDS::Matrix PDS::Matrix::T(void)
+Pds::Matrix Pds::Matrix::T(void)
 {
-    if( this->IsVoid() )   return PDS::Matrix();
+    if( this->IsVoid() )   return Pds::Matrix();
 
-    PDS::Matrix Ans(this->ncol,this->nlin);
+    Pds::Matrix Ans(this->ncol,this->nlin);
 
     unsigned int lin,col;
    
@@ -151,16 +151,16 @@ PDS::Matrix PDS::Matrix::T(void)
 }
 
 ////////////////////////////////////////////////////////////////////////
-PDS::Matrix PDS::Matrix::operator -(void)
+Pds::Matrix Pds::Matrix::operator -(void)
 {
     return this->Minus();
 }
 
-PDS::Matrix PDS::Matrix::Minus(void)
+Pds::Matrix Pds::Matrix::Minus(void)
 {
-    if( this->IsVoid() )   return PDS::Matrix();
+    if( this->IsVoid() )   return Pds::Matrix();
 
-    PDS::Matrix Ans(this->nlin,this->ncol);
+    Pds::Matrix Ans(this->nlin,this->ncol);
 
     unsigned int lin,col;
    
@@ -173,17 +173,17 @@ PDS::Matrix PDS::Matrix::Minus(void)
     return Ans;
 }
 ////////////////////////////////////////////////////////////////////////
-PDS::Matrix PDS::Matrix::operator +(const PDS::Matrix &B)
+Pds::Matrix Pds::Matrix::operator +(const Pds::Matrix &B)
 {
     return this->Add(B);
 }
 
-PDS::Matrix PDS::Matrix::Add(const PDS::Matrix &B)
+Pds::Matrix Pds::Matrix::Add(const Pds::Matrix &B)
 {
-    if( this->IsNotSimilarTo(B) )   return PDS::Matrix();
-    if( B.IsVoid() )                return PDS::Matrix();
+    if( this->IsNotSimilarTo(B) )   return Pds::Matrix();
+    if( B.IsVoid() )                return Pds::Matrix();
 
-    PDS::Matrix Ans(B.nlin,B.ncol);
+    Pds::Matrix Ans(B.nlin,B.ncol);
 
     //this->Print("(+)this\n");
 
@@ -200,16 +200,16 @@ PDS::Matrix PDS::Matrix::Add(const PDS::Matrix &B)
 
 
 ////////////////////////////////////////////////////////////////////////
-PDS::Matrix PDS::Matrix::operator *(const PDS::Matrix &B)
+Pds::Matrix Pds::Matrix::operator *(const Pds::Matrix &B)
 {
     return this->Mul(B);
 }
 
-PDS::Matrix PDS::Matrix::Mul(const PDS::Matrix &B)
+Pds::Matrix Pds::Matrix::Mul(const Pds::Matrix &B)
 {
-    if( this->IsNotMulBy(B) )    return PDS::Matrix();
+    if( this->IsNotMulBy(B) )    return Pds::Matrix();
     
-    PDS::Matrix Ans(this->nlin,B.ncol);
+    Pds::Matrix Ans(this->nlin,B.ncol);
 
     //this->Print("(*)this\n");
     
@@ -230,7 +230,7 @@ PDS::Matrix PDS::Matrix::Mul(const PDS::Matrix &B)
     return Ans;
 }
 ////////////////////////////////////////////////////////////////////////
-std::ostream& operator<<(std::ostream &out,const PDS::Matrix &mat)
+std::ostream& operator<<(std::ostream &out,const Pds::Matrix &mat)
 {
     out<<mat.ToString();
     return out;

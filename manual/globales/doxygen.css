@@ -142,7 +142,6 @@ dl.el {
 /* Todos los fragmentos de codigo tendran borde*/
 /* Esta es la configuracion por defecto de todas*/
 .fragment {
-	font-family: monospace, fixed;
 	font-size: 100%;
 	padding-left: 10px;
 	padding-top: 5px;
@@ -153,6 +152,10 @@ dl.el {
 	white-space: pre; /*respetaran los espcion en blanco*/
 	word-wrap: break-word;
 	line-height: 100%;
+}
+/* Todos las lineas de codigo tendran este font*/
+div.line {
+	font-family: monospace, fixed;
 }
 
 
