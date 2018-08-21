@@ -3,6 +3,57 @@
 #include <Pds/RealArraysDefines>
 #include <Pds/RealArraysTools>
 
+
+double** Pds::Matrix::AllocateArray(const Pds::Matrix &A,double (*func)(double))
+{
+    double **array=NULL;
+    unsigned int lin,col;
+    
+    if((A.nlin==0)||(A.ncol==0)||(A.array==NULL))    return NULL;
+
+    array= new double*[A.nlin];
+    if(array==NULL) return NULL;
+    
+    
+    for (lin = 0; lin < A.nlin; lin++)
+    {
+        array[lin] = new double[A.ncol];
+        if(array[lin]==NULL)
+        {
+            Pds::Matrix::ReleaseArray(array,lin);
+            return NULL;
+        }
+        for (col = 0; col < A.ncol; col++) array[lin][col]=(*func)(A.array[lin][col]);
+    }
+    return array;
+    
+}
+
+double** Pds::Matrix::AllocateArray(const Pds::Matrix &A)
+{
+    double **array=NULL;
+    unsigned int lin,col;
+    
+    if((A.nlin==0)||(A.ncol==0)||(A.array==NULL))    return NULL;
+
+    array= new double*[A.nlin];
+    if(array==NULL) return NULL;
+    
+    
+    for (lin = 0; lin < A.nlin; lin++)
+    {
+        array[lin] = new double[A.ncol];
+        if(array[lin]==NULL)
+        {
+            Pds::Matrix::ReleaseArray(array,lin);
+            return NULL;
+        }
+        for (col = 0; col < A.ncol; col++) array[lin][col]=A.array[lin][col];
+    }
+    return array;
+    
+}
+
 double** Pds::Matrix::AllocateArray(unsigned int Nlin,unsigned int Ncol)
 {
     double **array=NULL;
@@ -75,6 +126,7 @@ std::string Pds::Matrix::ArrayToString(double **array,unsigned int Nlin,unsigned
             else                str=str+"\n";
         }
     }
+    return str;
 }
 
 

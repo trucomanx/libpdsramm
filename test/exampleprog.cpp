@@ -2,7 +2,7 @@
 #include <iostream>
 #include <Pds/RealArrays.hpp>
     
-int main(int argc, char** argv)
+int main(void)
 {
     Pds::Matrix A(2,2);
     Pds::Matrix B(2,2);

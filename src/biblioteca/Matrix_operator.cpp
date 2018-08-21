@@ -103,8 +103,8 @@ bool Pds::Matrix::Move( Pds::Matrix &A)
         A.nlin=0;
         A.ncol=0;
         
-        return true;
     }
+    return true;
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -198,6 +198,31 @@ Pds::Matrix Pds::Matrix::Add(const Pds::Matrix &B)
     return Ans;
 }
 
+////////////////////////////////////////////////////////////////////////
+Pds::Matrix Pds::Matrix::operator -(const Pds::Matrix &B)
+{
+    return this->Sub(B);
+}
+
+Pds::Matrix Pds::Matrix::Sub(const Pds::Matrix &B)
+{
+    if( this->IsNotSimilarTo(B) )   return Pds::Matrix();
+    if( B.IsVoid() )                return Pds::Matrix();
+
+    Pds::Matrix Ans(B.nlin,B.ncol);
+
+    //this->Print("(+)this\n");
+
+    unsigned int lin,col;
+   
+    for(lin=0;lin<this->nlin;lin++)
+    for(col=0;col<this->ncol;col++)
+    {
+        Ans.array[lin][col]=this->array[lin][col]-B.array[lin][col];  
+    }
+
+    return Ans;
+}
 
 ////////////////////////////////////////////////////////////////////////
 Pds::Matrix Pds::Matrix::operator *(const Pds::Matrix &B)

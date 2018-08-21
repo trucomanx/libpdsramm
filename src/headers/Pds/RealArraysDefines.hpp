@@ -26,7 +26,7 @@
  */
     
 
-/** \defgroup DefinesGroup Macro Defines.
+/** \defgroup DefinesGroup ---- Macro Defines.
  *  \brief Algunas macros interesantes.
  *  
  * @{

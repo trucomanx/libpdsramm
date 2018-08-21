@@ -44,9 +44,8 @@ long Pds::Ra::SignificativeLinesInFile(const char*filepath)
     while(!ifs.eof())
     {
         line.clear();
-        bool state=std::getline(ifs, line);
 
-        if (state==true)
+        if (std::getline(ifs, line))
         if(Pds::Ra::IsSpace(line.c_str())==false) count++;
     }
 
@@ -60,7 +59,6 @@ bool Pds::Ra::ElementsInFile(const char* filepath,unsigned int &Nel)
 {
     unsigned int count;
     int N;
-    unsigned int last_ncol=0;
 
     std::string line;
 
@@ -74,9 +72,8 @@ bool Pds::Ra::ElementsInFile(const char* filepath,unsigned int &Nel)
     while(!ifs.eof())
     {
         line.clear();
-        bool state=std::getline(ifs, line);
 
-        if (state==true)
+        if (std::getline(ifs, line))
         if(Pds::Ra::IsSpace(line.c_str())==false)
         {
             N=Pds::Ra::NumberOfElements(line);
@@ -109,14 +106,13 @@ bool Pds::Ra::ArraySizeInFile(const char*filepath,unsigned int &Nlin,unsigned in
     while(!ifs.eof())
     {
         line.clear();
-        bool state=std::getline(ifs, line);
 
-        if (state==true)
+        if (std::getline(ifs, line))
         if(Pds::Ra::IsSpace(line.c_str())==false)
         {
             N=Pds::Ra::NumberOfElements(line);
             if(count==0)    last_ncol=(unsigned int)N;
-            else if(last_ncol!=N)
+            else if(last_ncol!=(unsigned int)N)
             {
                 ifs.close();
                 return false;

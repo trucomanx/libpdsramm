@@ -30,20 +30,20 @@
         
 #include <Pds/RealArrays>
         
-int main(int argc, char** argv)
+int main(void)
 {
     char filepath[]="filedat.txt";
 
-    Pds::Matrix A=Pds::Eye(5); 
-
+    Pds::Matrix A=Pds::Ones(5); 
+    
     bool state=Pds::Matrix::Save(filepath,A);
     if(state==true) A.Print("A:\n");
-
+    
     Pds::Matrix B=Pds::Matrix::Load(filepath);
     B.Print("B:\n");
     
     Pds::Matrix C("filedat.txt");
     C.Print("C:\n");
-
+    
     return 0;
 }

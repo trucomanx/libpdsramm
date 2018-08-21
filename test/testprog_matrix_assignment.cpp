@@ -36,7 +36,7 @@
 
 
     
-int main(int argc, char** argv)
+int main(void)
 {
     Pds::Matrix C=Pds::Matrix(2,2);    
     Pds::Matrix B;

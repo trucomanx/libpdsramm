@@ -34,13 +34,17 @@
 #include <iostream>
 #include <Pds/RealArrays>
     
-int main(int argc, char** argv)
+int main(void)
 {
     Pds::Matrix A;
     Pds::Matrix B(3,3);
     Pds::Matrix C(3,3);
-    
-    C.FillRandU();
+
+    B.Set(+1.0/0.0,0,0);
+    B.Set( 0.0/0.0,1,1);
+    B.Set(-1.0/0.0,2,2);
+
+    B.Print("B:\n");
     
     
     pds_print_info_message("... is void?");
@@ -79,5 +83,15 @@ int main(int argc, char** argv)
     else                        std::cout<<"B dont have the position (1,1)"<<std::endl;
     
     
+    pds_print_info_message("... is in size range ... ?");
+    
+    if(B.IsInSizeRange(1.5,0.1))    std::cout<<"(1.5,0.1) is in size range of B"<<std::endl;
+    else                            std::cout<<"(1.5,0.1) is not in size range of B"<<std::endl;
+    
+    B.IsInf().Print("\nB.IsInf()\n");
+    
+    B.IsNan().Print("\nB.IsNan()\n");
+    
+    B.IsFinite().Print("\nB.IsFinite()\n");
     return 0;
 }

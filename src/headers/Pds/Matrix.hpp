@@ -35,7 +35,7 @@
 #define __PDS_MATRIX_HPP__
 
 
-/** \defgroup MatrixGroup Módulo Matrix.
+/** \defgroup MatrixGroup Métodos de Pds::Matrix.
  *  \brief Funciones que trabajan con matrices.
  *  
  *  <br>Estas funciones trabajan con una matriz de la forma.<br>
@@ -104,12 +104,23 @@ public:
 
     /** 
      *  \brief Crea un objeto de tipo Pds::Matrix copiando datos desde 
-     *  otra matriz. Este es un Copy assignment constructor. 
+     *  otra matriz. Este es un Copy assignment constructor.
+     *  \param[in] A Matriz a copiar.
      *  \return un objeto de tipo Pds::Matrix.
      *  \ingroup MatrixGroup
      */
     Matrix(const Matrix &A);
-
+    
+    /** 
+     *  \brief Crea un objeto de tipo Pds::Matrix copiando datos desde 
+     *  otra matriz. Este es un Copy assignment constructor.
+     *  \param[in] A Matriz a copiar.
+     *  \param[in] func Función a aplicar, esta debe tener a forma double func(double).
+     *  \return un objeto de tipo Pds::Matrix.
+     *  \ingroup MatrixGroup
+     */
+    Matrix(const Matrix &A, double (*func)(double) );
+    
     /** 
      *  \brief Crea un objeto de tipo Pds::Matrix copiando datos desde 
      *  un archivo. 
@@ -192,8 +203,51 @@ public:
      *  \return Retorna true si pertenece y false si no.
      *  \ingroup MatrixGroup
      */
-    bool HasThePosition(double lin,double col) const;
-
+    bool HasThePosition(unsigned int lin,unsigned int col) const;
+    
+    /** 
+     *  \brief Verifica si la posicion NO pertenece a la matriz.
+     *  \param[in] lin Linea en consulta.
+     *  \param[in] col columna en consulta.
+     *  \return Retorna false si pertenece y true si no.
+     *  \ingroup MatrixGroup
+     */
+    bool DontHaveThePosition(unsigned int lin,unsigned int col) const;
+    
+    /** 
+     *  \brief Verifica si la posicion (lin,col) pertenece al rango la matriz.
+     * 
+     *  Para retornar true lin debe esta entre 0 y (Nlin-1) incluyendo estos,
+     *  y col debe esta entre 0 y (Ncol-1) incluyendo estos; donde Nlin y Ncol
+     *  son el numero de lineas y columnas de la amtriz respectivamente.
+     *  \param[in] lin Linea en consulta.
+     *  \param[in] col columna en consulta.
+     *  \return Retorna true si pertenece y false si no.
+     *  \ingroup MatrixGroup
+     */
+    bool IsInSizeRange(double lin,double col) const;
+    
+    /** 
+     *  \brief Verifica si la matriz tiene elementos infinitos.
+     *  \return Retorna una nueva matriz con 1 donde es infinito y 0 donde no lo es.
+     *  \ingroup MatrixGroup
+     */
+    Matrix IsInf(void) const;
+    
+    /** 
+     *  \brief Verifica si la matriz tiene elementos NAN (Not A Number).
+     *  \return Retorna una nueva matriz con 1 donde es NAN y 0 donde no lo es.
+     *  \ingroup MatrixGroup
+     */
+    Matrix IsNan(void) const;
+    
+    /** 
+     *  \brief Verifica si la matriz tiene elementos finitos (no +inf, no -inf y no NAN).
+     *  \return Retorna una nueva matriz con 1 donde es finito y 0 donde no lo es.
+     *  \ingroup MatrixGroup
+     */
+    Matrix IsFinite(void) const;
+    
 /**
  * @}
  */
@@ -227,11 +281,54 @@ public:
 
 public:
 
+/** @name Métodos get y set
+ *  Herramientas gnereicas
+ * @{
+ */
+    /** 
+     *  \brief Retorna el valor en la posicion (lin,col)
+     *  \param[in] lin La linea en consulta.
+     *  \param[in] col La columna en consulta.
+     *  \return Retorna el valor en la posicion (lin,col) o cero si la 
+     *  posición no existe.
+     *  \ingroup MatrixGroup
+     */
+    double Get(unsigned int lin,unsigned int col) const;
+    
+    /** 
+     *  \brief Escribe el valor en la posicion (lin,col)
+     *  \param[in] val valor a escribir.
+     *  \param[in] lin La linea en consulta.
+     *  \param[in] col La columna en consulta.
+     *  \return Retorna true si consiguió escribir el valor en la 
+     *  posicion (lin,col) o false si no.
+     *  \ingroup MatrixGroup
+     */
+    bool Set(double val,unsigned int lin,unsigned int col);
+
+    /** 
+     *  \brief Retorna el numero de lineas de la matriz.
+     *  \return Retorna el numero de lineas de la matriz.
+     *  \ingroup MatrixGroup
+     */
+    unsigned int Nlin() const;
+    
+    /** 
+     *  \brief Retorna el numero de columnas de la matriz.
+     *  \return Retorna el numero de columnas de la matriz.
+     *  \ingroup MatrixGroup
+     */
+    unsigned int Ncol() const;
+/**
+ * @}
+ */
+
+public:
+
 /** @name Métodos variados
  *  Herramientas gnereicas
  * @{
  */
-
     /** 
      *  \brief Convierte los datos de la matriz en un std::string.
      *  \return Retorna un std::string. Si la matriz es nula retorna un string sin caracteres.
@@ -255,8 +352,8 @@ public:
     
     /** 
      *  \brief Aplica la funcion func a cada elemento de la matriz.
-     * \param func Función a aplicar, esta debe tener a forma double func(double).
-     * \return true si todo fue bien o false si la matriz era nula.
+     * \param[in] func Función a aplicar, esta debe tener a forma double func(double).
+     * \return true si todo fue bien o false si la matriz era vacia.
      *  \ingroup MatrixGroup
      */
     bool Apply( double (*func)(double) );
@@ -273,8 +370,7 @@ public:
  *  Herramientas genericas que pueden ser usadas desde Pds::Matrix
  * @{
  */
-
-
+    
    /** 
      *  \brief Lee de un archivo una matriz de Nlin lineas y Ncol columnas.
      *  \param[in] filepath El archivo donde se leeran los datos.
@@ -302,8 +398,27 @@ public:
  *  Herramientas genericas que pueden ser usadas desde Pds::Matrix
  * @{
  */
+    /** 
+     *  \brief crea diamicamente un arreglo de A.Nlin() lineas y A.Ncol() columnas,
+     *  con los datos copiados de alicar func(A).
+     *  \param[in] A Matriz de donde se copiaran datos.
+     *  \param[in] func Función a aplicar, esta debe tener a forma double func(double).
+     *  \return Retorna un puntero al arreglo, o NULL si no consiguio reservar
+     * la memoria. Esta memoria debe ser liberada siempre com ReleaseArray
+     *  \ingroup MatrixGroup
+     */
+    static double** AllocateArray(const Matrix &A,double (*func)(double));
     
-  
+    /** 
+     *  \brief crea diamicamente un arreglo de A.Nlin() lineas y A.Ncol() columnas,
+     *  con los datos copiados de una matriz A.
+     *  \param[in] A Matriz de donde se copiaran datos.
+     *  \return Retorna un puntero al arreglo, o NULL si no consiguio reservar
+     * la memoria. Esta memoria debe ser liberada siempre com ReleaseArray
+     *  \ingroup MatrixGroup
+     */
+    static double** AllocateArray(const Matrix &A);
+    
     /** 
      *  \brief crea diamicamente un arreglo de Nlin lineas y Ncol clumnas
      *  \param[in] Nlin El numero de lineas en el arreglo.
@@ -485,6 +600,54 @@ public:
     Matrix Add(const Matrix &B);
     
     /** 
+     *  \brief Resta con sigo mismo (A), una matriz B y el resultado es
+     * cargado en C. Este operador es similar al metodo Sub
+     *
+     *  \f[ C \leftarrow A-B \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix B(4,4);
+    Pds::Matrix C;
+    
+    A.Fill(2.0);
+    B.Fill(1.0);
+    
+    C=A-B;
+    
+    std::cout<<C;
+\endcode
+     *  \param[in] B la matriz que resta
+     *  \return Retorna un nuevo objeto con el
+     *  resultado, o una matriz vazia (this->IsVoid() igual a true) en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Matrix operator -(const Matrix &B);
+    
+    /** 
+     *  \brief Resta con sigo mismo (A), una matriz B y el resultado es
+     * cargado en C. Este metodo es similar al operador - 
+     *
+     *  \f[ C \leftarrow A-B \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix B(4,4);
+    Pds::Matrix C;
+    
+    A.Fill(2.0);
+    B.Fill(1.0);
+    
+    C=A.Sub(B);
+    
+    std::cout<<C;
+\endcode
+     *  \param[in] B la matriz que resta
+     *  \return Retorna un nuevo objeto con el
+     *  resultado, o una matriz vazia (this->IsVoid() igual a true) en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Matrix Sub(const Matrix &B);
+    
+    /** 
      *  \brief Multiplica con sigo mismo (A), una matriz B y el resultado es
      * cargado en C. Este operador es similar al método Mul() 
      *
@@ -628,8 +791,6 @@ public:
 
 };// class Matrix
 
-typedef Matrix Zeros;
-
 } // namespace Pds
 
 
@@ -657,23 +818,6 @@ typedef Matrix Zeros;
      */
 std::ostream& operator<<(std::ostream &out,const Pds::Matrix &mat);
 
-/**
- * @}
- */
-
-/** @name Sobrecarga de funciones matematicas cmath
- *  Descripcion de algunas funciones matematica que usan  Pds::Matrix.
- * @{
- */
-
-    /** 
-     *  \brief Retorna el el resultado de evaluar la funcion seno.  
-     *
-     *  \param[in] A La matriz a evaluar
-     *  \return Retorna la matriz evaluada.
-     *  \ingroup MatrixGroup
-     */
-Pds::Matrix sin(const Pds::Matrix A);
 /**
  * @}
  */

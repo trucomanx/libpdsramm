@@ -31,7 +31,7 @@
 #include <iostream>
 #include <Pds/RealArrays>
     
-int main(int argc, char** argv)
+int main(void)
 {
     char filepath[]="filedat.txt";
     char str1[]=" \t \t \n";
@@ -49,22 +49,22 @@ int main(int argc, char** argv)
     
     N=Pds::Ra::NumberOfElements(str2);
     std::cout<<"str2 has "<<N<<" elements\n";
-
-
+    
+    
     N=Pds::Ra::SignificativeLinesInFile(filepath);
     std::cout<<"Number of significative lines in "<<filepath<<" is "<<N<<std::endl;
-
+    
     unsigned int Nlin=0,Ncol=0,Nel=0;
     bool status;
-
+    
     status=Pds::Ra::ArraySizeInFile(filepath,Nlin,Ncol);
     if(status==true)
     std::cout<<"Nlin:"<<Nlin<<"\nNcol"<<Ncol<<std::endl;
-
+    
     status=Pds::Ra::ElementsInFile(filepath,Nel);
     if(status==true)
     std::cout<<"Nel:"<<Nel<<std::endl;
-
+    
     
     return 0;
 }

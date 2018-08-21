@@ -33,7 +33,7 @@
 
 
     
-int main(int argc, char** argv)
+int main(void)
 {
     Pds::ColVector A(3);
     Pds::ColVector B(3);

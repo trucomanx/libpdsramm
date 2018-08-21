@@ -32,7 +32,7 @@
     
 #include <string>
 
-/** \defgroup PdsRaToolsGroup Herramientas.
+/** \defgroup PdsRaToolsGroup Funciones genericas.
  *  \brief Funciones utiles para toda la biblioteca
  *  
  *  

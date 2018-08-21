@@ -40,13 +40,15 @@
 #ifndef __PDS_REALARRAYS_HPP__
 #define __PDS_REALARRAYS_HPP__
     
-
+    
 #include <Pds/RealArraysDefines>
 #include <Pds/RealArraysTools>
+    
 #include <Pds/Matrix>
-#include <Pds/Ones>
-#include <Pds/Eye>
 #include <Pds/ColVector>
+    
+#include <Pds/MathMatrix>
+#include <Pds/FuncMatrix>
 
     
 #endif /* __PDS_REALARRAYS_HPP__ */

@@ -1,5 +1,5 @@
 /*
- * testprog_defines.cpp
+ * testprog_mathmatrix.cpp
  * 
  * Copyright 2011 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
  * 
@@ -20,25 +20,44 @@
  * 
  */
 
-/** \example testprog_defines.cpp
+/** \example testprog_mathmatrix.cpp
  *  \author Fernando Pujaico Rivera
  *  \date 18-04-2018
- *  \brief Programa para el testeo de las funciones de reducción e inversión de matrices.
+ *  \brief Programa para el testeo de las funciones.
  *  
- *  \n\n Este programa hace una prueba de la función para reducción de una matriz, 
- *  y de inversión de una matriz. Ambas funciones usan el método de gauss para 
- *  cumplir su objetivo.
  */
     
     
-#include <iostream>
+#include <cmath>
+
 #include <Pds/RealArrays>
+
+
     
 int main(void)
 {
-    pds_print_error_message("testing error");
-    pds_print_warning_message("testing warning");
-    pds_print_info_message("testing info");
+    Pds::Matrix A(2);
     
+    A.Fill(M_PI*45.0/180.0);
+    
+    A.Print("\nA:\n");
+    
+    Pds::Sin(A).Print("sin(A):\n");
+    Pds::Cos(A).Print("cos(A):\n");
+    Pds::Tan(A).Print("tan(A):\n");
+    
+    A.Fill(1.0);
+    A.Print("\nA:\n");
+    
+    Pds::Exp(A).Print("exp(A):\n");
+    Pds::Exp2(A).Print("exp2(A):\n");
+    Pds::Log(A).Print("log(A):\n");
+    Pds::Log2(A).Print("log2A):\n");
+    Pds::Log10(A).Print("log10(A):\n");
+    
+    A.Fill(2.0);
+    A.Print("\nA:\n");
+    
+    Pds::Sqrt(A).Print("sqrt(A):\n");
     return 0;
 }

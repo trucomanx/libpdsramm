@@ -1,5 +1,5 @@
 /*
- * Ones.cpp
+ * Matrix_getset.cpp
  * 
  * Copyright 2018 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
  * 
@@ -20,43 +20,29 @@
  * 
  */
 
+#include <Pds/Matrix>
 
-#include <Pds/Ones>
-
-Pds::Ones::Ones(void)
+double Pds::Matrix::Get(unsigned int lin,unsigned int col) const
 {
-    return;
+    if(this->HasThePosition(lin,col))   return this->array[lin][col];
+    else                                return 0.0;
 }
-
-Pds::Ones::Ones(unsigned int nlin,unsigned int ncol): Pds::Matrix(nlin,ncol)
-{
-    unsigned int lin,col;
     
-    if((this->nlin!=0)&&(this->ncol!=0)&&(this->array!=NULL))
-    {
-        for(lin=0;lin<nlin;lin++)
-        for(col=0;col<ncol;col++)
-        this->array[lin][col]=1.0;
-    }
-}
 
-Pds::Ones::Ones(unsigned int N): Pds::Matrix(N)
+bool Pds::Matrix::Set(double val,unsigned int lin,unsigned int col)
 {
-    unsigned int lin,col;
+    if(this->DontHaveThePosition(lin,col))   return false;
     
-    if((this->nlin!=0)&&(this->ncol!=0)&&(this->array!=NULL))
-    {
-        for(lin=0;lin<N;lin++)
-        for(col=0;col<N;col++)
-        this->array[lin][col]=1.0;
-    }
+    this->array[lin][col]=val;
+    return true;
 }
-
-Pds::Ones::~Ones(void)
+    
+unsigned int Pds::Matrix::Nlin(void) const
 {
-    Pds::Matrix::ReleaseArray(this->array,this->nlin);
-
-    this->nlin=0;
-    this->ncol=0;
+    return this->nlin;
 }
 
+unsigned int Pds::Matrix::Ncol(void) const
+{
+    return this->ncol;
+}

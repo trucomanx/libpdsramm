@@ -82,8 +82,6 @@ Pds::Matrix::Matrix(unsigned int nlin,unsigned int ncol)
 // Copy assignment  constructor
 Pds::Matrix::Matrix(const Matrix &A)
 {
-    unsigned int lin,col;
-    
     if(this!=&A) //Comprueba que no se esté intentando igualar un objeto a sí mismo
     {
         this->nlin=0;
@@ -93,20 +91,32 @@ Pds::Matrix::Matrix(const Matrix &A)
         if(A.IsVoid())  return;
 
 
-        this->array= Pds::Matrix::AllocateArray(A.nlin,A.ncol);
+        this->array= Pds::Matrix::AllocateArray(A);
         if(this->array==NULL)  return;
-        
-        for (lin = 0; lin < A.nlin; lin++)
-        for (col = 0; col < A.ncol; col++)
-        {
-                this->array[lin][col]=A.array[lin][col];
-        }
     
         this->nlin=A.nlin;
         this->ncol=A.ncol;
     }
     //std::cout<<"Copy asignment contructor\n";
 
+    return;
+}
+
+Pds::Matrix::Matrix(const Matrix &A, double (*func)(double))
+{
+    this->nlin=0;
+    this->ncol=0;
+    this->array=NULL;
+        
+    if(A.IsVoid())  return;
+
+
+    this->array= Pds::Matrix::AllocateArray(A,func);
+    if(this->array==NULL)  return;
+    
+    this->nlin=A.nlin;
+    this->ncol=A.ncol;
+    
     return;
 }
  

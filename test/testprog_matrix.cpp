@@ -29,34 +29,26 @@
     
     
 #include <iostream>
+#include <cmath>
 
 #include <Pds/RealArrays>
 
 
     
-int main(int argc, char** argv)
+int main(void)
 {
-    Pds::Matrix A = Pds::Eye(3);
-    Pds::Matrix B(3,3);
-    Pds::Matrix C(3,3);
-    Pds::Matrix D;
+    Pds::Matrix P =Pds::X3D();
+    Pds::Matrix P0=Pds::Y3D();
+    Pds::Matrix J =Pds::RotX(M_PI/2.0);
     
-    B.FillRandU();
-    C.Fill(2.0);
     
-    A.Print("A:\n");
-    B.Print("B:\n");
-    C.Print("C:\n");
+    P.Print("P:\n");
+    P0.Print("P0:\n");
+    J.Print("J:\n");
     
-    D=-A + B*C + C*A + B*B + A*B*C;
+    Pds::Matrix F=P0 + J*(P-P0);
 
-    D.Print("D:\n");
-    
-    D.T().Print("D.T():\n");
-    
-    (-D).Print("-D:\n");
-    
-    sin(D).Print("sin(D):\n");
+    F.Print("\nF:\n");
     
     return 0;
 }
