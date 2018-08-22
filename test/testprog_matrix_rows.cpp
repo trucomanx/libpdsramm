@@ -50,11 +50,12 @@ int main(void)
 
     Pds::Matrix C(5,5);
     Pds::Matrix D;
+    double det;
     C.FillRandU();
-    D=C.GetInv();
+    D=C.GetInv(det);
 
     (C*D).Print("\nC*D:\n");
-    
+    std::cout<<"det: "<<det<<std::endl;
     
     return 0;
 }

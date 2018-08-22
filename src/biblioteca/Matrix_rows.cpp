@@ -45,6 +45,15 @@ bool Pds::Matrix::RowMul(unsigned int lin,double alpha)
     return true;
 }
 
+bool Pds::Matrix::RowDiv(unsigned int lin,double alpha)
+{
+    if( (lin>=this->nlin))    return false;
+    
+    for(unsigned int col=0;col<this->ncol;col++)
+    this->array[lin][col]=this->array[lin][col]/alpha;
+    
+    return true;
+}
 
 
 int Pds::Matrix::DiagonalIsZeroSwapBelow(unsigned int n)
@@ -123,12 +132,18 @@ bool Pds::Matrix::RowReduction(void)
     return true;
 }
 
-
 Pds::Matrix Pds::Matrix::GetInv(void) const
+{
+    double det;
+    return GetInv(det);
+}
+
+Pds::Matrix Pds::Matrix::GetInv(double &det) const
 {
     unsigned int lin,i,all;
     int id;
     double alpha;
+    double determinant=1.0;
     
     if((this->nlin==0)||(this->ncol==0)||(this->array==NULL)||(this->ncol!=this->nlin))
     {
@@ -145,12 +160,16 @@ Pds::Matrix Pds::Matrix::GetInv(void) const
         id=B.DiagonalIsZeroSwapBelow(lin);
         if(id>=0)
         {
-            A.SwapRows((unsigned int)id,lin);
+            if(((unsigned int)id)!=lin)
+            {
+                determinant=-determinant;
+                A.SwapRows((unsigned int)id,lin);
+            }
             
             // genero una linea con 1 en la posicion (lin,lin)
             alpha=B.array[lin][lin];
-            
-            A.RowMul(lin,1.0/alpha);
+            A.RowDiv(lin,alpha);
+            determinant=alpha*determinant;
             for(all=lin;all<B.ncol;all++)
             {
                 B.array[lin][all]=B.array[lin][all]/alpha;
@@ -192,7 +211,6 @@ Pds::Matrix Pds::Matrix::GetInv(void) const
         }
     }
 
-    B.Print("G\n");
-    A.Print("G inv\n");
+    det=determinant;
     return A;
 }

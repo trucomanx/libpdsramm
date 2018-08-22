@@ -378,12 +378,23 @@ public:
      *  \brief Multiplica la linea lin por alpha
      * 
      *  \f[ row[lin] \leftarrow \alpha ~ row[lin] \f]
-     *  \param[in] lin Lineas a intercambiar.
+     *  \param[in] lin Linea a multiplicar.
      *  \param[in] alpha Factor multiplicador.
      *  \return Retorna true si todo fue bien o false si no.
      *  \ingroup MatrixGroup
      */
     bool RowMul(unsigned int lin,double alpha);
+    
+    /** 
+     *  \brief Divide la linea lin por alpha
+     * 
+     *  \f[ row[lin] \leftarrow  row[lin]/\alpha \f]
+     *  \param[in] lin Linea a dividir.
+     *  \param[in] alpha Factor multiplicador.
+     *  \return Retorna true si todo fue bien o false si no.
+     *  \ingroup MatrixGroup
+     */
+    bool RowDiv(unsigned int lin,double alpha);
     
     /** 
      *  \brief Convierte la matriz en una matriz reduzida.
@@ -394,8 +405,24 @@ public:
      *  \ingroup MatrixGroup
      */
     bool RowReduction(void);
-
+    
+    /** 
+     *  \brief Retorna la matriz inversa.
+     * 
+     *  \return Retorna la matriz inversa si todo fue bien o una matriz vacia si no.
+     *  \ingroup MatrixGroup
+     */
     Matrix GetInv(void) const;
+    
+    
+    /** 
+     *  \brief Retorna la matriz inversa.
+     * 
+     *  \param[out] det La determiante de la matriz original;
+     *  \return Retorna la matriz inversa si todo fue bien o una matriz vacia si no.
+     *  \ingroup MatrixGroup
+     */
+    Matrix GetInv(double &det) const;
 
 /**
  * @}
