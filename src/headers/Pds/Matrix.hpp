@@ -94,13 +94,23 @@ public:
     Matrix(unsigned int N);
     
     /** 
-     *  \brief Crea un objeto de tipo Pds::Matrix
+     *  \brief Crea un objeto de tipo Pds::Matrix con elementos inicializados con cero.
      *  \param[in] Nlin El numero de lineas de la matriz.
      *  \param[in] Ncol El numero de columnas de la matriz.
      *  \return un objeto de tipo Pds::Matrix.
      *  \ingroup MatrixGroup
      */
     Matrix(unsigned int Nlin,unsigned int Ncol);
+    
+    /** 
+     *  \brief Crea un objeto de tipo Pds::Matrix con elementos inicializados con val.
+     *  \param[in] Nlin El numero de lineas de la matriz.
+     *  \param[in] Ncol El numero de columnas de la matriz.
+     *  \param[in] val El valor a usar.
+     *  \return un objeto de tipo Pds::Matrix.
+     *  \ingroup MatrixGroup
+     */
+    Matrix(unsigned int Nlin,unsigned int Ncol,double val);
 
     /** 
      *  \brief Crea un objeto de tipo Pds::Matrix copiando datos desde 
@@ -325,6 +335,75 @@ public:
 
 public:
 
+/** @name Métodos que trabajan con las lineas de la matriz
+ *  operaciones con lineas
+ * @{
+ */
+    /** 
+     *  \brief Intercambia las lineas de una matriz.
+     *  \param[in] lin1 Lineas a intercambiar.
+     *  \param[in] lin2 Lineas a intercambiar.
+     *  \return Retorna true si todo fue bien o false si no.
+     *  \ingroup MatrixGroup
+     */
+    bool SwapRows(unsigned int lin1,unsigned int lin2);
+    
+    /** 
+     *  \brief Si el n-avo elemento de la diagonal es cero entonces intercambia 
+     *  la linea n de la matriz con cualquier linea inferior con elemento 
+     *  diferente de cero en la columna n.
+     *  \param[in] n Linea a intercambiar.
+     *  \return Retorna el numero de la fila con quien intercambio o -1
+     *  en caso de error. Si el n-avo 
+     *  elemento de la diagonal ja es diferente de cero no se hace nada y
+     *  se retorna n.
+     *  \ingroup MatrixGroup
+     */
+    int DiagonalIsZeroSwapBelow(unsigned int n);
+
+    /** 
+     *  \brief Multiplica los valores de la linea lin2 por alfa y el 
+     *  resultado es sumado a los valores de la linea lin1.
+     * 
+     *  \f[ row[lin1] \leftarrow row[lin1]+\alpha ~ row[lin2] \f]
+     *  \param[in] lin1 Lineas a intercambiar.
+     *  \param[in] lin2 Lineas a intercambiar.
+     *  \param[in] alpha Factor multiplicador.
+     *  \return Retorna true si todo fue bien o false si no.
+     *  \ingroup MatrixGroup
+     */
+    bool AccumulateRow(unsigned int lin1,unsigned int lin2,double alpha);
+    
+    /** 
+     *  \brief Multiplica la linea lin por alpha
+     * 
+     *  \f[ row[lin] \leftarrow \alpha ~ row[lin] \f]
+     *  \param[in] lin Lineas a intercambiar.
+     *  \param[in] alpha Factor multiplicador.
+     *  \return Retorna true si todo fue bien o false si no.
+     *  \ingroup MatrixGroup
+     */
+    bool RowMul(unsigned int lin,double alpha);
+    
+    /** 
+     *  \brief Convierte la matriz en una matriz reduzida.
+     * 
+     *  \return Retorna true si todo fue bien o false si no.
+     * Si retorna false la matriz es modificada hasta donde consiguio 
+     * avanzar el proceso de redunccion.
+     *  \ingroup MatrixGroup
+     */
+    bool RowReduction(void);
+
+    Matrix GetInv(void) const;
+
+/**
+ * @}
+ */
+
+
+public:
+
 /** @name Métodos variados
  *  Herramientas gnereicas
  * @{
@@ -357,7 +436,14 @@ public:
      *  \ingroup MatrixGroup
      */
     bool Apply( double (*func)(double) );
-
+    
+   /** 
+     *  \brief Escribe en un archivo el contenido de la matriz.
+     *  \param[in] filepath El archivo donde se escribiran los datos.
+     *  \return Retorna true si todo fue bien o false en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    bool Save(const char* filepath) const;
 
 /**
  * @}
@@ -418,6 +504,18 @@ public:
      *  \ingroup MatrixGroup
      */
     static double** AllocateArray(const Matrix &A);
+    
+    /** 
+     *  \brief crea diamicamente un arreglo de Nlin lineas y Ncol clumnas,
+     *  con elementos inicializado con un valor.
+     *  \param[in] Nlin El numero de lineas en el arreglo.
+     *  \param[in] Ncol El numero de columnas en el arreglo.
+     *  \param[in] val El valor a usar.
+     *  \return Retorna un puntero al arreglo, o NULL si no consiguio reservar
+     * la memoria. Esta memoria debe ser liberada siempre com ReleaseArray
+     *  \ingroup MatrixGroup
+     */
+    static double** AllocateArray(unsigned int Nlin,unsigned int Ncol,double val);
     
     /** 
      *  \brief crea diamicamente un arreglo de Nlin lineas y Ncol clumnas

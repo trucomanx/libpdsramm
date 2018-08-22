@@ -43,6 +43,10 @@ bool Pds::Matrix::Apply( double (*func)(double) )
     return true;
 }
 
+bool Pds::Matrix::Save(const char* filepath) const
+{
+    return Pds::Matrix::SaveArray(filepath,this->array,this->nlin,this->ncol);
+}
 
 #include <sstream>
 #include <iomanip>      // std::setprecision

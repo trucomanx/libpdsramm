@@ -1,23 +1,19 @@
-
-#include <iostream>
 #include <Pds/RealArrays.hpp>
     
 int main(void)
 {
-    Pds::Matrix A(2,2);
-    Pds::Matrix B(2,2);
-    Pds::Matrix C(2,2);
+    Pds::Matrix P =Pds::X3D();
+    Pds::Matrix P0=Pds::Y3D();
+    Pds::Matrix J =Pds::RotX(3.14159/2.0);
     
-    A.Fill(1.0);        // Fill data with a value
     
-    B.FillRandU();       // Fill data randomly between [0.0, 1.0>.
+    P.Print("P:\n");
+    P0.Print("P0:\n");
+    J.Print("J:\n");
     
-    std::cout<<"A:\n"<<A;
-    std::cout<<"B:\n"<<B;
+    Pds::Matrix F=P0 + J*(P-P0);
+
+    F.Print("\nF:\n");
     
-    C+=A;
-    C+=B;
-    
-    std::cout<<"C:\n"<<C;
     return 0;
 }

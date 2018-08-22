@@ -54,28 +54,34 @@ Pds::Matrix::Matrix(unsigned int N)
 
 Pds::Matrix::Matrix(unsigned int nlin,unsigned int ncol)
 {
-
-    this->nlin=nlin;
-    this->ncol=ncol;
+    this->nlin=0;
+    this->ncol=0;
     this->array=NULL;
-
-    if((nlin==0)||(ncol==0))
-    {
-        this->nlin=0;
-        this->ncol=0;
-        this->array=NULL;
-
-        return;
-    }
+    
+    if((nlin==0)||(ncol==0))    return;
     
     this->array= Pds::Matrix::AllocateArray(nlin,ncol);
-    if(this->array==NULL) 
-    {
-        this->nlin=0;
-        this->ncol=0;
+    if(this->array==NULL)       return;
+    
+    this->nlin=nlin;
+    this->ncol=ncol;
+    //std::cout<<"Matrix(nlin,ncol);\n";
+}
 
-        return;
-    }
+Pds::Matrix::Matrix(unsigned int nlin,unsigned int ncol,double val)
+{
+
+    this->nlin=0;
+    this->ncol=0;
+    this->array=NULL;
+    
+    if((nlin==0)||(ncol==0))    return;
+    
+    this->array= Pds::Matrix::AllocateArray(nlin,ncol,val);
+    if(this->array==NULL)       return;
+    
+    this->nlin=nlin;
+    this->ncol=ncol;
     //std::cout<<"Matrix(nlin,ncol);\n";
 }
 
