@@ -412,24 +412,7 @@ public:
      *  \ingroup MatrixGroup
      */
     bool RowReduction(void);
-    
-    /** 
-     *  \brief Retorna la matriz inversa.
-     * 
-     *  \return Retorna la matriz inversa si todo fue bien o una matriz vacia si no.
-     *  \ingroup MatrixGroup
-     */
-    Matrix GetInv(void) const;
-    
-    
-    /** 
-     *  \brief Retorna la matriz inversa.
-     * 
-     *  \param[out] det La determiante de la matriz original;
-     *  \return Retorna la matriz inversa si todo fue bien o una matriz vacia si no.
-     *  \ingroup MatrixGroup
-     */
-    Matrix GetInv(double &det) const;
+
 
 /**
  * @}
@@ -617,6 +600,25 @@ public:
  *  Descripcion de algunos operadores habilitados a trabajar con Pds::Matrix.
  * @{
  */
+    
+    /** 
+     *  \brief Retorna la matriz inversa.
+     * 
+     *  \return Retorna la matriz inversa si todo fue bien o una matriz vacia si no.
+     *  \ingroup MatrixGroup
+     */
+    Matrix Inv(void) const;
+    
+    
+    /** 
+     *  \brief Retorna la matriz inversa.
+     * 
+     *  \param[out] det La determiante de la matriz original;
+     *  \return Retorna la matriz inversa si todo fue bien o una matriz vacia si no.
+     *  \ingroup MatrixGroup
+     */
+    Matrix Inv(double &det) const;
+    
     /** 
      *  \brief Cambia de signo a si mismo (A), el resultado es
      * cargado en B. Este operador es similar al metodo unario - 

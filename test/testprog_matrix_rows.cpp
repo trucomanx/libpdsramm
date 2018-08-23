@@ -25,7 +25,7 @@ int main(void)
     Pds::Matrix D;
     double det;
     C.FillRandU();
-    D=C.GetInv(det);
+    D=C.Inv(det);
     
     (C*D).Print("\nC*D:\n");
     std::cout<<"det: "<<det<<std::endl;

@@ -132,13 +132,13 @@ bool Pds::Matrix::RowReduction(void)
     return true;
 }
 
-Pds::Matrix Pds::Matrix::GetInv(void) const
+Pds::Matrix Pds::Matrix::Inv(void) const
 {
     double det;
-    return GetInv(det);
+    return Inv(det);
 }
 
-Pds::Matrix Pds::Matrix::GetInv(double &det) const
+Pds::Matrix Pds::Matrix::Inv(double &det) const
 {
     unsigned int lin,i,all;
     int id;
