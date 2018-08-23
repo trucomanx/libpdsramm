@@ -35,7 +35,7 @@
 #define __PDS_MATRIX_HPP__
 
 
-/** \defgroup MatrixGroup Métodos de Pds::Matrix.
+/** \defgroup MatrixGroup Clase Pds::Matrix.
  *  \brief Funciones que trabajan con matrices.
  *  
  *  <br>Estas funciones trabajan con una matriz de la forma.<br>
@@ -268,6 +268,13 @@ public:
  *  Establecen los valores de las matrices.
  * @{
  */
+    /** 
+     *  \brief Inicializa la matriz con números aleatorios, distribuidos usando una distribución
+     * Gaussiana normalizada con media 0 y desvío padrón 1.0.
+     *  \return Retorna true si todo fue bien o false si no.
+     *  \ingroup MatrixGroup
+     */
+    bool FillRandN(void);
     
     /** 
      *  \brief Inicializa la matriz con números aleatorios, distribuidos uniformemente,

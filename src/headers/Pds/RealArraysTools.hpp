@@ -22,7 +22,7 @@
 
 /** \file RealArraysTools.hpp
  *  \author Fernando Pujaico Rivera
- *  \brief Archivo de definición ferramentas para a biblioteca RealArrays.
+ *  \brief Archivo de definición herramientas para a biblioteca RealArrays.
  *  
  */
     
@@ -32,7 +32,7 @@
     
 #include <string>
 
-/** \defgroup PdsRaToolsGroup Funciones genericas.
+/** \defgroup PdsRaToolsGroup ---- Funciones útiles.
  *  \brief Funciones utiles para toda la biblioteca
  *  
  *  
@@ -42,7 +42,7 @@
 //! Nombre de espacion para PDS (Procesamiento Digital de Senales)
 namespace Pds{
 /**
- *  \brief Nombre de espacion para RA (Real Arrays)
+ *  \brief Nombre de espacio para RA (Real Arrays)
  *  \ingroup PdsRaToolsGroup
  */
 namespace Ra{
@@ -143,7 +143,7 @@ bool ArraySizeInFile(const char*filepath,unsigned int &Nlin,unsigned int &Ncol);
  *  \return Retorna true si la cadena solo contiene white-spaces y false si no.
  *  \ingroup PdsRaToolsGroup
  */
-bool IsSpace(const char *cstr);
+bool IsSpacesString(const char *cstr);
 
 /**
  *  \brief Esta función comprueba si los caracteres en la cadena son caracteres
@@ -162,7 +162,7 @@ bool IsSpace(const char *cstr);
  *  \return Retorna true si la cadena solo contiene white-spaces y false si no.
  *  \ingroup PdsRaToolsGroup
  */
-bool IsSpace(std::string str);
+bool IsSpacesString(std::string str);
 
 /**
  *  \brief Retorna el número de elementos en la cadena.
@@ -185,7 +185,7 @@ char str[]="abc  104\t\r\tde10j \n  ";
  *  \return Retorna el número de elementos en la cadena o negativo en caso de error.
  *  \ingroup PdsRaToolsGroup
  */
-int NumberOfElements(const char *cstr);
+int ElementsInString(const char *cstr);
 
 /**
  *  \brief Retorna el número de elementos en la cadena.
@@ -208,7 +208,7 @@ char str[]="abc  104\t\r\tde10j \n  ";
  *  \return Retorna el número de elementos en la cadena o negativo en caso de error.
  *  \ingroup PdsRaToolsGroup
  */
-int NumberOfElements(std::string str);
+int ElementsInString(std::string str);
 
 /**
  * @}

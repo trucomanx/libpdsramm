@@ -46,7 +46,7 @@ long Pds::Ra::SignificativeLinesInFile(const char*filepath)
         line.clear();
 
         if (std::getline(ifs, line))
-        if(Pds::Ra::IsSpace(line.c_str())==false) count++;
+        if(Pds::Ra::IsSpacesString(line.c_str())==false) count++;
     }
 
     ifs.close();
@@ -74,9 +74,9 @@ bool Pds::Ra::ElementsInFile(const char* filepath,unsigned int &Nel)
         line.clear();
 
         if (std::getline(ifs, line))
-        if(Pds::Ra::IsSpace(line.c_str())==false)
+        if(Pds::Ra::IsSpacesString(line.c_str())==false)
         {
-            N=Pds::Ra::NumberOfElements(line);
+            N=Pds::Ra::ElementsInString(line);
             count=count+(unsigned int )N;
         }
     }
@@ -108,9 +108,9 @@ bool Pds::Ra::ArraySizeInFile(const char*filepath,unsigned int &Nlin,unsigned in
         line.clear();
 
         if (std::getline(ifs, line))
-        if(Pds::Ra::IsSpace(line.c_str())==false)
+        if(Pds::Ra::IsSpacesString(line.c_str())==false)
         {
-            N=Pds::Ra::NumberOfElements(line);
+            N=Pds::Ra::ElementsInString(line);
             if(count==0)    last_ncol=(unsigned int)N;
             else if(last_ncol!=(unsigned int)N)
             {
@@ -129,7 +129,7 @@ bool Pds::Ra::ArraySizeInFile(const char*filepath,unsigned int &Nlin,unsigned in
 	return true;
 }
 
-bool Pds::Ra::IsSpace(const char *str)
+bool Pds::Ra::IsSpacesString(const char *str)
 {
     int i;
     int N=strlen(str);
@@ -142,12 +142,12 @@ bool Pds::Ra::IsSpace(const char *str)
     return true;
 }
 
-bool Pds::Ra::IsSpace(std::string str)
+bool Pds::Ra::IsSpacesString(std::string str)
 {
-    return Pds::Ra::IsSpace(str.c_str());
+    return Pds::Ra::IsSpacesString(str.c_str());
 }
 
-int Pds::Ra::NumberOfElements(const char *str)
+int Pds::Ra::ElementsInString(const char *str)
 {
 
     int N=0;
@@ -168,8 +168,8 @@ int Pds::Ra::NumberOfElements(const char *str)
     return N;
 }
 
-int Pds::Ra::NumberOfElements(std::string str)
+int Pds::Ra::ElementsInString(std::string str)
 {
-    return Pds::Ra::NumberOfElements(str.c_str());
+    return Pds::Ra::ElementsInString(str.c_str());
 }
 

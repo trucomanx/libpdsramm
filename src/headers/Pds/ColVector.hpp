@@ -36,7 +36,7 @@
 #define __PDS_COLVECTOR_HPP__
 
 
-/** \defgroup ColVectorGroup Métodos de Pds::ColVector.
+/** \defgroup ColVectorGroup Clase Pds::ColVector.
  *  \brief Funciones que trabajan con matrices/vectores columna.
  *  
  *  <br>Estas funciones trabajan con una matriz de la forma.<br>
