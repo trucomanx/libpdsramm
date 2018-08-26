@@ -23,7 +23,96 @@
 #include <string>
 #include <iostream>
 
-#include <Pds/Matrix>
+#include <Pds/RealArrays>
+
+
+Pds::Matrix Pds::Matrix::Inv(double *rcond) const
+{
+    unsigned int lin,i,all;
+    int id;
+    double alpha;
+
+    
+    
+    if((this->nlin==0)||(this->ncol==0)||(this->array==NULL)||(this->ncol!=this->nlin))
+    {
+        Pds::Matrix A;
+        if(rcond!=NULL) *rcond =0;
+        return A;
+    }
+    
+    Pds::Matrix B(*this);
+    Pds::Matrix A= Pds::Eye(this->nlin);
+    
+    // obtengo una matriz escalonada
+    for(lin=0;lin<B.nlin;lin++)
+    {
+        id=B.DiagonalIsZeroSwapBelow(lin);
+        if(id>=0)
+        {
+            if(((unsigned int)id)!=lin)
+            {
+                A.SwapRows((unsigned int)id,lin);
+            }
+            
+            // genero una linea con 1 en la posicion (lin,lin)
+            alpha=B.array[lin][lin];
+            A.RowDiv(lin,alpha);
+            for(all=lin;all<B.ncol;all++)
+            {
+                B.array[lin][all]=B.array[lin][all]/alpha;
+            }
+            
+            // Abajo de la columna (:,lin) todo sera cerado
+            for(i=lin+1;i<B.nlin;i++)
+            {
+                alpha=B.array[i][lin];
+                if(B.array[i][lin]!=0)
+                {
+                    A.AccumulateRow(i,lin,-alpha);
+                    
+                    for(all=lin;all<B.ncol;all++)
+                    B.array[i][all]=B.array[i][all]-alpha*(B.array[lin][all]);
+                }
+            }
+            
+            
+        }
+        else
+        {
+            A.MakeVoid();
+            if(rcond!=NULL) *rcond =0;
+            return A;
+        }
+    }
+
+    // reduzco la matriz
+    for(lin=1;lin<B.nlin;lin++)
+    {
+        for(i=1;i<=lin;i++)
+        {
+            alpha=B.array[lin-i][lin];
+
+            A.AccumulateRow(lin-i,lin,-alpha);
+            
+            for(all=lin;all<B.ncol;all++)
+            B.array[lin-i][all]=B.array[lin-i][all]-alpha*(B.array[lin][all]);
+        }
+    }
+
+    if(rcond!=NULL) *rcond=1.0/(this->Norm1()*A.Norm1());
+    else
+    {
+        double r=1.0/(this->Norm1()*A.Norm1());
+        
+        if(r<Pds::Ra::WarningRCond)
+        {
+            pds_print_warning_message("The value of rcond is too small, rcond:"<<r);
+        }
+    }
+    return A;
+}
+
 
 ////////////////////////////////////////////////////////////////////////
 

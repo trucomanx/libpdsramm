@@ -1,7 +1,7 @@
 /** \example testprog_matrix_rows.cpp
  *  \author Fernando Pujaico Rivera
  *  \date 18-04-2018
- *  \brief Programa para el testeo de las funciones de reducción e inversión de matrices.
+ *  \brief Programa para el testeo de las funciones.
  *  
  */
     
@@ -21,14 +21,6 @@ int main(void)
     A.Print("\nA:\n");
     B.Print("\nB:\n");
     
-    Pds::Matrix C(5,5);
-    Pds::Matrix D;
-    double det;
-    C.FillRandU();
-    D=C.Inv(det);
-    
-    (C*D).Print("\nC*D:\n");
-    std::cout<<"det: "<<det<<std::endl;
     
     return 0;
 }

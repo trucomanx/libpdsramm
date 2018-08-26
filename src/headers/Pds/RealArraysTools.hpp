@@ -32,6 +32,8 @@
     
 #include <string>
 
+
+
 /** \defgroup PdsRaToolsGroup ---- Funciones útiles.
  *  \brief Funciones utiles para toda la biblioteca
  *  
@@ -117,7 +119,10 @@ bool ElementsInFile(const char*filepath,unsigned int &Nel);
  */
 bool ArraySizeInFile(const char*filepath,unsigned int &Nlin,unsigned int &Ncol);
 
-//@}
+
+/**
+ * @}
+ */
 
 
 
@@ -210,9 +215,23 @@ char str[]="abc  104\t\r\tde10j \n  ";
  */
 int ElementsInString(std::string str);
 
+
+/**
+ *  \brief Convierte en std::sring un int,long,unsigned int, unsigned long, float o double.
+ *  
+ *  \param[in] val El elemento a convertir en std::string.
+ *  \return Retorna el valor convertido en std::string.
+ *  \ingroup PdsRaToolsGroup
+ */
+template <typename T>
+std::string ToString(T val);
+
+
+
 /**
  * @}
  */
+    
     
 } // namespace Ra
 } // namespace Pds

@@ -1,6 +1,44 @@
 #include <string>
-#include <Pds/Matrix>
-#include <Pds/RealArraysDefines>
+#include <Pds/RealArrays>
+
+////////////////////////////////////////////////////////////////////////
+#include <cmath>
+double Pds::Matrix::Norm(void) const
+{
+    unsigned int lin,col;
+    double S=0;
+    
+    if((this->nlin==0)||(this->ncol==0)||(this->array==NULL))
+    return 0.0;
+    
+    for(lin=0;lin<this->nlin;lin++)
+    for(col=0;col<this->ncol;col++)
+    S=S+this->array[lin][col]*this->array[lin][col];
+
+    return sqrt(S);
+}
+
+double Pds::Matrix::Norm1(void) const
+{
+    unsigned int lin,col;
+    double S,max=0;
+    
+    if((this->nlin==0)||(this->ncol==0)||(this->array==NULL))
+    return 0.0;
+    
+    for(col=0;col<this->ncol;col++)
+    {
+        S=0;
+        
+        for(lin=0;lin<this->nlin;lin++)
+        S=S+fabs(this->array[lin][col]);
+        
+        if(S>max)   max=S;
+    }
+    return max;
+}
+
+////////////////////////////////////////////////////////////////////////
 
 #include <iomanip>      // std::setprecision
 void Pds::Matrix::Print(std::string str) const
@@ -9,7 +47,7 @@ void Pds::Matrix::Print(std::string str) const
 
     if(this->IsVoid())   return;
     
-    std::cout<<std::setprecision(PDS_SET_PRECISION);
+    std::cout<<std::setprecision(Pds::Ra::SetPrecision);
     unsigned int lin,col;
 
     for(lin=0;lin<this->nlin;lin++)
@@ -28,6 +66,7 @@ void Pds::Matrix::Print(void) const
     this->Print("");
 }
 
+////////////////////////////////////////////////////////////////////////
 
 bool Pds::Matrix::Apply( double (*func)(double) )
 {
@@ -43,24 +82,14 @@ bool Pds::Matrix::Apply( double (*func)(double) )
     return true;
 }
 
+////////////////////////////////////////////////////////////////////////
+
 bool Pds::Matrix::Save(const char* filepath) const
 {
     return Pds::Matrix::SaveArray(filepath,this->array,this->nlin,this->ncol);
 }
 
-#include <sstream>
-#include <iomanip>      // std::setprecision
-namespace patch
-{
-    template <typename T>
-    std::string ToString(T val)
-    {
-        std::stringstream stream;
-        stream <<std::setprecision(PDS_SET_PRECISION)<< val;
-        return stream.str();
-    }
-}
-
+////////////////////////////////////////////////////////////////////////
 std::string Pds::Matrix::ToString(void) const
 {
     std::string str="";
@@ -72,10 +101,11 @@ std::string Pds::Matrix::ToString(void) const
     for(col=0;col<this->ncol;col++)
     {
         if(col!=(this->ncol-1))
-        str=str+patch::ToString(this->array[lin][col])+"\t";
+        str=str+Pds::Ra::ToString(this->array[lin][col])+"\t";
         else
-        str=str+patch::ToString(this->array[lin][col])+"\n";
+        str=str+Pds::Ra::ToString(this->array[lin][col])+"\n";
     }
 
     return str;
 } 
+////////////////////////////////////////////////////////////////////////

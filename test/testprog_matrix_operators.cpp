@@ -1,7 +1,7 @@
 /** \example testprog_matrix_operators.cpp
  *  \author Fernando Pujaico Rivera
  *  \date 18-04-2018
- *  \brief Programa para el testeo de las funciones de reducción e inversión de matrices.
+ *  \brief Programa para el testeo de las funciones.
  *  
  */
     
@@ -45,6 +45,17 @@ int main(void)
     C=A.Mul(B);
     
     C.Print("A*B\n");
+    
+    // Inv operator
+    std::cout<<std::endl;
+    
+    C.FillRandU();
+    C.Print("C\n");
+    double rcond;
+    Pds::Matrix D=C.Inv(&rcond);
+    
+    (C*D).Print("\nC*D:\n");
+    std::cout<<"\nrcond:"<<rcond<<std::endl;
     
     return 0;
 }

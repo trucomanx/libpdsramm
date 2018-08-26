@@ -106,7 +106,7 @@ bool Pds::Matrix::IsInSizeRange(double lin,double col) const
 }
 
 
-bool Pds::Matrix::HasThePosition(unsigned int lin,unsigned int col) const
+bool Pds::Matrix::IsInRange(unsigned int lin,unsigned int col) const
 {
     if(this->IsVoid())  return false;
     if(col>=this->ncol) return false;    
@@ -115,7 +115,7 @@ bool Pds::Matrix::HasThePosition(unsigned int lin,unsigned int col) const
     return true;
 }
 
-bool Pds::Matrix::DontHaveThePosition(unsigned int lin,unsigned int col) const
+bool Pds::Matrix::IsNotInRange(unsigned int lin,unsigned int col) const
 {
     if(this->IsVoid())  return true;
     if(col>=this->ncol) return true;    

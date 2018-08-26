@@ -1,11 +1,8 @@
 /** \example testprog_matrix_state.cpp
  *  \author Fernando Pujaico Rivera
  *  \date 18-04-2018
- *  \brief Programa para el testeo de las funciones de reducción e inversión de matrices.
+ *  \brief Programa para el testeo de las funciones.
  *  
- *  \n\n Este programa hace una prueba de la función para reducción de una matriz, 
- *  y de inversión de una matriz. Ambas funciones usan el método de gauss para 
- *  cumplir su objetivo.
  */
     
     
@@ -25,6 +22,7 @@ int main(void)
     B.Print("B:\n");
     
     
+    
     pds_print_info_message("... is void?");
     
     if(A.IsVoid())      std::cout<<"A is NULL"<<std::endl;
@@ -37,6 +35,7 @@ int main(void)
     else                std::cout<<"C is NULL"<<std::endl;
     
     
+    
     pds_print_info_message("... is similar to ... ?");
     
     if(A.IsNotSimilarTo(B)) std::cout<<"A is not similar to B"<<std::endl;
@@ -44,6 +43,7 @@ int main(void)
 
     if(B.IsSimilarTo(C))    std::cout<<"B is similar to C"<<std::endl;
     else                    std::cout<<"B is not similar to C"<<std::endl;
+    
     
     
     pds_print_info_message("... is multipliable to ... ?");
@@ -55,10 +55,12 @@ int main(void)
     else                    std::cout<<"B is not multipliable by C"<<std::endl;  
     
     
+    
     pds_print_info_message("... has the position ... ?");
     
-    if(B.HasThePosition(1,1))   std::cout<<"B has the position (1,1)"<<std::endl;
-    else                        std::cout<<"B dont have the position (1,1)"<<std::endl;
+    if(B.IsInRange(1,1))   std::cout<<"B has the position (1,1)"<<std::endl;
+    else                   std::cout<<"B dont have the position (1,1)"<<std::endl;
+    
     
     
     pds_print_info_message("... is in size range ... ?");
@@ -66,10 +68,13 @@ int main(void)
     if(B.IsInSizeRange(1.5,0.1))    std::cout<<"(1.5,0.1) is in size range of B"<<std::endl;
     else                            std::cout<<"(1.5,0.1) is not in size range of B"<<std::endl;
     
+    
+    
     B.IsInf().Print("\nB.IsInf()\n");
     
     B.IsNan().Print("\nB.IsNan()\n");
     
     B.IsFinite().Print("\nB.IsFinite()\n");
+    
     return 0;
 }

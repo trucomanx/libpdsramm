@@ -21,7 +21,7 @@
  */
 
 
-#include <Pds/RealArraysTools>
+#include <Pds/RealArrays>
 #include <string>
 #include <iostream>
 #include <cstring>
@@ -173,3 +173,53 @@ int Pds::Ra::ElementsInString(std::string str)
     return Pds::Ra::ElementsInString(str.c_str());
 }
 
+
+////////////////////////////////////////////////////////////////////////////////
+
+#include <sstream>
+#include <iomanip>      // std::setprecision
+
+
+template <>
+std::string Pds::Ra::ToString<double>(double val)
+{
+    std::stringstream stream;
+    stream <<std::setprecision(Pds::Ra::SetPrecision)<< val;
+    return stream.str();
+}
+template <>
+std::string Pds::Ra::ToString<float>(float val)
+{
+    std::stringstream stream;
+    stream <<std::setprecision(Pds::Ra::SetPrecision)<< val;
+    return stream.str();
+}
+template <>
+std::string Pds::Ra::ToString<int>(int val)
+{
+    std::stringstream stream;
+    stream <<std::setprecision(Pds::Ra::SetPrecision)<< val;
+    return stream.str();
+}
+template <>
+std::string Pds::Ra::ToString<long>(long val)
+{
+    std::stringstream stream;
+    stream <<std::setprecision(Pds::Ra::SetPrecision)<< val;
+    return stream.str();
+}
+template <>
+std::string Pds::Ra::ToString<unsigned int>(unsigned int val)
+{
+    std::stringstream stream;
+    stream <<std::setprecision(Pds::Ra::SetPrecision)<< val;
+    return stream.str();
+}
+template <>
+std::string Pds::Ra::ToString<unsigned long>(unsigned long val)
+{
+    std::stringstream stream;
+    stream <<std::setprecision(Pds::Ra::SetPrecision)<< val;
+    return stream.str();
+}
+////////////////////////////////////////////////////////////////////////////////

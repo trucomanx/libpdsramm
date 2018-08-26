@@ -123,7 +123,7 @@ public:
     
     /** 
      *  \brief Crea un objeto de tipo Pds::Matrix copiando datos desde 
-     *  otra matriz. Este es un Copy assignment constructor.
+     *  otra matriz.
      *  \param[in] A Matriz a copiar.
      *  \param[in] func Función a aplicar, esta debe tener a forma double func(double).
      *  \return un objeto de tipo Pds::Matrix.
@@ -213,7 +213,7 @@ public:
      *  \return Retorna true si pertenece y false si no.
      *  \ingroup MatrixGroup
      */
-    bool HasThePosition(unsigned int lin,unsigned int col) const;
+    bool IsInRange(unsigned int lin,unsigned int col) const;
     
     /** 
      *  \brief Verifica si la posicion NO pertenece a la matriz.
@@ -222,10 +222,10 @@ public:
      *  \return Retorna false si pertenece y true si no.
      *  \ingroup MatrixGroup
      */
-    bool DontHaveThePosition(unsigned int lin,unsigned int col) const;
+    bool IsNotInRange(unsigned int lin,unsigned int col) const;
     
     /** 
-     *  \brief Verifica si la posicion (lin,col) pertenece al rango la matriz.
+     *  \brief Verifica si la posicion (lin,col) pertenece al rango de la matriz.
      * 
      *  Para retornar true lin debe esta entre 0 y (Nlin-1) incluyendo estos,
      *  y col debe esta entre 0 y (Ncol-1) incluyendo estos; donde Nlin y Ncol
@@ -238,21 +238,21 @@ public:
     bool IsInSizeRange(double lin,double col) const;
     
     /** 
-     *  \brief Verifica si la matriz tiene elementos infinitos.
+     *  \brief Verifica si la matriz tiene elementos con valores infinitos.
      *  \return Retorna una nueva matriz con 1 donde es infinito y 0 donde no lo es.
      *  \ingroup MatrixGroup
      */
     Matrix IsInf(void) const;
     
     /** 
-     *  \brief Verifica si la matriz tiene elementos NAN (Not A Number).
+     *  \brief Verifica si la matriz tiene elementos con valores NAN (Not A Number).
      *  \return Retorna una nueva matriz con 1 donde es NAN y 0 donde no lo es.
      *  \ingroup MatrixGroup
      */
     Matrix IsNan(void) const;
     
     /** 
-     *  \brief Verifica si la matriz tiene elementos finitos (no +inf, no -inf y no NAN).
+     *  \brief Verifica si la matriz tiene elementos con valores finitos (no +inf, no -inf y no NAN).
      *  \return Retorna una nueva matriz con 1 donde es finito y 0 donde no lo es.
      *  \ingroup MatrixGroup
      */
@@ -303,7 +303,8 @@ public:
  * @{
  */
     /** 
-     *  \brief Retorna el valor en la posicion (lin,col)
+     *  \brief Retorna el valor en la posicion (lin,col), hace una verificacion
+     *  si la posicion existe. 
      *  \param[in] lin La linea en consulta.
      *  \param[in] col La columna en consulta.
      *  \return Retorna el valor en la posicion (lin,col) o cero si la 
@@ -313,7 +314,8 @@ public:
     double Get(unsigned int lin,unsigned int col) const;
     
     /** 
-     *  \brief Escribe el valor en la posicion (lin,col)
+     *  \brief Escribe el valor en la posicion (lin,col), hace una verificacion
+     *  si la posicion existe. 
      *  \param[in] val valor a escribir.
      *  \param[in] lin La linea en consulta.
      *  \param[in] col La columna en consulta.
@@ -425,6 +427,26 @@ public:
  *  Herramientas gnereicas
  * @{
  */
+    /** 
+     *  \brief Calcula la 2-norm de un vector.
+     *
+     *  \f[ ||A||_2=\sqrt{\sum \limits_{i} \sum \limits_{j} {|a_{ij}|}^2} \f]
+     *  \return Retorna la norma de un vector. En caso de que la matriz sea vacia
+     *  se retorna 0.0.
+     *  \ingroup MatrixGroup
+     */
+    double Norm(void) const;
+    
+    /** 
+     *  \brief Calcula la 1-norm de un vector.
+     *
+     *  \f[ ||A||_1=\max \limits_{j} \sum \limits_{i} {|a_{ij}|} \f]
+     *  \return Retorna la norma de un vector. En caso de que la matriz sea vacia
+     *  se retorna 0.0.
+     *  \ingroup MatrixGroup
+     */
+    double Norm1(void) const;
+    
     /** 
      *  \brief Convierte los datos de la matriz en un std::string.
      *  \return Retorna un std::string. Si la matriz es nula retorna un string sin caracteres.
@@ -596,28 +618,49 @@ public:
 
 public:
 
-/** @name Operadores y sus métodos equivalentes
+/** @name Operadores unarios y sus métodos equivalentes
  *  Descripcion de algunos operadores habilitados a trabajar con Pds::Matrix.
  * @{
  */
     
     /** 
-     *  \brief Retorna la matriz inversa.
-     * 
-     *  \return Retorna la matriz inversa si todo fue bien o una matriz vacia si no.
+     *  \brief Transpuesta de si mismo (A), el resultado es
+     * cargado en B. 
+     *
+     *  \f[ B \leftarrow transpose(A) \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix B;
+    
+    A.FillRandU();
+    
+    B=A.T();
+    
+    std::cout<<B;
+\endcode
+     *  \return Retorna un nuevo objeto con el
+     *  resultado, o una matriz vazia (this->IsVoid() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
-    Matrix Inv(void) const;
+    Matrix T(void);
     
     
     /** 
      *  \brief Retorna la matriz inversa.
-     * 
-     *  \param[out] det La determiante de la matriz original;
+     *
+     *  \param[out] rcond Esta variable es cargada con el valor del
+     *  reciproco del condicional de la matriz. Si esta es la matriz A,
+     * rcond es:
+     *  \f[ rcond \leftarrow \frac{1.0}{||A||_1 ||A^{-1}||_1} \f]
+     * Si la matriz esta bien condicionada entonces rcond es proximo a 1.0 y si la matriz
+     * esta pobremente cndicionada este valor estara proximo a 0.0.
+     * Si la variable rcond no es entregada entonces sera mostrado un mensaje
+     * de advertencia por consola si el valor de rcond es menor a Pds::Ra::WarningRCond.
      *  \return Retorna la matriz inversa si todo fue bien o una matriz vacia si no.
      *  \ingroup MatrixGroup
      */
-    Matrix Inv(double &det) const;
+    Matrix Inv(double *rcond=NULL) const;
+    
     
     /** 
      *  \brief Cambia de signo a si mismo (A), el resultado es
@@ -660,28 +703,17 @@ public:
      *  \ingroup MatrixGroup
      */
     Matrix Minus(void);
-
-    /** 
-     *  \brief Transpuesta de si mismo (A), el resultado es
-     * cargado en B. 
-     *
-     *  \f[ B \leftarrow transpose(A) \f]
-\code{.cpp}
-    Pds::Matrix A(4,4);
-    Pds::Matrix B;
     
-    A.FillRandU();
+/**
+ * @}
+ */
     
-    B=A.T();
     
-    std::cout<<B;
-\endcode
-     *  \return Retorna un nuevo objeto con el
-     *  resultado, o una matriz vazia (this->IsVoid() igual a true) en caso de error.
-     *  \ingroup MatrixGroup
-     */
-    Matrix T(void);
-
+/** @name Operadores binarios y sus métodos equivalentes
+ *  Descripcion de algunos operadores habilitados a trabajar con Pds::Matrix.
+ * @{
+ */
+    
     /** 
      *  \brief Suma con sigo mismo (A), una matriz B y el resultado es
      * cargado en C. Este operador 
@@ -829,6 +861,15 @@ public:
      *  \ingroup MatrixGroup
      */
     Matrix Mul(const Matrix &B);
+/**
+ * @}
+ */
+    
+    
+/** @name Operadores binarios acumuladores y sus métodos equivalentes
+ *  Descripción de algunos operadores habilitados a trabajar con Pds::Matrix.
+ * @{
+ */
     
     /** 
      *  \brief Suma y acumula en si mismo (B), una matriz A. Este operador 

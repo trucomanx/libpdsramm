@@ -1,7 +1,7 @@
 /** \example testprog_matrix.cpp
  *  \author Fernando Pujaico Rivera
  *  \date 18-04-2018
- *  \brief Programa para el testeo de las funciones de reducción e inversión de matrices.
+ *  \brief Programa para el testeo de las funciones.
  *  
  */
     
@@ -27,6 +27,9 @@ int main(void)
     E.Print("\nE:\n");
     F.Print("\nF:\n");
     G.Print("\nG:\n");
+    
+    std::string str=Pds::Ra::ToString(12.222232324232223232323);
+    std::cout<<std::endl<<str<<std::endl;
     
     return 0;
 }

@@ -47,6 +47,7 @@
     std::cout<<"----ERROR :: "<<__FILE__<<"::"<<__FUNCTION__<<"::line "<<__LINE__<<std::endl \
     <<"----ERROR :: "<<msg<<std::endl
 #endif
+
     
     
 #ifndef pds_print_warning_message
@@ -56,8 +57,7 @@
  * \ingroup DefinesGroup
 */
 #define pds_print_warning_message(msg) \
-    std::cout<<"--WARNING :: "<<__FILE__<<"::"<<__FUNCTION__<<"::line "<<__LINE__<<std::endl \
-    <<"--WARNING :: "<<msg<<std::endl
+    std::cout<<"--WARNING :: "<<msg<<std::endl
 #endif
     
     
@@ -70,9 +70,28 @@
 #define pds_print_info_message(msg) \
     std::cout<<"-----INFO :: "<<msg<<std::endl
 #endif
+    
+#include <string>
+#include <iostream>
 
-#define PDS_SET_PRECISION 12
-
+    
+namespace Pds{
+namespace Ra{
+    
+    
+    /*!
+     * Numero de decimales a mostrar cuando se imprime en pantalla o en archivo.
+     * \ingroup DefinesGroup
+    */
+    const unsigned int SetPrecision=12;
+    
+    /*!
+     * Valor máximo que puede tener rcond para mostrar un mensaje en pantalla.
+     * \ingroup DefinesGroup
+    */
+    const double WarningRCond=0.000000001;
+}
+}
 /*!
  * @}
  */

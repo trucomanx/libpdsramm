@@ -24,14 +24,14 @@
 
 double Pds::Matrix::Get(unsigned int lin,unsigned int col) const
 {
-    if(this->HasThePosition(lin,col))   return this->array[lin][col];
-    else                                return 0.0;
+    if(this->IsInRange(lin,col))   return this->array[lin][col];
+    else                           return 0.0;
 }
     
 
 bool Pds::Matrix::Set(double val,unsigned int lin,unsigned int col)
 {
-    if(this->DontHaveThePosition(lin,col))   return false;
+    if(this->IsNotInRange(lin,col))   return false;
     
     this->array[lin][col]=val;
     return true;
