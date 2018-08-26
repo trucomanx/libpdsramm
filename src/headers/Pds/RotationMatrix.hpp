@@ -35,7 +35,7 @@
 #define __PDS_ROTATIONMATRIX_HPP__
 
 
-/** \defgroup RotationMatrixGroup Funciones para Pds::Matrix - Rotacion.
+/** \defgroup RotationMatrixGroup Clase Pds::Matrix - Funciones de Rotacion.
  *  \brief Funciones que trabajan con rotaciones en 2D y 3D con matrices.
  *  
  *  <br>Estas funciones trabajan con una matriz de la forma.<br>

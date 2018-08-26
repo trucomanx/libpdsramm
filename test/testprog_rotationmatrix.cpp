@@ -1,4 +1,4 @@
-/** \example testprog_funcmatrix_rotation.cpp
+/** \example testprog_rotationmatrix.cpp
  *  \author Fernando Pujaico Rivera
  *  \date 18-04-2018
  *  \brief Programa para el testeo de las funciones.

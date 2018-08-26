@@ -13,15 +13,24 @@
     
 int main(void)
 {
-    Pds::ColVector A(3);
-    Pds::ColVector B(3);
-    Pds::ColVector C(3);
     
-    C.FillRandU();       // Fill data randomly between [0.0, 1.0>.
+    Pds::ColVector W=Pds::LinSpace(0,10,5);
+    std::cout<<"W:\n"<<W;
     
-    std::cout<<"C:\n"<<C;
-    std::cout<<"B:\n"<<B;
-    std::cout<<"A:\n"<<A;
+
+    Pds::Matrix X2 = Pds::X2D();
+    Pds::Matrix Y2 = Pds::Y2D();
+    
+    X2.Print("\nX2:\n");
+    Y2.Print("\nY2:\n");
+    
+    Pds::Matrix X = Pds::X3D();
+    Pds::Matrix Y = Pds::Y3D();
+    Pds::Matrix Z = Pds::Z3D();
+    
+    X.Print("\nX:\n");
+    Y.Print("\nY:\n");
+    Z.Print("\nZ:\n");
 
     return 0;
 }

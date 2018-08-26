@@ -35,8 +35,8 @@
 #define __PDS_FUNCMATRIX_HPP__
 
 
-/** \defgroup FuncMatrixGroup Funciones para Pds::Matrix - basicos.
- *  \brief Funciones Eye, Ones, Zeros, X2D, Y2D, X3D, Y3D, Z3D.
+/** \defgroup FuncMatrixGroup Clase Pds::Matrix - Funciones básicas.
+ *  \brief Funciones Diag, Eye, Ones, Zeros, etc.
  *  
  *  <br>Estas funciones trabajan con una matriz de la forma.<br>
  *  <center>
@@ -60,8 +60,39 @@ namespace Pds{
  */
 
     /** 
+     *  \brief Retorna una matriz diagonal usando los dats de tra matriz,
+     *  se lee primero todos los elementos de una columna y lueg se pasa a la
+     *  siguiente
+     *
+   \f[
+\left(\begin{matrix}
+a_{00} & 0 & 0 & 0\\ 
+0 & a_{10} & 0 & 0\\
+0 & 0 & a_{01} & 0\\
+0 & 0 & 0 & a_{11}
+\end{matrix}\right)
+\leftarrow A=\left(\begin{matrix}
+a_{00} & a_{01} \\ 
+a_{10} & a_{11} 
+\end{matrix}\right)
+   \f]
+     *  \param[in] A La matriz donde se extraen los datos.
+     *  \return Retorna la matriz diagonal.
+     *  \ingroup FuncMatrixGroup
+     */
+    Matrix Diag(Matrix A);
+
+    /** 
      *  \brief Retorna una matriz con unos en la diagonal y el resto ceros.  
      *
+   \f[
+\left(\begin{matrix}
+1 & 0 & 0 & 0\\ 
+0 & 1 & 0 & 0\\
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & 1
+\end{matrix}\right)
+   \f]
      *  \param[in] N El numero de lineas y columnas de la matriz.
      *  \return Retorna la matriz o una matriz vacía en caso de error.
      *  \ingroup FuncMatrixGroup
@@ -71,6 +102,14 @@ namespace Pds{
     /** 
      *  \brief Retorna una matriz con unos.  
      *
+   \f[
+\left(\begin{matrix}
+1 & 1 & 1 & 1\\ 
+1 & 1 & 1 & 1\\
+1 & 1 & 1 & 1\\
+1 & 1 & 1 & 1
+\end{matrix}\right)
+   \f]
      *  \param[in] Nlin El numero de lineas de la matriz.
      *  \param[in] Ncol El numero de columnas de la matriz.
      *  \return Retorna la matriz o una matriz vacía en caso de error.
@@ -81,6 +120,14 @@ namespace Pds{
     /** 
      *  \brief Retorna una matriz con unos.  
      *
+   \f[
+\left(\begin{matrix}
+1 & 1 & 1 & 1\\ 
+1 & 1 & 1 & 1\\
+1 & 1 & 1 & 1\\
+1 & 1 & 1 & 1
+\end{matrix}\right)
+   \f]
      *  \param[in] N El numero de lineas y columnas de la matriz.
      *  \return Retorna la matriz o una matriz vacía en caso de error.
      *  \ingroup FuncMatrixGroup
@@ -91,6 +138,14 @@ namespace Pds{
     /** 
      *  \brief Retorna una matriz con ceros.  
      *
+   \f[
+\left(\begin{matrix}
+0 & 0 & 0 & 0\\ 
+0 & 0 & 0 & 0\\
+0 & 0 & 0 & 0\\
+0 & 0 & 0 & 0
+\end{matrix}\right)
+   \f]
      *  \param[in] Nlin El numero de lineas de la matriz.
      *  \param[in] Ncol El numero de columnas de la matriz.
      *  \return Retorna la matriz o una matriz vacía en caso de error.
@@ -101,101 +156,20 @@ namespace Pds{
     /** 
      *  \brief Retorna una matriz con ceros.  
      *
+   \f[
+\left(\begin{matrix}
+0 & 0 & 0 & 0\\ 
+0 & 0 & 0 & 0\\
+0 & 0 & 0 & 0\\
+0 & 0 & 0 & 0
+\end{matrix}\right)
+   \f]
      *  \param[in] N El numero de lineas y columnas de la matriz.
      *  \return Retorna la matriz o una matriz vacía en caso de error.
      *  \ingroup FuncMatrixGroup
      */
     Matrix Zeros(unsigned int N);
     
-/**
- * @}
- */
-
-/** @name funciones para crear vectores eje en 2 dimensiones
- *  Descripción de algunas funciones que usan  Pds::Matrix.
- * @{
- */
-    
-    /** 
-     *  \brief Retorna una matriz vector columna eje X en 2 dimensiones.
-     *
-   \f[
-\left(\begin{matrix}
-1 \\ 
-0
-\end{matrix}\right)
-   \f]
-     *  \return Retorna una matriz vector columna eje X en 2 dimensiones.
-     *  \ingroup FuncMatrixGroup
-     */
-    Matrix X2D(void);
-    
-    /** 
-     *  \brief Retorna una matriz vector columna eje Y en 2 dimensiones.
-     *
-   \f[
-\left(\begin{matrix}
-0 \\ 
-1
-\end{matrix}\right)
-   \f]
-     *  \return Retorna una matriz vector columna eje Y en 2 dimensiones.
-     *  \ingroup FuncMatrixGroup
-     */
-    Matrix Y2D(void);
-/**
- * @}
- */
-
-/** @name funciones para crear vectores eje en 3 dimensiones
- *  Descripción de algunas funciones que usan  Pds::Matrix.
- * @{
- */
-    
-    /** 
-     *  \brief Retorna una matriz vector columna eje X en 3 dimensiones.
-     *
-   \f[
-\left(\begin{matrix}
-1 \\ 
-0 \\
-0
-\end{matrix}\right)
-   \f]
-     *  \return Retorna una matriz vector columna eje X en 3 dimensiones.
-     *  \ingroup FuncMatrixGroup
-     */
-    Matrix X3D(void);
-    
-    /** 
-     *  \brief Retorna una matriz vector columna eje Y en 3 dimensiones.
-     *
-   \f[
-\left(\begin{matrix}
-0 \\ 
-1 \\
-0
-\end{matrix}\right)
-   \f]
-     *  \return Retorna una matriz vector columna eje Y en 3 dimensiones.
-     *  \ingroup FuncMatrixGroup
-     */
-    Matrix Y3D(void);
-    
-    /** 
-     *  \brief Retorna una matriz vector columna eje Z en 3 dimensiones.
-     *
-   \f[
-\left(\begin{matrix}
-0 \\ 
-0 \\
-1
-\end{matrix}\right)
-   \f]
-     *  \return Retorna una matriz vector columna eje Z en 3 dimensiones.
-     *  \ingroup FuncMatrixGroup
-     */
-    Matrix Z3D(void);
 /**
  * @}
  */

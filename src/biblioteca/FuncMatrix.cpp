@@ -25,6 +25,27 @@
 #include <Pds/Matrix>
 #include <Pds/FuncMatrix>
 
+Pds::Matrix Pds::Diag(Pds::Matrix A)
+{
+    unsigned int id;
+    
+    if(A.IsVoid())
+    {
+        Pds::Matrix B;
+        return B;
+    }
+    
+    unsigned int N=A.Nlin()*A.Ncol();
+    Pds::Matrix B(N,N);
+    
+    for(id=0;id<N;id++)
+    {
+        B.Set(A.Get(id),id,id);
+    }
+    return B;
+}
+
+
 Pds::Matrix Pds::Eye(unsigned int N)
 {
     unsigned int lin;
@@ -71,45 +92,6 @@ Pds::Matrix Pds::Zeros(unsigned int N)
 {
     Pds::Matrix A(N,N);
     
-    return A;
-}
-
-////////////////////////////////////////////////////////////////////////
-
-Pds::Matrix Pds::X2D(void)
-{
-    Pds::Matrix A(2,1);
-    A.Set(1.0,0,0);
-    return A;
-}
-
-Pds::Matrix Pds::Y2D(void)
-{
-    Pds::Matrix A(2,1);
-    A.Set(1.0,1,0);
-    return A;
-}
-
-////////////////////////////////////////////////////////////////////////
-
-Pds::Matrix Pds::X3D(void)
-{
-    Pds::Matrix A(3,1);
-    A.Set(1.0,0,0);
-    return A;
-}
-
-Pds::Matrix Pds::Y3D(void)
-{
-    Pds::Matrix A(3,1);
-    A.Set(1.0,1,0);
-    return A;
-}
-
-Pds::Matrix Pds::Z3D(void)
-{
-    Pds::Matrix A(3,1);
-    A.Set(1.0,2,0);
     return A;
 }
 

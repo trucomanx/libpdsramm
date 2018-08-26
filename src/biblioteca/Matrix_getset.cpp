@@ -24,6 +24,8 @@
 
 double Pds::Matrix::Get(unsigned int id) const
 {
+    if((this->ncol==0)||(this->nlin==0)||(this->array==NULL)) return 0.0;
+    
     if(id>=((this->nlin)*(this->ncol))) return 0.0;
     
     
@@ -32,6 +34,8 @@ double Pds::Matrix::Get(unsigned int id) const
 
 bool Pds::Matrix::Set(double val,unsigned int id)
 {
+    if((this->ncol==0)||(this->nlin==0)||(this->array==NULL)) return false;
+    
     if(id>=((this->nlin)*(this->ncol))) return false;
     
     this->array[id%this->nlin][id/this->nlin]=val;
@@ -39,7 +43,6 @@ bool Pds::Matrix::Set(double val,unsigned int id)
     return  true;
 }
     
-
 double Pds::Matrix::Get(unsigned int lin,unsigned int col) const
 {
     if(this->IsInRange(lin,col))   return this->array[lin][col];
