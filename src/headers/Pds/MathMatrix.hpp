@@ -36,7 +36,7 @@
 
 
 /** \defgroup MathMatrixGroup Funciones para Pds::Matrix - math.
- *  \brief Funciones matemáticas que trabajan con matrices.
+ *  \brief Funciones matemáticas sin, cos, exp, sqrt, etc, que trabajan con matrices.
  *  
  *  <br>Estas funciones trabajan con una matriz de la forma.<br>
  *  <center>

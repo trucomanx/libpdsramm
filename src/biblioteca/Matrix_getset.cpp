@@ -22,6 +22,24 @@
 
 #include <Pds/Matrix>
 
+double Pds::Matrix::Get(unsigned int id) const
+{
+    if(id>=((this->nlin)*(this->ncol))) return 0.0;
+    
+    
+    return this->array[id%this->nlin][id/this->nlin];
+}
+
+bool Pds::Matrix::Set(double val,unsigned int id)
+{
+    if(id>=((this->nlin)*(this->ncol))) return false;
+    
+    this->array[id%this->nlin][id/this->nlin]=val;
+    
+    return  true;
+}
+    
+
 double Pds::Matrix::Get(unsigned int lin,unsigned int col) const
 {
     if(this->IsInRange(lin,col))   return this->array[lin][col];

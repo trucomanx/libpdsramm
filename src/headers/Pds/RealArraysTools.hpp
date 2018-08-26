@@ -35,7 +35,7 @@
 
 
 /** \defgroup PdsRaToolsGroup ---- Funciones útiles.
- *  \brief Funciones utiles para toda la biblioteca
+ *  \brief Funciones para procesar cadenas y archivos.
  *  
  *  
  * @{
@@ -49,7 +49,7 @@ namespace Pds{
  */
 namespace Ra{
 
-/** @name Trabajar con cadenas de archivos
+/** @name Trabajar con archivos
  *  Salva datos de matrices
  * @{
  */

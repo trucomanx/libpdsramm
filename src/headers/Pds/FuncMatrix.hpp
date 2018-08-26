@@ -36,7 +36,7 @@
 
 
 /** \defgroup FuncMatrixGroup Funciones para Pds::Matrix - basicos.
- *  \brief Funciones que trabajan con matrices.
+ *  \brief Funciones Eye, Ones, Zeros, X2D, Y2D, X3D, Y3D, Z3D.
  *  
  *  <br>Estas funciones trabajan con una matriz de la forma.<br>
  *  <center>
@@ -200,82 +200,6 @@ namespace Pds{
  * @}
  */
 
-/** @name funciones para rotar coordenadas en 2 dimensines
- *  Descripción de algunas funciones que usan  Pds::Matrix.
- * @{
- */
-    
-    /** 
-     *  \brief Retorna una matriz de rotación anti-horaria en 2 dimensiones.
-     *
-   \f[
-\left(\begin{matrix}
-cos(\theta)&-sin(\theta) \\ 
-sin(\theta)&cos(\theta)
-\end{matrix}\right)
-   \f]
-     *  \param[in] theta Ángulo de rotación anti-horaria en radianes.
-     *  \return Retorna una matriz de rotación anti-horaria en 2 dimensiones.
-     *  \ingroup FuncMatrixGroup
-     */
-    Matrix Rot2D(double theta);
-    
-    /** 
-     *  \brief Retorna una matriz de rotación anti-horaria al rededor
-     *  del eje X en 3 dimensiones.
-     *
-   \f[
-\left(\begin{matrix}
-1&0&0\\
-0&cos(\theta)&-sin(\theta) \\ 
-0&sin(\theta)&cos(\theta)
-\end{matrix}\right)
-   \f]
-     *  \param[in] RadAngle Ángulo de rotación horaria en radianes.
-     *  \return Retorna una matriz de rotación anti-horaria al rededor
-     *  del eje X en 3 dimensiones.
-     *  \ingroup FuncMatrixGroup
-     */
-    Matrix RotX(double RadAngle);
-    
-    /** 
-     *  \brief Retorna una matriz de rotación anti-horaria al rededor
-     *  del eje Y en 3 dimensiones.
-     *
-   \f[
-\left(\begin{matrix}
-cos(\theta)&0&sin(\theta)\\
-0&1&0 \\ 
--sin(\theta)&0&cos(\theta)
-\end{matrix}\right)
-   \f]
-     *  \param[in] RadAngle Ángulo de rotación horaria en radianes.
-     *  \return Retorna una matriz de rotación anti-horaria al rededor
-     *  del eje Y en 3 dimensiones.
-     *  \ingroup FuncMatrixGroup
-     */
-    Matrix RotY(double RadAngle);
-    
-    /** 
-     *  \brief Retorna una matriz de rotación anti-horaria al rededor
-     *  del eje Z en 3 dimensiones.
-     *
-   \f[
-\left(\begin{matrix}
-cos(\theta)&-sin(\theta)&0\\
-sin(\theta)&cos(\theta)&0 \\ 
-0&0&1
-\end{matrix}\right)
-   \f]
-     *  \param[in] RadAngle Ángulo de rotación horaria en radianes.
-     *  \return Retorna una matriz de rotación anti-horaria al rededor
-     *  del eje Z en 3 dimensiones.
-     *  \ingroup FuncMatrixGroup
-     */
-    Matrix RotZ(double RadAngle);
-/**
- * @}
- */
 
 }
 /**

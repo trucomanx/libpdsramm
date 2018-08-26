@@ -36,7 +36,7 @@
 
 
 /** \defgroup MatrixGroup Clase Pds::Matrix.
- *  \brief Funciones que trabajan con matrices.
+ *  \brief Metodos de la clase Pds::Matrix, una matriz.
  *  
  *  <br>Estas funciones trabajan con una matriz de la forma.<br>
  *  <center>
@@ -302,6 +302,27 @@ public:
  *  Herramientas gnereicas
  * @{
  */
+    /** 
+     *  \brief Retorna el valor en la posicion del indice id, hace una verificacion
+     *  si la posicion existe. 
+     *  \param[in] id indice de un elemento de la matriz.
+     *  \return Retorna el valor en la posicion (id\%Nlin,id/Nlin) o cero si la 
+     *  posición no existe.
+     *  \ingroup MatrixGroup
+     */
+    double Get(unsigned int id) const;
+    
+    /** 
+     *  \brief Escribe el valor en la posicion del indice id, hace una verificacion
+     *  si la posicion existe. 
+     *  \param[in] val valor a escribir.
+     *  \param[in] id indice de un elemento de la matriz.
+     *  \return Retorna true si consiguió escribir el valor en la 
+     *  posicion (id\%Nlin,id/Nlin) o false si no.
+     *  \ingroup MatrixGroup
+     */
+    bool Set(double val,unsigned int id);
+    
     /** 
      *  \brief Retorna el valor en la posicion (lin,col), hace una verificacion
      *  si la posicion existe. 

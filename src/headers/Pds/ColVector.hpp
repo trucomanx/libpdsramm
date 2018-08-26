@@ -37,7 +37,7 @@
 
 
 /** \defgroup ColVectorGroup Clase Pds::ColVector.
- *  \brief Funciones que trabajan con matrices/vectores columna.
+ *  \brief Metodos de la clase Pds::ColVector, un vector columna/matriz.
  *  
  *  <br>Estas funciones trabajan con una matriz de la forma.<br>
  *  <center>
