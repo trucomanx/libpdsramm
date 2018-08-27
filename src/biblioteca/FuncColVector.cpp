@@ -31,9 +31,13 @@ Pds::ColVector Pds::LinSpace(double start,double end,unsigned int N)
     unsigned int id;
     double factor=(end-start)/(N-1.0);
     
-    for(id=0;id<N;id++)
+    V.Set(start,0);
+    V.Set(end,N-1);
+    
+    if(N>2)
+    for(id=1;id<(N-1);id++)
     V.Set(start+factor*id,id);
-
+    
     return V;
 }
 
@@ -49,7 +53,11 @@ Pds::ColVector Pds::GeomSpace(double start,double end,unsigned int N)
     unsigned int id;
     double factor=pow(end/start,1.0/(N-1.0));
     
-    for(id=0;id<N;id++)
+    V.Set(start,0);
+    V.Set(end,N-1);
+    
+    if(N>2)
+    for(id=1;id<(N-1);id++)
     V.Set(start+factor*id,id);
 
     return V;

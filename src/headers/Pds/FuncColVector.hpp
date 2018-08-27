@@ -91,9 +91,6 @@ a_{i} \leftarrow i \alpha +start
      */
     ColVector LinSpace(double start,double end,unsigned int N);
 
-/**
- * @}
- */
 
     /** 
      *  \brief Retorna un vector con elementos desde start hasta end con

@@ -73,7 +73,7 @@ int Pds::Matrix::DiagonalIsZeroSwapBelow(unsigned int n)
     return -1;
 }
 
-bool Pds::Matrix::AccumulateRow(unsigned int lin1,unsigned int lin2,double alpha)
+bool Pds::Matrix::AddAssigRow(unsigned int lin1,unsigned int lin2,double alpha)
 {
     if( (lin1>=this->nlin)||(lin2>=this->nlin) )    return false;
     

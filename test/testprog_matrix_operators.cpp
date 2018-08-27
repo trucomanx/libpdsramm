@@ -2,7 +2,7 @@
  *  \author Fernando Pujaico Rivera
  *  \date 18-04-2018
  *  \brief Programa para el testeo de las funciones.
- *  
+ *  s
  */
     
 #include <iostream>
@@ -30,21 +30,8 @@ int main(void)
     std::cout<<std::endl;
     
     if((C+=A).IsNotVoid())  C.Print("C+=A\n");
-    if(C.Accumulate(B))     C.Print("C+=B\n");
+    if(C.AddAssig(B))       C.Print("C+=B\n");
     
-    // + operator
-    std::cout<<std::endl;
-    
-    C=A.Add(B);
-    
-    C.Print("A+B\n");
-    
-    // * operator
-    std::cout<<std::endl;
-    
-    C=A.Mul(B);
-    
-    C.Print("A*B\n");
     
     // Inv operator
     std::cout<<std::endl;
@@ -53,9 +40,6 @@ int main(void)
     C.Print("C\n");
     double rcond;
     Pds::Matrix D=C.Inv(&rcond);
-    
-    (C*D).Print("\nC*D:\n");
-    std::cout<<"\nrcond:"<<rcond<<std::endl;
     
     return 0;
 }
