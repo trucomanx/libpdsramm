@@ -114,7 +114,7 @@ Pds::Matrix Pds::Matrix::Inv(double *rcond) const
 }
 
 ////////////////////////////////////////////////////////////////////////
-Pds::Matrix Pds::Matrix::T(void)
+Pds::Matrix Pds::Matrix::T(void) const
 {
     if( this->IsVoid() )   return Pds::Matrix();
 
@@ -132,24 +132,24 @@ Pds::Matrix Pds::Matrix::T(void)
 }
 
 ////////////////////////////////////////////////////////////////////////
-Pds::Matrix Pds::Matrix::operator +(void)
+Pds::Matrix Pds::Matrix::operator +(void) const
 {
     return this->Minus();
 }
 
-Pds::Matrix Pds::Matrix::Plus(void)
+Pds::Matrix Pds::Matrix::Plus(void) const
 {
     if( this->IsVoid() )   return Pds::Matrix();
     
     return *this;
 }
 ////////////////////////////////////////////////////////////////////////
-Pds::Matrix Pds::Matrix::operator -(void)
+Pds::Matrix Pds::Matrix::operator -(void) const
 {
     return this->Minus();
 }
 
-Pds::Matrix Pds::Matrix::Minus(void)
+Pds::Matrix Pds::Matrix::Minus(void) const
 {
     if( this->IsVoid() )   return Pds::Matrix();
 

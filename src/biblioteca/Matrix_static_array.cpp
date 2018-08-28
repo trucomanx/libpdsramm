@@ -129,7 +129,7 @@ namespace patch
     std::string ToString(T val)
     {
         std::stringstream stream;
-        stream <<std::setprecision(Pds::Ra::SetPrecision)<< val;
+        stream <<std::setprecision(Pds::Ra::StringPrecision)<< val;
         return stream.str();
     }
 }
@@ -168,7 +168,7 @@ bool Pds::Matrix::SaveArray(const char* filepath,double **array,unsigned int Nli
     myfile.open(filepath);
     if(myfile.is_open()==false)    return false;
 
-    myfile<<std::setprecision(Pds::Ra::SetPrecision);
+    myfile<<std::setprecision(Pds::Ra::StringPrecision);
     for(lin=0;lin<Nlin;lin++)
     {
         if(array[lin]!=NULL)

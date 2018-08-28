@@ -15,6 +15,9 @@ int main(void)
     char str2[]=" Hola como\testas \n";
     long N;
     
+    Pds::Matrix A=Pds::Ones(4,3);
+    A.Save(filepath);
+    
     if(Pds::Ra::IsSpacesString(str1))   std::cout<<"str1 is a space line\n";
     else                                std::cout<<"str1 is not a space line\n";
     
@@ -42,6 +45,9 @@ int main(void)
     if(status==true)
     std::cout<<"Nel:"<<Nel<<std::endl;
     
-    
+    std::cout   <<"Pds::Ra::ToString(0.1234567890123456789):"
+                <<Pds::Ra::ToString(0.1234567890123456789)<<std::endl;
+    std::cout   <<"Pds::Ra::ToString(\"hola\"):"
+                <<Pds::Ra::ToString("hola")<<std::endl;
     return 0;
 }

@@ -80,10 +80,22 @@ namespace Ra{
     
     
     /*!
-     * Numero de decimales a mostrar cuando se imprime en pantalla o en archivo.
+     * Número PI.
      * \ingroup DefinesGroup
     */
-    const unsigned int SetPrecision=12;
+    const double Pi =3.14159265358979323846264338327950288;
+    
+    /*!
+     * Número aureo.
+     * \ingroup DefinesGroup
+    */
+    const double Phi=1.61803398874989484820458683436563811;
+    
+    /*!
+     * Número de decimales a mostrar cuando se imprime en pantalla o en archivo.
+     * \ingroup DefinesGroup
+    */
+    const unsigned int StringPrecision=14;
     
     /*!
      * Valor máximo que puede tener rcond para mostrar un mensaje en pantalla.

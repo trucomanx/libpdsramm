@@ -138,7 +138,7 @@ Pds::Matrix::Matrix(const char *filepath)
 Pds::Matrix::~Matrix(void)
 {
     Pds::Matrix::ReleaseArray(this->array,this->nlin);
-
+    //std::cout<<"matrix destructr\n";
     this->nlin=0;
     this->ncol=0;
 }

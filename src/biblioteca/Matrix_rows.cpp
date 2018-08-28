@@ -26,11 +26,15 @@ bool Pds::Matrix::SwapRows(unsigned int lin1,unsigned int lin2)
 {
     if( (lin1>=this->nlin)||(lin2>=this->nlin) )    return false;
     
-    double *tmp=this->array[lin1];
+    double tmp;
     
-    this->array[lin1]=this->array[lin2];
-    this->array[lin2]=tmp;
-    
+    for(unsigned int col=0;col<this->ncol;col++)
+    {
+        tmp=this->array[lin1][col];
+        
+        this->array[lin1][col]=this->array[lin2][col];
+        this->array[lin2][col]=tmp;
+    }
     return true;
 }
 
@@ -65,9 +69,13 @@ int Pds::Matrix::DiagonalIsZeroSwapBelow(unsigned int n)
     for(unsigned int i=n+1;i<this->nlin;i++)
     if(this->array[i][n]!=0)
     {
-        double *tmp=this->array[i];
-        this->array[i]=this->array[n];
-        this->array[n]=tmp;
+        double tmp;
+        for(unsigned int col=0;col<this->ncol;col++)
+        {
+            tmp=this->array[i][col];
+            this->array[i][col]=this->array[n][col];
+            this->array[n][col]=tmp;
+        }
         return n;
     }
     return -1;

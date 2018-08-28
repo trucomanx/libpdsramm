@@ -21,6 +21,8 @@
  */
 
 #include <Pds/Matrix>
+#include <cmath>
+
 
 double Pds::Matrix::Get(unsigned int id) const
 {
@@ -47,6 +49,30 @@ double Pds::Matrix::Get(unsigned int lin,unsigned int col) const
 {
     if(this->IsInRange(lin,col))   return this->array[lin][col];
     else                           return 0.0;
+}
+    
+double Pds::Matrix::GetBilinear(double lin,double col) const
+{
+    if((lin<0.0)||(col<0.0)||(lin>(this->nlin-1))||(col>(this->ncol-1)))
+    return 0.0;
+
+    unsigned int Ll=floor(lin);
+    unsigned int Lc=floor(col);
+    unsigned int Hl=ceil(lin);
+    unsigned int Hc=ceil(col);
+    
+    double alpha=col-floor(col);
+    double beta=lin-floor(lin);
+
+    double P1=this->array[Ll][Lc];
+    double P2=this->array[Ll][Hc];
+    double P3=this->array[Hl][Lc];
+    double P4=this->array[Hl][Hc];
+
+    return  (1.0-beta)*(1.0-alpha)*P1+
+            (1.0-beta)*(    alpha)*P2+
+            (    beta)*(1.0-alpha)*P3+
+            (    beta)*(    alpha)*P4;
 }
     
 

@@ -40,6 +40,8 @@ int main(void)
     C.Print("C\n");
     double rcond;
     Pds::Matrix D=C.Inv(&rcond);
+
+    (C*D).Print("\nC*D=\n");
     
     return 0;
 }

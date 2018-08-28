@@ -28,17 +28,16 @@
 ////////////////////////////////////////////////////////////////////////
 Pds::Matrix operator+(double b,const Pds::Matrix &mat)
 {
-    Pds::Matrix C=mat;
-    return C.Add(b);
+    return mat.Add(b);
 }
 
 
-Pds::Matrix Pds::Matrix::operator +(double b)
+Pds::Matrix Pds::Matrix::operator +(double b) const
 {
     return this->Add(b);
 }
 
-Pds::Matrix Pds::Matrix::Add(double b)
+Pds::Matrix Pds::Matrix::Add(double b) const
 {
     if( this->IsVoid() )                return Pds::Matrix();
 
@@ -58,12 +57,12 @@ Pds::Matrix Pds::Matrix::Add(double b)
 }
 
 ////////////////////////////////////////////////////////////////////////
-Pds::Matrix Pds::Matrix::operator +(const Pds::Matrix &B)
+Pds::Matrix Pds::Matrix::operator +(const Pds::Matrix &B) const
 {
     return this->Add(B);
 }
 
-Pds::Matrix Pds::Matrix::Add(const Pds::Matrix &B)
+Pds::Matrix Pds::Matrix::Add(const Pds::Matrix &B) const
 {
     if( this->IsNotSimilarTo(B) )   return Pds::Matrix();
     if( B.IsVoid() )                return Pds::Matrix();
@@ -91,12 +90,12 @@ Pds::Matrix operator-(double b,const Pds::Matrix &mat)
 }
 
 
-Pds::Matrix Pds::Matrix::operator -(double b)
+Pds::Matrix Pds::Matrix::operator -(double b) const
 {
     return this->Sub(b);
 }
 
-Pds::Matrix Pds::Matrix::Sub(double b)
+Pds::Matrix Pds::Matrix::Sub(double b) const
 {
     if( this->IsVoid() )                return Pds::Matrix();
 
@@ -116,12 +115,12 @@ Pds::Matrix Pds::Matrix::Sub(double b)
 }
 
 ////////////////////////////////////////////////////////////////////////
-Pds::Matrix Pds::Matrix::operator -(const Pds::Matrix &B)
+Pds::Matrix Pds::Matrix::operator -(const Pds::Matrix &B) const
 {
     return this->Sub(B);
 }
 
-Pds::Matrix Pds::Matrix::Sub(const Pds::Matrix &B)
+Pds::Matrix Pds::Matrix::Sub(const Pds::Matrix &B) const
 {
     if( this->IsNotSimilarTo(B) )   return Pds::Matrix();
     if( B.IsVoid() )                return Pds::Matrix();
@@ -140,14 +139,44 @@ Pds::Matrix Pds::Matrix::Sub(const Pds::Matrix &B)
 
     return Ans;
 }
-
 ////////////////////////////////////////////////////////////////////////
-Pds::Matrix Pds::Matrix::operator *(const Pds::Matrix &B)
+
+Pds::Matrix operator*(double b,const Pds::Matrix &mat)
+{
+    return mat.Mul(b);
+}
+
+
+Pds::Matrix Pds::Matrix::operator *(double b) const
+{
+    return this->Mul(b);
+}
+
+Pds::Matrix Pds::Matrix::Mul(double b) const
+{
+    if( this->IsVoid() )                return Pds::Matrix();
+
+    Pds::Matrix Ans(this->nlin,this->ncol);
+
+    //this->Print("(+)this\n");
+
+    unsigned int lin,col;
+   
+    for(lin=0;lin<this->nlin;lin++)
+    for(col=0;col<this->ncol;col++)
+    {
+        Ans.array[lin][col]=this->array[lin][col]*b;
+    }
+
+    return Ans;
+}
+////////////////////////////////////////////////////////////////////////
+Pds::Matrix Pds::Matrix::operator *(const Pds::Matrix &B) const
 {
     return this->Mul(B);
 }
 
-Pds::Matrix Pds::Matrix::Mul(const Pds::Matrix &B)
+Pds::Matrix Pds::Matrix::Mul(const Pds::Matrix &B) const
 {
     if( this->IsNotMulBy(B) )    return Pds::Matrix();
     

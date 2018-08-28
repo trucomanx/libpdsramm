@@ -28,9 +28,6 @@ int main(void)
     F.Print("\nF:\n");
     G.Print("\nG:\n");
     
-    std::string str=Pds::Ra::ToString(12.222232324232223232323);
-    std::cout<<std::endl<<str<<std::endl;
-    
     
     std::cout<<std::endl<<(13/10)<<std::endl;
     std::cout<<std::endl<<(16/10)<<std::endl;

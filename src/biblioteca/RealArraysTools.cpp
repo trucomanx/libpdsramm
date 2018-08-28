@@ -178,6 +178,30 @@ int Pds::Ra::ElementsInString(std::string str)
 
 ////////////////////////////////////////////////////////////////////////////////
 
+#include <sstream>
+#include <iomanip>      // std::setprecision
+#include <Pds/RealArraysDefines>
+#include <Pds/Matrix>
+#include <Pds/ColVector>
 
+template std::string Pds::Ra::ToString<int>(int val);
+template std::string Pds::Ra::ToString<unsigned int>(unsigned int val);
+template std::string Pds::Ra::ToString<long>(long val);
+template std::string Pds::Ra::ToString<unsigned long>(unsigned long val);
+template std::string Pds::Ra::ToString<double>(double val);
+template std::string Pds::Ra::ToString<float>(float val);
+template std::string Pds::Ra::ToString<Pds::Matrix>(Pds::Matrix val);
+template std::string Pds::Ra::ToString<Pds::ColVector>(Pds::ColVector val);
+template std::string Pds::Ra::ToString<char>(char val);
+template std::string Pds::Ra::ToString<const char*>(const char *val);
+template std::string Pds::Ra::ToString<char*>(char *val);
+
+template <typename T>
+std::string Pds::Ra::ToString(T val)
+{
+    std::stringstream stream;
+    stream <<std::setprecision(Pds::Ra::StringPrecision)<< val;
+    return stream.str();
+}
 
 ////////////////////////////////////////////////////////////////////////////////

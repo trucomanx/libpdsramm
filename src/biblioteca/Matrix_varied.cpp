@@ -47,7 +47,7 @@ void Pds::Matrix::Print(std::string str) const
 
     if(this->IsVoid())   return;
     
-    std::cout<<std::setprecision(Pds::Ra::SetPrecision);
+    std::cout<<std::setprecision(Pds::Ra::StringPrecision);
     unsigned int lin,col;
 
     for(lin=0;lin<this->nlin;lin++)

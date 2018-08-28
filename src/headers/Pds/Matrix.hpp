@@ -335,6 +335,19 @@ public:
     double Get(unsigned int lin,unsigned int col) const;
     
     /** 
+     *  \brief Retorna el valor en la posición (lin,col),  usando una
+     *  interpolacion bilinear, valores fuera del rango de la matriz retornan cero.
+     *
+     *  \f[ return \leftarrow a_0 + a_1~lin+ a_2~col+ a_3~lin~col\f]
+     *  \param[in] lin La linea en consulta.
+     *  \param[in] col La columna en consulta.
+     *  \return Retorna el valor en la posición (lin,col) o cero si lin<0
+     *  o col<0 o lin>(Nlin-1) o col>(Ncol-1).
+     *  \ingroup MatrixGroup
+     */
+    double GetBilinear(double lin,double col) const;
+    
+    /** 
      *  \brief Escribe el valor en la posición (lin,col), hace una verificación
      *  si la posición existe. 
      *  \param[in] val valor a escribir.
@@ -370,7 +383,7 @@ public:
  * @{
  */
     /** 
-     *  \brief Intercambia las lineas de una matriz.
+     *  \brief Intercambia los valres de las lineas de una matriz.
      *  \param[in] lin1 Lineas a intercambiar.
      *  \param[in] lin2 Lineas a intercambiar.
      *  \return Retorna true si todo fue bien o false si no.
@@ -663,7 +676,7 @@ public:
      *  resultado, o una matriz vacía (this->IsVoid() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
-    Matrix T(void);
+    Matrix T(void) const;
     
     
     /** 
@@ -702,7 +715,7 @@ public:
      *  resultado, o una matriz vazia (this->IsVoid() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
-    Matrix operator -(void);
+    Matrix operator -(void) const;
     
     /** 
      *  \brief Cambia de signo a si mismo (A), el resultado es
@@ -723,7 +736,7 @@ public:
      *  resultado, o una matriz vacía (this->IsVoid() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
-    Matrix Minus(void);
+    Matrix Minus(void) const;
     
     /** 
      *  \brief Asigna el signo + a si mismo (A), el resultado es
@@ -744,7 +757,7 @@ public:
      *  resultado, o una matriz vacía (this->IsVoid() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
-    Matrix operator +(void);
+    Matrix operator +(void) const;
     
     /** 
      *  \brief Asigna el signo + a si mismo (A), el resultado es
@@ -765,7 +778,7 @@ public:
      *  resultado, o una matriz vazia (this->IsVoid() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
-    Matrix Plus(void);
+    Matrix Plus(void) const;
 /**
  * @}
  */
@@ -798,7 +811,7 @@ public:
      *  \see Add
      *  \ingroup MatrixGroup
      */
-    Matrix operator + (double b);
+    Matrix operator + (double b) const;
     
     /** 
      *  \brief Suma con sigo mismo (A), una valor b y el resultado es
@@ -821,7 +834,7 @@ public:
      *  resultado, o una matriz vazia (this->IsVoid() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
-    Matrix Add(double b);
+    Matrix Add(double b) const;
     
     /** 
      *  \brief Suma con sigo mismo (A), una matriz B y el resultado es
@@ -847,7 +860,7 @@ public:
      *  \see Add
      *  \ingroup MatrixGroup
      */
-    Matrix operator + (const Matrix &B);
+    Matrix operator + (const Matrix &B) const;
     
     /** 
      *  \brief Suma con sigo mismo (A), una matriz B y el resultado es
@@ -872,7 +885,7 @@ public:
      *  resultado, o una matriz vazia (this->IsVoid() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
-    Matrix Add(const Matrix &B);
+    Matrix Add(const Matrix &B) const;
     
     /** 
      *  \brief Resta con sigo mismo (A), un valor b y el resultado es
@@ -896,7 +909,7 @@ public:
      *  \see Add
      *  \ingroup MatrixGroup
      */
-    Matrix operator - (double b);
+    Matrix operator - (double b) const;
     
     /** 
      *  \brief Resta con sigo mismo (A), una valor b y el resultado es
@@ -919,7 +932,7 @@ public:
      *  resultado, o una matriz vazia (this->IsVoid() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
-    Matrix Sub(double b);
+    Matrix Sub(double b) const;
     
     
     /** 
@@ -944,7 +957,7 @@ public:
      *  resultado, o una matriz vazia (this->IsVoid() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
-    Matrix operator -(const Matrix &B);
+    Matrix operator -(const Matrix &B) const;
     
     /** 
      *  \brief Resta con sigo mismo (A), una matriz B y el resultado es
@@ -968,7 +981,52 @@ public:
      *  resultado, o una matriz vazia (this->IsVoid() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
-    Matrix Sub(const Matrix &B);
+    Matrix Sub(const Matrix &B) const;
+    
+    /** 
+     *  \brief Multiplica con sigo mismo (A), un valor b y el resultado es
+     * cargado en C. Este operador es similar al método Mul() 
+     *
+     *  \f[ C \leftarrow A*b \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix C;
+    
+    A.Fill(2.0);
+    
+    C=A*2.0;
+    
+    std::cout<<C;
+\endcode
+     *  \param[in] b el valor a multiplicar
+     *  \return Retorna C con el
+     *  resultado, o una matriz vazia (this->IsVoid() igual a true) en caso de error.
+     *  \see Mul
+     *  \ingroup MatrixGroup
+     */
+    Matrix operator * (double b) const;
+    
+    /** 
+     *  \brief Multiplica con sigo mismo (A), un valor b y el resultado es
+     * cargado en C. Este método  es similar al operador * 
+     *
+     *  \f[ C \leftarrow A*b \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix C;
+    
+    A.Fill(2.0);
+    
+    C=A.Mul(2.0);
+    
+    std::cout<<C;
+\endcode
+     *  \param[in] b el valor a multiplicar
+     *  \return Retorna C con el
+     *  resultado, o una matriz vazia (this->IsVoid() igual a true) en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Matrix Mul(double b) const;
     
     /** 
      *  \brief Multiplica con sigo mismo (A), una matriz B y el resultado es
@@ -993,7 +1051,7 @@ public:
      *  \see Mul
      *  \ingroup MatrixGroup
      */
-    Matrix operator * (const Matrix &B);
+    Matrix operator * (const Matrix &B) const;
     
     /** 
      *  \brief Multiplica con sigo mismo (A), una matriz B y el resultado es
@@ -1017,7 +1075,7 @@ public:
      *  resultado, o una matriz vazia (this->IsVoid() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
-    Matrix Mul(const Matrix &B);
+    Matrix Mul(const Matrix &B) const;
 /**
  * @}
  */
@@ -1232,10 +1290,35 @@ Pds::Matrix operator+(double b,const Pds::Matrix &mat);
      *  \param[in] mat matriz a restar
      *  \return Retorna un nuevo objeto con el
      *  resultado, o una matriz vazia (this->IsVoid() igual a true) en caso de error.
-     *  \see Add
+     *  \see Sub
      *  \ingroup MatrixGroup
      */
 Pds::Matrix operator-(double b,const Pds::Matrix &mat);
+
+    /** 
+     *  \brief Multiplica con sigo mismo (A), un valor b y el resultado es
+     * cargado en C. Este operador 
+     *  es similar al método Mul() 
+     *
+     *  \f[ C \leftarrow b*A \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix C;
+    
+    A.Fill(2.0);
+    
+    C=2.0*A;
+    
+    std::cout<<C;
+\endcode
+     *  \param[in] b El valor a operar
+     *  \param[in] mat matriz a multiplicar
+     *  \return Retorna un nuevo objeto con el
+     *  resultado, o una matriz vazia (this->IsVoid() igual a true) en caso de error.
+     *  \see Mul
+     *  \ingroup MatrixGroup
+     */
+Pds::Matrix operator*(double b,const Pds::Matrix &mat);
 
 /**
  * @}

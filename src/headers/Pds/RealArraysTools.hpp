@@ -33,9 +33,6 @@
 #include <string>
 
 
-#include <sstream>
-#include <iomanip>      // std::setprecision
-#include <Pds/RealArraysDefines>
 
 
 /** \defgroup PdsRaToolsGroup ---- Funciones útiles.
@@ -227,13 +224,9 @@ int ElementsInString(std::string str);
  *  \return Retorna el valor convertido en std::string.
  *  \ingroup PdsRaToolsGroup
  */
+ 
 template  <typename T>
-std::string ToString(T val)
-{
-    std::stringstream stream;
-    stream <<std::setprecision(SetPrecision)<< val;
-    return stream.str();
-}
+extern std::string ToString(T val);
 
 /**
  * @}

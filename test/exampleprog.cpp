@@ -4,7 +4,7 @@ int main(void)
 {
     Pds::Matrix P =Pds::X3D();
     Pds::Matrix P0=Pds::Y3D();
-    Pds::Matrix J =Pds::RotX(3.14159/2.0);
+    Pds::Matrix J =Pds::RotX(Pds::Ra::Pi/2.0);
     
     
     P.Print("P:\n");
