@@ -39,7 +39,7 @@ Pds::Matrix Pds::Matrix::operator +(double b) const
 
 Pds::Matrix Pds::Matrix::Add(double b) const
 {
-    if( this->IsVoid() )                return Pds::Matrix();
+    if( this->IsEmpty() )                return Pds::Matrix();
 
     Pds::Matrix Ans(this->nlin,this->ncol);
 
@@ -65,7 +65,7 @@ Pds::Matrix Pds::Matrix::operator +(const Pds::Matrix &B) const
 Pds::Matrix Pds::Matrix::Add(const Pds::Matrix &B) const
 {
     if( this->IsNotSimilarTo(B) )   return Pds::Matrix();
-    if( B.IsVoid() )                return Pds::Matrix();
+    if( B.IsEmpty() )                return Pds::Matrix();
 
     Pds::Matrix Ans(B.nlin,B.ncol);
 
@@ -97,7 +97,7 @@ Pds::Matrix Pds::Matrix::operator -(double b) const
 
 Pds::Matrix Pds::Matrix::Sub(double b) const
 {
-    if( this->IsVoid() )                return Pds::Matrix();
+    if( this->IsEmpty() )                return Pds::Matrix();
 
     Pds::Matrix Ans(this->nlin,this->ncol);
 
@@ -123,7 +123,7 @@ Pds::Matrix Pds::Matrix::operator -(const Pds::Matrix &B) const
 Pds::Matrix Pds::Matrix::Sub(const Pds::Matrix &B) const
 {
     if( this->IsNotSimilarTo(B) )   return Pds::Matrix();
-    if( B.IsVoid() )                return Pds::Matrix();
+    if( B.IsEmpty() )                return Pds::Matrix();
 
     Pds::Matrix Ans(B.nlin,B.ncol);
 
@@ -154,7 +154,7 @@ Pds::Matrix Pds::Matrix::operator *(double b) const
 
 Pds::Matrix Pds::Matrix::Mul(double b) const
 {
-    if( this->IsVoid() )                return Pds::Matrix();
+    if( this->IsEmpty() )                return Pds::Matrix();
 
     Pds::Matrix Ans(this->nlin,this->ncol);
 

@@ -30,7 +30,6 @@
  */
 
 
-
 #ifndef __PDS_MATRIX_HPP__
 #define __PDS_MATRIX_HPP__
 
@@ -50,9 +49,10 @@
 
 
 #include <string>
-#include <iostream>
 
 namespace Pds{
+
+class ColVector;
 
 /*! \class Matrix
  *  \brief La clase tipo  Matrix .
@@ -158,21 +158,21 @@ public:
      *  \return Retorna true si es nula e false si no.
      *  \ingroup MatrixGroup
      */
-    bool IsVoid(void) const;
+    bool IsEmpty(void) const;
 
     /** 
      *  \brief Verifica si la matriz NO es nula, es decir con lineas y columnas diferentes cero y arreglo diferente de NULL.
      *  \return Retorna true si NO es nula e false si lo es.
      *  \ingroup MatrixGroup
      */
-    bool IsNotVoid(void) const;
+    bool IsNotEmpty(void) const;
 
     /** 
      *  \brief libera los datos internos de la matriz y la convierte en una matriz nula.
      *  es decir con lineas y columnas cero.
      *  \ingroup MatrixGroup
      */
-    void MakeVoid(void);
+    void MakeEmpty(void);
 
     /** 
      *  \brief Verifica si las matrices son similares en tamaño.
@@ -333,6 +333,15 @@ public:
      *  \ingroup MatrixGroup
      */
     double Get(unsigned int lin,unsigned int col) const;
+    
+    /** 
+     *  \brief Retorna un vector columna copia de una columna de la matriz. 
+     *  \param[in] col La columna en consulta.
+     *  \return Retorna el vector columna en la posición (col) o un vector vacio si la 
+     *  posición no existe.
+     *  \ingroup MatrixGroup
+     */
+    ColVector GetColVector(unsigned int col) const;
     
     /** 
      *  \brief Retorna el valor en la posición (lin,col),  usando una
@@ -536,7 +545,7 @@ public:
      *  \return Retorna una matriz no vacia si todo fue bien o una matriz vacia en caso de error.
      *  \ingroup MatrixGroup
      */
-    static Pds::Matrix Load(const char* filepath);
+    static Matrix Load(const char* filepath);
 
    /** 
      *  \brief Escribe en un archivo una matriz de Nlin lineas y Ncol columnas.
@@ -545,7 +554,7 @@ public:
      *  \return Retorna true si todo fue bien o false en caso de error.
      *  \ingroup MatrixGroup
      */
-    static bool Save(const char* filepath,const Pds::Matrix &A);
+    static bool Save(const char* filepath,const Matrix &A);
 /**
  * @}
  */
@@ -673,7 +682,7 @@ public:
     std::cout<<B;
 \endcode
      *  \return Retorna un nuevo objeto con el
-     *  resultado, o una matriz vacía (this->IsVoid() igual a true) en caso de error.
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
     Matrix T(void) const;
@@ -712,7 +721,7 @@ public:
     std::cout<<B;
 \endcode
      *  \return Retorna un nuevo objeto con el
-     *  resultado, o una matriz vazia (this->IsVoid() igual a true) en caso de error.
+     *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
     Matrix operator -(void) const;
@@ -733,7 +742,7 @@ public:
     std::cout<<B;
 \endcode
      *  \return Retorna un nuevo objeto con el
-     *  resultado, o una matriz vacía (this->IsVoid() igual a true) en caso de error.
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
     Matrix Minus(void) const;
@@ -754,7 +763,7 @@ public:
     std::cout<<B;
 \endcode
      *  \return Retorna un nuevo objeto con el
-     *  resultado, o una matriz vacía (this->IsVoid() igual a true) en caso de error.
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
     Matrix operator +(void) const;
@@ -775,7 +784,7 @@ public:
     std::cout<<B;
 \endcode
      *  \return Retorna un nuevo objeto con el
-     *  resultado, o una matriz vazia (this->IsVoid() igual a true) en caso de error.
+     *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
     Matrix Plus(void) const;
@@ -807,7 +816,7 @@ public:
 \endcode
      *  \param[in] b El valor a sumar
      *  \return Retorna un nuevo objeto con el
-     *  resultado, o una matriz vazia (this->IsVoid() igual a true) en caso de error.
+     *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
      *  \see Add
      *  \ingroup MatrixGroup
      */
@@ -831,7 +840,7 @@ public:
 \endcode
      *  \param[in] b El valor a sumar
      *  \return Retorna un nuevo objeto con el
-     *  resultado, o una matriz vazia (this->IsVoid() igual a true) en caso de error.
+     *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
     Matrix Add(double b) const;
@@ -856,7 +865,7 @@ public:
 \endcode
      *  \param[in] B la matriz a sumar
      *  \return Retorna un nuevo objeto con el
-     *  resultado, o una matriz vazia (this->IsVoid() igual a true) en caso de error.
+     *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
      *  \see Add
      *  \ingroup MatrixGroup
      */
@@ -882,7 +891,7 @@ public:
 \endcode
      *  \param[in] B la matriz a sumar
      *  \return Retorna un nuevo objeto con el
-     *  resultado, o una matriz vazia (this->IsVoid() igual a true) en caso de error.
+     *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
     Matrix Add(const Matrix &B) const;
@@ -905,7 +914,7 @@ public:
 \endcode
      *  \param[in] b El valor a restar
      *  \return Retorna un nuevo objeto con el
-     *  resultado, o una matriz vazia (this->IsVoid() igual a true) en caso de error.
+     *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
      *  \see Add
      *  \ingroup MatrixGroup
      */
@@ -929,7 +938,7 @@ public:
 \endcode
      *  \param[in] b El valor a restar
      *  \return Retorna un nuevo objeto con el
-     *  resultado, o una matriz vazia (this->IsVoid() igual a true) en caso de error.
+     *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
     Matrix Sub(double b) const;
@@ -954,7 +963,7 @@ public:
 \endcode
      *  \param[in] B la matriz que resta
      *  \return Retorna un nuevo objeto con el
-     *  resultado, o una matriz vazia (this->IsVoid() igual a true) en caso de error.
+     *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
     Matrix operator -(const Matrix &B) const;
@@ -978,7 +987,7 @@ public:
 \endcode
      *  \param[in] B la matriz que resta
      *  \return Retorna un nuevo objeto con el
-     *  resultado, o una matriz vazia (this->IsVoid() igual a true) en caso de error.
+     *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
     Matrix Sub(const Matrix &B) const;
@@ -1000,7 +1009,7 @@ public:
 \endcode
      *  \param[in] b el valor a multiplicar
      *  \return Retorna C con el
-     *  resultado, o una matriz vazia (this->IsVoid() igual a true) en caso de error.
+     *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
      *  \see Mul
      *  \ingroup MatrixGroup
      */
@@ -1023,7 +1032,7 @@ public:
 \endcode
      *  \param[in] b el valor a multiplicar
      *  \return Retorna C con el
-     *  resultado, o una matriz vazia (this->IsVoid() igual a true) en caso de error.
+     *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
     Matrix Mul(double b) const;
@@ -1047,7 +1056,7 @@ public:
 \endcode
      *  \param[in] B la matriz a multiplicar
      *  \return Retorna C con el
-     *  resultado, o una matriz vazia (this->IsVoid() igual a true) en caso de error.
+     *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
      *  \see Mul
      *  \ingroup MatrixGroup
      */
@@ -1072,7 +1081,7 @@ public:
 \endcode
      *  \param[in] B la matriz a multiplicar
      *  \return Retorna C con el
-     *  resultado, o una matriz vazia (this->IsVoid() igual a true) en caso de error.
+     *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
     Matrix Mul(const Matrix &B) const;
@@ -1099,7 +1108,7 @@ public:
 \endcode
      *  \param[in] B la matriz a substraer
      *  \return Retorna el operador de la izquierda (acumulador) con el
-     *  resultado, o una matriz vazia (this->IsVoid() igual a true) en caso de error.
+     *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
      *  \see SubAssig
      *  \ingroup MatrixGroup
      */
@@ -1136,7 +1145,7 @@ public:
 \endcode
      *  \param[in] B la matriz a acumular
      *  \return Retorna el operador de la izquierda (acumulador) con el
-     *  resultado, o una matriz vazia (this->IsVoid() igual a true) en caso de error.
+     *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
      *  \see AddAssig
      *  \ingroup MatrixGroup
      */
@@ -1176,7 +1185,7 @@ public:
 \endcode
      *  \param[in] A la matriz a copiar
      *  \return Retorna el operador de la izquierda (acumulador) con el
-     *  resultado, o una matriz vacía (this->IsVoid() igual a true) en caso de error.
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
      *  \see Copy
      *  \ingroup MatrixGroup
      */
@@ -1264,7 +1273,7 @@ std::ostream& operator<<(std::ostream &out,const Pds::Matrix &mat);
      *  \param[in] b El valor a sumar
      *  \param[in] mat matriz a sumar
      *  \return Retorna un nuevo objeto con el
-     *  resultado, o una matriz vazia (this->IsVoid() igual a true) en caso de error.
+     *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
      *  \see Add
      *  \ingroup MatrixGroup
      */
@@ -1289,7 +1298,7 @@ Pds::Matrix operator+(double b,const Pds::Matrix &mat);
      *  \param[in] b El valor a operar
      *  \param[in] mat matriz a restar
      *  \return Retorna un nuevo objeto con el
-     *  resultado, o una matriz vazia (this->IsVoid() igual a true) en caso de error.
+     *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
      *  \see Sub
      *  \ingroup MatrixGroup
      */
@@ -1314,7 +1323,7 @@ Pds::Matrix operator-(double b,const Pds::Matrix &mat);
      *  \param[in] b El valor a operar
      *  \param[in] mat matriz a multiplicar
      *  \return Retorna un nuevo objeto con el
-     *  resultado, o una matriz vazia (this->IsVoid() igual a true) en caso de error.
+     *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
      *  \see Mul
      *  \ingroup MatrixGroup
      */

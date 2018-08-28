@@ -45,7 +45,7 @@ void Pds::Matrix::Print(std::string str) const
 {
     std::cout<<str;
 
-    if(this->IsVoid())   return;
+    if(this->IsEmpty())   return;
     
     std::cout<<std::setprecision(Pds::Ra::StringPrecision);
     unsigned int lin,col;
@@ -70,7 +70,7 @@ void Pds::Matrix::Print(void) const
 
 bool Pds::Matrix::Apply( double (*func)(double) )
 {
-    if(this->IsVoid())   return false;
+    if(this->IsEmpty())   return false;
     
     unsigned int lin,col;
 
@@ -93,7 +93,7 @@ bool Pds::Matrix::Save(const char* filepath) const
 std::string Pds::Matrix::ToString(void) const
 {
     std::string str="";
-    if(this->IsVoid())   return str;
+    if(this->IsEmpty())   return str;
     
     unsigned int lin,col;
 

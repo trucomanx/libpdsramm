@@ -23,13 +23,13 @@ int main(void)
     C= Pds::Matrix(2,2);    // A Matrix object was created, the data were copied
                             // and later the Matrix object was destroyed.
     
-    if((C=A).IsNotVoid())   C.Print("C=A\n");
+    if((C=A).IsNotEmpty())   C.Print("C=A\n");
     if(C.Copy(B))           C.Print("C=B\n");
     
     // += operator
     std::cout<<std::endl;
     
-    if((C+=A).IsNotVoid())  C.Print("C+=A\n");
+    if((C+=A).IsNotEmpty())  C.Print("C+=A\n");
     if(C.AddAssig(B))       C.Print("C+=B\n");
     
     

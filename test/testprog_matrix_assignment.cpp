@@ -17,7 +17,7 @@ int main(void)
     B.Move(C);
     std::cout<<B<<"\n";
     
-    if(C.IsVoid())  std::cout<<"C is null\n\n";
+    if(C.IsEmpty())  std::cout<<"C is null\n\n";
     
     std::cout<<"Assignment operator\n";    
     std::cout<<"C= Pds::Matrix(2,2);\n";

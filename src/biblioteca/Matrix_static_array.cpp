@@ -119,20 +119,8 @@ void Pds::Matrix::ReleaseArray(double** &array,unsigned int Nlin)
     }
 }
 
-
-
-#include <sstream>
 #include <iomanip>      // std::setprecision
-namespace patch
-{
-    template <typename T>
-    std::string ToString(T val)
-    {
-        std::stringstream stream;
-        stream <<std::setprecision(Pds::Ra::StringPrecision)<< val;
-        return stream.str();
-    }
-}
+
 
 std::string Pds::Matrix::ArrayToString(double **array,unsigned int Nlin,unsigned int Ncol)
 {
@@ -146,7 +134,7 @@ std::string Pds::Matrix::ArrayToString(double **array,unsigned int Nlin,unsigned
         if(array[lin]!=NULL)
         for(col=0;col<Ncol;col++)
         {
-            str=str+patch::ToString(array[lin][col]);
+            str=str+Pds::Ra::ToString(array[lin][col]);
             if(col!=(Ncol-1))   str=str+"\t";
             else                str=str+"\n";
         }

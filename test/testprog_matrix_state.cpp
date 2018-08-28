@@ -25,13 +25,13 @@ int main(void)
     
     pds_print_info_message("... is void?");
     
-    if(A.IsVoid())      std::cout<<"A is NULL"<<std::endl;
+    if(A.IsEmpty())      std::cout<<"A is NULL"<<std::endl;
     else                std::cout<<"A is not NULL"<<std::endl;
     
-    if(B.IsNotVoid())   std::cout<<"B is not NULL"<<std::endl;
+    if(B.IsNotEmpty())   std::cout<<"B is not NULL"<<std::endl;
     else                std::cout<<"B is NULL"<<std::endl;
     
-    if(C.IsNotVoid())   std::cout<<"C is not NULL"<<std::endl;
+    if(C.IsNotEmpty())   std::cout<<"C is not NULL"<<std::endl;
     else                std::cout<<"C is NULL"<<std::endl;
     
     

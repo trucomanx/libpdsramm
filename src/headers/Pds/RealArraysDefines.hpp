@@ -36,6 +36,7 @@
 #ifndef __PDS_REALARRAYSDEFINES_HPP__
 #define __PDS_REALARRAYSDEFINES_HPP__
     
+#include <iostream>
     
 #ifndef pds_print_error_message
 /*!
@@ -71,9 +72,6 @@
     std::cout<<"-----INFO :: "<<msg<<std::endl
 #endif
     
-#include <string>
-#include <iostream>
-
     
 namespace Pds{
 namespace Ra{

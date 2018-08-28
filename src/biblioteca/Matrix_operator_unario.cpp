@@ -80,7 +80,7 @@ Pds::Matrix Pds::Matrix::Inv(double *rcond) const
         }
         else
         {
-            A.MakeVoid();
+            A.MakeEmpty();
             if(rcond!=NULL) *rcond =0;
             return A;
         }
@@ -116,7 +116,7 @@ Pds::Matrix Pds::Matrix::Inv(double *rcond) const
 ////////////////////////////////////////////////////////////////////////
 Pds::Matrix Pds::Matrix::T(void) const
 {
-    if( this->IsVoid() )   return Pds::Matrix();
+    if( this->IsEmpty() )   return Pds::Matrix();
 
     Pds::Matrix Ans(this->ncol,this->nlin);
 
@@ -139,7 +139,7 @@ Pds::Matrix Pds::Matrix::operator +(void) const
 
 Pds::Matrix Pds::Matrix::Plus(void) const
 {
-    if( this->IsVoid() )   return Pds::Matrix();
+    if( this->IsEmpty() )   return Pds::Matrix();
     
     return *this;
 }
@@ -151,7 +151,7 @@ Pds::Matrix Pds::Matrix::operator -(void) const
 
 Pds::Matrix Pds::Matrix::Minus(void) const
 {
-    if( this->IsVoid() )   return Pds::Matrix();
+    if( this->IsEmpty() )   return Pds::Matrix();
 
     Pds::Matrix Ans(this->nlin,this->ncol);
 

@@ -26,7 +26,7 @@
 
 bool Pds::Matrix::FillRandN(void)
 {
-    if(this->IsVoid())   return false;
+    if(this->IsEmpty())   return false;
     
     unsigned int lin,col;
 
@@ -44,7 +44,7 @@ bool Pds::Matrix::FillRandN(void)
 
 bool Pds::Matrix::FillRandU(void)
 {
-    if(this->IsVoid())   return false;
+    if(this->IsEmpty())   return false;
     
     unsigned int lin,col;
 
@@ -59,7 +59,7 @@ bool Pds::Matrix::FillRandU(void)
 
 bool Pds::Matrix::Fill(double val)
 {
-    if(this->IsVoid())   return false;
+    if(this->IsEmpty())   return false;
 
     unsigned int lin,col;
     

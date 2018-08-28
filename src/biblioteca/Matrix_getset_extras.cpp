@@ -1,5 +1,5 @@
 /*
- * RealArrays.hpp
+ * Matrix_getset_extras.cpp
  * 
  * Copyright 2018 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
  * 
@@ -20,39 +20,27 @@
  * 
  */
 
-/** \file RealArrays.hpp
- * \brief Archivo de definición de cabeceras.
- *
- *  Puedes habilitar todos los módulos de la biblioteca  
- *  usando este archivo, haciendo:
-   @verbatim
-	#include <Pds/RealArrays>
-   @endverbatim
- * O puedes habilitarlas una por una usando lo siguiente:
-   @verbatim
-    #include <Pds/RealArraysDefines>
-    #include <Pds/Matrix>
-   @endverbatim
- * 
- */
-    
-    
-#ifndef __PDS_REALARRAYS_HPP__
-#define __PDS_REALARRAYS_HPP__
-    
-    
-#include <Pds/RealArraysDefines>
-#include <Pds/RealArraysTools>
-    
 #include <Pds/Matrix>
 #include <Pds/ColVector>
+
+#include <cmath>
+
+
+Pds::ColVector Pds::Matrix::GetColVector(unsigned int col) const
+{   
+    if(col>=this->ncol) return Pds::ColVector();
     
-#include <Pds/MathMatrix>
-#include <Pds/FuncMatrix>
-#include <Pds/RotationMatrix>
-
-#include <Pds/FuncColVector>
+    double** array=Pds::Matrix::AllocateArray(this->nlin,1);
+    if(array==NULL)     return Pds::ColVector();
     
-#endif /* __PDS_REALARRAYS_HPP__ */
-
-
+    Pds::ColVector C;
+    
+    for(unsigned int lin=0;lin<this->nlin;lin++)
+    array[lin][0]=this->array[lin][col];
+    
+    C.array=array;
+    C.nlin=this->nlin;
+    C.ncol=1;
+    return C;
+}
+    

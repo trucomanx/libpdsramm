@@ -32,7 +32,7 @@
 Pds::Matrix& Pds::Matrix::operator = (const Pds::Matrix &A)
 {
     if(false==this->Copy(A))
-        this->MakeVoid();
+        this->MakeEmpty();
 
     //std::cout<<"used copy assignment\n";
     return *this;
@@ -46,9 +46,9 @@ bool Pds::Matrix::Copy(const Pds::Matrix &A)
     if(this!=&A) //Comprueba que no se esté intentando igualar un objeto a sí mismo
     {
 
-        if(A.IsVoid())
+        if(A.IsEmpty())
         {
-            this->MakeVoid();
+            this->MakeEmpty();
             return true;
         }
 
@@ -78,7 +78,7 @@ bool Pds::Matrix::Copy(const Pds::Matrix &A)
 Pds::Matrix& Pds::Matrix::operator = (Pds::Matrix &&A)
 {
     if(false==this->Move(A))
-        this->MakeVoid();
+        this->MakeEmpty();
 
     std::cout<<"used move assignment\n";
     return *this;
@@ -89,12 +89,12 @@ bool Pds::Matrix::Move( Pds::Matrix &A)
 {
     if(this!=&A) //Comprueba que no se esté intentando igualar un objeto a sí mismo
     {
-        if(A.IsVoid())
+        if(A.IsEmpty())
         {
             return false;
         }
             
-        if(this->IsNotVoid())
+        if(this->IsNotEmpty())
             Pds::Matrix::ReleaseArray(this->array,this->nlin);
 
         this->array = A.array;
@@ -114,7 +114,7 @@ bool Pds::Matrix::Move( Pds::Matrix &A)
 Pds::Matrix& Pds::Matrix::operator -=(const Pds::Matrix &B)
 {
     if(false==this->SubAssig(B))
-        this->MakeVoid();
+        this->MakeEmpty();
     
     return *this;
 }
@@ -122,7 +122,7 @@ Pds::Matrix& Pds::Matrix::operator -=(const Pds::Matrix &B)
 bool Pds::Matrix::SubAssig(const Pds::Matrix &B)
 {
     if( this->IsNotSimilarTo(B) )   return false;
-    if( B.IsVoid() )                return true;
+    if( B.IsEmpty() )                return true;
 
     unsigned int lin,col;
    
@@ -139,7 +139,7 @@ bool Pds::Matrix::SubAssig(const Pds::Matrix &B)
 Pds::Matrix& Pds::Matrix::operator +=(const Pds::Matrix &B)
 {
     if(false==this->AddAssig(B))
-        this->MakeVoid();
+        this->MakeEmpty();
     
     return *this;
 }
@@ -147,7 +147,7 @@ Pds::Matrix& Pds::Matrix::operator +=(const Pds::Matrix &B)
 bool Pds::Matrix::AddAssig(const Pds::Matrix &B)
 {
     if( this->IsNotSimilarTo(B) )   return false;
-    if( B.IsVoid() )                return true;
+    if( B.IsEmpty() )                return true;
 
     unsigned int lin,col;
    

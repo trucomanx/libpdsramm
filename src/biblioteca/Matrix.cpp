@@ -94,7 +94,7 @@ Pds::Matrix::Matrix(const Matrix &A)
         this->ncol=0;
         this->array=NULL;
         
-        if(A.IsVoid())  return;
+        if(A.IsEmpty())  return;
 
 
         this->array= Pds::Matrix::AllocateArray(A);
@@ -114,7 +114,7 @@ Pds::Matrix::Matrix(const Matrix &A, double (*func)(double))
     this->ncol=0;
     this->array=NULL;
         
-    if(A.IsVoid())  return;
+    if(A.IsEmpty())  return;
 
 
     this->array= Pds::Matrix::AllocateArray(A,func);

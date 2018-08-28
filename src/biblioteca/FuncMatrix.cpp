@@ -29,7 +29,7 @@ Pds::Matrix Pds::Diag(Pds::Matrix A)
 {
     unsigned int id;
     
-    if(A.IsVoid())
+    if(A.IsEmpty())
     {
         Pds::Matrix B;
         return B;
@@ -52,7 +52,7 @@ Pds::Matrix Pds::Eye(unsigned int N)
     
     Pds::Matrix A(N);
     
-    if(A.IsVoid())  return A;
+    if(A.IsEmpty())  return A;
     
     for(lin=0;lin<N;lin++)
     A.Set(1.0,lin,lin);
@@ -64,7 +64,7 @@ Pds::Matrix Pds::Ones(unsigned int Nlin,unsigned int Ncol)
 {
     Pds::Matrix A(Nlin,Ncol);
     
-    if(A.IsVoid())  return A;
+    if(A.IsEmpty())  return A;
     
     A.Fill(1.0);
     return A;
@@ -74,7 +74,7 @@ Pds::Matrix Pds::Ones(unsigned int N)
 {
     Pds::Matrix A(N,N);
     
-    if(A.IsVoid())  return A;
+    if(A.IsEmpty())  return A;
     
     A.Fill(1.0);
     return A;

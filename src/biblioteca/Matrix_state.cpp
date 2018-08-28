@@ -25,7 +25,7 @@
 #include <Pds/Matrix>
 
 
-bool Pds::Matrix::IsVoid(void) const
+bool Pds::Matrix::IsEmpty(void) const
 {
     if((this->nlin)==0)    return true;
     if((this->ncol)==0)    return true;
@@ -34,7 +34,7 @@ bool Pds::Matrix::IsVoid(void) const
     return false;
 }
 
-bool Pds::Matrix::IsNotVoid(void) const
+bool Pds::Matrix::IsNotEmpty(void) const
 {
     if((this->nlin)==0)    return false;
     if((this->ncol)==0)    return false;
@@ -43,7 +43,7 @@ bool Pds::Matrix::IsNotVoid(void) const
     return true;
 }
 
-void Pds::Matrix::MakeVoid(void)
+void Pds::Matrix::MakeEmpty(void)
 {
     Pds::Matrix::ReleaseArray(this->array,this->nlin);
     this->nlin=0;
@@ -75,8 +75,8 @@ bool Pds::Matrix::IsNotSimilarTo(const Pds::Matrix &B) const
 
 bool Pds::Matrix::IsMulBy(const Pds::Matrix &B) const
 {
-    if(this->IsVoid())  return false;
-    if(B.IsVoid())      return false;
+    if(this->IsEmpty())  return false;
+    if(B.IsEmpty())      return false;
     
     if((this->ncol)!=B.nlin)    return false;
     
@@ -85,8 +85,8 @@ bool Pds::Matrix::IsMulBy(const Pds::Matrix &B) const
 
 bool Pds::Matrix::IsNotMulBy(const Pds::Matrix &B) const
 {
-    if(this->IsVoid())  return true;
-    if(B.IsVoid())      return true;
+    if(this->IsEmpty())  return true;
+    if(B.IsEmpty())      return true;
     
     if((this->ncol)!=B.nlin)    return true;
     
@@ -96,7 +96,7 @@ bool Pds::Matrix::IsNotMulBy(const Pds::Matrix &B) const
 
 bool Pds::Matrix::IsInSizeRange(double lin,double col) const
 {
-    if(this->IsVoid())      return false;
+    if(this->IsEmpty())      return false;
     if(col<0)               return false;    
     if(lin<0)               return false;
     if(col>(this->ncol-1))  return false;    
@@ -108,7 +108,7 @@ bool Pds::Matrix::IsInSizeRange(double lin,double col) const
 
 bool Pds::Matrix::IsInRange(unsigned int lin,unsigned int col) const
 {
-    if(this->IsVoid())  return false;
+    if(this->IsEmpty())  return false;
     if(col>=this->ncol) return false;    
     if(lin>=this->nlin) return false;
     
@@ -117,7 +117,7 @@ bool Pds::Matrix::IsInRange(unsigned int lin,unsigned int col) const
 
 bool Pds::Matrix::IsNotInRange(unsigned int lin,unsigned int col) const
 {
-    if(this->IsVoid())  return true;
+    if(this->IsEmpty())  return true;
     if(col>=this->ncol) return true;    
     if(lin>=this->nlin) return true;
     
@@ -129,8 +129,8 @@ Pds::Matrix Pds::Matrix::IsInf(void) const
 {
     Pds::Matrix A(this->nlin,this->ncol);
     
-    if(A.IsVoid())      return A;
-    if(this->IsVoid())  return A;
+    if(A.IsEmpty())      return A;
+    if(this->IsEmpty())  return A;
     
     unsigned int lin,col;
     
@@ -146,8 +146,8 @@ Pds::Matrix Pds::Matrix::IsNan(void) const
 {
     Pds::Matrix A(this->nlin,this->ncol);
     
-    if(A.IsVoid())      return A;
-    if(this->IsVoid())  return A;
+    if(A.IsEmpty())      return A;
+    if(this->IsEmpty())  return A;
     
     unsigned int lin,col;
     
@@ -163,8 +163,8 @@ Pds::Matrix Pds::Matrix::IsFinite(void) const
 {
     Pds::Matrix A(this->nlin,this->ncol);
     
-    if(A.IsVoid())      return A;
-    if(this->IsVoid())  return A;
+    if(A.IsEmpty())      return A;
+    if(this->IsEmpty())  return A;
     
     unsigned int lin,col;
     

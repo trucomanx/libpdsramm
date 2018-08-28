@@ -1,5 +1,5 @@
 /*
- * RealArrays.hpp
+ * MatrixInner.cpp
  * 
  * Copyright 2018 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
  * 
@@ -20,39 +20,26 @@
  * 
  */
 
-/** \file RealArrays.hpp
- * \brief Archivo de definición de cabeceras.
- *
- *  Puedes habilitar todos los módulos de la biblioteca  
- *  usando este archivo, haciendo:
-   @verbatim
-	#include <Pds/RealArrays>
-   @endverbatim
- * O puedes habilitarlas una por una usando lo siguiente:
-   @verbatim
-    #include <Pds/RealArraysDefines>
-    #include <Pds/Matrix>
-   @endverbatim
- * 
- */
-    
-    
-#ifndef __PDS_REALARRAYS_HPP__
-#define __PDS_REALARRAYS_HPP__
-    
-    
-#include <Pds/RealArraysDefines>
-#include <Pds/RealArraysTools>
-    
-#include <Pds/Matrix>
-#include <Pds/ColVector>
-    
-#include <Pds/MathMatrix>
-#include <Pds/FuncMatrix>
-#include <Pds/RotationMatrix>
 
-#include <Pds/FuncColVector>
-    
-#endif /* __PDS_REALARRAYS_HPP__ */
+#include <Pds/MatrixInner.hpp>
 
+Pds::MatrixInner::MatrixInner(void)
+{
+    return;
+}
+
+Pds::MatrixInner::MatrixInner(  Pds::Matrix A, 
+                                unsigned int lin_begin  ,unsigned int col_begin, 
+                                unsigned int lin_end    ,unsigned int col_end)
+{
+    return;
+}
+
+Pds::MatrixInner::~MatrixInner(void)
+{
+    this->array=NULL;
+
+    this->nlin=0;
+    this->ncol=0;
+}
 
