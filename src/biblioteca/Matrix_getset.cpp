@@ -51,6 +51,12 @@ double Pds::Matrix::Get(unsigned int lin,unsigned int col) const
     else                           return 0.0;
 }
     
+const double *Pds::Matrix::GetPointer(unsigned int lin,unsigned int col) const
+{
+    if(this->IsInRange(lin,col))   return (this->array[lin]+col);
+    else                           return NULL;
+}
+    
 double Pds::Matrix::GetBilinear(double lin,double col) const
 {
     if((lin<0.0)||(col<0.0)||(lin>(this->nlin-1))||(col>(this->ncol-1)))

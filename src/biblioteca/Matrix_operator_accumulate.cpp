@@ -74,16 +74,6 @@ bool Pds::Matrix::Copy(const Pds::Matrix &A)
 }
 
 ////////////////////////////////////////////////////////////////////////
-/*
-Pds::Matrix& Pds::Matrix::operator = (Pds::Matrix &&A)
-{
-    if(false==this->Move(A))
-        this->MakeEmpty();
-
-    std::cout<<"used move assignment\n";
-    return *this;
-}
-*/
 
 bool Pds::Matrix::Move( Pds::Matrix &A)
 {

@@ -335,6 +335,17 @@ public:
     double Get(unsigned int lin,unsigned int col) const;
     
     /** 
+     *  \brief Retorna el valor en la posición (lin,col), hace una verificación
+     *  si la posición existe. 
+     *  \param[in] lin La linea en consulta.
+     *  \param[in] col La columna en consulta.
+     *  \return Retorna el valor en la posición (lin,col) o cero si la 
+     *  posición no existe.
+     *  \ingroup MatrixGroup
+     */
+    const double *GetPointer(unsigned int lin,unsigned int col) const;
+    
+    /** 
      *  \brief Retorna un vector columna copia de una columna de la matriz. 
      *  \param[in] col La columna en consulta.
      *  \return Retorna el vector columna en la posición (col) o un vector vacio si la 
