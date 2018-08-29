@@ -39,9 +39,20 @@
  *  
  *  <br>Estas funciones trabajan con una matriz de la forma.<br>
  *  <center>
- *  \image html matrix.png "Matriz"
+   \f[
+A=\left(\begin{matrix}
+a_{00} & a_{01} & \hdots & a_{0(Ncol-1)}\\ 
+a_{10} & a_{11} & \hdots & a_{1(Ncol-1)}\\
+\vdots & \vdots & \vdots & \vdots \\
+a_{(Nlin-2)0} & a_{(Nlin-2)1} & \hdots & a_{(Nlin-2)(Ncol-1)}\\ 
+a_{(Nlin-1)0} & a_{(Nlin-1)1} & \hdots & a_{(Nlin-1)(Ncol-1)}\\
+\end{matrix}\right)\equiv A_{(Nlin-1)(Ncol-1)}
+   \f]
+   \f[
+A_{(Nlin-1)(Ncol-1)}\equiv [a_{ij}]_{(Nlin-1)(Ncol-1)}
+   \f]
  *  </center>
- *  \b nlin es el número de lineas y \b ncol es el número de columnas.
+ *  \b Nlin es el número de lineas y \b Ncol es el número de columnas.
  *  
  * Informacion adicional puede ser encontrada en @cite tutorialmatvec
  * @{
@@ -79,35 +90,99 @@ public:
  */
 
     /** 
-     *  \brief Crea un objeto de tipo Pds::Matrix
-     *  \return un objeto de tipo Pds::Matrix.
+     *  \brief Crea un objeto de tipo Pds::Matrix vacio.
+     * 
+   \f[
+A_{0,0}\equiv []_{0,0}
+   \f]
+   Para crear una matriz vacia:
+\code{.cpp}
+    Pds::Matrix A;
+    
+    if(A.IsEmpty()) std::cout<<"Yes,always\n";
+\endcode
      *  \ingroup MatrixGroup
      */
     Matrix(void);
 
     /** 
-     *  \brief Crea un objeto de tipo Pds::Matrix
+     *  \brief Crea un objeto de tipo Pds::Matrix de N lineas y N columnas,
+     *  con elementos inicializados con cero.
+   \f[
+A=\left(\begin{matrix}
+0 & 0 & \hdots & 0\\ 
+0 & 0 & \hdots & 0\\
+\vdots & \vdots & \vdots & \vdots \\
+0 & 0 & \hdots & 0\\ 
+0 & 0 & \hdots & 0\\
+\end{matrix}\right)\equiv A_{N,N}
+   \f]
+   \f[
+A_{N,N}\equiv [a_{i,j}]_{N,N}\equiv [0]_{N,N}
+   \f]
+   Para crear una matriz A de 4 filas y 4 columnas:
+\code{.cpp}
+    Pds::Matrix A(4);
+    
+    if(A.IsEmpty()) std::cout<<"Yes,possible memory allocation problem\n";
+    else            std::cout<<"No,all fine\n";
+\endcode
      *  \param[in] N El numero de lineas y columnas de la matriz.
-     *  \return un objeto de tipo Pds::Matrix.
      *  \ingroup MatrixGroup
      */
     Matrix(unsigned int N);
     
     /** 
      *  \brief Crea un objeto de tipo Pds::Matrix con elementos inicializados con cero.
+   \f[
+A=\left(\begin{matrix}
+0 & 0 & \hdots & 0\\ 
+0 & 0 & \hdots & 0\\
+\vdots & \vdots & \vdots & \vdots \\
+0 & 0 & \hdots & 0\\ 
+0 & 0 & \hdots & 0\\
+\end{matrix}\right)\equiv A_{Nlin,Ncol}
+   \f]
+   \f[
+A_{Nlin,Ncol}\equiv [a_{i,j}]_{Nlin,Ncol}\equiv [0]_{Nlin,Ncol}
+   \f]
+   Para crear una matriz A de 4 filas y 3 columnas:
+\code{.cpp}
+    Pds::Matrix A(4,3);
+    
+    if(A.IsEmpty()) std::cout<<"Yes,possible memory allocation problem\n";
+    else            std::cout<<"No,all fine\n";
+\endcode
      *  \param[in] Nlin El numero de lineas de la matriz.
      *  \param[in] Ncol El numero de columnas de la matriz.
-     *  \return un objeto de tipo Pds::Matrix.
      *  \ingroup MatrixGroup
      */
     Matrix(unsigned int Nlin,unsigned int Ncol);
     
     /** 
      *  \brief Crea un objeto de tipo Pds::Matrix con elementos inicializados con val.
+   \f[
+A=\left(\begin{matrix}
+val & val & \hdots & val\\ 
+val & val & \hdots & val\\
+\vdots & \vdots & \vdots & \vdots \\
+val & val & \hdots & val\\ 
+val & val & \hdots & val\\
+\end{matrix}\right)\equiv A_{Nlin,Ncol}
+   \f]
+   \f[
+A_{Nlin,Ncol}\equiv [a_{i,j}]_{Nlin,Ncol}\equiv [val]_{Nlin,Ncol}
+   \f]
+   Para crear una matriz A de 4 filas y 3 columnas inicializado con -1:
+\code{.cpp}
+    Pds::Matrix A(4,3,-1.0);
+    
+    if(A.IsEmpty()) std::cout<<"Yes,possible memory allocation problem\n";
+    else            std::cout<<"No,all fine\n";
+\endcode
      *  \param[in] Nlin El numero de lineas de la matriz.
      *  \param[in] Ncol El numero de columnas de la matriz.
      *  \param[in] val El valor a usar.
-     *  \return un objeto de tipo Pds::Matrix.
      *  \ingroup MatrixGroup
      */
     Matrix(unsigned int Nlin,unsigned int Ncol,double val);
@@ -115,26 +190,65 @@ public:
     /** 
      *  \brief Crea un objeto de tipo Pds::Matrix copiando datos desde 
      *  otra matriz. Este es un Copy assignment constructor.
-     *  \param[in] A Matriz a copiar.
-     *  \return un objeto de tipo Pds::Matrix.
+   \f[
+B_{Nlin,Ncol}\equiv [b_{i,j}]_{Nlin,Ncol}
+   \f]
+   \f[
+A \leftarrow B
+   \f]
+   Para crear una matriz A con copia de datos de una matriz B:
+\code{.cpp}
+    Pds::Matrix B(4,3,-1.0);
+    Pds::Matrix A(B);
+    
+    if(A.IsEmpty()) std::cout<<"Yes,possible memory allocation problem\n";
+    else            std::cout<<"No,all fine\n";
+\endcode
+     *  \param[in] B Matriz a copiar.
      *  \ingroup MatrixGroup
      */
-    Matrix(const Matrix &A);
+    Matrix(const Matrix &B);
     
     /** 
-     *  \brief Crea un objeto de tipo Pds::Matrix copiando datos desde 
-     *  otra matriz.
-     *  \param[in] A Matriz a copiar.
+     *  \brief Crea un objeto de tipo Pds::Matrix, evaluando mediante una funcion, 
+     *  los datos de otra matriz.
+   \f[
+B_{Nlin,Ncol}\equiv [b_{i,j}]_{Nlin,Ncol}
+   \f]
+   \f[
+A \leftarrow func(B)
+   \f]
+   Para crear una matriz A , copia de sin(B):
+\code{.cpp}
+    Pds::Matrix B(4,3,1.0);
+    Pds::Matrix A(B,sin);
+    
+    if(A.IsEmpty()) std::cout<<"Yes,possible memory allocation problem\n";
+    else            std::cout<<"No,all fine\n";
+\endcode
+     *  \param[in] B Matriz a evaluar para copiar los resultados.
      *  \param[in] func Función a aplicar, esta debe tener a forma double func(double).
-     *  \return un objeto de tipo Pds::Matrix.
      *  \ingroup MatrixGroup
      */
-    Matrix(const Matrix &A, double (*func)(double) );
+    Matrix(const Matrix &B, double (*func)(double) );
     
     /** 
      *  \brief Crea un objeto de tipo Pds::Matrix copiando datos desde 
      *  un archivo. 
-     *  \return un objeto de tipo Pds::Matrix.
+     * 
+     * Considerando el archivo "filedat.txt":
+\code{.cpp}
+0.1 -1.0  3
+9   4    -3
+\endcode
+   Para crear una matriz A con los datos del archivo "filedat.txt":
+\code{.cpp}
+    Pds::Matrix A("filedat.txt");
+    
+    if(A.IsEmpty()) std::cout<<"Yes,possible memory allocation problem,"
+                             <<"possible file not found,etc\n";
+    else            std::cout<<"No,all fine\n";
+\endcode
      *  \ingroup MatrixGroup
      */
     Matrix(const char *filepath);
@@ -155,6 +269,8 @@ public:
 
     /** 
      *  \brief Verifica si la matriz es nula es decir con lineas o columnas cero o arreglo NULL.
+     *  
+     *  Una matriz\f$A\f$ está vacia si  \f$ A=[]_{0,0}\f$.
      *  \return Retorna true si es nula e false si no.
      *  \ingroup MatrixGroup
      */
@@ -162,6 +278,8 @@ public:
 
     /** 
      *  \brief Verifica si la matriz NO es nula, es decir con lineas y columnas diferentes cero y arreglo diferente de NULL.
+     * 
+     *  Una matriz\f$A\f$ está vacia si  \f$ A=[]_{0,0}\f$.
      *  \return Retorna true si NO es nula e false si lo es.
      *  \ingroup MatrixGroup
      */
@@ -170,12 +288,17 @@ public:
     /** 
      *  \brief libera los datos internos de la matriz y la convierte en una matriz nula.
      *  es decir con lineas y columnas cero.
+     * 
+     *  Una matriz\f$A\f$ está vacia si  \f$ A=[]_{0,0}\f$.
      *  \ingroup MatrixGroup
      */
     void MakeEmpty(void);
 
     /** 
      *  \brief Verifica si las matrices son similares en tamaño.
+     * 
+     *  Una matriz\f$A=[a_{i,j}]_{M,N}\f$ es similar a \f$B=[b_{i,j}]_{P,Q}\f$ 
+     *  si  \f$M=P\f$ y \f$N=Q\f$.
      *  \param[in] B Matriz en consulta.
      *  \return Retorna true si son similares y false si no.
      *  \ingroup MatrixGroup
@@ -184,6 +307,9 @@ public:
 
     /** 
      *  \brief Verifica si las matrices son similares en tamaño.
+     * 
+     *  Una matriz\f$A=[a_{i,j}]_{M,N}\f$ es similar a \f$B=[b_{i,j}]_{P,Q}\f$ 
+     *  si  \f$M=P\f$ y \f$N=Q\f$.
      *  \param[in] B Matriz en consulta.
      *  \return Retorna false si son similares y true si no.
      *  \ingroup MatrixGroup
@@ -192,6 +318,9 @@ public:
     
     /** 
      *  \brief Verifica si las matrices son multiplicables.
+     * 
+     *  Una matriz\f$A=[a_{i,j}]_{M,N}\f$ es multiplicable por \f$B=[b_{i,j}]_{P,Q}\f$ 
+     *  si  \f$N=P\f$ y ambas son no vacias.
      *  \param[in] B Matriz en consulta.
      *  \return Retorna true si son multiplicables y false si no.
      *  \ingroup MatrixGroup
@@ -200,6 +329,9 @@ public:
 
     /** 
      *  \brief Verifica si las matrices son multiplicables.
+     * 
+     *  Una matriz\f$A=[a_{i,j}]_{M,N}\f$ es multiplicable por \f$B=[b_{i,j}]_{P,Q}\f$ 
+     *  si  \f$N= P\f$ y ambas son no vacias.
      *  \param[in] B Matriz en consulta.
      *  \return Retorna false si son multiplicables y true si no.
      *  \ingroup MatrixGroup
@@ -208,6 +340,10 @@ public:
 
     /** 
      *  \brief Verifica si la posición pertenece a la matriz.
+     * 
+     *  Dada una matriz\f$A=[a_{i,j}]_{M,N}\f$; la posición \f$(lin,col)\f$ 
+     *  está en rango de \f$A\f$ si cualquier valor entero de \f$0\leq lin \leq M-1\f$
+     *  y  cualquier valor entero de \f$0\leq col \leq N-1\f$.
      *  \param[in] lin Linea en consulta.
      *  \param[in] col columna en consulta.
      *  \return Retorna true si pertenece y false si no.
@@ -217,6 +353,10 @@ public:
     
     /** 
      *  \brief Verifica si la posición NO pertenece a la matriz.
+     * 
+     *  Dada una matriz\f$A=[a_{i,j}]_{M,N}\f$; la posición \f$(lin,col)\f$ 
+     *  está en rango de \f$A\f$ si cualquier valor entero de \f$0\leq lin \leq M-1\f$
+     *  y  cualquier valor entero de \f$0\leq col \leq N-1\f$.
      *  \param[in] lin Linea en consulta.
      *  \param[in] col columna en consulta.
      *  \return Retorna false si pertenece y true si no.
@@ -227,9 +367,9 @@ public:
     /** 
      *  \brief Verifica si la posición (lin,col) pertenece al rango de la matriz.
      * 
-     *  Para retornar true lin debe esta entre 0 y (Nlin-1) incluyendo estos,
-     *  y col debe esta entre 0 y (Ncol-1) incluyendo estos; donde Nlin y Ncol
-     *  son el numero de lineas y columnas de la matriz respectivamente.
+     *  Dada una matriz\f$A=[a_{i,j}]_{M,N}\f$; la posición \f$(lin,col)\f$ 
+     *  está en rango de \f$A\f$ si cualquier valor real de \f$0\leq lin \leq M-1\f$
+     *  y  cualquier valor real de \f$0\leq col \leq N-1\f$.
      *  \param[in] lin Linea en consulta.
      *  \param[in] col columna en consulta.
      *  \return Retorna true si pertenece y false si no.
@@ -239,6 +379,8 @@ public:
     
     /** 
      *  \brief Verifica si la matriz tiene elementos con valores infinitos.
+     * 
+     * Los valores infinitos pueden producirse con \f$+\frac{1}{0},-\frac{1}{0} y \frac{1}{0}\f$.
      *  \return Retorna una nueva matriz con 1 donde es infinito y 0 donde no lo es.
      *  \ingroup MatrixGroup
      */
@@ -246,6 +388,8 @@ public:
     
     /** 
      *  \brief Verifica si la matriz tiene elementos con valores NAN (Not A Number).
+     * 
+     *  Los valores NAN pueden producirse con \f$\frac{0}{0}\f$.
      *  \return Retorna una nueva matriz con 1 donde es NAN y 0 donde no lo es.
      *  \ingroup MatrixGroup
      */
@@ -311,11 +455,42 @@ public:
 /**
  * @}
  */
+public:
+
+/** @name Métodos get y set, extras
+ *  Herramientas genericas para lectura y escritura de datos.
+ * @{
+ */
+ 
+    /** 
+     *  \brief Retorna un vector columna copia de una columna de la matriz. 
+     *  \param[in] col La columna en consulta.
+     *  \return Retorna el vector columna en la posición (col) o un vector vacio si la 
+     *  posición no existe.
+     *  \ingroup MatrixGroup
+     */
+    Pds::ColVector GetColVector(unsigned int col) const;
+    
+    /** 
+     *  \brief Copia un vector columna en una columna de la matriz. Si los 
+     *  tamanos son diferentes, se intersectan las matrices y se copia 
+     *  solamente en la interseccion.
+     *  \param[in] V El vector a copiar.
+     *  \param[in] col La columna en consulta.
+     *  \return Retorna true si la copia fue hecha y la posición (col) existe
+     *  o false si hubo algún problema. En caso de retornar false no se modifica la matriz.
+     *  \ingroup MatrixGroup
+     */
+    bool SetColVector(const Pds::ColVector V,unsigned int col);
+    
+/**
+ * @}
+ */
 
 public:
 
 /** @name Métodos get y set
- *  Herramientas gnereicas
+ *  Herramientas genericas para lectura y escritura de datos.
  * @{
  */
     /** 
@@ -362,23 +537,16 @@ public:
     const double *GetPointer(unsigned int lin,unsigned int col) const;
     
     /** 
-     *  \brief Retorna un vector columna copia de una columna de la matriz. 
+     *  \brief Escribe el valor en la posición (lin,col), hace una verificación
+     *  si la posición existe. 
+     *  \param[in] val valor a escribir.
+     *  \param[in] lin La linea en consulta.
      *  \param[in] col La columna en consulta.
-     *  \return Retorna el vector columna en la posición (col) o un vector vacio si la 
-     *  posición no existe.
+     *  \return Retorna true si consiguió escribir el valor en la 
+     *  posicion (lin,col) o false si no.
      *  \ingroup MatrixGroup
      */
-    Pds::ColVector GetColVector(unsigned int col) const;
-    
-    /** 
-     *  \brief Copia un vector columna en una columna de la matriz.
-     *  \param[in] V El vector a copiar.
-     *  \param[in] col La columna en consulta.
-     *  \return Retorna true si la copia fue hecha y la posición (col) existe
-     *  o false si hubo algún problema. En caso de retornar false no se modifica la matriz.
-     *  \ingroup MatrixGroup
-     */
-    bool SetColVector(const Pds::ColVector V,unsigned int col);
+    bool Set(double val,unsigned int lin,unsigned int col);
     
     /** 
      *  \brief Retorna el valor en la posición (lin,col),  usando una
@@ -393,18 +561,6 @@ public:
      */
     double GetBilinear(double lin,double col) const;
     
-    /** 
-     *  \brief Escribe el valor en la posición (lin,col), hace una verificación
-     *  si la posición existe. 
-     *  \param[in] val valor a escribir.
-     *  \param[in] lin La linea en consulta.
-     *  \param[in] col La columna en consulta.
-     *  \return Retorna true si consiguió escribir el valor en la 
-     *  posicion (lin,col) o false si no.
-     *  \ingroup MatrixGroup
-     */
-    bool Set(double val,unsigned int lin,unsigned int col);
-
     /** 
      *  \brief Retorna el numero de lineas de la matriz.
      *  \return Retorna el numero de lineas de la matriz.
@@ -494,7 +650,6 @@ public:
      *  \ingroup MatrixGroup
      */
     bool RowReduction(void);
-
 
 /**
  * @}

@@ -48,9 +48,12 @@ bool Pds::Matrix::SetColVector(const Pds::ColVector V,unsigned int col)
 {   
     if(col>=this->ncol) return false;
     
+    if(this->IsEmpty()) return false;
     if(V.IsEmpty())     return false;
     
-    for(unsigned int lin=0;lin<this->nlin;lin++)
+    unsigned int Nlin=std::min(V.Nlin(),this->nlin);
+    
+    for(unsigned int lin=0;lin<Nlin;lin++)
     this->array[lin][col]=V.Get(lin);
     
     return true;
