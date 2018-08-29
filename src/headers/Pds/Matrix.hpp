@@ -40,7 +40,7 @@
  *  <br>Estas funciones trabajan con una matriz de la forma.<br>
  *  <center>
    \f[
-A=\left(\begin{matrix}
+\mathbf{A}=\left(\begin{matrix}
 a_{00} & a_{01} & \hdots & a_{0(Ncol-1)}\\ 
 a_{10} & a_{11} & \hdots & a_{1(Ncol-1)}\\
 \vdots & \vdots & \vdots & \vdots \\
@@ -93,7 +93,7 @@ public:
      *  \brief Crea un objeto de tipo Pds::Matrix vacio.
      * 
    \f[
-A_{0,0}\equiv []_{0,0}
+\mathbf{A}=A_{0,0}\equiv []_{0,0}
    \f]
    Para crear una matriz vacia:
 \code{.cpp}
@@ -108,8 +108,9 @@ A_{0,0}\equiv []_{0,0}
     /** 
      *  \brief Crea un objeto de tipo Pds::Matrix de N lineas y N columnas,
      *  con elementos inicializados con cero.
+     * 
    \f[
-A=\left(\begin{matrix}
+\mathbf{A}=\left(\begin{matrix}
 0 & 0 & \hdots & 0\\ 
 0 & 0 & \hdots & 0\\
 \vdots & \vdots & \vdots & \vdots \\
@@ -118,7 +119,7 @@ A=\left(\begin{matrix}
 \end{matrix}\right)\equiv A_{N,N}
    \f]
    \f[
-A_{N,N}\equiv [a_{i,j}]_{N,N}\equiv [0]_{N,N}
+A_{N,N}\equiv [0]_{N,N}
    \f]
    Para crear una matriz A de 4 filas y 4 columnas:
 \code{.cpp}
@@ -134,8 +135,9 @@ A_{N,N}\equiv [a_{i,j}]_{N,N}\equiv [0]_{N,N}
     
     /** 
      *  \brief Crea un objeto de tipo Pds::Matrix con elementos inicializados con cero.
+     * 
    \f[
-A=\left(\begin{matrix}
+\mathbf{A}=\left(\begin{matrix}
 0 & 0 & \hdots & 0\\ 
 0 & 0 & \hdots & 0\\
 \vdots & \vdots & \vdots & \vdots \\
@@ -144,7 +146,7 @@ A=\left(\begin{matrix}
 \end{matrix}\right)\equiv A_{Nlin,Ncol}
    \f]
    \f[
-A_{Nlin,Ncol}\equiv [a_{i,j}]_{Nlin,Ncol}\equiv [0]_{Nlin,Ncol}
+A_{Nlin,Ncol}\equiv [0]_{Nlin,Ncol}
    \f]
    Para crear una matriz A de 4 filas y 3 columnas:
 \code{.cpp}
@@ -161,8 +163,9 @@ A_{Nlin,Ncol}\equiv [a_{i,j}]_{Nlin,Ncol}\equiv [0]_{Nlin,Ncol}
     
     /** 
      *  \brief Crea un objeto de tipo Pds::Matrix con elementos inicializados con val.
+     * 
    \f[
-A=\left(\begin{matrix}
+\mathbf{A}=\left(\begin{matrix}
 val & val & \hdots & val\\ 
 val & val & \hdots & val\\
 \vdots & \vdots & \vdots & \vdots \\
@@ -171,7 +174,7 @@ val & val & \hdots & val\\
 \end{matrix}\right)\equiv A_{Nlin,Ncol}
    \f]
    \f[
-A_{Nlin,Ncol}\equiv [a_{i,j}]_{Nlin,Ncol}\equiv [val]_{Nlin,Ncol}
+A_{Nlin,Ncol}\equiv [val]_{Nlin,Ncol}
    \f]
    Para crear una matriz A de 4 filas y 3 columnas inicializado con -1:
 \code{.cpp}
@@ -190,11 +193,12 @@ A_{Nlin,Ncol}\equiv [a_{i,j}]_{Nlin,Ncol}\equiv [val]_{Nlin,Ncol}
     /** 
      *  \brief Crea un objeto de tipo Pds::Matrix copiando datos desde 
      *  otra matriz. Este es un Copy assignment constructor.
+     * 
    \f[
 B_{Nlin,Ncol}\equiv [b_{i,j}]_{Nlin,Ncol}
    \f]
    \f[
-A \leftarrow B
+\mathbf{A} \leftarrow \mathbf{B}
    \f]
    Para crear una matriz A con copia de datos de una matriz B:
 \code{.cpp}
@@ -212,11 +216,12 @@ A \leftarrow B
     /** 
      *  \brief Crea un objeto de tipo Pds::Matrix, evaluando mediante una funcion, 
      *  los datos de otra matriz.
+     * 
    \f[
 B_{Nlin,Ncol}\equiv [b_{i,j}]_{Nlin,Ncol}
    \f]
    \f[
-A \leftarrow func(B)
+\mathbf{A} \leftarrow func(\mathbf{B})
    \f]
    Para crear una matriz A , copia de sin(B):
 \code{.cpp}
@@ -270,7 +275,7 @@ public:
     /** 
      *  \brief Verifica si la matriz es nula es decir con lineas o columnas cero o arreglo NULL.
      *  
-     *  Una matriz\f$A\f$ está vacia si  \f$ A=[]_{0,0}\f$.
+     *  Una matriz\f$\mathbf{A}\f$ está vacia si  \f$ \mathbf{A}=[]_{0,0}\f$.
      *  \return Retorna true si es nula e false si no.
      *  \ingroup MatrixGroup
      */
@@ -279,7 +284,7 @@ public:
     /** 
      *  \brief Verifica si la matriz NO es nula, es decir con lineas y columnas diferentes cero y arreglo diferente de NULL.
      * 
-     *  Una matriz\f$A\f$ está vacia si  \f$ A=[]_{0,0}\f$.
+     *  Una matriz\f$\mathbf{A}\f$ está vacia si  \f$ \mathbf{A}=[]_{0,0}\f$.
      *  \return Retorna true si NO es nula e false si lo es.
      *  \ingroup MatrixGroup
      */
@@ -289,7 +294,7 @@ public:
      *  \brief libera los datos internos de la matriz y la convierte en una matriz nula.
      *  es decir con lineas y columnas cero.
      * 
-     *  Una matriz\f$A\f$ está vacia si  \f$ A=[]_{0,0}\f$.
+     *  Una matriz\f$\mathbf{A}\f$ está vacia si  \f$ \mathbf{A}=[]_{0,0}\f$.
      *  \ingroup MatrixGroup
      */
     void MakeEmpty(void);
@@ -297,7 +302,7 @@ public:
     /** 
      *  \brief Verifica si las matrices son similares en tamaño.
      * 
-     *  Una matriz\f$A=[a_{i,j}]_{M,N}\f$ es similar a \f$B=[b_{i,j}]_{P,Q}\f$ 
+     *  Una matriz\f$A_{M,N}\f$ es similar a \f$B_{P,Q}\f$ 
      *  si  \f$M=P\f$ y \f$N=Q\f$.
      *  \param[in] B Matriz en consulta.
      *  \return Retorna true si son similares y false si no.
@@ -308,7 +313,7 @@ public:
     /** 
      *  \brief Verifica si las matrices son similares en tamaño.
      * 
-     *  Una matriz\f$A=[a_{i,j}]_{M,N}\f$ es similar a \f$B=[b_{i,j}]_{P,Q}\f$ 
+     *  Una matriz\f$A_{M,N}\f$ es similar a \f$B_{P,Q}\f$ 
      *  si  \f$M=P\f$ y \f$N=Q\f$.
      *  \param[in] B Matriz en consulta.
      *  \return Retorna false si son similares y true si no.
@@ -319,7 +324,7 @@ public:
     /** 
      *  \brief Verifica si las matrices son multiplicables.
      * 
-     *  Una matriz\f$A=[a_{i,j}]_{M,N}\f$ es multiplicable por \f$B=[b_{i,j}]_{P,Q}\f$ 
+     *  Una matriz\f$A_{M,N}\f$ es multiplicable por \f$B_{P,Q}\f$ 
      *  si  \f$N=P\f$ y ambas son no vacias.
      *  \param[in] B Matriz en consulta.
      *  \return Retorna true si son multiplicables y false si no.
@@ -330,7 +335,7 @@ public:
     /** 
      *  \brief Verifica si las matrices son multiplicables.
      * 
-     *  Una matriz\f$A=[a_{i,j}]_{M,N}\f$ es multiplicable por \f$B=[b_{i,j}]_{P,Q}\f$ 
+     *  Una matriz\f$A_{M,N}\f$ es multiplicable por \f$B_{P,Q}\f$ 
      *  si  \f$N= P\f$ y ambas son no vacias.
      *  \param[in] B Matriz en consulta.
      *  \return Retorna false si son multiplicables y true si no.
@@ -341,8 +346,8 @@ public:
     /** 
      *  \brief Verifica si la posición pertenece a la matriz.
      * 
-     *  Dada una matriz\f$A=[a_{i,j}]_{M,N}\f$; la posición \f$(lin,col)\f$ 
-     *  está en rango de \f$A\f$ si cualquier valor entero de \f$0\leq lin \leq M-1\f$
+     *  Dada una matriz\f$A_{M,N}\f$; la posición \f$(lin,col)\f$ 
+     *  está en rango de \f$\mathbf{A}\f$ si cualquier valor entero de \f$0\leq lin \leq M-1\f$
      *  y  cualquier valor entero de \f$0\leq col \leq N-1\f$.
      *  \param[in] lin Linea en consulta.
      *  \param[in] col columna en consulta.
@@ -354,8 +359,8 @@ public:
     /** 
      *  \brief Verifica si la posición NO pertenece a la matriz.
      * 
-     *  Dada una matriz\f$A=[a_{i,j}]_{M,N}\f$; la posición \f$(lin,col)\f$ 
-     *  está en rango de \f$A\f$ si cualquier valor entero de \f$0\leq lin \leq M-1\f$
+     *  Dada una matriz\f$A_{M,N}\f$; la posición \f$(lin,col)\f$ 
+     *  está en rango de \f$\mathbf{A}\f$ si cualquier valor entero de \f$0\leq lin \leq M-1\f$
      *  y  cualquier valor entero de \f$0\leq col \leq N-1\f$.
      *  \param[in] lin Linea en consulta.
      *  \param[in] col columna en consulta.
@@ -367,8 +372,8 @@ public:
     /** 
      *  \brief Verifica si la posición (lin,col) pertenece al rango de la matriz.
      * 
-     *  Dada una matriz\f$A=[a_{i,j}]_{M,N}\f$; la posición \f$(lin,col)\f$ 
-     *  está en rango de \f$A\f$ si cualquier valor real de \f$0\leq lin \leq M-1\f$
+     *  Dada una matriz\f$A_{M,N}\f$; la posición \f$(lin,col)\f$ 
+     *  está en rango de \f$\mathbf{A}\f$ si cualquier valor real de \f$0\leq lin \leq M-1\f$
      *  y  cualquier valor real de \f$0\leq col \leq N-1\f$.
      *  \param[in] lin Linea en consulta.
      *  \param[in] col columna en consulta.
@@ -381,6 +386,21 @@ public:
      *  \brief Verifica si la matriz tiene elementos con valores infinitos.
      * 
      * Los valores infinitos pueden producirse con \f$+\frac{1}{0},-\frac{1}{0} y \frac{1}{0}\f$.
+   \f[
+\left(\begin{matrix}
+0 & 0 & \hdots & 0\\ 
+0 & 0 & \hdots & 1\\
+\vdots & \vdots & \vdots & \vdots \\
+1 & 0 & \hdots & 0\\ 
+0 & 1 & \hdots & 0\\
+\end{matrix}\right) \overleftarrow{IsInf} \left(\begin{matrix}
+1 & NaN & \hdots & NaN\\ 
+0 & 2 & \hdots & -\infty\\
+\vdots & \vdots & \vdots & \vdots \\
+\infty & 0 & \hdots & 0\\ 
+3 & -\infty & \hdots & NaN\\
+\end{matrix}\right)
+   \f]
      *  \return Retorna una nueva matriz con 1 donde es infinito y 0 donde no lo es.
      *  \ingroup MatrixGroup
      */
@@ -390,6 +410,21 @@ public:
      *  \brief Verifica si la matriz tiene elementos con valores NAN (Not A Number).
      * 
      *  Los valores NAN pueden producirse con \f$\frac{0}{0}\f$.
+   \f[
+\left(\begin{matrix}
+0 & 1 & \hdots & 1\\ 
+0 & 0 & \hdots & 0\\
+\vdots & \vdots & \vdots & \vdots \\
+0 & 0 & \hdots & 0\\ 
+0 & 0 & \hdots & 1\\
+\end{matrix}\right) \overleftarrow{IsNan} \left(\begin{matrix}
+1 & NaN & \hdots & NaN\\ 
+0 & 2 & \hdots & -\infty\\
+\vdots & \vdots & \vdots & \vdots \\
+\infty & 0 & \hdots & 0\\ 
+3 & -\infty & \hdots & NaN\\
+\end{matrix}\right)
+   \f]
      *  \return Retorna una nueva matriz con 1 donde es NAN y 0 donde no lo es.
      *  \ingroup MatrixGroup
      */
@@ -397,6 +432,22 @@ public:
     
     /** 
      *  \brief Verifica si la matriz tiene elementos con valores finitos (no +inf, no -inf y no NAN).
+     * 
+   \f[
+\left(\begin{matrix}
+1 & 0 & \hdots & 0\\ 
+1 & 1 & \hdots & 0\\
+\vdots & \vdots & \vdots & \vdots \\
+0 & 1 & \hdots & 1\\ 
+1 & 0 & \hdots & 0\\
+\end{matrix}\right) \overleftarrow{IsFinite} \left(\begin{matrix}
+1 & NaN & \hdots & NaN\\ 
+0 & 2 & \hdots & -\infty\\
+\vdots & \vdots & \vdots & \vdots \\
+\infty & 0 & \hdots & 0\\ 
+3 & -\infty & \hdots & NaN\\
+\end{matrix}\right)
+   \f]
      *  \return Retorna una nueva matriz con 1 donde es finito y 0 donde no lo es.
      *  \ingroup MatrixGroup
      */
@@ -415,6 +466,10 @@ public:
     /** 
      *  \brief Inicializa la matriz con números aleatorios, distribuidos usando una distribución
      * Gaussiana normalizada con media 0 y desvío padrón 1.0.
+     * 
+   \f[ f_{X}(x)=\frac {1}{\sqrt {2\pi }} e^{-{\frac {1}{2}}x^{2}},~~x \in R \f]
+   \f[ \mathbf{A}\equiv [a_{i,j}]_{M,N} \f]
+   \f[ a_{i,j}\leftarrow X_{l} \in X \f]
      *  \return Retorna true si todo fue bien o false si no.
      *  \ingroup MatrixGroup
      */
@@ -423,6 +478,10 @@ public:
     /** 
      *  \brief Inicializa la matriz con números aleatorios, distribuidos uniformemente,
      *  desde 0 a 1.0, incluyendo 0 y excluyendo 1.0.
+     * 
+   \f[ f_{X}(x)= 1,~~0\leq x<1, x \in R \f]
+   \f[ \mathbf{A}\equiv [a_{i,j}]_{M,N} \f]
+   \f[ a_{i,j}\leftarrow X_{l} \in X \f]
      *  \return Retorna true si todo fue bien o false si no.
      *  \ingroup MatrixGroup
      */
@@ -430,6 +489,16 @@ public:
 
     /** 
      *  \brief Inicializa la matriz con el valor de la posicion de cada elemento.
+     * 
+     * En el caso de una matriz A de 4 lineas y 3 columnas:
+   \f[
+\mathbf{A} \leftarrow \left(\begin{matrix}
+0 & 4 & 8\\ 
+1 & 5 & 9\\
+2 & 6 & 10\\ 
+3 & 7 & 11\\
+\end{matrix}\right)
+   \f]
      *  \return Retorna true si todo fue bien o false si no.
      *  \ingroup MatrixGroup
      */
@@ -437,6 +506,16 @@ public:
 
     /** 
      *  \brief Inicializa la matriz con un valor constante.
+     * 
+   \f[
+\mathbf{A} \leftarrow \left(\begin{matrix}
+val & val & \hdots & val\\ 
+val & val & \hdots & val\\
+\vdots & \vdots & \vdots & \vdots \\
+val & val & \hdots & val\\ 
+val & val & \hdots & val\\
+\end{matrix}\right)
+   \f]
      *  \param[in] val El valor a ser usado.
      *  \return Retorna true si todo fue bien o false si no.
      *  \ingroup MatrixGroup
@@ -446,6 +525,17 @@ public:
     /** 
      *  \brief Inicializa la matriz con un espacio linear entre begin y end.
      *  Se inicializa primero una columna ante de pasar ala siguiente.
+     * 
+     * En el caso de una matriz A de Nlin=4 lineas y Ncol=3 columnas:
+   \f[\alpha= \frac{b-a}{Nlin~Ncol- 1}\f]
+   \f[
+\mathbf{A} \leftarrow \left(\begin{matrix}
+a          & \alpha^4 a & \alpha^8 a\\ 
+\alpha a   & \alpha^5 a & \alpha^9 a\\
+\alpha^2 a & \alpha^6 a & \alpha^{10} a\\ 
+\alpha^3 a & \alpha^7 a & \alpha^{11} a\\
+\end{matrix}\right)
+   \f]
      *  \param[in] begin El valor inicial.
      *  \param[in] end El valor final.
      *  \return Retorna true si todo fue bien o false si no.
