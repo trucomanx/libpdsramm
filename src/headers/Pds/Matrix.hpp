@@ -285,6 +285,13 @@ public:
     bool FillRandU(void);
 
     /** 
+     *  \brief Inicializa la matriz con el valor de la posicion de cada elemento.
+     *  \return Retorna true si todo fue bien o false si no.
+     *  \ingroup MatrixGroup
+     */
+    bool FillId(void);
+
+    /** 
      *  \brief Inicializa la matriz con un valor constante.
      *  \param[in] val El valor a ser usado.
      *  \return Retorna true si todo fue bien o false si no.
@@ -292,6 +299,15 @@ public:
      */
     bool Fill(double val);
 
+    /** 
+     *  \brief Inicializa la matriz con un espacio linear entre begin y end.
+     *  Se inicializa primero una columna ante de pasar ala siguiente.
+     *  \param[in] begin El valor inicial.
+     *  \param[in] end El valor final.
+     *  \return Retorna true si todo fue bien o false si no.
+     *  \ingroup MatrixGroup
+     */
+    bool LinSpace(double begin,double end);
 /**
  * @}
  */
@@ -352,7 +368,17 @@ public:
      *  posición no existe.
      *  \ingroup MatrixGroup
      */
-    ColVector GetColVector(unsigned int col) const;
+    Pds::ColVector GetColVector(unsigned int col) const;
+    
+    /** 
+     *  \brief Copia un vector columna en una columna de la matriz.
+     *  \param[in] V El vector a copiar.
+     *  \param[in] col La columna en consulta.
+     *  \return Retorna true si la copia fue hecha y la posición (col) existe
+     *  o false si hubo algún problema. En caso de retornar false no se modifica la matriz.
+     *  \ingroup MatrixGroup
+     */
+    bool SetColVector(const Pds::ColVector V,unsigned int col);
     
     /** 
      *  \brief Retorna el valor en la posición (lin,col),  usando una

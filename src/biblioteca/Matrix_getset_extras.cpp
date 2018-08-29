@@ -44,3 +44,15 @@ Pds::ColVector Pds::Matrix::GetColVector(unsigned int col) const
     return C;
 }
     
+bool Pds::Matrix::SetColVector(const Pds::ColVector V,unsigned int col)
+{   
+    if(col>=this->ncol) return false;
+    
+    if(V.IsEmpty())     return false;
+    
+    for(unsigned int lin=0;lin<this->nlin;lin++)
+    this->array[lin][col]=V.Get(lin);
+    
+    return true;
+}
+    

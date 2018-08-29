@@ -73,31 +73,7 @@ bool Pds::Matrix::Copy(const Pds::Matrix &A)
     return true;
 }
 
-////////////////////////////////////////////////////////////////////////
 
-bool Pds::Matrix::Move( Pds::Matrix &A)
-{
-    if(this!=&A) //Comprueba que no se esté intentando igualar un objeto a sí mismo
-    {
-        if(A.IsEmpty())
-        {
-            return false;
-        }
-            
-        if(this->IsNotEmpty())
-            Pds::Matrix::ReleaseArray(this->array,this->nlin);
-
-        this->array = A.array;
-        this->nlin = A.nlin;
-        this->ncol = A.ncol;
-        
-        A.array=NULL;
-        A.nlin=0;
-        A.ncol=0;
-        
-    }
-    return true;
-}
 
 ////////////////////////////////////////////////////////////////////////
 

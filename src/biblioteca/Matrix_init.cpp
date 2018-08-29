@@ -72,3 +72,39 @@ bool Pds::Matrix::Fill(double val)
     return true;
 }
 
+bool Pds::Matrix::FillId(void)
+{
+    if(this->IsEmpty())   return false;
+
+    unsigned int lin,col;
+    unsigned int N=0;
+    
+    for(col=0;col<this->ncol;col++)
+    for(lin=0;lin<this->nlin;lin++)
+    {
+        this->array[lin][col]=N;
+        N++;
+    }
+
+    return true;
+}
+
+bool Pds::Matrix::LinSpace(double begin,double end)
+{
+    if(this->IsEmpty())   return false;
+
+    unsigned int lin,col,id;
+    unsigned int N=(this->nlin)*(this->ncol);
+    double alpha=(end-begin)/(N-1.0);
+
+    id=0;
+    for(col=0;col<this->ncol;col++)
+    for(lin=0;lin<this->nlin;lin++)
+    {
+        this->array[lin][col]=begin+id*alpha;
+        id++;
+    }
+    this->array[this->nlin-1][this->ncol-1]=end;
+
+    return true;
+}

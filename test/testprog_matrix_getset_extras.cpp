@@ -12,13 +12,19 @@ int main(void)
 {
     Pds::Matrix A(4,4);
     
-    A.FillRandU();
+    A.FillId();
     A.Print("A=\n");
     
     Pds::ColVector  C=A.GetColVector(2);
-    C.Print("A(:,2)=\n");
+    C.Print("C=\n");
     
     Pds::Matrix     M=A.GetColVector(2);
     M.Print("A(:,2)=\n");
+    
+    
+    C.Fill(-1.0);
+    A.SetColVector(C,2);
+    A.Print("A=\n");
+    
     return 0;
 }

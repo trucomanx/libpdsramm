@@ -11,13 +11,7 @@
 int main(void)
 {
     Pds::Matrix C=Pds::Matrix(2,2);    
-    Pds::Matrix B;
     
-    std::cout<<"B.Move(C);\n";
-    B.Move(C);
-    std::cout<<B<<"\n";
-    
-    if(C.IsEmpty())  std::cout<<"C is null\n\n";
     
     std::cout<<"Assignment operator\n";    
     std::cout<<"C= Pds::Matrix(2,2);\n";
