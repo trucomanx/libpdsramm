@@ -36,7 +36,8 @@
 
 
 /** \defgroup PdsRaToolsGroup ---- Funciones útiles.
- *  \brief Funciones para procesar cadenas y archivos.
+ *  \brief Funciones para procesar cadenas y archivos 
+ *  <div class="fragment"> \#include <Pds/RealArraysTools> </div>
  *  
  *  
  * @{

@@ -1,4 +1,4 @@
-/** \example testprog_mathmatrix.cpp
+/** \example testprog_matrixmath.cpp
  *  \author Fernando Pujaico Rivera
  *  \date 18-04-2018
  *  \brief Programa para el testeo de las funciones.
@@ -11,7 +11,7 @@ int main(void)
 {
     Pds::Matrix A(2);
     
-    A.Fill(3.14159*45.0/180.0);
+    A.Fill(45.0*Pds::Ra::ToRadians);
     
     A.Print("\nA:\n");
     

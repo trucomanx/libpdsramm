@@ -1,4 +1,4 @@
-/** \example testprog_funccolvector.cpp
+/** \example testprog_vectorfunc.cpp
  *  \author Fernando Pujaico Rivera
  *  \date 18-04-2018
  *  \brief Programa para el testeo de las funciones.
@@ -14,7 +14,7 @@
 int main(void)
 {
     
-    Pds::ColVector W=Pds::LinSpace(0,10,5);
+    Pds::Vector W=Pds::LinSpace(0,10,5);
     std::cout<<"W:\n"<<W;
     
 

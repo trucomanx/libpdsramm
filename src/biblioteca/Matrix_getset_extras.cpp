@@ -21,19 +21,19 @@
  */
 
 #include <Pds/Matrix>
-#include <Pds/ColVector>
+#include <Pds/Vector>
 
 #include <cmath>
 
 
-Pds::ColVector Pds::Matrix::GetColVector(unsigned int col) const
+Pds::Vector Pds::Matrix::GetVector(unsigned int col) const
 {   
-    if(col>=this->ncol) return Pds::ColVector();
+    if(col>=this->ncol) return Pds::Vector();
     
     double** array=Pds::Matrix::AllocateArray(this->nlin,1);
-    if(array==NULL)     return Pds::ColVector();
+    if(array==NULL)     return Pds::Vector();
     
-    Pds::ColVector C;
+    Pds::Vector C;
     
     for(unsigned int lin=0;lin<this->nlin;lin++)
     array[lin][0]=this->array[lin][col];
@@ -44,7 +44,7 @@ Pds::ColVector Pds::Matrix::GetColVector(unsigned int col) const
     return C;
 }
     
-bool Pds::Matrix::SetColVector(const Pds::ColVector V,unsigned int col)
+bool Pds::Matrix::SetVector(const Pds::Vector V,unsigned int col)
 {   
     if(col>=this->ncol) return false;
     

@@ -1,5 +1,5 @@
 /*
- * MathMatrix.cpp
+ * MatrixMath.cpp
  * 
  * Copyright 2018 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
  * 
@@ -21,7 +21,7 @@
  */
 
 
-#include <Pds/MathMatrix>
+#include <Pds/MatrixMath>
 #include <cmath>
 
 Pds::Matrix Pds::Sin(const Pds::Matrix A)

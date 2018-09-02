@@ -1,5 +1,5 @@
 /*
- * ColVector.hpp
+ * Vector.hpp
  * 
  * Copyright 2018 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
  * 
@@ -20,10 +20,10 @@
  * 
  */
 
-/** \file ColVector.hpp
+/** \file Vector.hpp
  *  \author Fernando Pujaico Rivera
  *  \date 01-04-2011
- *  \brief Funciones que trabajan con matrices.
+ *  \brief Funciones que trabajan con matrices columna.
  *  
  *  <br>Estas funciones trabajan con una matriz de la forma.<br>
  *  \image html matrix.png "Matriz de Nlinx1"
@@ -32,17 +32,27 @@
 
 
 
-#ifndef __PDS_COLVECTOR_HPP__
-#define __PDS_COLVECTOR_HPP__
+#ifndef __PDS_VECTOR_HPP__
+#define __PDS_VECTOR_HPP__
 
 
-/** \defgroup ColVectorGroup Clase Pds::ColVector.
- *  \brief Metodos de la clase Pds::ColVector, un vector columna/matriz.
+/** \defgroup VectorGroup Clase Pds::Vector.
+ *  \brief Metodos de la clase Pds::Vector, un vector columna/matriz 
+ *  <div class="fragment"> \#include <Pds/Vector> </div>
  *  
  *  <br>Estas funciones trabajan con una matriz de la forma.<br>
- *  <center>
- *  \image html matrix.png "Matriz"
- *  </center>
+   \f[
+\mathbf{A}=\left(\begin{matrix}
+a_{00}  \\ 
+a_{10}  \\
+\vdots  \\
+a_{(Nlin-2)0}  \\ 
+a_{(Nlin-1)0} \\
+\end{matrix}\right)\equiv A_{(Nlin-1),1}
+   \f]
+   \f[
+A_{(Nlin-1),1}\equiv [a_{ij}]_{(Nlin-1),1}
+   \f]
  *  \b nlin es el número de lineas.
  *  
  * Informacion adicional puede ser encontrada en @cite tutorialmatvec
@@ -54,39 +64,39 @@
 
 namespace Pds{
 
-/*! \class ColVector
- *  \brief La clase tipo  ColVector .
+/*! \class Vector
+ *  \brief La clase tipo  Vector .
  *  Esta clase genera una matriz de Nlin lineas y 1 columna.
- *  Para usar incluir Pds/ColVector.
- *  \ingroup ColVectorGroup
+ *  Para usar incluir Pds/Vector.
+ *  \ingroup VectorGroup
  *  \author Fernando Pujaico Rivera
  */
-class ColVector: public Matrix
+class Vector: public Matrix
 {
 
 public:
 
 /** @name Varios tipos de constructores
- *  Crean una objeto Pds::ColVector
+ *  Crean una objeto Pds::Vector
  * @{
  */
 
     /** 
-     *  \brief Crea un objeto de tipo Pds::ColVector
-     *  \return un objeto de tipo Pds::ColVector.
-     *  \ingroup ColVectorGroup
+     *  \brief Crea un objeto de tipo Pds::Vector
+     *  \return un objeto de tipo Pds::Vector.
+     *  \ingroup VectorGroup
      */
-    ColVector(void);
+    Vector(void);
     
     /** 
-     *  \brief Crea un objeto de tipo Pds::ColVector
+     *  \brief Crea un objeto de tipo Pds::Vector
      *  \param[in] N El numero de lineas de la matriz.
-     *  \return un objeto de tipo Pds::ColVector.
-     *  \ingroup ColVectorGroup
+     *  \return un objeto de tipo Pds::Vector.
+     *  \ingroup VectorGroup
      */
-    ColVector(unsigned int N);
+    Vector(unsigned int N);
 
-    ~ColVector(); 
+    ~Vector(); 
     
 /**
  * @}
@@ -94,9 +104,9 @@ public:
 
 
 
-}; // Class ColVector
+}; // Class Vector
 
-typedef ColVector Vector;
+typedef Vector Vector;
 
 } // namespace Pds
 

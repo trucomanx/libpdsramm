@@ -1,5 +1,5 @@
 
-/** \example testprog_funcmatrix.cpp
+/** \example testprog_matrixfunc.cpp
  *  \author Fernando Pujaico Rivera
  *  \date 18-04-2018
  *  \brief Programa para el testeo de las funciones.

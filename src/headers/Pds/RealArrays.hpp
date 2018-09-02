@@ -44,14 +44,16 @@
 #include <Pds/RealArraysDefines>
 #include <Pds/RealArraysTools>
     
+
+    
 #include <Pds/Matrix>
-#include <Pds/ColVector>
+#include <Pds/Vector>
     
-#include <Pds/MathMatrix>
-#include <Pds/FuncMatrix>
-#include <Pds/RotationMatrix>
+#include <Pds/MatrixMath>
+#include <Pds/MatrixFunc>
+#include <Pds/MatrixRotation>
     
-#include <Pds/FuncColVector>
+#include <Pds/VectorFunc>
     
     
 #endif /* __PDS_REALARRAYS_HPP__ */

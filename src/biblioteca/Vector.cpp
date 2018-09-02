@@ -1,5 +1,5 @@
 /*
- * ColVector.cpp
+ * Vector.cpp
  * 
  * Copyright 2018 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
  * 
@@ -21,19 +21,19 @@
  */
 
 
-#include <Pds/ColVector>
+#include <Pds/Vector>
 
-Pds::ColVector::ColVector(void)
+Pds::Vector::Vector(void)
 {
     return;
 }
 
-Pds::ColVector::ColVector(unsigned int N): Pds::Matrix(N,1)
+Pds::Vector::Vector(unsigned int N): Pds::Matrix(N,1)
 {
     return;
 }
 
-Pds::ColVector::~ColVector(void)
+Pds::Vector::~Vector(void)
 {
     Pds::Matrix::ReleaseArray(this->array,this->nlin);
 

@@ -1,5 +1,5 @@
 /*
- * FuncColVector.cpp
+ * VectorFunc.cpp
  * 
  * Copyright 2018 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
  * 
@@ -22,12 +22,12 @@
 
 #include <cmath>
 
-#include <Pds/ColVector>
-#include <Pds/FuncColVector>
+#include <Pds/Vector>
+#include <Pds/VectorFunc>
 
-Pds::ColVector Pds::LinSpace(double start,double end,unsigned int N)
+Pds::Vector Pds::LinSpace(double start,double end,unsigned int N)
 {
-    Pds::ColVector V(N);
+    Pds::Vector V(N);
     unsigned int id;
     double factor=(end-start)/(N-1.0);
     
@@ -41,15 +41,15 @@ Pds::ColVector Pds::LinSpace(double start,double end,unsigned int N)
     return V;
 }
 
-Pds::ColVector Pds::GeomSpace(double start,double end,unsigned int N)
+Pds::Vector Pds::GeomSpace(double start,double end,unsigned int N)
 {
     if((start==0)||(start*end<0))
     {
-        Pds::ColVector V;
+        Pds::Vector V;
         return V;
     }
     
-    Pds::ColVector V(N);
+    Pds::Vector V(N);
     unsigned int id;
     double factor=pow(end/start,1.0/(N-1.0));
     
@@ -66,39 +66,39 @@ Pds::ColVector Pds::GeomSpace(double start,double end,unsigned int N)
 
 ////////////////////////////////////////////////////////////////////////
 
-Pds::ColVector Pds::X2D(void)
+Pds::Vector Pds::X2D(void)
 {
-    Pds::ColVector A(2);
+    Pds::Vector A(2);
     A.Set(1.0,0,0);
     return A;
 }
 
-Pds::ColVector Pds::Y2D(void)
+Pds::Vector Pds::Y2D(void)
 {
-    Pds::ColVector A(2);
+    Pds::Vector A(2);
     A.Set(1.0,1);
     return A;
 }
 
 ////////////////////////////////////////////////////////////////////////
 
-Pds::ColVector Pds::X3D(void)
+Pds::Vector Pds::X3D(void)
 {
-    Pds::ColVector A(3);
+    Pds::Vector A(3);
     A.Set(1.0,0);
     return A;
 }
 
-Pds::ColVector Pds::Y3D(void)
+Pds::Vector Pds::Y3D(void)
 {
-    Pds::ColVector A(3);
+    Pds::Vector A(3);
     A.Set(1.0,1);
     return A;
 }
 
-Pds::ColVector Pds::Z3D(void)
+Pds::Vector Pds::Z3D(void)
 {
-    Pds::ColVector A(3);
+    Pds::Vector A(3);
     A.Set(1.0,2);
     return A;
 }

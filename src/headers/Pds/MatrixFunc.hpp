@@ -1,5 +1,5 @@
 /*
- * FuncMatrix.hpp
+ * MatrixFunc.hpp
  * 
  * Copyright 2018 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
  * 
@@ -20,7 +20,7 @@
  * 
  */
 
-/** \file FuncMatrix.hpp
+/** \file MatrixFunc.hpp
  *  \author Fernando Pujaico Rivera
  *  \brief Funciones que trabajan con matrices.
  *  
@@ -31,17 +31,27 @@
 
 
 
-#ifndef __PDS_FUNCMATRIX_HPP__
-#define __PDS_FUNCMATRIX_HPP__
+#ifndef __PDS_MATRIXFUNC_HPP__
+#define __PDS_MATRIXFUNC_HPP__
 
 
-/** \defgroup FuncMatrixGroup Clase Pds::Matrix - Funciones básicas.
- *  \brief Funciones Diag, Eye, Ones, Zeros, etc.
+/** \defgroup MatrixFuncGroup Clase Pds::Matrix :: Funciones básicas.
+ *  \brief Funciones Diag, Eye, Ones, Zeros, etc 
+ *  <div class="fragment"> \#include <Pds/MatrixFunc> </div>
  *  
  *  <br>Estas funciones trabajan con una matriz de la forma.<br>
- *  <center>
- *  \image html matrix.png "Matriz"
- *  </center>
+   \f[
+\mathbf{A}=\left(\begin{matrix}
+a_{00} & a_{01} & \hdots & a_{0(Ncol-1)}\\ 
+a_{10} & a_{11} & \hdots & a_{1(Ncol-1)}\\
+\vdots & \vdots & \vdots & \vdots \\
+a_{(Nlin-2)0} & a_{(Nlin-2)1} & \hdots & a_{(Nlin-2)(Ncol-1)}\\ 
+a_{(Nlin-1)0} & a_{(Nlin-1)1} & \hdots & a_{(Nlin-1)(Ncol-1)}\\
+\end{matrix}\right)\equiv A_{(Nlin-1),(Ncol-1)}
+   \f]
+   \f[
+A_{(Nlin-1),(Ncol-1)}\equiv [a_{i,j}]_{(Nlin-1),(Ncol-1)}
+   \f]
  *  \b nlin es el número de lineas y \b ncol es el número de columnas.
  *  
  * Informacion adicional puede ser encontrada en @cite tutorialmatvec
@@ -78,7 +88,7 @@ a_{10} & a_{11}
    \f]
      *  \param[in] A La matriz donde se extraen los datos.
      *  \return Retorna la matriz diagonal.
-     *  \ingroup FuncMatrixGroup
+     *  \ingroup MatrixFuncGroup
      */
     Matrix Diag(Matrix A);
 
@@ -95,7 +105,7 @@ a_{10} & a_{11}
    \f]
      *  \param[in] N El numero de lineas y columnas de la matriz.
      *  \return Retorna la matriz o una matriz vacía en caso de error.
-     *  \ingroup FuncMatrixGroup
+     *  \ingroup MatrixFuncGroup
      */
     Matrix Eye(unsigned int N);
     
@@ -113,7 +123,7 @@ a_{10} & a_{11}
      *  \param[in] Nlin El numero de lineas de la matriz.
      *  \param[in] Ncol El numero de columnas de la matriz.
      *  \return Retorna la matriz o una matriz vacía en caso de error.
-     *  \ingroup FuncMatrixGroup
+     *  \ingroup MatrixFuncGroup
      */
     Matrix Ones(unsigned int Nlin, unsigned int Ncol);
     
@@ -130,7 +140,7 @@ a_{10} & a_{11}
    \f]
      *  \param[in] N El numero de lineas y columnas de la matriz.
      *  \return Retorna la matriz o una matriz vacía en caso de error.
-     *  \ingroup FuncMatrixGroup
+     *  \ingroup MatrixFuncGroup
      */
     Matrix Ones(unsigned int N);
     
@@ -149,7 +159,7 @@ a_{10} & a_{11}
      *  \param[in] Nlin El numero de lineas de la matriz.
      *  \param[in] Ncol El numero de columnas de la matriz.
      *  \return Retorna la matriz o una matriz vacía en caso de error.
-     *  \ingroup FuncMatrixGroup
+     *  \ingroup MatrixFuncGroup
      */
     Matrix Zeros(unsigned int Nlin, unsigned int Ncol);
     
@@ -166,7 +176,7 @@ a_{10} & a_{11}
    \f]
      *  \param[in] N El numero de lineas y columnas de la matriz.
      *  \return Retorna la matriz o una matriz vacía en caso de error.
-     *  \ingroup FuncMatrixGroup
+     *  \ingroup MatrixFuncGroup
      */
     Matrix Zeros(unsigned int N);
     

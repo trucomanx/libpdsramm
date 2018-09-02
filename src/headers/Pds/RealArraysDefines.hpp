@@ -27,7 +27,8 @@
     
 
 /** \defgroup DefinesGroup ---- Macro Defines.
- *  \brief Algunas macros interesantes.
+ *  \brief Algunas macros interesantes 
+ *  <div class="fragment"> \#include <Pds/RealArraysDefines> </div>
  *  
  * @{
  */
@@ -73,6 +74,7 @@
 #endif
     
     
+    
 namespace Pds{
 namespace Ra{
     
@@ -100,11 +102,18 @@ namespace Ra{
      * \ingroup DefinesGroup
     */
     const double WarningRCond=0.000000001;
+    
+    /*!
+     * Factor de conversión de grados a radianes.
+     * \ingroup DefinesGroup
+    */
+    const double ToRadians =Pi/180.0;
+    
 }
 }
 /*!
  * @}
  */
-
+    
     
 #endif /* __PDS_REALARRAYSDEFINES_HPP__ */

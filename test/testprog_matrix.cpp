@@ -32,5 +32,9 @@ int main(void)
     std::cout<<std::endl<<(13/10)<<std::endl;
     std::cout<<std::endl<<(16/10)<<std::endl;
     
+    Pds::Matrix *X= new Pds::Matrix(F);
+    std::cout<<"X->Nlin():"<<X->Nlin()<<std::endl;
+    std::cout<<"X->Ncol():"<<X->Ncol()<<std::endl;
+    
     return 0;
 }

@@ -1,5 +1,5 @@
 /*
- * FuncColVector.hpp
+ * VectorFunc.hpp
  * 
  * Copyright 2018 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
  * 
@@ -20,7 +20,7 @@
  * 
  */
 
-/** \file FuncColVector.hpp
+/** \file VectorFunc.hpp
  *  \author Fernando Pujaico Rivera
  *  \brief Funciones que trabajan con vectores.
  *  
@@ -31,12 +31,13 @@
 
 
 
-#ifndef __PDS_FUNCCOLVECTOR_HPP__
-#define __PDS_FUNCCOLVECTOR_HPP__
+#ifndef __PDS_VECTORFUNC_HPP__
+#define __PDS_VECTORFUNC_HPP__
 
 
-/** \defgroup FuncColVectorGroup Clase Pds::ColVector - Funciones básicas.
- *  \brief Funciones LinSpace, X2D, Y2D, X3D, Y3D, Z3D.
+/** \defgroup VectorFuncGroup Clase Pds::Vector :: Funciones básicas.
+ *  \brief Funciones LinSpace, GeomSpace, X2D, Y2D, X3D, Y3D, Z3D 
+ *  <div class="fragment"> \#include <Pds/VectorFunc> </div>
  *  
  *  <br>Estas funciones trabajan con una matriz de la forma.<br>
    \f[
@@ -53,13 +54,13 @@ a_{Nlin-1}
  */
 
 
-#include <Pds/ColVector>
+#include <Pds/Vector>
 
 
 namespace Pds{
 
 /** @name funciones con vectores especiales
- *  Descripción de algunas funciones que usan  Pds::ColVector.
+ *  Descripción de algunas funciones que usan  Pds::Vector.
  * @{
  */
 
@@ -87,9 +88,9 @@ a_{i} \leftarrow i \alpha +start
      *  \param[in] end Final del espacio linear.
      *  \param[in] N Numero de elementos del vetor.
      *  \return Retorna la matriz diagonal.
-     *  \ingroup FuncColVectorGroup
+     *  \ingroup VectorFuncGroup
      */
-    ColVector LinSpace(double start,double end,unsigned int N);
+    Vector LinSpace(double start,double end,unsigned int N);
 
 
     /** 
@@ -124,16 +125,16 @@ a_{i} \leftarrow  {\alpha}^{i} start
      *  \param[in] end Final del espacio linear.
      *  \param[in] N Numero de elementos del vetor.
      *  \return Retorna la matriz diagonal.
-     *  \ingroup FuncColVectorGroup
+     *  \ingroup VectorFuncGroup
      */
-    ColVector GeomSpace(double start,double end,unsigned int N);
+    Vector GeomSpace(double start,double end,unsigned int N);
 
 /**
  * @}
  */
 
 /** @name funciones para crear vectores eje en 2 dimensiones
- *  Descripción de algunas funciones que usan  Pds::ColVector.
+ *  Descripción de algunas funciones que usan  Pds::Vector.
  * @{
  */
     
@@ -147,9 +148,9 @@ a_{i} \leftarrow  {\alpha}^{i} start
 \end{matrix}\right)
    \f]
      *  \return Retorna una matriz vector columna eje X en 2 dimensiones.
-     *  \ingroup FuncColVectorGroup
+     *  \ingroup VectorFuncGroup
      */
-    ColVector X2D(void);
+    Vector X2D(void);
     
     /** 
      *  \brief Retorna una matriz vector columna eje Y en 2 dimensiones.
@@ -161,15 +162,15 @@ a_{i} \leftarrow  {\alpha}^{i} start
 \end{matrix}\right)
    \f]
      *  \return Retorna una matriz vector columna eje Y en 2 dimensiones.
-     *  \ingroup FuncColVectorGroup
+     *  \ingroup VectorFuncGroup
      */
-    ColVector Y2D(void);
+    Vector Y2D(void);
 /**
  * @}
  */
 
 /** @name funciones para crear vectores eje en 3 dimensiones
- *  Descripción de algunas funciones que usan  Pds::ColVector.
+ *  Descripción de algunas funciones que usan  Pds::Vector.
  * @{
  */
     
@@ -184,9 +185,9 @@ a_{i} \leftarrow  {\alpha}^{i} start
 \end{matrix}\right)
    \f]
      *  \return Retorna una matriz vector columna eje X en 3 dimensiones.
-     *  \ingroup FuncColVectorGroup
+     *  \ingroup VectorFuncGroup
      */
-    ColVector X3D(void);
+    Vector X3D(void);
     
     /** 
      *  \brief Retorna una matriz vector columna eje Y en 3 dimensiones.
@@ -199,9 +200,9 @@ a_{i} \leftarrow  {\alpha}^{i} start
 \end{matrix}\right)
    \f]
      *  \return Retorna una matriz vector columna eje Y en 3 dimensiones.
-     *  \ingroup FuncColVectorGroup
+     *  \ingroup VectorFuncGroup
      */
-    ColVector Y3D(void);
+    Vector Y3D(void);
     
     /** 
      *  \brief Retorna una matriz vector columna eje Z en 3 dimensiones.
@@ -214,9 +215,9 @@ a_{i} \leftarrow  {\alpha}^{i} start
 \end{matrix}\right)
    \f]
      *  \return Retorna una matriz vector columna eje Z en 3 dimensiones.
-     *  \ingroup FuncColVectorGroup
+     *  \ingroup VectorFuncGroup
      */
-    ColVector Z3D(void);
+    Vector Z3D(void);
 /**
  * @}
  */

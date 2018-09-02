@@ -1,5 +1,5 @@
 /*
- * RotationMatrix.hpp
+ * MatrixRotation.hpp
  * 
  * Copyright 2018 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
  * 
@@ -20,7 +20,7 @@
  * 
  */
 
-/** \file RotationMatrix.hpp
+/** \file MatrixRotation.hpp
  *  \author Fernando Pujaico Rivera
  *  \brief Funciones que trabajan con matrices.
  *  
@@ -31,17 +31,27 @@
 
 
 
-#ifndef __PDS_ROTATIONMATRIX_HPP__
-#define __PDS_ROTATIONMATRIX_HPP__
+#ifndef __PDS_MATRIXROTATION_HPP__
+#define __PDS_MATRIXROTATION_HPP__
 
 
-/** \defgroup RotationMatrixGroup Clase Pds::Matrix - Funciones de Rotacion.
- *  \brief Funciones que trabajan con rotaciones en 2D y 3D con matrices.
+/** \defgroup MatrixRotationGroup Clase Pds::Matrix :: Funciones de Rotacion.
+ *  \brief Funciones que trabajan con rotaciones en 2D y 3D con matrices 
+ *  <div class="fragment"> \#include <Pds/MatrixRotation> </div>
  *  
  *  <br>Estas funciones trabajan con una matriz de la forma.<br>
- *  <center>
- *  \image html matrix.png "Matriz"
- *  </center>
+   \f[
+\mathbf{A}=\left(\begin{matrix}
+a_{00} & a_{01} & \hdots & a_{0(Ncol-1)}\\ 
+a_{10} & a_{11} & \hdots & a_{1(Ncol-1)}\\
+\vdots & \vdots & \vdots & \vdots \\
+a_{(Nlin-2)0} & a_{(Nlin-2)1} & \hdots & a_{(Nlin-2)(Ncol-1)}\\ 
+a_{(Nlin-1)0} & a_{(Nlin-1)1} & \hdots & a_{(Nlin-1)(Ncol-1)}\\
+\end{matrix}\right)\equiv A_{(Nlin-1),(Ncol-1)}
+   \f]
+   \f[
+A_{(Nlin-1),(Ncol-1)}\equiv [a_{i,j}]_{(Nlin-1),(Ncol-1)}
+   \f]
  *  \b nlin es el número de lineas y \b ncol es el número de columnas.
  *  
  * Informacion adicional puede ser encontrada en @cite tutorialmatvec
@@ -70,7 +80,7 @@ sin(\theta)&cos(\theta)
    \f]
      *  \param[in] theta Ángulo de rotación anti-horaria en radianes.
      *  \return Retorna una matriz de rotación anti-horaria en 2 dimensiones.
-     *  \ingroup RotationMatrixGroup
+     *  \ingroup MatrixRotationGroup
      */
     Matrix Rot2D(double theta);
     
@@ -88,7 +98,7 @@ sin(\theta)&cos(\theta)
      *  \param[in] RadAngle Ángulo de rotación horaria en radianes.
      *  \return Retorna una matriz de rotación anti-horaria al rededor
      *  del eje X en 3 dimensiones.
-     *  \ingroup RotationMatrixGroup
+     *  \ingroup MatrixRotationGroup
      */
     Matrix RotX(double RadAngle);
     
@@ -106,7 +116,7 @@ cos(\theta)&0&sin(\theta)\\
      *  \param[in] RadAngle Ángulo de rotación horaria en radianes.
      *  \return Retorna una matriz de rotación anti-horaria al rededor
      *  del eje Y en 3 dimensiones.
-     *  \ingroup RotationMatrixGroup
+     *  \ingroup MatrixRotationGroup
      */
     Matrix RotY(double RadAngle);
     
@@ -124,7 +134,7 @@ sin(\theta)&cos(\theta)&0 \\
      *  \param[in] RadAngle Ángulo de rotación horaria en radianes.
      *  \return Retorna una matriz de rotación anti-horaria al rededor
      *  del eje Z en 3 dimensiones.
-     *  \ingroup RotationMatrixGroup
+     *  \ingroup MatrixRotationGroup
      */
     Matrix RotZ(double RadAngle);
 /**

@@ -1,5 +1,5 @@
 /*
- * MathMatrix.hpp
+ * MatrixMath.hpp
  * 
  * Copyright 2018 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
  * 
@@ -20,7 +20,7 @@
  * 
  */
 
-/** \file MathMatrix.hpp
+/** \file MatrixMath.hpp
  *  \author Fernando Pujaico Rivera
  *  \brief Funciones que trabajan con matrices.
  *  
@@ -31,17 +31,27 @@
 
 
 
-#ifndef __PDS_MATHMATRIX_HPP__
-#define __PDS_MATHMATRIX_HPP__
+#ifndef __PDS_MATRIXMATH_HPP__
+#define __PDS_MATRIXMATH_HPP__
 
 
-/** \defgroup MathMatrixGroup Clase Pds::Matrix - Funciones math.
- *  \brief Funciones matemáticas sin, cos, exp, sqrt, etc, que trabajan con matrices.
+/** \defgroup MatrixMathGroup Clase Pds::Matrix :: Funciones math.
+ *  \brief Funciones matemáticas Sin, Cos, Exp, Sqrt, etc, que trabajan con matrices 
+ *  <div class="fragment"> \#include <Pds/MatrixMath> </div>
  *  
  *  <br>Estas funciones trabajan con una matriz de la forma.<br>
- *  <center>
- *  \image html matrix.png "Matriz"
- *  </center>
+   \f[
+\mathbf{A}=\left(\begin{matrix}
+a_{00} & a_{01} & \hdots & a_{0(Ncol-1)}\\ 
+a_{10} & a_{11} & \hdots & a_{1(Ncol-1)}\\
+\vdots & \vdots & \vdots & \vdots \\
+a_{(Nlin-2)0} & a_{(Nlin-2)1} & \hdots & a_{(Nlin-2)(Ncol-1)}\\ 
+a_{(Nlin-1)0} & a_{(Nlin-1)1} & \hdots & a_{(Nlin-1)(Ncol-1)}\\
+\end{matrix}\right)\equiv A_{(Nlin-1),(Ncol-1)}
+   \f]
+   \f[
+A_{(Nlin-1),(Ncol-1)}\equiv [a_{i,j}]_{(Nlin-1),(Ncol-1)}
+   \f]
  *  \b nlin es el número de lineas y \b ncol es el número de columnas.
  *  
  * Informacion adicional puede ser encontrada en @cite tutorialmatvec
@@ -66,7 +76,7 @@ namespace Pds{
      *  \param[in] A La matriz a evaluar
      *  \return Retorna la matriz evaluada.
      *  \see Pds::Matrix::Apply()
-     *  \ingroup MathMatrixGroup
+     *  \ingroup MatrixMathGroup
      */
     Matrix Sin(const Matrix A);
     
@@ -77,7 +87,7 @@ namespace Pds{
      *  \param[in] A La matriz a evaluar
      *  \return Retorna la matriz evaluada.
      *  \see Pds::Matrix::Apply()
-     *  \ingroup MathMatrixGroup
+     *  \ingroup MatrixMathGroup
      */
     Matrix Cos(const Matrix A);
     
@@ -88,7 +98,7 @@ namespace Pds{
      *  \param[in] A La matriz a evaluar
      *  \return Retorna la matriz evaluada.
      *  \see Pds::Matrix::Apply()
-     *  \ingroup MathMatrixGroup
+     *  \ingroup MatrixMathGroup
      */
     Matrix Tan(const Matrix A);
 /**
@@ -107,7 +117,7 @@ namespace Pds{
      *  \param[in] A La matriz a evaluar
      *  \return Retorna la matriz evaluada.
      *  \see Pds::Matrix::Apply()
-     *  \ingroup MathMatrixGroup
+     *  \ingroup MatrixMathGroup
      */
     Matrix Exp(const Matrix A);
     
@@ -118,7 +128,7 @@ namespace Pds{
      *  \param[in] A La matriz a evaluar
      *  \return Retorna la matriz evaluada.
      *  \see Pds::Matrix::Apply()
-     *  \ingroup MathMatrixGroup
+     *  \ingroup MatrixMathGroup
      */
     Matrix Exp2(const Matrix A);
     
@@ -129,7 +139,7 @@ namespace Pds{
      *  \param[in] A La matriz a evaluar
      *  \return Retorna la matriz evaluada.
      *  \see Pds::Matrix::Apply()
-     *  \ingroup MathMatrixGroup
+     *  \ingroup MatrixMathGroup
      */
     Matrix Log(const Matrix A);
     
@@ -140,7 +150,7 @@ namespace Pds{
      *  \param[in] A La matriz a evaluar
      *  \return Retorna la matriz evaluada.
      *  \see Pds::Matrix::Apply()
-     *  \ingroup MathMatrixGroup
+     *  \ingroup MatrixMathGroup
      */
     Matrix Log2(const Matrix A);
 
@@ -151,7 +161,7 @@ namespace Pds{
      *  \param[in] A La matriz a evaluar
      *  \return Retorna la matriz evaluada.
      *  \see Pds::Matrix::Apply()
-     *  \ingroup MathMatrixGroup
+     *  \ingroup MatrixMathGroup
      */
     Matrix Log10(const Matrix A);
 
@@ -172,7 +182,7 @@ namespace Pds{
      *  \param[in] A La matriz a evaluar
      *  \return Retorna la matriz evaluada.
      *  \see Pds::Matrix::Apply()
-     *  \ingroup MathMatrixGroup
+     *  \ingroup MatrixMathGroup
      */
     Matrix Sqrt(const Matrix A);
 /**

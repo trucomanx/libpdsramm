@@ -1,4 +1,4 @@
-/** \example testprog_colvector.cpp
+/** \example testprog_vector.cpp
  *  \author Fernando Pujaico Rivera
  *  \date 18-04-2018
  *  \brief Programa para el testeo de las funciones.
@@ -14,7 +14,7 @@
 int main(void)
 {
     
-    Pds::ColVector W(2);
+    Pds::Vector W(2);
     std::cout<<"W:\n"<<W;
     
     return 0;

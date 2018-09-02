@@ -182,7 +182,7 @@ int Pds::Ra::ElementsInString(std::string str)
 #include <iomanip>      // std::setprecision
 #include <Pds/RealArraysDefines>
 #include <Pds/Matrix>
-#include <Pds/ColVector>
+#include <Pds/Vector>
 
 template std::string Pds::Ra::ToString<int>(int val);
 template std::string Pds::Ra::ToString<unsigned int>(unsigned int val);
@@ -191,7 +191,7 @@ template std::string Pds::Ra::ToString<unsigned long>(unsigned long val);
 template std::string Pds::Ra::ToString<double>(double val);
 template std::string Pds::Ra::ToString<float>(float val);
 template std::string Pds::Ra::ToString<Pds::Matrix>(Pds::Matrix val);
-template std::string Pds::Ra::ToString<Pds::ColVector>(Pds::ColVector val);
+template std::string Pds::Ra::ToString<Pds::Vector>(Pds::Vector val);
 template std::string Pds::Ra::ToString<char>(char val);
 template std::string Pds::Ra::ToString<const char*>(const char *val);
 template std::string Pds::Ra::ToString<char*>(char *val);

@@ -15,15 +15,15 @@ int main(void)
     A.FillId();
     A.Print("A=\n");
     
-    Pds::ColVector  C=A.GetColVector(2);
+    Pds::Vector  C=A.GetVector(2);
     C.Print("C=\n");
     
-    Pds::Matrix     M=A.GetColVector(2);
+    Pds::Matrix     M=A.GetVector(2);
     M.Print("A(:,2)=\n");
     
     
     C.Fill(-1.0);
-    A.SetColVector(C,2);
+    A.SetVector(C,2);
     A.Print("A=\n");
     
     return 0;

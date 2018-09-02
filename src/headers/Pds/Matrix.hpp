@@ -35,10 +35,11 @@
 
 
 /** \defgroup MatrixGroup Clase Pds::Matrix.
- *  \brief Metodos de la clase Pds::Matrix, una matriz.
+ *  \brief Métodos de la clase Pds::Matrix, una matriz 
+ *  <div class="fragment"> \#include <Pds/Matrix> </div>
  *  
  *  <br>Estas funciones trabajan con una matriz de la forma.<br>
- *  <center>
+ * 
    \f[
 \mathbf{A}=\left(\begin{matrix}
 a_{00} & a_{01} & \hdots & a_{0(Ncol-1)}\\ 
@@ -46,12 +47,12 @@ a_{10} & a_{11} & \hdots & a_{1(Ncol-1)}\\
 \vdots & \vdots & \vdots & \vdots \\
 a_{(Nlin-2)0} & a_{(Nlin-2)1} & \hdots & a_{(Nlin-2)(Ncol-1)}\\ 
 a_{(Nlin-1)0} & a_{(Nlin-1)1} & \hdots & a_{(Nlin-1)(Ncol-1)}\\
-\end{matrix}\right)\equiv A_{(Nlin-1)(Ncol-1)}
+\end{matrix}\right)\equiv A_{(Nlin-1),(Ncol-1)}
    \f]
    \f[
-A_{(Nlin-1)(Ncol-1)}\equiv [a_{ij}]_{(Nlin-1)(Ncol-1)}
+A_{(Nlin-1),(Ncol-1)}\equiv [a_{i,j}]_{(Nlin-1),(Ncol-1)}
    \f]
- *  </center>
+ *  
  *  \b Nlin es el número de lineas y \b Ncol es el número de columnas.
  *  
  * Informacion adicional puede ser encontrada en @cite tutorialmatvec
@@ -63,10 +64,10 @@ A_{(Nlin-1)(Ncol-1)}\equiv [a_{ij}]_{(Nlin-1)(Ncol-1)}
 
 namespace Pds{
 
-class ColVector;
+class Vector;
 
 /*! \class Matrix
- *  \brief La clase tipo  Matrix .
+ *  \brief La clase tipo  Pds::Matrix .
  *  Esta clase genera una matriz de Nlin lineas y Ncol columnas.
  *  Para usar incluir Pds/Matrix.
  *  \ingroup MatrixGroup
@@ -211,7 +212,7 @@ B_{Nlin,Ncol}\equiv [b_{i,j}]_{Nlin,Ncol}
      *  \param[in] B Matriz a copiar.
      *  \ingroup MatrixGroup
      */
-    Matrix(const Matrix &B);
+    Matrix(const Pds::Matrix &B);
     
     /** 
      *  \brief Crea un objeto de tipo Pds::Matrix, evaluando mediante una funcion, 
@@ -235,7 +236,7 @@ B_{Nlin,Ncol}\equiv [b_{i,j}]_{Nlin,Ncol}
      *  \param[in] func Función a aplicar, esta debe tener a forma double func(double).
      *  \ingroup MatrixGroup
      */
-    Matrix(const Matrix &B, double (*func)(double) );
+    Matrix(const Pds::Matrix &B, double (*func)(double) );
     
     /** 
      *  \brief Crea un objeto de tipo Pds::Matrix copiando datos desde 
@@ -308,7 +309,7 @@ public:
      *  \return Retorna true si son similares y false si no.
      *  \ingroup MatrixGroup
      */
-    bool IsSimilarTo(const Matrix &B) const;
+    bool IsSimilarTo(const Pds::Matrix &B) const;
 
     /** 
      *  \brief Verifica si las matrices son similares en tamaño.
@@ -319,7 +320,7 @@ public:
      *  \return Retorna false si son similares y true si no.
      *  \ingroup MatrixGroup
      */
-    bool IsNotSimilarTo(const Matrix &B) const;
+    bool IsNotSimilarTo(const Pds::Matrix &B) const;
     
     /** 
      *  \brief Verifica si las matrices son multiplicables.
@@ -330,7 +331,7 @@ public:
      *  \return Retorna true si son multiplicables y false si no.
      *  \ingroup MatrixGroup
      */
-    bool IsMulBy(const Matrix &B) const;
+    bool IsMulBy(const Pds::Matrix &B) const;
 
     /** 
      *  \brief Verifica si las matrices son multiplicables.
@@ -341,7 +342,7 @@ public:
      *  \return Retorna false si son multiplicables y true si no.
      *  \ingroup MatrixGroup
      */
-    bool IsNotMulBy(const Matrix &B) const;
+    bool IsNotMulBy(const Pds::Matrix &B) const;
 
     /** 
      *  \brief Verifica si la posición pertenece a la matriz.
@@ -404,7 +405,7 @@ public:
      *  \return Retorna una nueva matriz con 1 donde es infinito y 0 donde no lo es.
      *  \ingroup MatrixGroup
      */
-    Matrix IsInf(void) const;
+    Pds::Matrix IsInf(void) const;
     
     /** 
      *  \brief Verifica si la matriz tiene elementos con valores NAN (Not A Number).
@@ -428,7 +429,7 @@ public:
      *  \return Retorna una nueva matriz con 1 donde es NAN y 0 donde no lo es.
      *  \ingroup MatrixGroup
      */
-    Matrix IsNan(void) const;
+    Pds::Matrix IsNan(void) const;
     
     /** 
      *  \brief Verifica si la matriz tiene elementos con valores finitos (no +inf, no -inf y no NAN).
@@ -451,7 +452,7 @@ public:
      *  \return Retorna una nueva matriz con 1 donde es finito y 0 donde no lo es.
      *  \ingroup MatrixGroup
      */
-    Matrix IsFinite(void) const;
+    Pds::Matrix IsFinite(void) const;
     
 /**
  * @}
@@ -559,7 +560,7 @@ public:
      *  posición no existe.
      *  \ingroup MatrixGroup
      */
-    Pds::ColVector GetColVector(unsigned int col) const;
+    Pds::Vector GetVector(unsigned int col) const;
     
     /** 
      *  \brief Copia un vector columna en una columna de la matriz. Si los 
@@ -571,7 +572,7 @@ public:
      *  o false si hubo algún problema. En caso de retornar false no se modifica la matriz.
      *  \ingroup MatrixGroup
      */
-    bool SetColVector(const Pds::ColVector V,unsigned int col);
+    bool SetVector(const Pds::Vector V,unsigned int col);
     
 /**
  * @}
@@ -780,7 +781,7 @@ public:
     std::string ToString(void) const;
 
     /** 
-     *  \brief Imprime en pantalla el cntenido de la matriz
+     *  \brief Imprime en pantalla el contenido de la matriz
      *  \ingroup MatrixGroup
      */
     void Print(void) const;
@@ -827,7 +828,7 @@ public:
      *  \return Retorna una matriz no vacia si todo fue bien o una matriz vacia en caso de error.
      *  \ingroup MatrixGroup
      */
-    static Matrix Load(const char* filepath);
+    static Pds::Matrix Load(const char* filepath);
 
    /** 
      *  \brief Escribe en un archivo una matriz de Nlin lineas y Ncol columnas.
@@ -836,7 +837,7 @@ public:
      *  \return Retorna true si todo fue bien o false en caso de error.
      *  \ingroup MatrixGroup
      */
-    static bool Save(const char* filepath,const Matrix &A);
+    static bool Save(const char* filepath,const Pds::Matrix &A);
 /**
  * @}
  */
@@ -857,7 +858,7 @@ public:
      * la memoria. Esta memoria debe ser liberada siempre com ReleaseArray
      *  \ingroup MatrixGroup
      */
-    static double** AllocateArray(const Matrix &A,double (*func)(double));
+    static double** AllocateArray(const Pds::Matrix &A,double (*func)(double));
     
     /** 
      *  \brief crea diamicamente un arreglo de A.Nlin() lineas y A.Ncol() columnas,
@@ -867,7 +868,7 @@ public:
      * la memoria. Esta memoria debe ser liberada siempre com ReleaseArray
      *  \ingroup MatrixGroup
      */
-    static double** AllocateArray(const Matrix &A);
+    static double** AllocateArray(const Pds::Matrix &A);
     
     /** 
      *  \brief crea dinámicamente un arreglo de Nlin lineas y Ncol columnas,
@@ -967,7 +968,7 @@ public:
      *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
-    Matrix T(void) const;
+    Pds::Matrix T(void) const;
     
     
     /** 
@@ -984,7 +985,7 @@ public:
      *  \return Retorna la matriz inversa si todo fue bien o una matriz vacia si no.
      *  \ingroup MatrixGroup
      */
-    Matrix Inv(double *rcond=NULL) const;
+    Pds::Matrix Inv(double *rcond=NULL) const;
     
     
     /** 
@@ -1006,7 +1007,7 @@ public:
      *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
-    Matrix operator -(void) const;
+    Pds::Matrix operator -(void) const;
     
     /** 
      *  \brief Cambia de signo a si mismo (A), el resultado es
@@ -1027,7 +1028,7 @@ public:
      *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
-    Matrix Minus(void) const;
+    Pds::Matrix Minus(void) const;
     
     /** 
      *  \brief Asigna el signo + a si mismo (A), el resultado es
@@ -1048,7 +1049,7 @@ public:
      *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
-    Matrix operator +(void) const;
+    Pds::Matrix operator +(void) const;
     
     /** 
      *  \brief Asigna el signo + a si mismo (A), el resultado es
@@ -1069,7 +1070,7 @@ public:
      *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
-    Matrix Plus(void) const;
+    Pds::Matrix Plus(void) const;
 /**
  * @}
  */
@@ -1102,7 +1103,7 @@ public:
      *  \see Add
      *  \ingroup MatrixGroup
      */
-    Matrix operator + (double b) const;
+    Pds::Matrix operator + (double b) const;
     
     /** 
      *  \brief Suma con sigo mismo (A), una valor b y el resultado es
@@ -1125,7 +1126,7 @@ public:
      *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
-    Matrix Add(double b) const;
+    Pds::Matrix Add(double b) const;
     
     /** 
      *  \brief Suma con sigo mismo (A), una matriz B y el resultado es
@@ -1151,7 +1152,7 @@ public:
      *  \see Add
      *  \ingroup MatrixGroup
      */
-    Matrix operator + (const Matrix &B) const;
+    Pds::Matrix operator + (const Pds::Matrix &B) const;
     
     /** 
      *  \brief Suma con sigo mismo (A), una matriz B y el resultado es
@@ -1176,7 +1177,7 @@ public:
      *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
-    Matrix Add(const Matrix &B) const;
+    Pds::Matrix Add(const Pds::Matrix &B) const;
     
     /** 
      *  \brief Resta con sigo mismo (A), un valor b y el resultado es
@@ -1200,7 +1201,7 @@ public:
      *  \see Add
      *  \ingroup MatrixGroup
      */
-    Matrix operator - (double b) const;
+    Pds::Matrix operator - (double b) const;
     
     /** 
      *  \brief Resta con sigo mismo (A), una valor b y el resultado es
@@ -1223,7 +1224,7 @@ public:
      *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
-    Matrix Sub(double b) const;
+    Pds::Matrix Sub(double b) const;
     
     
     /** 
@@ -1248,7 +1249,7 @@ public:
      *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
-    Matrix operator -(const Matrix &B) const;
+    Pds::Matrix operator -(const Pds::Matrix &B) const;
     
     /** 
      *  \brief Resta con sigo mismo (A), una matriz B y el resultado es
@@ -1272,7 +1273,7 @@ public:
      *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
-    Matrix Sub(const Matrix &B) const;
+    Pds::Matrix Sub(const Pds::Matrix &B) const;
     
     /** 
      *  \brief Multiplica con sigo mismo (A), un valor b y el resultado es
@@ -1295,7 +1296,7 @@ public:
      *  \see Mul
      *  \ingroup MatrixGroup
      */
-    Matrix operator * (double b) const;
+    Pds::Matrix operator * (double b) const;
     
     /** 
      *  \brief Multiplica con sigo mismo (A), un valor b y el resultado es
@@ -1317,7 +1318,7 @@ public:
      *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
-    Matrix Mul(double b) const;
+    Pds::Matrix Mul(double b) const;
     
     /** 
      *  \brief Multiplica con sigo mismo (A), una matriz B y el resultado es
@@ -1342,7 +1343,7 @@ public:
      *  \see Mul
      *  \ingroup MatrixGroup
      */
-    Matrix operator * (const Matrix &B) const;
+    Pds::Matrix operator * (const Pds::Matrix &B) const;
     
     /** 
      *  \brief Multiplica con sigo mismo (A), una matriz B y el resultado es
@@ -1366,7 +1367,7 @@ public:
      *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
-    Matrix Mul(const Matrix &B) const;
+    Pds::Matrix Mul(const Pds::Matrix &B) const;
 /**
  * @}
  */
@@ -1394,7 +1395,7 @@ public:
      *  \see SubAssig
      *  \ingroup MatrixGroup
      */
-    Matrix& operator -=(const Matrix &B);
+    Pds::Matrix& operator -=(const Pds::Matrix &B);
 
     /** 
      *  \brief Resta y acumula en si mismo (B), una matriz A. Este es similar al
@@ -1412,7 +1413,7 @@ public:
      *  el acumulador no altera su contenido.
      *  \ingroup MatrixGroup
      */
-    bool SubAssig(const Matrix &B);
+    bool SubAssig(const Pds::Matrix &B);
     
     /** 
      *  \brief Suma y acumula en si mismo (B), una matriz A. Este operador 
@@ -1431,7 +1432,7 @@ public:
      *  \see AddAssig
      *  \ingroup MatrixGroup
      */
-    Matrix& operator +=(const Matrix &B);
+    Pds::Matrix& operator +=(const Pds::Matrix &B);
 
     /** 
      *  \brief Suma y acumula en si mismo (B), una matriz A. Este es similar al
@@ -1449,7 +1450,7 @@ public:
      *  el acumulador no altera su contenido.
      *  \ingroup MatrixGroup
      */
-    bool AddAssig(const Matrix &B);
+    bool AddAssig(const Pds::Matrix &B);
     
     /** 
      *  \brief Copia en si mismo (B), una matriz A. Este operador es 
@@ -1471,7 +1472,7 @@ public:
      *  \see Copy
      *  \ingroup MatrixGroup
      */
-    Matrix& operator = (const Matrix &A);
+    Pds::Matrix& operator = (const Pds::Matrix &A);
     
     /** 
      *  \brief Copia en si mismo (B), el contenido de una matriz A. Este 
@@ -1484,7 +1485,7 @@ public:
      *  \see Copy
      *  \ingroup MatrixGroup
      */
-    bool Copy(const Matrix &A);
+    bool Copy(const Pds::Matrix &A);
 
     /** 
      *  \brief Mueve datos a si mismo (B), desde una matriz A. Esta operación 
@@ -1500,7 +1501,7 @@ public:
      *  \see Copy
      *  \ingroup MatrixGroup
      */
-    bool Move(Matrix &A);
+    bool Move(Pds::Matrix &A);
     
 /**
  * @}
