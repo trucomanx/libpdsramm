@@ -1,12 +1,6 @@
 #include <Pds/Matrix>
-//#include <Pds/RATools>
+//#include <Pds/RaTools>
 
-Pds::Matrix Pds::Matrix::RandU(unsigned int Nlin,unsigned int Ncol)
-{
-    Pds::Matrix A(Nlin,Ncol);
-    A.FillRandU();
-    return A;
-}
 
 Pds::Matrix Pds::Matrix::Load(const char* filepath)
 {

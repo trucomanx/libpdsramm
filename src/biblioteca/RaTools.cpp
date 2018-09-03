@@ -1,5 +1,5 @@
 /*
- * RATools.cpp
+ * RaTools.cpp
  * 
  * Copyright 2018 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
  * 
@@ -21,8 +21,8 @@
  */
 
 
-#include <Pds/RATools>
-#include <Pds/RADefines>
+#include <Pds/RaTools>
+#include <Pds/RaDefines>
 
 #include <string>
 #include <iostream>
@@ -180,7 +180,7 @@ int Pds::Ra::ElementsInString(std::string str)
 
 #include <sstream>
 #include <iomanip>      // std::setprecision
-#include <Pds/RADefines>
+#include <Pds/RaDefines>
 #include <Pds/Matrix>
 #include <Pds/Vector>
 

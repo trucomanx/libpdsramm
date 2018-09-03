@@ -23,7 +23,7 @@
 #include <string>
 #include <iostream>
 
-#include <Pds/RealArrays>
+#include <Pds/Ra>
 
 ////////////////////////////////////////////////////////////////////////
 std::ostream& operator<<(std::ostream &out,const Pds::Matrix &mat)

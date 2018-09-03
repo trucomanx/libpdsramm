@@ -1,5 +1,5 @@
 /*
- * RATools.hpp
+ * RaTools.hpp
  * 
  * Copyright 2018 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
  * 
@@ -20,9 +20,9 @@
  * 
  */
 
-/** \file RATools.hpp
+/** \file RaTools.hpp
  *  \author Fernando Pujaico Rivera
- *  \brief Archivo de definición herramientas para a biblioteca RealArrays.
+ *  \brief Archivo de definición herramientas para a biblioteca Ra.
  *  
  */
     
@@ -37,7 +37,7 @@
 
 /** \defgroup PdsRaToolsGroup ---- Funciones útiles.
  *  \brief Funciones para procesar cadenas y archivos 
- *  <div class="fragment"> \#include <Pds/RATools> </div>
+ *  <div class="fragment"> \#include <Pds/RaTools> </div>
  *  
  *  
  * @{

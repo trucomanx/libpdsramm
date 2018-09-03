@@ -20,7 +20,7 @@
  * 
  */
 
-#include <Pds/RealArrays>
+#include <Pds/Ra>
 
 bool Pds::Matrix::RowSwap(unsigned int lin1,unsigned int lin2)
 {

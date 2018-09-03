@@ -6,7 +6,7 @@
  */
     
 #include <iostream>
-#include <Pds/RealArrays>
+#include <Pds/Ra>
     
 int main(void)
 {

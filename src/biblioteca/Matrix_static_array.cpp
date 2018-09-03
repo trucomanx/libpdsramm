@@ -1,7 +1,7 @@
 #include <cstdlib>
 #include <Pds/Matrix>
-#include <Pds/RADefines>
-#include <Pds/RATools>
+#include <Pds/RaDefines>
+#include <Pds/RaTools>
 
 
 double** Pds::Matrix::ArrayAllocate(const Pds::Matrix &A,double (*func)(double))

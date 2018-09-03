@@ -23,7 +23,7 @@
 #include <string>
 #include <iostream>
 
-#include <Pds/RealArrays>
+#include <Pds/Ra>
 
 
 Pds::Matrix Pds::Matrix::Inv(double *rcond) const

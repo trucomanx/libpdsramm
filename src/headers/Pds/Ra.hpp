@@ -1,5 +1,5 @@
 /*
- * RealArrays.hpp
+ * Ra.hpp
  * 
  * Copyright 2018 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
  * 
@@ -20,29 +20,29 @@
  * 
  */
 
-/** \file RealArrays.hpp
+/** \file Ra.hpp
  * \brief Archivo de definición de cabeceras.
  *
  *  Puedes habilitar todos los módulos de la biblioteca  
  *  usando este archivo, haciendo:
    @verbatim
-	#include <Pds/RealArrays>
+	#include <Pds/Ra>
    @endverbatim
  * O puedes habilitarlas una por una usando lo siguiente:
    @verbatim
-    #include <Pds/RADefines>
+    #include <Pds/RaDefines>
     #include <Pds/Matrix>
    @endverbatim
  * 
  */
     
     
-#ifndef __PDS_REALARRAYS_HPP__
-#define __PDS_REALARRAYS_HPP__
+#ifndef __PDS_RA_HPP__
+#define __PDS_RA_HPP__
     
     
-#include <Pds/RADefines>
-#include <Pds/RATools>
+#include <Pds/RaDefines>
+#include <Pds/RaTools>
     
     
 #include <Pds/Matrix>
@@ -55,6 +55,6 @@
 #include <Pds/VectorFunc>
     
     
-#endif /* __PDS_REALARRAYS_HPP__ */
+#endif /* __PDS_RA_HPP__ */
 
 

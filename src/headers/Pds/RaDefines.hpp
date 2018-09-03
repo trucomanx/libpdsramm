@@ -1,5 +1,5 @@
 /*
- * RADefines.hpp
+ * RaDefines.hpp
  * 
  * Copyright 2018 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
  * 
@@ -20,7 +20,7 @@
  * 
  */
 
-/** \file RADefines.hpp
+/** \file RaDefines.hpp
  * \brief Archivo de definición de macro defines.
  * 
  */
@@ -28,7 +28,7 @@
 
 /** \defgroup DefinesGroup ---- Macro Defines.
  *  \brief Algunas macros interesantes 
- *  <div class="fragment"> \#include <Pds/RADefines> </div>
+ *  <div class="fragment"> \#include <Pds/RaDefines> </div>
  *  
  * @{
  */

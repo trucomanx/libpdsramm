@@ -68,7 +68,59 @@ namespace Pds{
  *  Descripción de algunas funciones que usan  Pds::Matrix.
  * @{
  */
-
+   /** 
+     *  \brief Crea una matriz con datos correspondentes ao Id de cada elemento.
+     *  \param[in] N Número de lineas y columnas.
+     *  \return Retorna una matriz no vacía si todo fue bien o una matriz vacía en caso de error.
+     *  \ingroup MatrixFuncGroup
+     */
+    Matrix MatrixId(unsigned int N);
+   
+   /** 
+     *  \brief Crea una matriz con datos correspondentes ao Id de cada elemento.
+     *  \param[in] Nlin Número de lineas.
+     *  \param[in] Ncol Número de columnas.
+     *  \return Retorna una matriz no vacía si todo fue bien o una matriz vacía en caso de error.
+     *  \ingroup MatrixFuncGroup
+     */
+    Matrix MatrixId(unsigned int Nlin,unsigned int Ncol);
+    
+   /** 
+     *  \brief Crea una matriz con datos aleatorios con distribución Normal
+     *  de media cero 0.0 y desvío padrón 1.0.
+     *  \param[in] N Número de lineas y columnas.
+     *  \return Retorna una matriz no vacía si todo fue bien o una matriz vacía en caso de error.
+     *  \ingroup MatrixFuncGroup
+     */
+    Matrix RandN(unsigned int N);
+   
+   /** 
+     *  \brief Crea una matriz con datos aleatorios con distribución Normal
+     *  de media cero 0.0 y desvío padrón 1.0.
+     *  \param[in] Nlin Número de lineas.
+     *  \param[in] Ncol Número de columnas.
+     *  \return Retorna una matriz no vacía si todo fue bien o una matriz vacía en caso de error.
+     *  \ingroup MatrixFuncGroup
+     */
+    Matrix RandN(unsigned int Nlin,unsigned int Ncol);
+    
+   /** 
+     *  \brief Crea una matriz con datos aleatorios uniformemente distribuidos entre 0.0 y 1.0.
+     *  \param[in] N Número de lineas y columnas.
+     *  \return Retorna una matriz no vacía si todo fue bien o una matriz vacía en caso de error.
+     *  \ingroup MatrixFuncGroup
+     */
+    Matrix RandU(unsigned int N);
+    
+   /** 
+     *  \brief Crea una matriz con datos aleatorios uniformemente distribuidos entre 0.0 y 1.0.
+     *  \param[in] Nlin Número de lineas.
+     *  \param[in] Ncol Número de columnas.
+     *  \return Retorna una matriz no vacía si todo fue bien o una matriz vacía en caso de error.
+     *  \ingroup MatrixFuncGroup
+     */
+    Matrix RandU(unsigned int Nlin,unsigned int Ncol);
+    
     /** 
      *  \brief Retorna una matriz diagonal usando los dats de tra matriz,
      *  se lee primero todos los elementos de una columna y lueg se pasa a la

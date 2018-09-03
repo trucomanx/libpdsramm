@@ -25,6 +25,48 @@
 #include <Pds/Matrix>
 #include <Pds/MatrixFunc>
 
+Pds::Matrix Pds::MatrixId(unsigned int N)
+{
+    Pds::Matrix A(N);
+    A.FillId();
+    return A;
+}
+
+Pds::Matrix Pds::MatrixId(unsigned int Nlin,unsigned int Ncol)
+{
+    Pds::Matrix A(Nlin,Ncol);
+    A.FillId();
+    return A;
+}
+
+Pds::Matrix Pds::RandN(unsigned int N)
+{
+    Pds::Matrix A(N);
+    A.FillRandN();
+    return A;
+}
+
+Pds::Matrix Pds::RandN(unsigned int Nlin,unsigned int Ncol)
+{
+    Pds::Matrix A(Nlin,Ncol);
+    A.FillRandN();
+    return A;
+}
+
+Pds::Matrix Pds::RandU(unsigned int N)
+{
+    Pds::Matrix A(N);
+    A.FillRandU();
+    return A;
+}
+
+Pds::Matrix Pds::RandU(unsigned int Nlin,unsigned int Ncol)
+{
+    Pds::Matrix A(Nlin,Ncol);
+    A.FillRandU();
+    return A;
+}
+
 Pds::Matrix Pds::Diag(Pds::Matrix A)
 {
     unsigned int id;

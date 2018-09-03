@@ -1,4 +1,4 @@
-#include <Pds/RealArrays.hpp>
+#include <Pds/Ra.hpp>
     
 int main(void)
 {

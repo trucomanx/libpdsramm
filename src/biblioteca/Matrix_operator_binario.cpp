@@ -23,7 +23,7 @@
 #include <string>
 #include <iostream>
 
-#include <Pds/RealArrays>
+#include <Pds/Ra>
 
 ////////////////////////////////////////////////////////////////////////
 Pds::Matrix operator+(double b,const Pds::Matrix &mat)

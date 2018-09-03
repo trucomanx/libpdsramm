@@ -5,14 +5,14 @@
  *  
  */
     
-#include <Pds/RealArrays>
+#include <Pds/Ra>
     
 int main(void)
 {
     Pds::Matrix A(200,200);
     A.FillRandN();
     
-    Pds::Matrix B=A+2.0*Pds::Matrix::RandU(200,200);
+    Pds::Matrix B=A+2.0*Pds::RandU(200,200);
     
     
     std::cout<<"A.Max()  : "<<A.Max() <<std::endl;

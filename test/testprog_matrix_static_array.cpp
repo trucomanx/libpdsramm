@@ -7,7 +7,7 @@
     
     
 #include <iostream>
-#include <Pds/RealArrays>
+#include <Pds/Ra>
 #include <cmath>
     
 int main(void)

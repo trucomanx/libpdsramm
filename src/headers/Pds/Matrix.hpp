@@ -945,15 +945,7 @@ public:
  *  Herramientas genéricas que pueden ser usadas desde Pds::Matrix
  * @{
  */
-    
-   /** 
-     *  \brief Crea una matriz con datos aleatorios uniformemente distribuidos entre 0.0 y 1.0.
-     *  \param[in] Nlin Número de lineas.
-     *  \param[in] Ncol Número de columnas.
-     *  \return Retorna una matriz no vacía si todo fue bien o una matriz vacía en caso de error.
-     *  \ingroup MatrixGroup
-     */
-    static Pds::Matrix RandU(unsigned int Nlin,unsigned int Ncol);
+
     
    /** 
      *  \brief Lee de un archivo una matriz de Nlin lineas y Ncol columnas.
