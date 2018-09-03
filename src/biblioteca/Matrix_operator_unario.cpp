@@ -52,12 +52,12 @@ Pds::Matrix Pds::Matrix::Inv(double *rcond) const
         {
             if(((unsigned int)id)!=lin)
             {
-                A.SwapRows((unsigned int)id,lin);
+                A.RowSwap((unsigned int)id,lin);
             }
             
             // genero una linea con 1 en la posicion (lin,lin)
             alpha=B.array[lin][lin];
-            A.RowDiv(lin,alpha);
+            A.RowDivAssig(lin,alpha);
             for(all=lin;all<B.ncol;all++)
             {
                 B.array[lin][all]=B.array[lin][all]/alpha;
@@ -69,7 +69,7 @@ Pds::Matrix Pds::Matrix::Inv(double *rcond) const
                 alpha=B.array[i][lin];
                 if(B.array[i][lin]!=0)
                 {
-                    A.AddAssigRow(i,lin,-alpha);
+                    A.RowAddAssig(i,lin,-alpha);
                     
                     for(all=lin;all<B.ncol;all++)
                     B.array[i][all]=B.array[i][all]-alpha*(B.array[lin][all]);
@@ -93,7 +93,7 @@ Pds::Matrix Pds::Matrix::Inv(double *rcond) const
         {
             alpha=B.array[lin-i][lin];
 
-            A.AddAssigRow(lin-i,lin,-alpha);
+            A.RowAddAssig(lin-i,lin,-alpha);
             
             for(all=lin;all<B.ncol;all++)
             B.array[lin-i][all]=B.array[lin-i][all]-alpha*(B.array[lin][all]);

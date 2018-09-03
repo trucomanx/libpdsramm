@@ -30,7 +30,7 @@
    @endverbatim
  * O puedes habilitarlas una por una usando lo siguiente:
    @verbatim
-    #include <Pds/RealArraysDefines>
+    #include <Pds/RADefines>
     #include <Pds/Matrix>
    @endverbatim
  * 
@@ -41,18 +41,17 @@
 #define __PDS_REALARRAYS_HPP__
     
     
-#include <Pds/RealArraysDefines>
-#include <Pds/RealArraysTools>
+#include <Pds/RADefines>
+#include <Pds/RATools>
     
-
     
 #include <Pds/Matrix>
-#include <Pds/Vector>
-    
 #include <Pds/MatrixMath>
 #include <Pds/MatrixFunc>
 #include <Pds/MatrixRotation>
     
+    
+#include <Pds/Vector>
 #include <Pds/VectorFunc>
     
     

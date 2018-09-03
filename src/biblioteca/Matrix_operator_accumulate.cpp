@@ -52,7 +52,7 @@ bool Pds::Matrix::Copy(const Pds::Matrix &A)
             return true;
         }
 
-        newarray= Pds::Matrix::AllocateArray(A.nlin,A.ncol);
+        newarray= Pds::Matrix::ArrayAllocate(A.nlin,A.ncol);
         if(newarray==NULL) 
         {
             return false;
@@ -64,7 +64,7 @@ bool Pds::Matrix::Copy(const Pds::Matrix &A)
                 newarray[lin][col]=A.array[lin][col];
         }
 
-        Pds::Matrix::ReleaseArray(this->array,this->nlin);
+        Pds::Matrix::ArrayRelease(this->array,this->nlin);
         this->nlin=A.nlin;
         this->ncol=A.ncol;
         this->array=newarray;
@@ -72,10 +72,94 @@ bool Pds::Matrix::Copy(const Pds::Matrix &A)
     }
     return true;
 }
+////////////////////////////////////////////////////////////////////////
+Pds::Matrix& Pds::Matrix::operator *=(double b)
+{
+    if(false==this->MulAssig(b))
+        this->MakeEmpty();
+    
+    return *this;
+}
 
+bool Pds::Matrix::MulAssig(double b)
+{
+    if( this->IsEmpty() )   return false;
 
+    unsigned int lin,col;
+   
+    for(lin=0;lin<this->nlin;lin++)
+    for(col=0;col<this->ncol;col++)
+    {
+        this->array[lin][col]=this->array[lin][col]*b;
+    }
+
+    return true;
+}
+
+Pds::Matrix& Pds::Matrix::operator *=(const Pds::Matrix &B)
+{
+    if(false==this->MulAssig(B))
+        this->MakeEmpty();
+    
+    return *this;
+}
+
+bool Pds::Matrix::MulAssig(const Pds::Matrix &B)
+{
+    if( B.IsEmpty() )           return false;
+    if( this->IsNotMulBy(B) )   return false;
+
+    unsigned int lin,col,id;
+    
+    unsigned int Nlin=this->nlin;
+    unsigned int Ncol=B.ncol;
+    double S;
+    
+    double **arr=Pds::Matrix::ArrayAllocate(Nlin,Ncol);
+    if( arr==NULL )             return false;
+    
+    for(lin=0;lin<Nlin;lin++)
+    for(col=0;col<Ncol;col++)
+    {
+        S=0.0;
+        for(id=0;id<this->ncol;id++)
+        S=S+this->array[lin][id]*B.array[id][col];
+        
+        arr[lin][col]=S;
+    }
+    
+    Pds::Matrix::ArrayRelease(this->array,this->nlin);
+    
+    this->nlin=Nlin;
+    this->ncol=Ncol;
+    this->array=arr;
+    
+    return true;
+}
 
 ////////////////////////////////////////////////////////////////////////
+Pds::Matrix& Pds::Matrix::operator -=(double b)
+{
+    if(false==this->SubAssig(b))
+        this->MakeEmpty();
+    
+    return *this;
+}
+
+bool Pds::Matrix::SubAssig(double b)
+{
+    if( this->IsEmpty() )   return false;
+
+    unsigned int lin,col;
+   
+    for(lin=0;lin<this->nlin;lin++)
+    for(col=0;col<this->ncol;col++)
+    {
+        this->array[lin][col]=this->array[lin][col]-b;  
+    }
+
+    return true;
+}
 
 Pds::Matrix& Pds::Matrix::operator -=(const Pds::Matrix &B)
 {
@@ -101,6 +185,28 @@ bool Pds::Matrix::SubAssig(const Pds::Matrix &B)
     return true;
 }
 ////////////////////////////////////////////////////////////////////////
+Pds::Matrix& Pds::Matrix::operator +=(double b)
+{
+    if(false==this->AddAssig(b))
+        this->MakeEmpty();
+    
+    return *this;
+}
+
+bool Pds::Matrix::AddAssig(double b)
+{
+    if( this->IsEmpty() )   return false;
+
+    unsigned int lin,col;
+   
+    for(lin=0;lin<this->nlin;lin++)
+    for(col=0;col<this->ncol;col++)
+    {
+        this->array[lin][col]=this->array[lin][col]+b;
+    }
+
+    return true;
+}
 
 Pds::Matrix& Pds::Matrix::operator +=(const Pds::Matrix &B)
 {

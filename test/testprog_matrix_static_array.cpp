@@ -21,7 +21,7 @@ int main(void)
     
     char filepath[]="filedat.txt";
     
-    array=Pds::Matrix::AllocateArray(Nlin,Ncol);
+    array=Pds::Matrix::ArrayAllocate(Nlin,Ncol);
     if(array==NULL)   return 0; 
     
     array[0][0]=0.0/0.0;
@@ -32,33 +32,33 @@ int main(void)
     str=Pds::Matrix::ArrayToString(array,Nlin,Ncol);
     std::cout<<str;
     
-    Pds::Matrix::SaveArray(filepath,array,Nlin,Ncol);
+    Pds::Matrix::ArraySave(filepath,array,Nlin,Ncol);
     
-    Pds::Matrix::ReleaseArray(array,Nlin);
+    Pds::Matrix::ArrayRelease(array,Nlin);
     std::cout<<std::endl<<"array="<<array<<std::endl<<std::endl;
     
     
-    array=Pds::Matrix::AllocateArray(A);
+    array=Pds::Matrix::ArrayAllocate(A);
     if(array==NULL)   return 0;
     
     str=Pds::Matrix::ArrayToString(array,A.Nlin(),A.Ncol());
     std::cout<<str;
     
-    Pds::Matrix::ReleaseArray(array,A.Nlin());
+    Pds::Matrix::ArrayRelease(array,A.Nlin());
     std::cout<<std::endl<<"array="<<array<<std::endl<<std::endl;
     
     
-    array=Pds::Matrix::AllocateArray(A,sin);
+    array=Pds::Matrix::ArrayAllocate(A,sin);
     if(array==NULL)   return 0;
     
     str=Pds::Matrix::ArrayToString(array,A.Nlin(),A.Ncol());
     std::cout<<str;
     
-    Pds::Matrix::ReleaseArray(array,A.Nlin());
+    Pds::Matrix::ArrayRelease(array,A.Nlin());
     std::cout<<std::endl<<"array="<<array<<std::endl<<std::endl;
     
     
-    Pds::Matrix::LoadArray(filepath,array,Nlin,Ncol);
+    Pds::Matrix::ArrayLoad(filepath,array,Nlin,Ncol);
     str=Pds::Matrix::ArrayToString(array,Nlin,Ncol);
     std::cout<<str;
     

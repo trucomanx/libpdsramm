@@ -1,5 +1,5 @@
 /*
- * RealArraysTools.cpp
+ * RATools.cpp
  * 
  * Copyright 2018 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
  * 
@@ -21,8 +21,8 @@
  */
 
 
-#include <Pds/RealArraysTools>
-#include <Pds/RealArraysDefines>
+#include <Pds/RATools>
+#include <Pds/RADefines>
 
 #include <string>
 #include <iostream>
@@ -180,7 +180,7 @@ int Pds::Ra::ElementsInString(std::string str)
 
 #include <sstream>
 #include <iomanip>      // std::setprecision
-#include <Pds/RealArraysDefines>
+#include <Pds/RADefines>
 #include <Pds/Matrix>
 #include <Pds/Vector>
 

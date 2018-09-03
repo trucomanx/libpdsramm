@@ -55,7 +55,7 @@ A_{(Nlin-1),(Ncol-1)}\equiv [a_{i,j}]_{(Nlin-1),(Ncol-1)}
  *  
  *  \b Nlin es el número de lineas y \b Ncol es el número de columnas.
  *  
- * Informacion adicional puede ser encontrada en @cite tutorialmatvec
+ * Información adicional puede ser encontrada en @cite tutorialmatvec
  * @{
  */
 
@@ -215,7 +215,7 @@ B_{Nlin,Ncol}\equiv [b_{i,j}]_{Nlin,Ncol}
     Matrix(const Pds::Matrix &B);
     
     /** 
-     *  \brief Crea un objeto de tipo Pds::Matrix, evaluando mediante una funcion, 
+     *  \brief Crea un objeto de tipo Pds::Matrix, evaluando mediante una función, 
      *  los datos de otra matriz.
      * 
    \f[
@@ -276,7 +276,7 @@ public:
     /** 
      *  \brief Verifica si la matriz es nula es decir con lineas o columnas cero o arreglo NULL.
      *  
-     *  Una matriz\f$\mathbf{A}\f$ está vacia si  \f$ \mathbf{A}=[]_{0,0}\f$.
+     *  Una matriz\f$\mathbf{A}\f$ está vacía si  \f$ \mathbf{A}=[]_{0,0}\f$.
      *  \return Retorna true si es nula e false si no.
      *  \ingroup MatrixGroup
      */
@@ -285,7 +285,7 @@ public:
     /** 
      *  \brief Verifica si la matriz NO es nula, es decir con lineas y columnas diferentes cero y arreglo diferente de NULL.
      * 
-     *  Una matriz\f$\mathbf{A}\f$ está vacia si  \f$ \mathbf{A}=[]_{0,0}\f$.
+     *  Una matriz \f$\mathbf{A}\f$ está vacía si  \f$ \mathbf{A}=[]_{0,0}\f$.
      *  \return Retorna true si NO es nula e false si lo es.
      *  \ingroup MatrixGroup
      */
@@ -295,7 +295,7 @@ public:
      *  \brief libera los datos internos de la matriz y la convierte en una matriz nula.
      *  es decir con lineas y columnas cero.
      * 
-     *  Una matriz\f$\mathbf{A}\f$ está vacia si  \f$ \mathbf{A}=[]_{0,0}\f$.
+     *  Una matriz\f$\mathbf{A}\f$ está vacía si  \f$ \mathbf{A}=[]_{0,0}\f$.
      *  \ingroup MatrixGroup
      */
     void MakeEmpty(void);
@@ -326,7 +326,7 @@ public:
      *  \brief Verifica si las matrices son multiplicables.
      * 
      *  Una matriz\f$A_{M,N}\f$ es multiplicable por \f$B_{P,Q}\f$ 
-     *  si  \f$N=P\f$ y ambas son no vacias.
+     *  si  \f$N=P\f$ y ambas son no vacías.
      *  \param[in] B Matriz en consulta.
      *  \return Retorna true si son multiplicables y false si no.
      *  \ingroup MatrixGroup
@@ -337,7 +337,7 @@ public:
      *  \brief Verifica si las matrices son multiplicables.
      * 
      *  Una matriz\f$A_{M,N}\f$ es multiplicable por \f$B_{P,Q}\f$ 
-     *  si  \f$N= P\f$ y ambas son no vacias.
+     *  si  \f$N= P\f$ y ambas son no vacías.
      *  \param[in] B Matriz en consulta.
      *  \return Retorna false si son multiplicables y true si no.
      *  \ingroup MatrixGroup
@@ -487,9 +487,33 @@ public:
      *  \ingroup MatrixGroup
      */
     bool FillRandU(void);
-
+    
     /** 
-     *  \brief Inicializa la matriz con el valor de la posicion de cada elemento.
+     *  \brief Inicializa la matriz con números aleatorios, distribuidos uniformemente,
+     *  desde 0 a 1.0, incluyendo 0 y excluyendo 1.0.
+     * 
+   \f[ f_{X}(x)= 1,~~min(a,b)\leq x\leq max(a,b), x \in R \f]
+   \f[ \mathbf{A}\equiv [a_{i,j}]_{M,N} \f]
+   \f[ a_{i,j}\leftarrow X_{l} \in X \f]
+     *  \return Retorna true si todo fue bien o false si no.
+     *  \ingroup MatrixGroup
+     */
+    bool FillRandU(int a, int b);
+    
+    /** 
+     *  \brief Inicializa la matriz con números aleatorios, distribuidos uniformemente,
+     *  desde 0 a 1.0, incluyendo 0 y excluyendo 1.0.
+     * 
+   \f[ f_{X}(x)= 1,~~min(a,b)\leq x\leq max(a,b), x \in R \f]
+   \f[ \mathbf{A}\equiv [a_{i,j}]_{M,N} \f]
+   \f[ a_{i,j}\leftarrow X_{l} \in X \f]
+     *  \return Retorna true si todo fue bien o false si no.
+     *  \ingroup MatrixGroup
+     */
+    bool FillRandU(double a, double b);
+    
+    /** 
+     *  \brief Inicializa la matriz con el valor de la posición de cada elemento.
      * 
      * En el caso de una matriz A de 4 lineas y 3 columnas:
    \f[
@@ -531,18 +555,18 @@ val & val & \hdots & val\\
    \f[\alpha= \frac{b-a}{Nlin~Ncol- 1}\f]
    \f[
 \mathbf{A} \leftarrow \left(\begin{matrix}
-a          & \alpha^4 a & \alpha^8 a\\ 
-\alpha a   & \alpha^5 a & \alpha^9 a\\
-\alpha^2 a & \alpha^6 a & \alpha^{10} a\\ 
-\alpha^3 a & \alpha^7 a & \alpha^{11} a\\
+a         & 4\alpha+a & 8\alpha+a\\ 
+\alpha+a  & 5\alpha+a & 9\alpha+a\\
+2\alpha+a & 6\alpha+a & 10\alpha+a\\ 
+3\alpha+a & 7\alpha+a & 11\alpha+a\\
 \end{matrix}\right)
    \f]
-     *  \param[in] begin El valor inicial.
-     *  \param[in] end El valor final.
+     *  \param[in] a El valor inicial.
+     *  \param[in] b El valor final.
      *  \return Retorna true si todo fue bien o false si no.
      *  \ingroup MatrixGroup
      */
-    bool LinSpace(double begin,double end);
+    bool LinSpace(double a,double b);
 /**
  * @}
  */
@@ -554,25 +578,44 @@ public:
  */
  
     /** 
+     *  \brief Retorna un vector columna copia de los valores de la diagonal de la matriz. 
+     *  \return Retorna el vector columna en la posición (col) o un vector vacío
+     *  en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Vector GetDiagonal(void) const;
+    
+    /** 
+     *  \brief Copia un vector columna en una diagonal de la matriz. Si los 
+     *  tamaños son diferentes, se interceptan las matrices y se copia 
+     *  solamente en la intersección.
+     *  \param[in] V El vector a copiar.
+     *  \return Retorna true si la copia fue hecha 
+     *  o false si hubo algún problema. En caso de retornar false no se modifica la matriz.
+     *  \ingroup MatrixGroup
+     */
+    bool SetDiagonal(const Pds::Vector V);
+    
+    /** 
      *  \brief Retorna un vector columna copia de una columna de la matriz. 
      *  \param[in] col La columna en consulta.
-     *  \return Retorna el vector columna en la posición (col) o un vector vacio si la 
+     *  \return Retorna el vector columna en la posición (col) o un vector vacío si la 
      *  posición no existe.
      *  \ingroup MatrixGroup
      */
-    Pds::Vector GetVector(unsigned int col) const;
+    Pds::Vector GetColVector(unsigned int col) const;
     
     /** 
      *  \brief Copia un vector columna en una columna de la matriz. Si los 
-     *  tamanos son diferentes, se intersectan las matrices y se copia 
-     *  solamente en la interseccion.
+     *  tamaños son diferentes, se interceptan las matrices y se copia 
+     *  solamente en la intersección.
      *  \param[in] V El vector a copiar.
      *  \param[in] col La columna en consulta.
      *  \return Retorna true si la copia fue hecha y la posición (col) existe
      *  o false si hubo algún problema. En caso de retornar false no se modifica la matriz.
      *  \ingroup MatrixGroup
      */
-    bool SetVector(const Pds::Vector V,unsigned int col);
+    bool SetColVector(const Pds::Vector V,unsigned int col);
     
 /**
  * @}
@@ -581,7 +624,7 @@ public:
 public:
 
 /** @name Métodos get y set
- *  Herramientas genericas para lectura y escritura de datos.
+ *  Herramientas genéricas para lectura y escritura de datos.
  * @{
  */
     /** 
@@ -595,17 +638,6 @@ public:
     double Get(unsigned int id) const;
     
     /** 
-     *  \brief Escribe el valor en la posición del índice id, hace una verificación
-     *  si la posición existe. 
-     *  \param[in] val valor a escribir.
-     *  \param[in] id índice de un elemento de la matriz.
-     *  \return Retorna true si consiguió escribir el valor en la 
-     *  posición (id\%Nlin,id/Nlin) o false si no.
-     *  \ingroup MatrixGroup
-     */
-    bool Set(double val,unsigned int id);
-    
-    /** 
      *  \brief Retorna el valor en la posición (lin,col), hace una verificación
      *  si la posición existe. 
      *  \param[in] lin La linea en consulta.
@@ -617,15 +649,15 @@ public:
     double Get(unsigned int lin,unsigned int col) const;
     
     /** 
-     *  \brief Retorna el valor en la posición (lin,col), hace una verificación
+     *  \brief Escribe el valor en la posición del índice id, hace una verificación
      *  si la posición existe. 
-     *  \param[in] lin La linea en consulta.
-     *  \param[in] col La columna en consulta.
-     *  \return Retorna el valor en la posición (lin,col) o cero si la 
-     *  posición no existe.
+     *  \param[in] val valor a escribir.
+     *  \param[in] id índice de un elemento de la matriz.
+     *  \return Retorna true si consiguió escribir el valor en la 
+     *  posición (id\%Nlin,id/Nlin) o false si no.
      *  \ingroup MatrixGroup
      */
-    const double *GetPointer(unsigned int lin,unsigned int col) const;
+    bool Set(double val,unsigned int id);
     
     /** 
      *  \brief Escribe el valor en la posición (lin,col), hace una verificación
@@ -640,8 +672,19 @@ public:
     bool Set(double val,unsigned int lin,unsigned int col);
     
     /** 
+     *  \brief Retorna un puntero a la posición (lin,col), hace una verificación
+     *  si la posición existe. 
+     *  \param[in] lin La linea en consulta.
+     *  \param[in] col La columna en consulta.
+     *  \return Retorna el valor en la posición (lin,col) o cero si la 
+     *  posición no existe.
+     *  \ingroup MatrixGroup
+     */
+    const double *Pointer(unsigned int lin,unsigned int col) const;
+    
+    /** 
      *  \brief Retorna el valor en la posición (lin,col),  usando una
-     *  interpolacion bilinear, valores fuera del rango de la matriz retornan cero.
+     *  interpolación bilinear, valores fuera del rango de la matriz retornan cero.
      *
      *  \f[ return \leftarrow a_0 + a_1~lin+ a_2~col+ a_3~lin~col\f]
      *  \param[in] lin La linea en consulta.
@@ -650,7 +693,7 @@ public:
      *  o col<0 o lin>(Nlin-1) o col>(Ncol-1).
      *  \ingroup MatrixGroup
      */
-    double GetBilinear(double lin,double col) const;
+    double Bilinear(double lin,double col) const;
     
     /** 
      *  \brief Retorna el numero de lineas de la matriz.
@@ -676,13 +719,13 @@ public:
  * @{
  */
     /** 
-     *  \brief Intercambia los valres de las lineas de una matriz.
+     *  \brief Intercambia los valores de las lineas de una matriz.
      *  \param[in] lin1 Lineas a intercambiar.
      *  \param[in] lin2 Lineas a intercambiar.
      *  \return Retorna true si todo fue bien o false si no.
      *  \ingroup MatrixGroup
      */
-    bool SwapRows(unsigned int lin1,unsigned int lin2);
+    bool RowSwap(unsigned int lin1,unsigned int lin2);
     
     /** 
      *  \brief Si el n-avo elemento de la diagonal es cero entonces intercambia 
@@ -708,7 +751,7 @@ public:
      *  \return Retorna true si todo fue bien o false si no.
      *  \ingroup MatrixGroup
      */
-    bool AddAssigRow(unsigned int lin1,unsigned int lin2,double alpha);
+    bool RowAddAssig(unsigned int lin1,unsigned int lin2,double alpha);
     
     /** 
      *  \brief Multiplica la linea lin por alpha
@@ -719,7 +762,7 @@ public:
      *  \return Retorna true si todo fue bien o false si no.
      *  \ingroup MatrixGroup
      */
-    bool RowMul(unsigned int lin,double alpha);
+    bool RowMulAssig(unsigned int lin,double alpha);
     
     /** 
      *  \brief Divide la linea lin por alpha
@@ -730,7 +773,7 @@ public:
      *  \return Retorna true si todo fue bien o false si no.
      *  \ingroup MatrixGroup
      */
-    bool RowDiv(unsigned int lin,double alpha);
+    bool RowDivAssig(unsigned int lin,double alpha);
     
     /** 
      *  \brief Convierte la matriz en una matriz reducida.
@@ -741,7 +784,6 @@ public:
      *  \ingroup MatrixGroup
      */
     bool RowReduction(void);
-
 /**
  * @}
  */
@@ -749,10 +791,79 @@ public:
 
 public:
 
-/** @name Métodos variados
+/** @name Métodos estadísticos
  *  Herramientas genéricas
  * @{
  */
+    /** 
+     *  \brief Calcula el valor de la suma de elementos de la matriz.
+     *
+     *  \return Retorna el valor de la suma de elementos de la matriz. En caso de que la matriz sea vacía
+     *  se retorna 0.0.
+     *  \ingroup MatrixGroup
+     */
+    double Sum(void) const;
+      
+    /** 
+     *  \brief Calcula el valor medio de la matriz.
+     *
+     *  \return Retorna el valor medio de la matriz. En caso de que la matriz sea vacía
+     *  se retorna 0.0.
+     *  \ingroup MatrixGroup
+     */
+    double Mean(void) const;
+    
+    /** 
+     *  \brief Calcula el valor del desvío padrón de la matriz.
+     *
+     *  \return Retorna el valor del desvío padrón de la matriz. En caso de que la matriz sea vacía
+     *  se retorna 0.0.
+     *  \ingroup MatrixGroup
+     */
+    double Std(double *mean=NULL) const;
+
+    
+    /** 
+     *  \brief Calcula la correlación de Pearson con la matriz.
+     *
+     *  \return Retorna el valor de la correlación. En caso de que la matriz sea vacía
+     *  se retorna 0.0.
+     *  \ingroup MatrixGroup
+     */
+    double Corr(const Pds::Matrix &B) const;
+    
+    /** 
+     *  \brief Calcula el máximo valor de la matriz.
+     *
+     *  \param[in] id Se retorna el id do valor máximo.
+     *  \return Retorna el máximo valor de la matriz. En caso de que la matriz sea vacía
+     *  se retorna 0.0.
+     *  \ingroup MatrixGroup
+     */
+    double Max(unsigned int *id=NULL) const;
+    
+    /** 
+     *  \brief Calcula el mínimo valor de la matriz.
+     *
+     *  \param[in] id Se retorna el id do valor mínimo.
+     *  \return Retorna el mínimo valor de la matriz. En caso de que la matriz sea vacía
+     *  se retorna 0.0.
+     *  \ingroup MatrixGroup
+     */
+    double Min(unsigned int *id=NULL) const;
+/**
+ * @}
+ */
+
+
+public:
+
+/** @name Métodos con álgebra lineal
+ *  Herramientas genéricas
+ * @{
+ */
+
+    
     /** 
      *  \brief Calcula la 2-norm de un vector.
      *
@@ -762,6 +873,7 @@ public:
      *  \ingroup MatrixGroup
      */
     double Norm(void) const;
+
     
     /** 
      *  \brief Calcula la 1-norm de un vector.
@@ -773,6 +885,18 @@ public:
      */
     double Norm1(void) const;
     
+/**
+ * @}
+ */
+
+
+public:
+
+/** @name Métodos variados
+ *  Herramientas genéricas
+ * @{
+ */
+
     /** 
      *  \brief Convierte los datos de la matriz en un std::string.
      *  \return Retorna un std::string. Si la matriz es nula retorna un string sin caracteres.
@@ -823,6 +947,15 @@ public:
  */
     
    /** 
+     *  \brief Crea una matriz con datos aleatorios uniformemente distribuidos entre 0.0 y 1.0.
+     *  \param[in] Nlin Número de lineas.
+     *  \param[in] Ncol Número de columnas.
+     *  \return Retorna una matriz no vacía si todo fue bien o una matriz vacía en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    static Pds::Matrix RandU(unsigned int Nlin,unsigned int Ncol);
+    
+   /** 
      *  \brief Lee de un archivo una matriz de Nlin lineas y Ncol columnas.
      *  \param[in] filepath El archivo donde se leerán los datos.
      *  \return Retorna una matriz no vacia si todo fue bien o una matriz vacia en caso de error.
@@ -855,20 +988,20 @@ public:
      *  \param[in] A Matriz de donde se copiaran datos.
      *  \param[in] func Función a aplicar, esta debe tener a forma double func(double).
      *  \return Retorna un puntero al arreglo, o NULL si no consiguió reservar
-     * la memoria. Esta memoria debe ser liberada siempre com ReleaseArray
+     * la memoria. Esta memoria debe ser liberada siempre com ArrayRelease
      *  \ingroup MatrixGroup
      */
-    static double** AllocateArray(const Pds::Matrix &A,double (*func)(double));
+    static double** ArrayAllocate(const Pds::Matrix &A,double (*func)(double));
     
     /** 
-     *  \brief crea diamicamente un arreglo de A.Nlin() lineas y A.Ncol() columnas,
+     *  \brief crea dinámicamente un arreglo de A.Nlin() lineas y A.Ncol() columnas,
      *  con los datos copiados de una matriz A.
      *  \param[in] A Matriz de donde se copiaran datos.
-     *  \return Retorna un puntero al arreglo, o NULL si no consiguio reservar
-     * la memoria. Esta memoria debe ser liberada siempre com ReleaseArray
+     *  \return Retorna un puntero al arreglo, o NULL si no consiguió reservar
+     * la memoria. Esta memoria debe ser liberada siempre com ArrayRelease
      *  \ingroup MatrixGroup
      */
-    static double** AllocateArray(const Pds::Matrix &A);
+    static double** ArrayAllocate(const Pds::Matrix &A);
     
     /** 
      *  \brief crea dinámicamente un arreglo de Nlin lineas y Ncol columnas,
@@ -877,20 +1010,20 @@ public:
      *  \param[in] Ncol El numero de columnas en el arreglo.
      *  \param[in] val El valor a usar.
      *  \return Retorna un puntero al arreglo, o NULL si no consiguió reservar
-     * la memoria. Esta memoria debe ser liberada siempre com ReleaseArray
+     * la memoria. Esta memoria debe ser liberada siempre com ArrayRelease
      *  \ingroup MatrixGroup
      */
-    static double** AllocateArray(unsigned int Nlin,unsigned int Ncol,double val);
+    static double** ArrayAllocate(unsigned int Nlin,unsigned int Ncol,double val);
     
     /** 
-     *  \brief crea dinámicamente un arreglo de Nlin lineas y Ncol clumnas
+     *  \brief crea dinámicamente un arreglo de Nlin lineas y Ncol columnas
      *  \param[in] Nlin El numero de lineas en el arreglo.
      *  \param[in] Ncol El numero de columnas en el arreglo.
      *  \return Retorna un puntero al arreglo, o NULL si no consiguió reservar
-     * la memoria. Esta memoria debe ser liberada siempre com ReleaseArray
+     * la memoria. Esta memoria debe ser liberada siempre com ArrayRelease
      *  \ingroup MatrixGroup
      */
-    static double** AllocateArray(unsigned int Nlin,unsigned int Ncol);
+    static double** ArrayAllocate(unsigned int Nlin,unsigned int Ncol);
 
    /** 
      *  \brief Libera un arreglo de Nlin lineas y Ncol columnas (arreglo de arreglos)
@@ -899,7 +1032,7 @@ public:
      *  \param[in] Nlin El numero de lineas en el arreglo.
      *  \ingroup MatrixGroup
      */
-    static void ReleaseArray(double** &array,unsigned int Nlin);
+    static void ArrayRelease(double** &array,unsigned int Nlin);
 
 
    /** 
@@ -921,12 +1054,12 @@ public:
      *  \return Retorna true si todo fue bien o false si no.
      *  \ingroup MatrixGroup
      */
-    static bool SaveArray(const char* filepath,double **array,unsigned int Nlin,unsigned int Ncol);
+    static bool ArraySave(const char* filepath,double **array,unsigned int Nlin,unsigned int Ncol);
 
 
    /** 
      *  \brief Lee de un archivo un arreglo de Nlin lineas y Ncol columnas (arreglo de arreglos).
-     *  \param[in] filepath El archivo donde se leeran los datos.
+     *  \param[in] filepath El archivo donde se leerán los datos.
      *  \param[out] array Donde se escribirá el arreglo de arreglos de de Nlin lineas y Ncol columnas.
      *  La función no libera a memoria de array, entonces se le debe entregar siempre un array==NULL.
      *  \param[out] Nlin Donde se escribirá el numero de lineas en el arreglo.
@@ -936,7 +1069,7 @@ public:
      *  de entrada no son alterados.
      *  \ingroup MatrixGroup
      */
-    static bool LoadArray(const char* filepath,double** &array,unsigned int& Nlin,unsigned int& Ncol);
+    static bool ArrayLoad(const char* filepath,double** &array,unsigned int& Nlin,unsigned int& Ncol);
 
 /**
  * @}
@@ -1053,7 +1186,7 @@ public:
     
     /** 
      *  \brief Asigna el signo + a si mismo (A), el resultado es
-     * cargado en B. Este metodo es similar al operador unario + 
+     * cargado en B. Este método es similar al operador unario + 
      *
      *  \f[ B \leftarrow +A \f]
 \code{.cpp}
@@ -1077,7 +1210,7 @@ public:
     
     
 /** @name Operadores binarios y sus métodos equivalentes
- *  Descripcion de algunos operadores habilitados a trabajar con Pds::Matrix.
+ *  Descripción de algunos operadores habilitados a trabajar con Pds::Matrix.
  * @{
  */
     
@@ -1106,29 +1239,6 @@ public:
     Pds::Matrix operator + (double b) const;
     
     /** 
-     *  \brief Suma con sigo mismo (A), una valor b y el resultado es
-     * cargado en C. Este método 
-     *  es similar al operador + 
-     *
-     *  \f[ C \leftarrow A+b \f]
-\code{.cpp}
-    Pds::Matrix A(4,4);
-    Pds::Matrix C;
-    
-    A.Fill(2.0);
-    
-    C=A.Add(2.0);
-    
-    std::cout<<C;
-\endcode
-     *  \param[in] b El valor a sumar
-     *  \return Retorna un nuevo objeto con el
-     *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
-     *  \ingroup MatrixGroup
-     */
-    Pds::Matrix Add(double b) const;
-    
-    /** 
      *  \brief Suma con sigo mismo (A), una matriz B y el resultado es
      * cargado en C. Este operador 
      *  es similar al método Add() 
@@ -1153,6 +1263,29 @@ public:
      *  \ingroup MatrixGroup
      */
     Pds::Matrix operator + (const Pds::Matrix &B) const;
+    
+    /** 
+     *  \brief Suma con sigo mismo (A), una valor b y el resultado es
+     * cargado en C. Este método 
+     *  es similar al operador + 
+     *
+     *  \f[ C \leftarrow A+b \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix C;
+    
+    A.Fill(2.0);
+    
+    C=A.Add(2.0);
+    
+    std::cout<<C;
+\endcode
+     *  \param[in] b El valor a sumar
+     *  \return Retorna un nuevo objeto con el
+     *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix Add(double b) const;
     
     /** 
      *  \brief Suma con sigo mismo (A), una matriz B y el resultado es
@@ -1197,11 +1330,35 @@ public:
 \endcode
      *  \param[in] b El valor a restar
      *  \return Retorna un nuevo objeto con el
-     *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
      *  \see Add
      *  \ingroup MatrixGroup
      */
     Pds::Matrix operator - (double b) const;
+    
+    /** 
+     *  \brief Resta con sigo mismo (A), una matriz B y el resultado es
+     * cargado en C. Este operador es similar al método Sub
+     *
+     *  \f[ C \leftarrow A-B \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix B(4,4);
+    Pds::Matrix C;
+    
+    A.Fill(2.0);
+    B.Fill(1.0);
+    
+    C=A-B;
+    
+    std::cout<<C;
+\endcode
+     *  \param[in] B la matriz que resta
+     *  \return Retorna un nuevo objeto con el
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix operator -(const Pds::Matrix &B) const;
     
     /** 
      *  \brief Resta con sigo mismo (A), una valor b y el resultado es
@@ -1221,39 +1378,14 @@ public:
 \endcode
      *  \param[in] b El valor a restar
      *  \return Retorna un nuevo objeto con el
-     *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
     Pds::Matrix Sub(double b) const;
     
-    
     /** 
      *  \brief Resta con sigo mismo (A), una matriz B y el resultado es
-     * cargado en C. Este operador es similar al metodo Sub
-     *
-     *  \f[ C \leftarrow A-B \f]
-\code{.cpp}
-    Pds::Matrix A(4,4);
-    Pds::Matrix B(4,4);
-    Pds::Matrix C;
-    
-    A.Fill(2.0);
-    B.Fill(1.0);
-    
-    C=A-B;
-    
-    std::cout<<C;
-\endcode
-     *  \param[in] B la matriz que resta
-     *  \return Retorna un nuevo objeto con el
-     *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
-     *  \ingroup MatrixGroup
-     */
-    Pds::Matrix operator -(const Pds::Matrix &B) const;
-    
-    /** 
-     *  \brief Resta con sigo mismo (A), una matriz B y el resultado es
-     * cargado en C. Este metodo es similar al operador - 
+     * cargado en C. Este método es similar al operador - 
      *
      *  \f[ C \leftarrow A-B \f]
 \code{.cpp}
@@ -1270,7 +1402,7 @@ public:
 \endcode
      *  \param[in] B la matriz que resta
      *  \return Retorna un nuevo objeto con el
-     *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
     Pds::Matrix Sub(const Pds::Matrix &B) const;
@@ -1292,33 +1424,11 @@ public:
 \endcode
      *  \param[in] b el valor a multiplicar
      *  \return Retorna C con el
-     *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
      *  \see Mul
      *  \ingroup MatrixGroup
      */
     Pds::Matrix operator * (double b) const;
-    
-    /** 
-     *  \brief Multiplica con sigo mismo (A), un valor b y el resultado es
-     * cargado en C. Este método  es similar al operador * 
-     *
-     *  \f[ C \leftarrow A*b \f]
-\code{.cpp}
-    Pds::Matrix A(4,4);
-    Pds::Matrix C;
-    
-    A.Fill(2.0);
-    
-    C=A.Mul(2.0);
-    
-    std::cout<<C;
-\endcode
-     *  \param[in] b el valor a multiplicar
-     *  \return Retorna C con el
-     *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
-     *  \ingroup MatrixGroup
-     */
-    Pds::Matrix Mul(double b) const;
     
     /** 
      *  \brief Multiplica con sigo mismo (A), una matriz B y el resultado es
@@ -1339,15 +1449,37 @@ public:
 \endcode
      *  \param[in] B la matriz a multiplicar
      *  \return Retorna C con el
-     *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
      *  \see Mul
      *  \ingroup MatrixGroup
      */
     Pds::Matrix operator * (const Pds::Matrix &B) const;
     
     /** 
+     *  \brief Multiplica con sigo mismo (A), un valor b y el resultado es
+     * cargado en C. Este método  es similar al operador * 
+     *
+     *  \f[ C \leftarrow A*b \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix C;
+    
+    A.Fill(2.0);
+    
+    C=A.Mul(2.0);
+    
+    std::cout<<C;
+\endcode
+     *  \param[in] b el valor a multiplicar
+     *  \return Retorna C con el
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix Mul(double b) const;
+    
+    /** 
      *  \brief Multiplica con sigo mismo (A), una matriz B y el resultado es
-     * cargado en C. Este metodo  es similar al operador * 
+     * cargado en C. Este método  es similar al operador * 
      *
      *  \f[ C \leftarrow A*B \f]
 \code{.cpp}
@@ -1364,7 +1496,7 @@ public:
 \endcode
      *  \param[in] B la matriz a multiplicar
      *  \return Retorna C con el
-     *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
     Pds::Matrix Mul(const Pds::Matrix &B) const;
@@ -1379,7 +1511,26 @@ public:
  */
     
     /** 
-     *  \brief Resta y acumula en si mismo (B), una matriz A. Este operador 
+     *  \brief Resta y acumula en si mismo (A), un valor b. Este operador 
+     *  es similar al método SubAssig() 
+     *
+     *  \f[ A \leftarrow A-b \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    double b=1.2;
+    B.Fill(1.0);
+    A-=b;
+\endcode
+     *  \param[in] b El valor a substraer
+     *  \return Retorna el operador de la izquierda (acumulador) con el
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \see SubAssig
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix& operator -=(double b);
+    
+    /** 
+     *  \brief Resta y acumula en si mismo (A), una matriz B. Este operador 
      *  es similar al método SubAssig() 
      *
      *  \f[ A \leftarrow A-B \f]
@@ -1391,14 +1542,31 @@ public:
 \endcode
      *  \param[in] B la matriz a substraer
      *  \return Retorna el operador de la izquierda (acumulador) con el
-     *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
      *  \see SubAssig
      *  \ingroup MatrixGroup
      */
     Pds::Matrix& operator -=(const Pds::Matrix &B);
-
+    
     /** 
-     *  \brief Resta y acumula en si mismo (B), una matriz A. Este es similar al
+     *  \brief Resta y acumula en si mismo (A), un valor b. Este es similar al
+     *  operador -= 
+     *
+     *  \f[ A \leftarrow A-b \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    double b=1.2;
+    A.SubAssig(b);
+\endcode
+     *  \param[in] b valor a substraer
+     *  \return Retorna true si todo fue bien o false si no. Si se retorna false
+     *  el acumulador no altera su contenido.
+     *  \ingroup MatrixGroup
+     */
+    bool SubAssig(double b);
+    
+    /** 
+     *  \brief Resta y acumula en si mismo (A), una matriz B. Este es similar al
      *  operador -= 
      *
      *  \f[ A \leftarrow A-B \f]
@@ -1416,7 +1584,25 @@ public:
     bool SubAssig(const Pds::Matrix &B);
     
     /** 
-     *  \brief Suma y acumula en si mismo (B), una matriz A. Este operador 
+     *  \brief Suma y acumula en si mismo (A), un valor b. Este operador 
+     *  es similar al método AddAssig() 
+     *
+     *  \f[ A \leftarrow A+b \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    double b=1.2;
+    A+=b;
+\endcode
+     *  \param[in] b El valor a acumular
+     *  \return Retorna el operador de la izquierda (acumulador) con el
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \see AddAssig
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix& operator +=(double b);
+    
+    /** 
+     *  \brief Suma y acumula en si mismo (A), una matriz B. Este operador 
      *  es similar al método AddAssig() 
      *
      *  \f[ A \leftarrow A+B \f]
@@ -1428,14 +1614,30 @@ public:
 \endcode
      *  \param[in] B la matriz a acumular
      *  \return Retorna el operador de la izquierda (acumulador) con el
-     *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
      *  \see AddAssig
      *  \ingroup MatrixGroup
      */
     Pds::Matrix& operator +=(const Pds::Matrix &B);
+    
+    /** 
+     *  \brief Suma y acumula en si mismo (A), un valor b. Este es similar al
+     *  perador += 
+     *
+     *  \f[ A \leftarrow A+b \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    A.AddAssig(1.2);
+\endcode
+     *  \param[in] b Valor a acumular
+     *  \return Retorna true si todo fue bien o false si no. Si se retorna false
+     *  el acumulador no altera su contenido.
+     *  \ingroup MatrixGroup
+     */
+    bool AddAssig(double b);
 
     /** 
-     *  \brief Suma y acumula en si mismo (B), una matriz A. Este es similar al
+     *  \brief Suma y acumula en si mismo (A), una matriz B. Este es similar al
      *  perador += 
      *
      *  \f[ A \leftarrow A+B \f]
@@ -1453,56 +1655,115 @@ public:
     bool AddAssig(const Pds::Matrix &B);
     
     /** 
-     *  \brief Copia en si mismo (B), una matriz A. Este operador es 
-     *  similar al método Copy() 
+     *  \brief Multiplica y acumula en si mismo (A), un valor b. Este operador 
+     *  es similar al método MulAssig() 
      *
-     *  \f[ B \leftarrow A \f]
+     *  \f[ A \leftarrow A*b \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    double b=1.2;
+    A*=b;
+\endcode
+     *  \param[in] b El valor a acumular
+     *  \return Retorna el operador de la izquierda (acumulador) con el
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \see AddAssig
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix& operator *=(double b);
+    
+    /** 
+     *  \brief Multiplica y acumula en si mismo (A), una matriz B. Este operador 
+     *  es similar al método MulAssig() 
+     *
+     *  \f[ A \leftarrow A*B \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix B(4,4);
+    A*=B;
+\endcode
+     *  \param[in] B El valor a acumular
+     *  \return Retorna el operador de la izquierda (acumulador) con el
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \see AddAssig
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix& operator *=(const Pds::Matrix &B);
+    
+    /** 
+     *  \brief Multiplica y acumula en si mismo (A), un valor b. Este es similar al
+     *  operador *= 
+     *
+     *  \f[ A \leftarrow A*b \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    A.MulAssig(1.2);
+\endcode
+     *  \param[in] b Valor a acumular
+     *  \return Retorna true si todo fue bien o false si no. Si se retorna false
+     *  el acumulador no altera su contenido.
+     *  \ingroup MatrixGroup
+     */
+    bool MulAssig(double b);
+    
+    /** 
+     *  \brief Multiplica y acumula en si mismo (A), una matriz B. Este es similar al
+     *  operador *= 
+     *
+     *  \f[ A \leftarrow A*B \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix B(4,4);
+    A.MulAssig(B);
+\endcode
+     *  \param[in] B Valor a acumular
+     *  \return Retorna true si todo fue bien o false si no. Si se retorna false
+     *  el acumulador no altera su contenido.
+     *  \ingroup MatrixGroup
+     */
+    bool MulAssig(const Pds::Matrix &B);
+    
+    
+    
+    /** 
+     *  \brief Copia en si mismo (A), una matriz B. Este operador es 
+     *  similar al método Copy().
+     *  No importa  el tamaño de A, sus datos son liberados y un nuevo
+     *  arreglo de datos es reservado.
+     *
+     *  \f[ A \leftarrow B \f]
      * Cuando acontece:
 \code{.cpp}
-    A=Pds::Matrix(nlin,ncol);
-    B=A;
+    Pds::Matrix B(nlin,ncol);
+    A=B;
 \endcode
      * Cuando NO acontece:
 \code{.cpp}
     Pds::Matrix A=Pds::Matrix(nlin,ncol);
 \endcode
-     *  \param[in] A la matriz a copiar
+     *  \param[in] B la matriz a copiar
      *  \return Retorna el operador de la izquierda (acumulador) con el
      *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
      *  \see Copy
      *  \ingroup MatrixGroup
      */
-    Pds::Matrix& operator = (const Pds::Matrix &A);
+    Pds::Matrix& operator = (const Pds::Matrix &B);
     
     /** 
-     *  \brief Copia en si mismo (B), el contenido de una matriz A. Este 
-     *  método es similar a usar el operador = 
+     *  \brief Copia en si mismo (A), el contenido de una matriz B. Este 
+     *  método es similar a usar el operador = .
+     *  No importa  el tamaño de A, sus datos son liberados y un nuevo
+     *  arreglo de datos es reservado.
      *
-     *  \f[ B \leftarrow A \f]
-     *  \param[in] A la matriz a copiar
+     *  \f[ A \leftarrow B \f]
+     *  \param[in] B la matriz a copiar
      *  \return Retorna true si todo fue bien o false si no. Si se retorna false
      *  el receptor no altera su contenido.
      *  \see Copy
      *  \ingroup MatrixGroup
      */
-    bool Copy(const Pds::Matrix &A);
+    bool Copy(const Pds::Matrix &B);
 
-    /** 
-     *  \brief Mueve datos a si mismo (B), desde una matriz A. Esta operación 
-     *  convierte a la matriz A en una matriz vacia.
-     *
-     *  \f[ B \leftarrow A \f]
-     *  \f[ A \leftarrow 0 \f]
-     * 
-     * Internamente la funcion intercambia  el contenido moviendo direcciones de memoria.
-     *  \param[in] A la matriz a acumular
-     *  \return Retorna true si todo fue bien o false si no. Si se retorna false
-     *  el receptor no altera su contenido.
-     *  \see Copy
-     *  \ingroup MatrixGroup
-     */
-    bool Move(Pds::Matrix &A);
-    
 /**
  * @}
  */
@@ -1520,7 +1781,7 @@ public:
  * @{
  */
     /** 
-     *  \brief Retorna el contenido de la matriz por la salida estandar
+     *  \brief Retorna el contenido de la matriz por la salida estándar
      *
 \code{.cpp}
     std::cout<<mat;
@@ -1531,7 +1792,7 @@ public:
 \endcode
      *  \param[in] out La salida
      *  \param[in] mat La matriz a mostrar
-     *  \return Retorna la misma salida estandar out.
+     *  \return Retorna la misma salida estándar out.
      *  \see Pds::Matrix::ToString();
      *  \ingroup MatrixGroup
      */
@@ -1556,7 +1817,7 @@ std::ostream& operator<<(std::ostream &out,const Pds::Matrix &mat);
      *  \param[in] b El valor a sumar
      *  \param[in] mat matriz a sumar
      *  \return Retorna un nuevo objeto con el
-     *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
      *  \see Add
      *  \ingroup MatrixGroup
      */
@@ -1581,7 +1842,7 @@ Pds::Matrix operator+(double b,const Pds::Matrix &mat);
      *  \param[in] b El valor a operar
      *  \param[in] mat matriz a restar
      *  \return Retorna un nuevo objeto con el
-     *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
      *  \see Sub
      *  \ingroup MatrixGroup
      */
@@ -1606,7 +1867,7 @@ Pds::Matrix operator-(double b,const Pds::Matrix &mat);
      *  \param[in] b El valor a operar
      *  \param[in] mat matriz a multiplicar
      *  \return Retorna un nuevo objeto con el
-     *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
      *  \see Mul
      *  \ingroup MatrixGroup
      */

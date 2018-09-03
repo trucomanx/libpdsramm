@@ -41,7 +41,6 @@ bool Pds::Matrix::FillRandN(void)
     return true;
 }
 
-
 bool Pds::Matrix::FillRandU(void)
 {
     if(this->IsEmpty())   return false;
@@ -52,6 +51,44 @@ bool Pds::Matrix::FillRandU(void)
     for(col=0;col<this->ncol;col++)
     {
         this->array[lin][col]=rand()/(RAND_MAX+1.0);
+    }
+
+    return true;
+}
+
+bool Pds::Matrix::FillRandU(double begin, double end)
+{
+    if(this->IsEmpty())   return false;
+    
+    double min=std::min(begin,end);
+    double max=std::max(begin,end);
+    double alpha=(max-min)/RAND_MAX;
+    
+    unsigned int lin,col;
+
+    for(lin=0;lin<this->nlin;lin++)
+    for(col=0;col<this->ncol;col++)
+    {
+        this->array[lin][col]=rand()*alpha+min;
+    }
+
+    return true;
+}
+
+bool Pds::Matrix::FillRandU(int begin, int end)
+{
+    if(this->IsEmpty())   return false;
+    
+    int min=std::min(begin,end);
+    int max=std::max(begin,end);
+    int n=max-min+1;
+    
+    unsigned int lin,col;
+
+    for(lin=0;lin<this->nlin;lin++)
+    for(col=0;col<this->ncol;col++)
+    {
+        this->array[lin][col]=rand()%n+min;
     }
 
     return true;

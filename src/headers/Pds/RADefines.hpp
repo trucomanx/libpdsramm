@@ -1,5 +1,5 @@
 /*
- * RealArraysDefines.hpp
+ * RADefines.hpp
  * 
  * Copyright 2018 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
  * 
@@ -20,7 +20,7 @@
  * 
  */
 
-/** \file RealArraysDefines.hpp
+/** \file RADefines.hpp
  * \brief Archivo de definición de macro defines.
  * 
  */
@@ -28,14 +28,14 @@
 
 /** \defgroup DefinesGroup ---- Macro Defines.
  *  \brief Algunas macros interesantes 
- *  <div class="fragment"> \#include <Pds/RealArraysDefines> </div>
+ *  <div class="fragment"> \#include <Pds/RADefines> </div>
  *  
  * @{
  */
 
     
-#ifndef __PDS_REALARRAYSDEFINES_HPP__
-#define __PDS_REALARRAYSDEFINES_HPP__
+#ifndef __PDS_RADEFINES_HPP__
+#define __PDS_RADEFINES_HPP__
     
 #include <iostream>
     
@@ -116,4 +116,4 @@ namespace Ra{
  */
     
     
-#endif /* __PDS_REALARRAYSDEFINES_HPP__ */
+#endif /* __PDS_RADEFINES_HPP__ */

@@ -22,7 +22,7 @@
 
 #include <Pds/RealArrays>
 
-bool Pds::Matrix::SwapRows(unsigned int lin1,unsigned int lin2)
+bool Pds::Matrix::RowSwap(unsigned int lin1,unsigned int lin2)
 {
     if( (lin1>=this->nlin)||(lin2>=this->nlin) )    return false;
     
@@ -39,7 +39,7 @@ bool Pds::Matrix::SwapRows(unsigned int lin1,unsigned int lin2)
 }
 
 
-bool Pds::Matrix::RowMul(unsigned int lin,double alpha)
+bool Pds::Matrix::RowMulAssig(unsigned int lin,double alpha)
 {
     if( (lin>=this->nlin))    return false;
     
@@ -49,7 +49,7 @@ bool Pds::Matrix::RowMul(unsigned int lin,double alpha)
     return true;
 }
 
-bool Pds::Matrix::RowDiv(unsigned int lin,double alpha)
+bool Pds::Matrix::RowDivAssig(unsigned int lin,double alpha)
 {
     if( (lin>=this->nlin))    return false;
     
@@ -81,7 +81,7 @@ int Pds::Matrix::DiagonalIsZeroSwapBelow(unsigned int n)
     return -1;
 }
 
-bool Pds::Matrix::AddAssigRow(unsigned int lin1,unsigned int lin2,double alpha)
+bool Pds::Matrix::RowAddAssig(unsigned int lin1,unsigned int lin2,double alpha)
 {
     if( (lin1>=this->nlin)||(lin2>=this->nlin) )    return false;
     

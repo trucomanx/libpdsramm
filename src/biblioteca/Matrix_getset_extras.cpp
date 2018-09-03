@@ -25,12 +25,45 @@
 
 #include <cmath>
 
+Pds::Vector Pds::Matrix::GetDiagonal(void) const
+{   
+    if(this->IsEmpty()) return Pds::Vector();
+    
+    unsigned int N=std::min(this->nlin,this->ncol);
+    
+    double** array=Pds::Matrix::ArrayAllocate(N,1);
+    if(array==NULL)     return Pds::Vector();
+    
+    Pds::Vector C;
+    
+    for(unsigned int lin=0;lin<N;lin++)
+    array[lin][0]=this->array[lin][lin];
+    
+    C.array=array;
+    C.nlin=N;
+    C.ncol=1;
+    
+    return C;
+}
+    
+bool Pds::Matrix::SetDiagonal(const Pds::Vector V)
+{   
+    if(this->IsEmpty()) return false;
+    if(V.IsEmpty())     return false;
+    
+    unsigned int N=std::min(V.Nlin(),std::min(this->nlin,this->ncol));
+    
+    for(unsigned int lin=0;lin<N;lin++)
+    this->array[lin][lin]=V.Get(lin,0);
+    
+    return true;
+}
 
-Pds::Vector Pds::Matrix::GetVector(unsigned int col) const
+Pds::Vector Pds::Matrix::GetColVector(unsigned int col) const
 {   
     if(col>=this->ncol) return Pds::Vector();
     
-    double** array=Pds::Matrix::AllocateArray(this->nlin,1);
+    double** array=Pds::Matrix::ArrayAllocate(this->nlin,1);
     if(array==NULL)     return Pds::Vector();
     
     Pds::Vector C;
@@ -44,7 +77,7 @@ Pds::Vector Pds::Matrix::GetVector(unsigned int col) const
     return C;
 }
     
-bool Pds::Matrix::SetVector(const Pds::Vector V,unsigned int col)
+bool Pds::Matrix::SetColVector(const Pds::Vector V,unsigned int col)
 {   
     if(col>=this->ncol) return false;
     

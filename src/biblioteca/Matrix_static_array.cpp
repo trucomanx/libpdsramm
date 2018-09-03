@@ -1,10 +1,10 @@
 #include <cstdlib>
 #include <Pds/Matrix>
-#include <Pds/RealArraysDefines>
-#include <Pds/RealArraysTools>
+#include <Pds/RADefines>
+#include <Pds/RATools>
 
 
-double** Pds::Matrix::AllocateArray(const Pds::Matrix &A,double (*func)(double))
+double** Pds::Matrix::ArrayAllocate(const Pds::Matrix &A,double (*func)(double))
 {
     double **array=NULL;
     unsigned int lin,col;
@@ -20,7 +20,7 @@ double** Pds::Matrix::AllocateArray(const Pds::Matrix &A,double (*func)(double))
         array[lin] = new double[A.ncol];
         if(array[lin]==NULL)
         {
-            Pds::Matrix::ReleaseArray(array,lin);
+            Pds::Matrix::ArrayRelease(array,lin);
             return NULL;
         }
         for (col = 0; col < A.ncol; col++) array[lin][col]=(*func)(A.array[lin][col]);
@@ -29,7 +29,7 @@ double** Pds::Matrix::AllocateArray(const Pds::Matrix &A,double (*func)(double))
     
 }
 
-double** Pds::Matrix::AllocateArray(const Pds::Matrix &A)
+double** Pds::Matrix::ArrayAllocate(const Pds::Matrix &A)
 {
     double **array=NULL;
     unsigned int lin,col;
@@ -45,7 +45,7 @@ double** Pds::Matrix::AllocateArray(const Pds::Matrix &A)
         array[lin] = new double[A.ncol];
         if(array[lin]==NULL)
         {
-            Pds::Matrix::ReleaseArray(array,lin);
+            Pds::Matrix::ArrayRelease(array,lin);
             return NULL;
         }
         for (col = 0; col < A.ncol; col++) array[lin][col]=A.array[lin][col];
@@ -54,7 +54,7 @@ double** Pds::Matrix::AllocateArray(const Pds::Matrix &A)
     
 }
 
-double** Pds::Matrix::AllocateArray(unsigned int Nlin,unsigned int Ncol, double val)
+double** Pds::Matrix::ArrayAllocate(unsigned int Nlin,unsigned int Ncol, double val)
 {
     double **array=NULL;
     unsigned int lin,col;
@@ -70,7 +70,7 @@ double** Pds::Matrix::AllocateArray(unsigned int Nlin,unsigned int Ncol, double 
         array[lin] = new double[Ncol];
         if(array[lin]==NULL)
         {
-            Pds::Matrix::ReleaseArray(array,lin);
+            Pds::Matrix::ArrayRelease(array,lin);
             return NULL;
         }
         for (col = 0; col < Ncol; col++) array[lin][col]=val;
@@ -79,7 +79,7 @@ double** Pds::Matrix::AllocateArray(unsigned int Nlin,unsigned int Ncol, double 
     
 }
 
-double** Pds::Matrix::AllocateArray(unsigned int Nlin,unsigned int Ncol)
+double** Pds::Matrix::ArrayAllocate(unsigned int Nlin,unsigned int Ncol)
 {
     double **array=NULL;
     unsigned int lin,col;
@@ -95,7 +95,7 @@ double** Pds::Matrix::AllocateArray(unsigned int Nlin,unsigned int Ncol)
         array[lin] = new double[Ncol];
         if(array[lin]==NULL)
         {
-            Pds::Matrix::ReleaseArray(array,lin);
+            Pds::Matrix::ArrayRelease(array,lin);
             return NULL;
         }
         for (col = 0; col < Ncol; col++) array[lin][col]=0.0;
@@ -105,7 +105,7 @@ double** Pds::Matrix::AllocateArray(unsigned int Nlin,unsigned int Ncol)
 }
 
 
-void Pds::Matrix::ReleaseArray(double** &array,unsigned int Nlin)
+void Pds::Matrix::ArrayRelease(double** &array,unsigned int Nlin)
 {
     if(array!=NULL)
     {
@@ -145,7 +145,7 @@ std::string Pds::Matrix::ArrayToString(double **array,unsigned int Nlin,unsigned
 
 #include <iostream>
 #include <fstream>
-bool Pds::Matrix::SaveArray(const char* filepath,double **array,unsigned int Nlin,unsigned int Ncol)
+bool Pds::Matrix::ArraySave(const char* filepath,double **array,unsigned int Nlin,unsigned int Ncol)
 {
     std::ofstream myfile;
     unsigned int lin,col;
@@ -174,7 +174,7 @@ bool Pds::Matrix::SaveArray(const char* filepath,double **array,unsigned int Nli
 
 
 #include <cstdlib>
-bool Pds::Matrix::LoadArray(const char* filepath,double** &array,unsigned int& Nlin,unsigned int& Ncol)
+bool Pds::Matrix::ArrayLoad(const char* filepath,double** &array,unsigned int& Nlin,unsigned int& Ncol)
 {
     unsigned int nlin,ncol;
     unsigned int i,j;
@@ -184,14 +184,14 @@ bool Pds::Matrix::LoadArray(const char* filepath,double** &array,unsigned int& N
 
     if(Pds::Ra::ArraySizeInFile(filepath,nlin,ncol)==false) return false;
 
-    double **arr=Pds::Matrix::AllocateArray(nlin,ncol);
+    double **arr=Pds::Matrix::ArrayAllocate(nlin,ncol);
     if(arr==NULL)   return false;
 
 
     std::ifstream ifs(filepath, std::ifstream::in);	
     if(ifs.is_open()==false)
     {
-        Pds::Matrix::ReleaseArray(arr,nlin);
+        Pds::Matrix::ArrayRelease(arr,nlin);
         return false;
     }
 

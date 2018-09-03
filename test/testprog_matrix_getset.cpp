@@ -16,10 +16,10 @@ int main(void)
     A.Print("A=\n");
     
     std::cout<<std::endl;
-    std::cout<<"A.Get(1,1)            ="<<A.Get(1,1)<<std::endl;
-    std::cout<<"A.GetBilinear(1.0,1.0)="<<A.GetBilinear(1.0,1.0)<<std::endl;
-    std::cout<<"A.GetBilinear(1.5,1.5)="<<A.GetBilinear(1.5,1.5)<<std::endl;
-    std::cout<<"A.GetBilinear(2.0,2.0)="<<A.GetBilinear(2.0,2.0)<<std::endl;
+    std::cout<<"A.Get(1,1)s         ="<<A.Get(1,1)<<std::endl;
+    std::cout<<"A.Bilinear(1.0,1.0)="<<A.Bilinear(1.0,1.0)<<std::endl;
+    std::cout<<"A.Bilinear(1.5,1.5)="<<A.Bilinear(1.5,1.5)<<std::endl;
+    std::cout<<"A.Bilinear(2.0,2.0)="<<A.Bilinear(2.0,2.0)<<std::endl;
 
     
     return 0;

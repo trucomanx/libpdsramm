@@ -23,15 +23,35 @@ int main(void)
     C= Pds::Matrix(2,2);    // A Matrix object was created, the data were copied
                             // and later the Matrix object was destroyed.
     
-    if((C=A).IsNotEmpty())   C.Print("C=A\n");
+    if((C=A).IsNotEmpty())  C.Print("C=A\n");
     if(C.Copy(B))           C.Print("C=B\n");
     
     // += operator
     std::cout<<std::endl;
     
-    if((C+=A).IsNotEmpty())  C.Print("C+=A\n");
+    if((C+=A).IsNotEmpty()) C.Print("C+=A\n");
     if(C.AddAssig(B))       C.Print("C+=B\n");
     
+    if((C+=0.2).IsNotEmpty()) C.Print("C+=0.2\n");
+    if(C.AddAssig(0.8))       C.Print("C+=0.8\n");
+    
+    // -= operator
+    std::cout<<std::endl;
+    
+    if((C-=A).IsNotEmpty()) C.Print("C-=A\n");
+    if(C.SubAssig(B))       C.Print("C-=B\n");
+    
+    if((C-=0.3).IsNotEmpty()) C.Print("C-=0.3\n");
+    if(C.SubAssig(0.7))       C.Print("C-=0.7\n");
+    
+    // *= operator
+    std::cout<<std::endl;
+    
+    if((C*=0.2).IsNotEmpty()) C.Print("C*=0.2\n");
+    if(C.MulAssig(5.0))       C.Print("C*=5.0\n");
+    
+    if((C*=A).IsNotEmpty()) C.Print("C*=A\n");
+    if(C.MulAssig(A))       C.Print("C*=A\n");
     
     // Inv operator
     std::cout<<std::endl;

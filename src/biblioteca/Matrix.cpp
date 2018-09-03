@@ -41,7 +41,7 @@ Pds::Matrix::Matrix(unsigned int N)
     if(N==0)    return;
 
     
-    this->array= Pds::Matrix::AllocateArray(N,N);
+    this->array= Pds::Matrix::ArrayAllocate(N,N);
     if(this->array==NULL) 
     {
         this->nlin=0;
@@ -60,7 +60,7 @@ Pds::Matrix::Matrix(unsigned int nlin,unsigned int ncol)
     
     if((nlin==0)||(ncol==0))    return;
     
-    this->array= Pds::Matrix::AllocateArray(nlin,ncol);
+    this->array= Pds::Matrix::ArrayAllocate(nlin,ncol);
     if(this->array==NULL)       return;
     
     this->nlin=nlin;
@@ -77,7 +77,7 @@ Pds::Matrix::Matrix(unsigned int nlin,unsigned int ncol,double val)
     
     if((nlin==0)||(ncol==0))    return;
     
-    this->array= Pds::Matrix::AllocateArray(nlin,ncol,val);
+    this->array= Pds::Matrix::ArrayAllocate(nlin,ncol,val);
     if(this->array==NULL)       return;
     
     this->nlin=nlin;
@@ -97,7 +97,7 @@ Pds::Matrix::Matrix(const Matrix &A)
         if(A.IsEmpty())  return;
 
 
-        this->array= Pds::Matrix::AllocateArray(A);
+        this->array= Pds::Matrix::ArrayAllocate(A);
         if(this->array==NULL)  return;
     
         this->nlin=A.nlin;
@@ -117,7 +117,7 @@ Pds::Matrix::Matrix(const Matrix &A, double (*func)(double))
     if(A.IsEmpty())  return;
 
 
-    this->array= Pds::Matrix::AllocateArray(A,func);
+    this->array= Pds::Matrix::ArrayAllocate(A,func);
     if(this->array==NULL)  return;
     
     this->nlin=A.nlin;
@@ -132,12 +132,12 @@ Pds::Matrix::Matrix(const char *filepath)
     this->ncol=0;
     this->array=NULL;
 
-    Pds::Matrix::LoadArray(filepath,this->array,this->nlin,this->ncol);
+    Pds::Matrix::ArrayLoad(filepath,this->array,this->nlin,this->ncol);
 }
 
 Pds::Matrix::~Matrix(void)
 {
-    Pds::Matrix::ReleaseArray(this->array,this->nlin);
+    Pds::Matrix::ArrayRelease(this->array,this->nlin);
     //std::cout<<"matrix destructr\n";
     this->nlin=0;
     this->ncol=0;

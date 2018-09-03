@@ -45,7 +45,7 @@ bool Pds::Matrix::IsNotEmpty(void) const
 
 void Pds::Matrix::MakeEmpty(void)
 {
-    Pds::Matrix::ReleaseArray(this->array,this->nlin);
+    Pds::Matrix::ArrayRelease(this->array,this->nlin);
     this->nlin=0;
     this->ncol=0;
 }

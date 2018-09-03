@@ -1,5 +1,5 @@
 /*
- * RealArraysTools.hpp
+ * RATools.hpp
  * 
  * Copyright 2018 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
  * 
@@ -20,15 +20,15 @@
  * 
  */
 
-/** \file RealArraysTools.hpp
+/** \file RATools.hpp
  *  \author Fernando Pujaico Rivera
  *  \brief Archivo de definición herramientas para a biblioteca RealArrays.
  *  
  */
     
     
-#ifndef __PDS_REALARRAYSTOOLS_HPP__
-#define __PDS_REALARRAYSTOOLS_HPP__
+#ifndef __PDS_RATOOLS_HPP__
+#define __PDS_RATOOLS_HPP__
     
 #include <string>
 
@@ -37,7 +37,7 @@
 
 /** \defgroup PdsRaToolsGroup ---- Funciones útiles.
  *  \brief Funciones para procesar cadenas y archivos 
- *  <div class="fragment"> \#include <Pds/RealArraysTools> </div>
+ *  <div class="fragment"> \#include <Pds/RATools> </div>
  *  
  *  
  * @{
@@ -242,4 +242,4 @@ extern std::string ToString(T val);
  * @}
  */
     
-#endif /* __PDS_REALARRAYSTOOLS_HPP__ */
+#endif /* __PDS_RATOOLS_HPP__ */

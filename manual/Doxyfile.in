@@ -1,4 +1,4 @@
-# Doxyfile 1.8.11
+# Doxyfile 1.8.13
 
 # This file describes the settings to be used by the documentation system
 # doxygen (www.doxygen.org) for a project.
@@ -2141,7 +2141,7 @@ GENERATE_TAGFILE       =
 # listed.
 # The default value is: NO.
 
-ALLEXTERNALS           = NO
+ALLEXTERNALS           = YES
 
 # If the EXTERNAL_GROUPS tag is set to YES, all external groups will be listed
 # in the modules index. If set to NO, only the current project's groups will be
@@ -2263,7 +2263,7 @@ COLLABORATION_GRAPH    = NO
 # The default value is: YES.
 # This tag requires that the tag HAVE_DOT is set to YES.
 
-GROUP_GRAPHS           = YES
+GROUP_GRAPHS           = NO
 
 # If the UML_LOOK tag is set to YES, doxygen will generate inheritance and
 # collaboration diagrams in a style similar to the OMG's Unified Modeling
