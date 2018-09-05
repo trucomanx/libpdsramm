@@ -15,7 +15,7 @@ int main(void)
     Pds::Matrix C(2,2);
     Pds::Matrix D(3,2,0.523598776);
     Pds::Matrix E(D);
-    Pds::Matrix F(D,sin);
+    Pds::Matrix F(sin,D);
     
     F.Save("filedat.txt");
     Pds::Matrix G("filedat.txt");

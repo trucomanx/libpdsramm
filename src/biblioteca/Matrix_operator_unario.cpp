@@ -23,9 +23,24 @@
 #include <string>
 #include <iostream>
 
-#include <Pds/Ra>
+#include <Pds/Matrix>
+#include <Pds/MatrixFunc>
+#include <Pds/RaDefines>
+
+////////////////////////////////////////////////////////////////////////
+Pds::Matrix Pds::Matrix::PInv(double *rcond) const
+{
+    if(rcond!=NULL) *rcond=0;
+    
+    if( this->IsEmpty() )   return Pds::Matrix();
+    
+    Pds::Matrix mat=this->TnoT().Inv(rcond);
+    
+    return mat.MulT(*this);
+}
 
 
+////////////////////////////////////////////////////////////////////////
 Pds::Matrix Pds::Matrix::Inv(double *rcond) const
 {
     unsigned int lin,i,all;
@@ -111,6 +126,29 @@ Pds::Matrix Pds::Matrix::Inv(double *rcond) const
         }
     }
     return A;
+}
+////////////////////////////////////////////////////////////////////////
+Pds::Matrix Pds::Matrix::TnoT(void) const
+{
+    if( this->IsEmpty() )   return Pds::Matrix();
+
+    Pds::Matrix Ans(this->ncol,this->ncol);
+
+    unsigned int lin,col,id;
+    double S;
+   
+    for(lin=0;lin<this->ncol;lin++)
+    for(col=0;col<this->ncol;col++)
+    {
+        S=0;
+        
+        for(id=0;id<this->nlin;id++)
+        S=S+this->array[id][lin]*this->array[id][col];
+        
+        Ans.array[lin][col]=S;
+    }
+
+    return Ans;
 }
 
 ////////////////////////////////////////////////////////////////////////

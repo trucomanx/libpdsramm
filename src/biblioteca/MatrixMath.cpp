@@ -26,19 +26,19 @@
 
 Pds::Matrix Pds::Sin(const Pds::Matrix A)
 {
-    Pds::Matrix B(A,sin);
+    Pds::Matrix B(sin,A);
     return B;
 }
 
 Pds::Matrix Pds::Cos(const Pds::Matrix A)
 {
-    Pds::Matrix B(A,cos);
+    Pds::Matrix B(cos,A);
     return B;
 }
 
 Pds::Matrix Pds::Tan(const Pds::Matrix A)
 {
-    Pds::Matrix B(A,tan);
+    Pds::Matrix B(tan,A);
     return B;
 }
 
@@ -46,32 +46,32 @@ Pds::Matrix Pds::Tan(const Pds::Matrix A)
 
 Pds::Matrix Pds::Exp(const Pds::Matrix A)
 {
-    Pds::Matrix B(A,exp);
+    Pds::Matrix B(exp,A);
     return B;
 }
 
 
 Pds::Matrix Pds::Exp2(const Pds::Matrix A)
 {
-    Pds::Matrix B(A,exp2);
+    Pds::Matrix B(exp2,A);
     return B;
 }
 
 Pds::Matrix Pds::Log(const Pds::Matrix A)
 {
-    Pds::Matrix B(A,log);
+    Pds::Matrix B(log,A);
     return B;
 }
 
 Pds::Matrix Pds::Log2(const Pds::Matrix A)
 {
-    Pds::Matrix B(A,log2);
+    Pds::Matrix B(log2,A);
     return B;
 }
 
 Pds::Matrix Pds::Log10(const Pds::Matrix A)
 {
-    Pds::Matrix B(A,log10);
+    Pds::Matrix B(log10,A);
     return B;
 }
 
@@ -79,7 +79,7 @@ Pds::Matrix Pds::Log10(const Pds::Matrix A)
 
 Pds::Matrix Pds::Sqrt(const Pds::Matrix A)
 {
-    Pds::Matrix B(A,sqrt);
+    Pds::Matrix B(sqrt,A);
     return B;
 }
 

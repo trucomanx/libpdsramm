@@ -43,7 +43,8 @@
     
 #include <Pds/RaDefines>
 #include <Pds/RaTools>
-    
+        
+#include <Pds/Size>
     
 #include <Pds/Matrix>
 #include <Pds/MatrixMath>
@@ -53,6 +54,7 @@
     
 #include <Pds/Vector>
 #include <Pds/VectorFunc>
+#include <Pds/VectorAlgebra>
     
     
 #endif /* __PDS_RA_HPP__ */

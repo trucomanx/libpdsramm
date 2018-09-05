@@ -1,5 +1,5 @@
 /*
- * Matrix_operator.cpp
+ * Vector_operator_acumulate.cpp
  * 
  * Copyright 2018 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
  * 
@@ -23,11 +23,16 @@
 #include <string>
 #include <iostream>
 
-#include <Pds/Matrix>
+#include <Pds/Vector>
+
 
 ////////////////////////////////////////////////////////////////////////
-std::ostream& operator<<(std::ostream &out,const Pds::Matrix &mat)
+
+Pds::Vector& Pds::Vector::operator = (const Pds::Vector &A)
 {
-    out<<mat.ToString();
-    return out;
+    if(false==this->Copy(A))
+        this->MakeEmpty();
+        
+    return *this;
 }
+

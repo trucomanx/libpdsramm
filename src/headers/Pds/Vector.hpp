@@ -96,17 +96,71 @@ public:
      */
     Vector(unsigned int N);
 
+    /** 
+     *  \brief Crea un objeto de tipo Pds::Vector copiando datos desde 
+     *  otra matriz.
+     * 
+   \f[
+B_{Nlin,1}\equiv [b_{i,j}]_{Nlin,1}
+   \f]
+   \f[
+\mathbf{A} \leftarrow \mathbf{B}
+   \f]
+   Para crear una matriz A con copia de datos de una matriz B:
+\code{.cpp}
+    Pds::Vector B(4);
+    Pds::Vector A(B);
+    
+    if(A.IsEmpty()) std::cout<<"Yes,possible memory allocation problem\n";
+    else            std::cout<<"No,all fine\n";
+\endcode
+     *  \param[in] B Matriz a copiar.
+     *  \ingroup VectorGroup
+     */
+    Vector(const Pds::Matrix &B);
+    
     ~Vector(); 
     
 /**
  * @}
  */
+    
+    
+/** @name Operadores binarios acumuladores y sus métodos equivalentes
+ *  Descripción de algunos operadores habilitados a trabajar con Pds::Vector.
+ * @{
+ */
+    
+    /** 
+     *  \brief Copia en si mismo (A), una matriz B. Este operador es 
+     *  similar al método Copy().
+     *  No importa  el tamaño de A, sus datos son liberados y un nuevo
+     *  arreglo de datos es reservado.
+     *
+     *  \f[ A \leftarrow B \f]
+     * Cuando acontece:
+\code{.cpp}
+    Pds::Vector B(nlin,ncol);
+    A=B;
+\endcode
+     * Cuando NO acontece:
+\code{.cpp}
+    Pds::Vector A=Pds::Vector(nlin,ncol);
+\endcode
+     *  \param[in] B la matriz a copiar
+     *  \return Retorna el operador de la izquierda (acumulador) con el
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \see Copy
+     *  \ingroup VectorGroup
+     */
+    Pds::Vector& operator = (const Pds::Vector &B);
 
 
+/**
+ * @}
+ */
 
 }; // Class Vector
-
-typedef Vector Vector;
 
 } // namespace Pds
 

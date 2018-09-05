@@ -1,5 +1,5 @@
 /*
- * Vector.cpp
+ * VectorAlgebra.cpp
  * 
  * Copyright 2018 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
  * 
@@ -21,45 +21,50 @@
  */
 
 
+#include <cmath>
 #include <Pds/Vector>
+#include <Pds/VectorAlgebra>
 
-Pds::Vector::Vector(void)
+Pds::Matrix Pds::PolyMat(Pds::Vector X, unsigned int ORDER)
 {
-    return;
-}
-
-Pds::Vector::Vector(unsigned int N): Pds::Matrix(N,1)
-{
-    return;
-}
-
-Pds::Vector::Vector(const Matrix &A)
-{
-    if(this!=&A) //Comprueba que no se esté intentando igualar un objeto a sí mismo
-    {
-        this->nlin=0;
-        this->ncol=0;
-        this->array=NULL;
-        
-        if(A.IsEmpty()) return;
-        if(A.Ncol()!=1) return;
-
-        this->array= Pds::Matrix::ArrayAllocate(A);
-        if(this->array==NULL)  return;
+    unsigned int col;
     
-        this->nlin=A.Nlin();
-        this->ncol=A.Ncol();
+    Pds::Matrix P(X.Nlin(),ORDER+1);
+    
+    for(col=0;col<=ORDER;col++)
+    {
+        P.SetColVector(pow,X,col,col);
     }
-
-    return;
+    
+    return P;
 }
 
-
-Pds::Vector::~Vector(void)
+Pds::Vector Pds::PolyFit(Pds::Vector X, Pds::Vector Y, unsigned int ORDER)
 {
-    Pds::Matrix::ArrayRelease(this->array,this->nlin);
+    unsigned int col;
 
-    this->nlin=0;
-    this->ncol=0;
+    if(X.Nlin()!=Y.Nlin())  return Pds::Matrix();
+    
+    Pds::Matrix B(X.Nlin(),ORDER+1);
+    
+    for(col=0;col<=ORDER;col++)
+    {
+        B.SetColVector(pow,X,col,col);
+    }
+    
+    double rcond=0;
+    
+    Pds::Matrix mat=(B.TnoT()).Inv(&rcond);
+    
+    if(rcond<Pds::Ra::WarningRCond)
+    return Pds::Matrix();
+    
+    return mat.MulT(B)*Y;
 }
 
+Pds::Vector Pds::PolyVal(Pds::Vector P,Pds::Vector X)
+{
+    Pds::Vector B;
+    B=Pds::PolyMat(X,P.Nlin()-1)*P;
+    return B;
+}

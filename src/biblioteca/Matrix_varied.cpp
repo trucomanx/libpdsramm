@@ -1,5 +1,8 @@
 #include <string>
-#include <Pds/Ra>
+#include <iostream>
+#include <Pds/Matrix>
+#include <Pds/RaDefines>
+#include <Pds/RaTools>
 
 ////////////////////////////////////////////////////////////////////////
 

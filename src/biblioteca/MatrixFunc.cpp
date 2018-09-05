@@ -32,6 +32,13 @@ Pds::Matrix Pds::MatrixId(unsigned int N)
     return A;
 }
 
+Pds::Matrix Pds::MatrixId(const Pds::Size &S)
+{
+    Pds::Matrix A(S.Nlin,S.Ncol);
+    A.FillId();
+    return A;
+}
+
 Pds::Matrix Pds::MatrixId(unsigned int Nlin,unsigned int Ncol)
 {
     Pds::Matrix A(Nlin,Ncol);
@@ -46,6 +53,13 @@ Pds::Matrix Pds::RandN(unsigned int N)
     return A;
 }
 
+Pds::Matrix Pds::RandN(const Pds::Size &S)
+{
+    Pds::Matrix A(S.Nlin,S.Ncol);
+    A.FillRandN();
+    return A;
+}
+
 Pds::Matrix Pds::RandN(unsigned int Nlin,unsigned int Ncol)
 {
     Pds::Matrix A(Nlin,Ncol);
@@ -56,6 +70,13 @@ Pds::Matrix Pds::RandN(unsigned int Nlin,unsigned int Ncol)
 Pds::Matrix Pds::RandU(unsigned int N)
 {
     Pds::Matrix A(N);
+    A.FillRandU();
+    return A;
+}
+
+Pds::Matrix Pds::RandU(const Pds::Size &S)
+{
+    Pds::Matrix A(S.Nlin,S.Ncol);
     A.FillRandU();
     return A;
 }
@@ -102,6 +123,16 @@ Pds::Matrix Pds::Eye(unsigned int N)
     return A;
 }
 
+Pds::Matrix Pds::Ones(const Pds::Size &S)
+{
+    Pds::Matrix A(S.Nlin,S.Ncol);
+    
+    if(A.IsEmpty())  return A;
+    
+    A.Fill(1.0);
+    return A;
+}
+
 Pds::Matrix Pds::Ones(unsigned int Nlin,unsigned int Ncol)
 {
     Pds::Matrix A(Nlin,Ncol);
@@ -122,6 +153,12 @@ Pds::Matrix Pds::Ones(unsigned int N)
     return A;
 }
 
+Pds::Matrix Pds::Zeros(const Pds::Size &S)
+{
+    Pds::Matrix A(S.Nlin,S.Ncol);
+    
+    return A;
+}
 
 Pds::Matrix Pds::Zeros(unsigned int Nlin,unsigned int Ncol)
 {

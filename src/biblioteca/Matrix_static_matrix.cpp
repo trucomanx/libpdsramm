@@ -1,6 +1,10 @@
 #include <Pds/Matrix>
 //#include <Pds/RaTools>
 
+Pds::Matrix Pds::Matrix::Apply(double (*func)(double),const Pds::Matrix &B)
+{
+    return Pds::Matrix(func,B);
+}
 
 Pds::Matrix Pds::Matrix::Load(const char* filepath)
 {

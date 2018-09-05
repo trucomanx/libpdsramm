@@ -23,7 +23,7 @@
 #include <string>
 #include <iostream>
 
-#include <Pds/Ra>
+#include <Pds/Matrix>
 
 ////////////////////////////////////////////////////////////////////////
 Pds::Matrix operator+(double b,const Pds::Matrix &mat)
@@ -170,6 +170,7 @@ Pds::Matrix Pds::Matrix::Mul(double b) const
 
     return Ans;
 }
+
 ////////////////////////////////////////////////////////////////////////
 Pds::Matrix Pds::Matrix::operator *(const Pds::Matrix &B) const
 {
@@ -194,6 +195,29 @@ Pds::Matrix Pds::Matrix::Mul(const Pds::Matrix &B) const
         for(k=0;k<B.nlin;k++)
         {
             S=S+this->array[lin][k]*B.array[k][col];  
+        }
+        
+        Ans.array[lin][col]=S;
+    }
+    return Ans;
+}
+
+Pds::Matrix Pds::Matrix::MulT(const Pds::Matrix &B) const
+{
+    if( this->ncol!=B.ncol )    return Pds::Matrix();
+    
+    Pds::Matrix Ans(this->nlin,B.nlin);
+    
+    unsigned int lin,col,k;
+    double S;
+   
+    for(lin=0;lin<Ans.nlin;lin++)
+    for(col=0;col<Ans.ncol;col++)
+    {
+        S=0.0;
+        for(k=0;k<B.ncol;k++)
+        {
+            S=S+this->array[lin][k]*B.array[col][k];
         }
         
         Ans.array[lin][col]=S;

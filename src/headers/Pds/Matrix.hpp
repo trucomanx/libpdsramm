@@ -61,6 +61,7 @@ A_{(Nlin-1),(Ncol-1)}\equiv [a_{i,j}]_{(Nlin-1),(Ncol-1)}
 
 
 #include <string>
+#include <Pds/Size>
 
 namespace Pds{
 
@@ -163,6 +164,34 @@ A_{Nlin,Ncol}\equiv [0]_{Nlin,Ncol}
     Matrix(unsigned int Nlin,unsigned int Ncol);
     
     /** 
+     *  \brief Crea un objeto de tipo Pds::Matrix con elementos inicializados con cero.
+     * 
+   \f[
+\mathbf{A}=\left(\begin{matrix}
+0 & 0 & \hdots & 0\\ 
+0 & 0 & \hdots & 0\\
+\vdots & \vdots & \vdots & \vdots \\
+0 & 0 & \hdots & 0\\ 
+0 & 0 & \hdots & 0\\
+\end{matrix}\right)\equiv A_{Nlin,Ncol}
+   \f]
+   \f[
+A_{Nlin,Ncol}\equiv [0]_{Nlin,Ncol}
+   \f]
+   Para crear una matriz A de 4 filas y 3 columnas:
+\code{.cpp}
+    Pds::Matrix B(4,3);
+    Pds::Matrix A(B.Size);
+    
+    if(A.IsEmpty()) std::cout<<"Yes,possible memory allocation problem\n";
+    else            std::cout<<"No,all fine\n";
+\endcode
+     *  \param[in] S El tamaño de la matriz.
+     *  \ingroup MatrixGroup
+     */
+    Matrix(const Pds::Size &S);
+    
+    /** 
      *  \brief Crea un objeto de tipo Pds::Matrix con elementos inicializados con val.
      * 
    \f[
@@ -236,7 +265,7 @@ B_{Nlin,Ncol}\equiv [b_{i,j}]_{Nlin,Ncol}
      *  \param[in] func Función a aplicar, esta debe tener a forma double func(double).
      *  \ingroup MatrixGroup
      */
-    Matrix(const Pds::Matrix &B, double (*func)(double) );
+    Matrix(double (*func)(double),const Pds::Matrix &B );
     
     /** 
      *  \brief Crea un objeto de tipo Pds::Matrix copiando datos desde 
@@ -617,6 +646,42 @@ public:
      */
     bool SetColVector(const Pds::Vector V,unsigned int col);
     
+    /** 
+     *  \brief Copia un vector columna en una columna de la matriz, despues
+     *  de evaluar el vector en una funcion. Si los 
+     *  tamaños son diferentes, se interceptan las matrices y se copia 
+     *  solamente en la intersección.
+     *  \param[in] func funcion a evaluar.
+     *  \param[in] V El vector a evaluar y copiar.
+     *  \param[in] col La columna en consulta.
+     *  \return Retorna true si la copia fue hecha y la posición (col) existe
+     *  o false si hubo algún problema. En caso de retornar false no se modifica la matriz.
+     *  \ingroup MatrixGroup
+     */
+    bool SetColVector(double (*func)(double),const Pds::Vector V,unsigned int col);
+    
+    /** 
+     *  \brief Copia un vector columna en una columna de la matriz, despues
+     *  de evaluar el vector en una funcion. Si los 
+     *  tamaños son diferentes, se interceptan las matrices y se copia 
+     *  solamente en la intersección.
+     *  \param[in] func funcion a evaluar.
+     *  \param[in] V El vector a evaluar y copiar.
+     *  \param[in] var Segunda variable a evaluar.
+     *  \param[in] col La columna en consulta.
+     *  \return Retorna true si la copia fue hecha y la posición (col) existe
+     *  o false si hubo algún problema. En caso de retornar false no se modifica la matriz.
+     *  \ingroup MatrixGroup
+     */
+    bool SetColVector(double (*func)(double,double),const Pds::Vector V,double var,unsigned int col);
+    
+        
+    /** 
+     *  \brief Retorna un objeto de tipo Pds::Size con el numero de lineas y columans.
+     *  \return Retorna el tamano de la matriz.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Size Size(void) const;
 /**
  * @}
  */
@@ -833,6 +898,26 @@ public:
     double Corr(const Pds::Matrix &B) const;
     
     /** 
+     *  \brief Calcula el máximo valor del valor absoluto de la matriz.
+     *
+     *  \param[in] id Se retorna el id do valor máximo.
+     *  \return Retorna el máximo valor del valor absoluto de la matriz. En caso de que la matriz sea vacía
+     *  se retorna 0.0.
+     *  \ingroup MatrixGroup
+     */
+    double MaxAbs(unsigned int *id=NULL) const;
+    
+    /** 
+     *  \brief Calcula el mínimo valor del valor absoluto de la matriz.
+     *
+     *  \param[in] id Se retorna el id do valor mínimo.
+     *  \return Retorna el mínimo valor del valor absoluto de la matriz. En caso de que la matriz sea vacía
+     *  se retorna 0.0.
+     *  \ingroup MatrixGroup
+     */
+    double MinAbs(unsigned int *id=NULL) const;
+    
+    /** 
      *  \brief Calcula el máximo valor de la matriz.
      *
      *  \param[in] id Se retorna el id do valor máximo.
@@ -858,7 +943,7 @@ public:
 
 public:
 
-/** @name Métodos con álgebra lineal
+/** @name Métodos de base para calculos de álgebra lineal
  *  Herramientas genéricas
  * @{
  */
@@ -945,7 +1030,17 @@ public:
  *  Herramientas genéricas que pueden ser usadas desde Pds::Matrix
  * @{
  */
-
+    
+   /** 
+     *  \brief Crea una nueva martiz con el resultado de func(B).
+     *
+     *  \f[ A_\leftarrow func(B) \f]
+     *  \param[in] func La función evaluadora.
+     *  \param[in] B La matriz a evaluar.
+     *  \return Retorna una matriz evaluada.
+     *  \ingroup MatrixGroup
+     */
+    static Pds::Matrix Apply(double (*func)(double),const Pds::Matrix &B);
     
    /** 
      *  \brief Lee de un archivo una matriz de Nlin lineas y Ncol columnas.
@@ -983,7 +1078,7 @@ public:
      * la memoria. Esta memoria debe ser liberada siempre com ArrayRelease
      *  \ingroup MatrixGroup
      */
-    static double** ArrayAllocate(const Pds::Matrix &A,double (*func)(double));
+    static double** ArrayAllocate(double (*func)(double),const Pds::Matrix &A);
     
     /** 
      *  \brief crea dinámicamente un arreglo de A.Nlin() lineas y A.Ncol() columnas,
@@ -1095,6 +1190,26 @@ public:
      */
     Pds::Matrix T(void) const;
     
+    /** 
+     *  \brief Retorna A.T()*A cargado en B. 
+     *
+     *  \f[ B \leftarrow A^{T}A \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix B;
+    
+    A.FillRandU();
+    
+    B=A.TnoT();
+    
+    std::cout<<B;
+\endcode
+     *  \return Retorna un nuevo objeto con el
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix TnoT(void) const;
+    
     
     /** 
      *  \brief Retorna la matriz inversa.
@@ -1111,6 +1226,23 @@ public:
      *  \ingroup MatrixGroup
      */
     Pds::Matrix Inv(double *rcond=NULL) const;
+    
+    /** 
+     *  \brief Procesa esta matriz A y retorna B la matriz pseudo 
+     *  inversa de Moore Penrose.
+     *
+     *  \f[ B \leftarrow (A^T A)^{-1}A^T \f]
+     *  \param[out] rcond Esta variable es cargada con el valor del
+     *  reciproco del condicional de la matriz A^T A:
+     *  \f[ rcond \leftarrow \frac{1.0}{||A^T A||_1 ||(A^T A)^{-1}||_1} \f]
+     * Si la matriz está bien condicionada entonces rcond es próximo a 1.0 y si la matriz
+     * esta pobremente condicionada este valor estará proximo a 0.0.
+     * Si la variable rcond no es entregada entonces sera mostrado un mensaje
+     * de advertencia por consola si el valor de rcond es menor a Pds::Ra::WarningRCond.
+     *  \return Retorna la matriz inversa si todo fue bien o una matriz vacia si no.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix PInv(double *rcond=NULL) const;
     
     
     /** 
@@ -1492,6 +1624,30 @@ public:
      *  \ingroup MatrixGroup
      */
     Pds::Matrix Mul(const Pds::Matrix &B) const;
+    
+    /** 
+     *  \brief Multiplica con sigo mismo (A), la transpuesta de una matriz B y el resultado es
+     * cargado en C. Este método  es similar al operador * 
+     *
+     *  \f[ C \leftarrow A*B^T \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix B(4,4);
+    Pds::Matrix C;
+    
+    A.Fill(2.0);
+    B.Fill(1.0);
+    
+    C=A.MulT(B);
+    
+    std::cout<<C;
+\endcode
+     *  \param[in] B la matriz a multiplicar
+     *  \return Retorna C con el
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix MulT(const Pds::Matrix &B) const;
 /**
  * @}
  */

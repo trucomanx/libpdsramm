@@ -48,7 +48,7 @@ int main(void)
     std::cout<<std::endl<<"array="<<array<<std::endl<<std::endl;
     
     
-    array=Pds::Matrix::ArrayAllocate(A,sin);
+    array=Pds::Matrix::ArrayAllocate(sin,A);
     if(array==NULL)   return 0;
     
     str=Pds::Matrix::ArrayToString(array,A.Nlin(),A.Ncol());

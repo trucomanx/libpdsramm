@@ -52,6 +52,21 @@ Pds::Matrix::Matrix(unsigned int N)
     //std::cout<<"Matrix(n);\n";
 }
 
+Pds::Matrix::Matrix(const Pds::Size &A)
+{
+    this->nlin=0;
+    this->ncol=0;
+    this->array=NULL;
+    
+    if((A.Nlin==0)||(A.Ncol==0))    return;
+    
+    this->array= Pds::Matrix::ArrayAllocate(nlin,ncol);
+    if(this->array==NULL)       return;
+    
+    this->nlin=A.Nlin;
+    this->ncol=A.Ncol;
+}
+
 Pds::Matrix::Matrix(unsigned int nlin,unsigned int ncol)
 {
     this->nlin=0;
@@ -108,7 +123,7 @@ Pds::Matrix::Matrix(const Matrix &A)
     return;
 }
 
-Pds::Matrix::Matrix(const Matrix &A, double (*func)(double))
+Pds::Matrix::Matrix(double (*func)(double),const Matrix &A)
 {
     this->nlin=0;
     this->ncol=0;
@@ -117,7 +132,7 @@ Pds::Matrix::Matrix(const Matrix &A, double (*func)(double))
     if(A.IsEmpty())  return;
 
 
-    this->array= Pds::Matrix::ArrayAllocate(A,func);
+    this->array= Pds::Matrix::ArrayAllocate(func,A);
     if(this->array==NULL)  return;
     
     this->nlin=A.nlin;

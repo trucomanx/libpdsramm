@@ -78,6 +78,14 @@ namespace Pds{
    
    /** 
      *  \brief Crea una matriz con datos correspondentes ao Id de cada elemento.
+     *  \param[in] S Tamaño de la matriz.
+     *  \return Retorna una matriz no vacía si todo fue bien o una matriz vacía en caso de error.
+     *  \ingroup MatrixFuncGroup
+     */
+    Matrix MatrixId(const Pds::Size &S);
+   
+   /** 
+     *  \brief Crea una matriz con datos correspondentes ao Id de cada elemento.
      *  \param[in] Nlin Número de lineas.
      *  \param[in] Ncol Número de columnas.
      *  \return Retorna una matriz no vacía si todo fue bien o una matriz vacía en caso de error.
@@ -97,6 +105,15 @@ namespace Pds{
    /** 
      *  \brief Crea una matriz con datos aleatorios con distribución Normal
      *  de media cero 0.0 y desvío padrón 1.0.
+     *  \param[in] S Tamaño de la matriz.
+     *  \return Retorna una matriz no vacía si todo fue bien o una matriz vacía en caso de error.
+     *  \ingroup MatrixFuncGroup
+     */
+    Matrix RandN(const Pds::Size &S);
+   
+   /** 
+     *  \brief Crea una matriz con datos aleatorios con distribución Normal
+     *  de media cero 0.0 y desvío padrón 1.0.
      *  \param[in] Nlin Número de lineas.
      *  \param[in] Ncol Número de columnas.
      *  \return Retorna una matriz no vacía si todo fue bien o una matriz vacía en caso de error.
@@ -111,6 +128,14 @@ namespace Pds{
      *  \ingroup MatrixFuncGroup
      */
     Matrix RandU(unsigned int N);
+    
+   /** 
+     *  \brief Crea una matriz con datos aleatorios uniformemente distribuidos entre 0.0 y 1.0.
+     *  \param[in] S Tamaño de la matriz.
+     *  \return Retorna una matriz no vacía si todo fue bien o una matriz vacía en caso de error.
+     *  \ingroup MatrixFuncGroup
+     */
+    Matrix RandU(const Pds::Size &S);
     
    /** 
      *  \brief Crea una matriz con datos aleatorios uniformemente distribuidos entre 0.0 y 1.0.
@@ -172,6 +197,23 @@ a_{10} & a_{11}
 1 & 1 & 1 & 1
 \end{matrix}\right)
    \f]
+     *  \param[in] S El tamaño de la matriz.
+     *  \return Retorna la matriz o una matriz vacía en caso de error.
+     *  \ingroup MatrixFuncGroup
+     */
+    Matrix Ones(const Pds::Size &S);
+    
+    /** 
+     *  \brief Retorna una matriz con unos.  
+     *
+   \f[
+\left(\begin{matrix}
+1 & 1 & 1 & 1\\ 
+1 & 1 & 1 & 1\\
+1 & 1 & 1 & 1\\
+1 & 1 & 1 & 1
+\end{matrix}\right)
+   \f]
      *  \param[in] Nlin El numero de lineas de la matriz.
      *  \param[in] Ncol El numero de columnas de la matriz.
      *  \return Retorna la matriz o una matriz vacía en caso de error.
@@ -196,6 +238,23 @@ a_{10} & a_{11}
      */
     Matrix Ones(unsigned int N);
     
+    
+    /** 
+     *  \brief Retorna una matriz con ceros.  
+     *
+   \f[
+\left(\begin{matrix}
+0 & 0 & 0 & 0\\ 
+0 & 0 & 0 & 0\\
+0 & 0 & 0 & 0\\
+0 & 0 & 0 & 0
+\end{matrix}\right)
+   \f]
+     *  \param[in] S El tamaño de la matriz.
+     *  \return Retorna la matriz o una matriz vacía en caso de error.
+     *  \ingroup MatrixFuncGroup
+     */
+    Matrix Zeros(const Pds::Size &S);
     
     /** 
      *  \brief Retorna una matriz con ceros.  

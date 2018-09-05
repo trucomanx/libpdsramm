@@ -1,5 +1,27 @@
 #include <Pds/Matrix>
 #include <cmath>
+////////////////////////////////////////////////////////////////////////
+double Pds::Matrix::MaxAbs(unsigned int *id) const
+{
+    unsigned int lin,col;
+    double S;
+    
+    if((this->nlin==0)||(this->ncol==0)||(this->array==NULL))
+    return 0.0;
+    
+    S=fabs(this->array[0][0]);
+    if(id!=NULL) *id=0;
+    
+    for(lin=0;lin<this->nlin;lin++)
+    for(col=0;col<this->ncol;col++)
+    if(fabs(this->array[lin][col])>S)
+    {
+        S=fabs(this->array[lin][col]);
+        if(id!=NULL) *id=col*(this->nlin)+lin;
+    }
+
+    return S;
+}
 
 ////////////////////////////////////////////////////////////////////////
 double Pds::Matrix::Max(unsigned int *id) const
@@ -18,6 +40,29 @@ double Pds::Matrix::Max(unsigned int *id) const
     if(this->array[lin][col]>S)
     {
         S=this->array[lin][col];
+        if(id!=NULL) *id=col*(this->nlin)+lin;
+    }
+
+    return S;
+}
+
+////////////////////////////////////////////////////////////////////////
+double Pds::Matrix::MinAbs(unsigned int *id) const
+{
+    unsigned int lin,col;
+    double S;
+    
+    if((this->nlin==0)||(this->ncol==0)||(this->array==NULL))
+    return 0.0;
+    
+    S=fabs(this->array[0][0]);
+    if(id!=NULL) *id=0;
+    
+    for(lin=0;lin<this->nlin;lin++)
+    for(col=0;col<this->ncol;col++)
+    if(fabs(this->array[lin][col])<S)
+    {
+        S=fabs(this->array[lin][col]);
         if(id!=NULL) *id=col*(this->nlin)+lin;
     }
 

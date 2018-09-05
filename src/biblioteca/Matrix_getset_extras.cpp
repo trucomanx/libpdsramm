@@ -22,6 +22,7 @@
 
 #include <Pds/Matrix>
 #include <Pds/Vector>
+#include <Pds/Size>
 
 #include <cmath>
 
@@ -92,3 +93,37 @@ bool Pds::Matrix::SetColVector(const Pds::Vector V,unsigned int col)
     return true;
 }
     
+bool Pds::Matrix::SetColVector(double (*func)(double),const Pds::Vector V,unsigned int col)
+{   
+    if(col>=this->ncol) return false;
+    
+    if(this->IsEmpty()) return false;
+    if(V.IsEmpty())     return false;
+    
+    unsigned int Nlin=std::min(V.Nlin(),this->nlin);
+    
+    for(unsigned int lin=0;lin<Nlin;lin++)
+    this->array[lin][col]=(*func)(V.Get(lin));
+    
+    return true;
+}
+    
+bool Pds::Matrix::SetColVector(double (*func)(double,double),const Pds::Vector V,double var,unsigned int col)
+{   
+    if(col>=this->ncol) return false;
+    
+    if(this->IsEmpty()) return false;
+    if(V.IsEmpty())     return false;
+    
+    unsigned int Nlin=std::min(V.Nlin(),this->nlin);
+    
+    for(unsigned int lin=0;lin<Nlin;lin++)
+    this->array[lin][col]=(*func)(V.Get(lin),var);
+    
+    return true;
+}
+    
+Pds::Size Pds::Matrix::Size(void) const
+{
+    return Pds::Size(this->nlin,this->ncol);
+}

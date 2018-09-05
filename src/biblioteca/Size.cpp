@@ -1,5 +1,5 @@
 /*
- * Matrix_operator.cpp
+ * Size.cpp
  * 
  * Copyright 2018 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
  * 
@@ -20,14 +20,47 @@
  * 
  */
 
-#include <string>
-#include <iostream>
 
+#include <Pds/Size>
 #include <Pds/Matrix>
 
-////////////////////////////////////////////////////////////////////////
-std::ostream& operator<<(std::ostream &out,const Pds::Matrix &mat)
+
+Pds::Size::Size(void)
 {
-    out<<mat.ToString();
-    return out;
+    this->Nlin=0;
+    this->Ncol=0;
+    return;
 }
+
+Pds::Size::Size(unsigned int Nlin,unsigned int Ncol)
+{
+    this->Nlin=Nlin;
+    this->Ncol=Ncol;
+    return;
+}
+
+Pds::Size::Size(const Size &A)
+{
+    if(this!=&A) //Comprueba que no se esté intentando igualar un objeto a sí mismo
+    {
+        this->Nlin=A.Nlin;
+        this->Ncol=A.Ncol;
+    }
+
+    return;
+}
+
+Pds::Size::Size(const Pds::Matrix &A)
+{
+    this->Nlin=A.Nlin();
+    this->Ncol=A.Ncol();
+    
+    return;
+}
+
+Pds::Size::~Size(void)
+{
+    this->Nlin=0;
+    this->Ncol=0;
+}
+

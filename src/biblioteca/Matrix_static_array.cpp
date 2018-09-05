@@ -4,7 +4,7 @@
 #include <Pds/RaTools>
 
 
-double** Pds::Matrix::ArrayAllocate(const Pds::Matrix &A,double (*func)(double))
+double** Pds::Matrix::ArrayAllocate(double (*func)(double),const Pds::Matrix &A)
 {
     double **array=NULL;
     unsigned int lin,col;
