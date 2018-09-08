@@ -61,6 +61,7 @@ A_{(Nlin-1),1}\equiv [a_{ij}]_{(Nlin-1),1}
 
 
 #include <Pds/Matrix>
+#include <Pds/Size>
 
 namespace Pds{
 
@@ -98,17 +99,17 @@ public:
 
     /** 
      *  \brief Crea un objeto de tipo Pds::Vector copiando datos desde 
-     *  otra matriz.
+     *  una matriz. Toda la matriz es vectorizada leyendo columna a columna.
      * 
    \f[
-B_{Nlin,1}\equiv [b_{i,j}]_{Nlin,1}
+B_{Nlin,1}\equiv [b_{i,j}]_{Nlin,Ncol}
    \f]
    \f[
-\mathbf{A} \leftarrow \mathbf{B}
+\mathbf{A} \leftarrow \mathbf{B\{:\}}
    \f]
    Para crear una matriz A con copia de datos de una matriz B:
 \code{.cpp}
-    Pds::Vector B(4);
+    Pds::Matrix B(4,5);
     Pds::Vector A(B);
     
     if(A.IsEmpty()) std::cout<<"Yes,possible memory allocation problem\n";
@@ -118,6 +119,32 @@ B_{Nlin,1}\equiv [b_{i,j}]_{Nlin,1}
      *  \ingroup VectorGroup
      */
     Vector(const Pds::Matrix &B);
+
+
+    /** 
+     *  \brief Crea un objeto de tipo Pds::Vector copiando datos desde
+     *  una columna de una matriz. 
+     * 
+   \f[
+B_{Nlin,1}\equiv [b_{i,j}]_{Nlin,Ncol}
+   \f]
+   \f[
+\mathbf{A} \leftarrow \mathbf{B\{:,col\}}
+   \f]
+   Para crear una matriz A con copia de datos de una matriz B:
+\code{.cpp}
+    Pds::Matrix B(4,5);
+    Pds::Vector A(B,2);
+    
+    if(A.IsEmpty()) std::cout<<"Yes,possible memory allocation problem\n";
+    else            std::cout<<"No,all fine\n";
+\endcode
+     *  \param[in] B Matriz a copiar.
+     *  \param[in] col columna a copiar.
+     *  \ingroup VectorGroup
+     */
+    Vector(const Pds::Matrix &B,unsigned int col);
+
     
     ~Vector(); 
     

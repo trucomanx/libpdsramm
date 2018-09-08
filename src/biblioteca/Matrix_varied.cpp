@@ -4,6 +4,15 @@
 #include <Pds/RaDefines>
 #include <Pds/RaTools>
 
+
+////////////////////////////////////////////////////////////////////////
+
+void Pds::Matrix::MakeEmpty(void)
+{
+    Pds::Matrix::ArrayRelease(this->array,this->nlin);
+    this->nlin=0;
+    this->ncol=0;
+}
 ////////////////////////////////////////////////////////////////////////
 
 #include <iomanip>      // std::setprecision

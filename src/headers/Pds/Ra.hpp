@@ -54,7 +54,7 @@
     
 #include <Pds/Vector>
 #include <Pds/VectorFunc>
-#include <Pds/VectorAlgebra>
+#include <Pds/VectorPoly>
     
     
 #endif /* __PDS_RA_HPP__ */

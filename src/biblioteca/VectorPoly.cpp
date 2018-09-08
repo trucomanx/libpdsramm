@@ -1,5 +1,5 @@
 /*
- * VectorAlgebra.cpp
+ * VectorPoly.cpp
  * 
  * Copyright 2018 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
  * 
@@ -23,7 +23,7 @@
 
 #include <cmath>
 #include <Pds/Vector>
-#include <Pds/VectorAlgebra>
+#include <Pds/VectorPoly>
 
 Pds::Matrix Pds::PolyMat(Pds::Vector X, unsigned int ORDER)
 {

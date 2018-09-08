@@ -43,12 +43,6 @@ bool Pds::Matrix::IsNotEmpty(void) const
     return true;
 }
 
-void Pds::Matrix::MakeEmpty(void)
-{
-    Pds::Matrix::ArrayRelease(this->array,this->nlin);
-    this->nlin=0;
-    this->ncol=0;
-}
 
 bool Pds::Matrix::IsSimilarTo(const Pds::Matrix &B) const
 {

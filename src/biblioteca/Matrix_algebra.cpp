@@ -39,3 +39,22 @@ double Pds::Matrix::Norm1(void) const
 }
 
 ////////////////////////////////////////////////////////////////////////
+
+double Pds::Matrix::Dot(const Pds::Matrix &B) const
+{
+    unsigned int lin,col;
+    double S=0;
+    
+    if((this->nlin==0)||(this->ncol==0)||(this->array==NULL))
+    return 0.0;
+    
+    if((B.nlin!=this->nlin)||(B.ncol!=this->ncol))
+    return 0.0;
+    
+    
+    for(lin=0;lin<this->nlin;lin++)
+    for(col=0;col<this->ncol;col++)
+    S=S+this->array[lin][col]*B.array[lin][col];
+
+    return S;
+}

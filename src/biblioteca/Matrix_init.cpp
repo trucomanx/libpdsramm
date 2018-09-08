@@ -126,7 +126,7 @@ bool Pds::Matrix::FillId(void)
     return true;
 }
 
-bool Pds::Matrix::LinSpace(double begin,double end)
+bool Pds::Matrix::FillLinSpace(double begin,double end)
 {
     if(this->IsEmpty())   return false;
 

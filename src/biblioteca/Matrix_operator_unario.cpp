@@ -62,7 +62,7 @@ Pds::Matrix Pds::Matrix::Inv(double *rcond) const
     // obtengo una matriz escalonada
     for(lin=0;lin<B.nlin;lin++)
     {
-        id=B.DiagonalIsZeroSwapBelow(lin);
+        id=B.RowDizSwapBelow(lin);
         if(id>=0)
         {
             if(((unsigned int)id)!=lin)

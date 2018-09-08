@@ -33,6 +33,7 @@ Pds::Vector::Vector(unsigned int N): Pds::Matrix(N,1)
     return;
 }
 
+
 Pds::Vector::Vector(const Matrix &A)
 {
     if(this!=&A) //Comprueba que no se esté intentando igualar un objeto a sí mismo
@@ -42,15 +43,44 @@ Pds::Vector::Vector(const Matrix &A)
         this->array=NULL;
         
         if(A.IsEmpty()) return;
-        if(A.Ncol()!=1) return;
-
-        this->array= Pds::Matrix::ArrayAllocate(A);
+        
+        unsigned int N=A.Nlin()*A.Ncol();
+        unsigned int id;
+        
+        this->array= Pds::Matrix::ArrayAllocate(N,1);
         if(this->array==NULL)  return;
-    
-        this->nlin=A.Nlin();
-        this->ncol=A.Ncol();
+        
+        for(id=0;id<N;id++)
+        this->Set(A.Get(id),id);
+        
+        this->nlin=N;
+        this->ncol=1;
     }
 
+    return;
+}
+
+Pds::Vector::Vector(const Matrix &A, unsigned int col)
+{
+
+    this->nlin=0;
+    this->ncol=0;
+    this->array=NULL;
+       
+    if(A.IsEmpty())     return;
+    if(col>=A.Ncol())   return;
+        
+    unsigned int lin;
+        
+    this->array= Pds::Matrix::ArrayAllocate(A.Nlin(),1);
+    if(this->array==NULL)  return;
+        
+    for(lin=0;lin<A.Nlin();lin++)
+    this->Set(A.Get(lin,col),lin,0);
+        
+    this->nlin=A.Nlin();
+    this->ncol=1;
+    
     return;
 }
 

@@ -60,7 +60,7 @@ bool Pds::Matrix::RowDivAssig(unsigned int lin,double alpha)
 }
 
 
-int Pds::Matrix::DiagonalIsZeroSwapBelow(unsigned int n)
+int Pds::Matrix::RowDizSwapBelow(unsigned int n)
 {
     if( (n>=this->nlin)||(n>=this->ncol) )    return -1;
     
@@ -102,7 +102,7 @@ bool Pds::Matrix::RowReduction(void)
     // obtengo una matriz escalonada
     for(lin=0;lin<this->nlin;lin++)
     {
-        if(DiagonalIsZeroSwapBelow(lin)>=0)
+        if(RowDizSwapBelow(lin)>=0)
         {
             // genero una linea con 1 en la posicion (lin,lin)
             alpha=this->array[lin][lin];

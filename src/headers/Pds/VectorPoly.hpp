@@ -1,5 +1,5 @@
 /*
- * VectorAlgebra.hpp
+ * VectorPoly.hpp
  * 
  * Copyright 2018 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
  * 
@@ -20,9 +20,9 @@
  * 
  */
 
-/** \file VectorAlgebra.hpp
+/** \file VectorPoly.hpp
  *  \author Fernando Pujaico Rivera
- *  \brief Funciones que trabajan con vectores.
+ *  \brief Funciones que trabajan con Polinomios.
  *  
  *  <br>Estas funciones trabajan con una vector de la forma.<br>
  *  \image html vecto.png "Matriz de NlinxNcol"
@@ -31,13 +31,13 @@
 
 
 
-#ifndef __PDS_VECTORALGEBRA_HPP__
-#define __PDS_VECTORALGEBRA_HPP__
+#ifndef __PDS_VECTORPOLY_HPP__
+#define __PDS_VECTORPOLY_HPP__
 
 
-/** \defgroup VectorAlgebraGroup Clase Pds::Vector :: Funciones Algebraicas.
+/** \defgroup VectorAlgebraGroup Clase Pds::Vector :: Funciones Polinómicas.
  *  \brief Funciones PolyMat 
- *  <div class="fragment"> \#include <Pds/VectorAlgebra> </div>
+ *  <div class="fragment"> \#include <Pds/VectorPoly> </div>
  *  
  *  <br>Estas funciones trabajan con una matriz de la forma.<br>
    \f[
@@ -71,10 +71,10 @@ namespace Pds{
      *
    \f[
 \left(\begin{matrix}
-1 & x_0^1 x_0^2   & ... &  x_0^{N-1} & x_0^N \\
-1 & x_1^1 x_1^2   & ... &  x_1^{N-1} & x_1^N \\
+1 & x_0^1 & x_0^2   & ... &  x_0^{N-1} & x_0^N \\
+1 & x_1^1 & x_1^2   & ... &  x_1^{N-1} & x_1^N \\
 \hdots & \hdots    & ... & \hdots & \hdots & \hdots \\ 
-1 & x_{M-1}^1 x_{M-1}^2   & ... &  x_{M-1}^{N-1} & x_{M-1}^N \\
+1 & x_{M-1}^1 & x_{M-1}^2   & ... &  x_{M-1}^{N-1} & x_{M-1}^N \\
 \end{matrix}\right)
    \f]
      *  \param[in] X Vector a evaluar.

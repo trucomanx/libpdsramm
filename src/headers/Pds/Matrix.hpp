@@ -320,14 +320,6 @@ public:
      */
     bool IsNotEmpty(void) const;
 
-    /** 
-     *  \brief libera los datos internos de la matriz y la convierte en una matriz nula.
-     *  es decir con lineas y columnas cero.
-     * 
-     *  Una matriz\f$\mathbf{A}\f$ está vacía si  \f$ \mathbf{A}=[]_{0,0}\f$.
-     *  \ingroup MatrixGroup
-     */
-    void MakeEmpty(void);
 
     /** 
      *  \brief Verifica si las matrices son similares en tamaño.
@@ -595,93 +587,7 @@ a         & 4\alpha+a & 8\alpha+a\\
      *  \return Retorna true si todo fue bien o false si no.
      *  \ingroup MatrixGroup
      */
-    bool LinSpace(double a,double b);
-/**
- * @}
- */
-public:
-
-/** @name Métodos get y set, extras
- *  Herramientas genericas para lectura y escritura de datos.
- * @{
- */
- 
-    /** 
-     *  \brief Retorna un vector columna copia de los valores de la diagonal de la matriz. 
-     *  \return Retorna el vector columna en la posición (col) o un vector vacío
-     *  en caso de error.
-     *  \ingroup MatrixGroup
-     */
-    Pds::Vector GetDiagonal(void) const;
-    
-    /** 
-     *  \brief Copia un vector columna en una diagonal de la matriz. Si los 
-     *  tamaños son diferentes, se interceptan las matrices y se copia 
-     *  solamente en la intersección.
-     *  \param[in] V El vector a copiar.
-     *  \return Retorna true si la copia fue hecha 
-     *  o false si hubo algún problema. En caso de retornar false no se modifica la matriz.
-     *  \ingroup MatrixGroup
-     */
-    bool SetDiagonal(const Pds::Vector V);
-    
-    /** 
-     *  \brief Retorna un vector columna copia de una columna de la matriz. 
-     *  \param[in] col La columna en consulta.
-     *  \return Retorna el vector columna en la posición (col) o un vector vacío si la 
-     *  posición no existe.
-     *  \ingroup MatrixGroup
-     */
-    Pds::Vector GetColVector(unsigned int col) const;
-    
-    /** 
-     *  \brief Copia un vector columna en una columna de la matriz. Si los 
-     *  tamaños son diferentes, se interceptan las matrices y se copia 
-     *  solamente en la intersección.
-     *  \param[in] V El vector a copiar.
-     *  \param[in] col La columna en consulta.
-     *  \return Retorna true si la copia fue hecha y la posición (col) existe
-     *  o false si hubo algún problema. En caso de retornar false no se modifica la matriz.
-     *  \ingroup MatrixGroup
-     */
-    bool SetColVector(const Pds::Vector V,unsigned int col);
-    
-    /** 
-     *  \brief Copia un vector columna en una columna de la matriz, despues
-     *  de evaluar el vector en una funcion. Si los 
-     *  tamaños son diferentes, se interceptan las matrices y se copia 
-     *  solamente en la intersección.
-     *  \param[in] func funcion a evaluar.
-     *  \param[in] V El vector a evaluar y copiar.
-     *  \param[in] col La columna en consulta.
-     *  \return Retorna true si la copia fue hecha y la posición (col) existe
-     *  o false si hubo algún problema. En caso de retornar false no se modifica la matriz.
-     *  \ingroup MatrixGroup
-     */
-    bool SetColVector(double (*func)(double),const Pds::Vector V,unsigned int col);
-    
-    /** 
-     *  \brief Copia un vector columna en una columna de la matriz, despues
-     *  de evaluar el vector en una funcion. Si los 
-     *  tamaños son diferentes, se interceptan las matrices y se copia 
-     *  solamente en la intersección.
-     *  \param[in] func funcion a evaluar.
-     *  \param[in] V El vector a evaluar y copiar.
-     *  \param[in] var Segunda variable a evaluar.
-     *  \param[in] col La columna en consulta.
-     *  \return Retorna true si la copia fue hecha y la posición (col) existe
-     *  o false si hubo algún problema. En caso de retornar false no se modifica la matriz.
-     *  \ingroup MatrixGroup
-     */
-    bool SetColVector(double (*func)(double,double),const Pds::Vector V,double var,unsigned int col);
-    
-        
-    /** 
-     *  \brief Retorna un objeto de tipo Pds::Size con el numero de lineas y columans.
-     *  \return Retorna el tamano de la matriz.
-     *  \ingroup MatrixGroup
-     */
-    Pds::Size Size(void) const;
+    bool FillLinSpace(double a,double b);
 /**
  * @}
  */
@@ -779,6 +685,94 @@ public:
 
 public:
 
+/** @name Métodos get y set, extras
+ *  Herramientas genericas para lectura y escritura de datos.
+ * @{
+ */
+ 
+    /** 
+     *  \brief Retorna un vector columna copia de los valores de la diagonal de la matriz. 
+     *  \return Retorna el vector columna en la posición (col) o un vector vacío
+     *  en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Vector GetDiagonal(void) const;
+    
+    /** 
+     *  \brief Copia un vector columna en una diagonal de la matriz. Si los 
+     *  tamaños son diferentes, se interceptan las matrices y se copia 
+     *  solamente en la intersección.
+     *  \param[in] V El vector a copiar.
+     *  \return Retorna true si la copia fue hecha 
+     *  o false si hubo algún problema. En caso de retornar false no se modifica la matriz.
+     *  \ingroup MatrixGroup
+     */
+    bool SetDiagonal(const Pds::Vector V);
+    
+    /** 
+     *  \brief Retorna un vector columna copia de una columna de la matriz. 
+     *  \param[in] col La columna en consulta.
+     *  \return Retorna el vector columna en la posición (col) o un vector vacío si la 
+     *  posición no existe.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Vector GetColVector(unsigned int col) const;
+    
+    /** 
+     *  \brief Copia un vector columna en una columna de la matriz. Si los 
+     *  tamaños son diferentes, se interceptan las matrices y se copia 
+     *  solamente en la intersección.
+     *  \param[in] V El vector a copiar.
+     *  \param[in] col La columna en consulta.
+     *  \return Retorna true si la copia fue hecha y la posición (col) existe
+     *  o false si hubo algún problema. En caso de retornar false no se modifica la matriz.
+     *  \ingroup MatrixGroup
+     */
+    bool SetColVector(const Pds::Vector V,unsigned int col);
+    
+    /** 
+     *  \brief Copia un vector columna en una columna de la matriz, despues
+     *  de evaluar el vector en una funcion. Si los 
+     *  tamaños son diferentes, se interceptan las matrices y se copia 
+     *  solamente en la intersección.
+     *  \param[in] func funcion a evaluar.
+     *  \param[in] V El vector a evaluar y copiar.
+     *  \param[in] col La columna en consulta.
+     *  \return Retorna true si la copia fue hecha y la posición (col) existe
+     *  o false si hubo algún problema. En caso de retornar false no se modifica la matriz.
+     *  \ingroup MatrixGroup
+     */
+    bool SetColVector(double (*func)(double),const Pds::Vector V,unsigned int col);
+    
+    /** 
+     *  \brief Copia un vector columna en una columna de la matriz, despues
+     *  de evaluar el vector en una funcion. Si los 
+     *  tamaños son diferentes, se interceptan las matrices y se copia 
+     *  solamente en la intersección.
+     *  \param[in] func funcion a evaluar.
+     *  \param[in] V El vector a evaluar y copiar.
+     *  \param[in] var Segunda variable a evaluar.
+     *  \param[in] col La columna en consulta.
+     *  \return Retorna true si la copia fue hecha y la posición (col) existe
+     *  o false si hubo algún problema. En caso de retornar false no se modifica la matriz.
+     *  \ingroup MatrixGroup
+     */
+    bool SetColVector(double (*func)(double,double),const Pds::Vector V,double var,unsigned int col);
+    
+        
+    /** 
+     *  \brief Retorna un objeto de tipo Pds::Size con el numero de lineas y columans.
+     *  \return Retorna el tamano de la matriz.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Size Size(void) const;
+/**
+ * @}
+ */
+
+
+public:
+
 /** @name Métodos que trabajan con las lineas de la matriz
  *  operaciones con lineas
  * @{
@@ -803,7 +797,7 @@ public:
      *  se retorna n.
      *  \ingroup MatrixGroup
      */
-    int DiagonalIsZeroSwapBelow(unsigned int n);
+    int RowDizSwapBelow(unsigned int n);
 
     /** 
      *  \brief Multiplica los valores de la linea lin2 por alfa y el 
@@ -947,7 +941,19 @@ public:
  *  Herramientas genéricas
  * @{
  */
-
+    
+    /** 
+     *  \brief Calcula el producto punto entre dos matrices.
+     *
+     *  \f[ \mathbf{A} \equiv [a_{i,j}]_{Nlin,Ncol}  \f]
+     *  \f[ \mathbf{B} \equiv [b_{i,j}]_{Nlin,Ncol}  \f]
+     *  \f[ d \leftarrow \sum \limits_{i,j} a_{i,j}b_{i,j} \f]
+     *  \param[in] B Matriz a multiplicar.
+     *  \return Retorna la norma de un vector. En caso de que la matriz sea vacía
+     *  se retorna 0.0.
+     *  \ingroup MatrixGroup
+     */
+    double Dot(const Pds::Matrix &B) const;
     
     /** 
      *  \brief Calcula la 2-norm de un vector.
@@ -982,6 +988,15 @@ public:
  * @{
  */
 
+    /** 
+     *  \brief libera los datos internos de la matriz y la convierte en una matriz nula.
+     *  es decir con lineas y columnas cero.
+     * 
+     *  Una matriz\f$\mathbf{A}\f$ está vacía si  \f$ \mathbf{A}=[]_{0,0}\f$.
+     *  \ingroup MatrixGroup
+     */
+    void MakeEmpty(void);
+    
     /** 
      *  \brief Convierte los datos de la matriz en un std::string.
      *  \return Retorna un std::string. Si la matriz es nula retorna un string sin caracteres.

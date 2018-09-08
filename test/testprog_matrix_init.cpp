@@ -11,7 +11,6 @@
 int main(void)
 {
     Pds::Matrix A(4,3);
-    Pds::Matrix B(4,4);
     
     A.Fill(-1);
     A.Print("\nA:\n");
@@ -19,14 +18,14 @@ int main(void)
     A.FillId();
     A.Print("\nA:\n");
     
-    A.LinSpace(0,22);
+    A.FillLinSpace(0,22);
     A.Print("\nA:\n");
     
-    B.FillRandU(-2,2);
-    B.Print("\nB:\n");
+    A.FillRandU(-2,2);
+    A.Print("\nA:\n");
     
-    B.FillRandU(-2.0,2.0);
-    B.Print("\nB:\n");
+    A.FillRandU(-2.0,2.0);
+    A.Print("\nA:\n");
     
     return 0;
 }
