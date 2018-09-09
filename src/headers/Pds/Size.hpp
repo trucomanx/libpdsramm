@@ -33,7 +33,7 @@
 #define __PDS_SIZE_HPP__
 
 
-/** \defgroup SizeGroup Clase Pds::Size.
+/** \defgroup SizeGroup Métodos de Pds::Size
  *  \brief Metodos de la clase Pds::Size, el tamaño de una matriz 
  *  <div class="fragment"> \#include <Pds/Size> </div>
  *  
@@ -47,7 +47,7 @@ namespace Pds{
 class Matrix;
 
 /*! \class Size
- *  \brief La clase tipo  Size .
+ *  \brief La clase tipo  Pds::Size .
  *  Esta clase genera un objeto con dos parametros Nlin y Ncol.
  *  Para usar incluir Pds/Size.
  *  \ingroup SizeGroup
@@ -93,14 +93,6 @@ public:
      */
     Size(const Pds::Size &B);
 
-    /** 
-     *  \brief Crea un objeto de tipo Pds::Size copiando datos desde 
-     *  una matriz.
-     * 
-     *  \param[in] B Matriz a copiar.
-     *  \ingroup SizeGroup
-     */
-    Size(const Pds::Matrix &B);
     
     ~Size(); 
     

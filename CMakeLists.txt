@@ -20,17 +20,18 @@ project(libpdsramm
 
 set(PROJECT_DESCRIPTION       "C++ Library to work with real arrays")
 set(PROJECT_LIB_ABBREVIATION  "pdsramm")
+set(PROJECT_HEADER_ABBREVIATION  "Ra")
 set(PROJECT_COMMENT           "PDS Real Arrays in C++")
 set(PROJECT_URL               "http://www.nongnu.org/pdsplibrary/")
 # Requires
 set(DEBPACK_REQUIRES          "")# "libpdsramm-dev, libpdsba-dev") # Acording deb names
 set(PKGCONFIG_REQUIRES        "")# "libpdsramm, libpdsba")         # Acording pkgconfig names
 # Pkg-config private
-set(PKGCONFIG_LIB_PRIVATE     "-lm") # "libpdsramm, libpdsba")         # Acording pkgconfig names
+set(PKGCONFIG_LIB_PRIVATE     "") # "libpdsramm, libpdsba")         # Acording pkgconfig names
 # Compiling library and examples
-set(TARGET_EXTRA_LINK         "-lm")
+set(TARGET_EXTRA_LINK         "")
 # Compiling manually
-set(DEVELOP_EXTRA_STATIC_LINK "-lm")
+set(DEVELOP_EXTRA_STATIC_LINK "")
 set(DEVELOP_EXTRA_SHARED_LINK "")
 
 ################################################################################
@@ -132,4 +133,11 @@ MESSAGE(STATUS "++  Detecting architecture        : ${DEBFILE_ARCH}")
 MESSAGE(STATUS "++  La biblioteca se instalará en : ${CMAKE_INSTALL_PREFIX}")
 MESSAGE(STATUS "++  Para cambiar esta opción      : cmake /path/of/source/code -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}")
 MESSAGE(STATUS "++  ")
+
+################################################################################
+## Macro defines
+################################################################################
+
+add_definitions(-DPDS_LIBRARY_VERSION=\"${PROJECT_VERSION}\")
+add_definitions(-DPDS_LIBRARY_PACKAGE=\"${PROJECT_NAME}\")
 

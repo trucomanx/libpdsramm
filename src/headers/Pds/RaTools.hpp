@@ -31,12 +31,11 @@
 #define __PDS_RATOOLS_HPP__
     
 #include <string>
+#include <list>
 
 
-
-
-/** \defgroup PdsRaToolsGroup ---- Funciones útiles.
- *  \brief Funciones para procesar cadenas y archivos 
+/** \defgroup PdsRaToolsGroup Funciones con namespace Pds::Ra -- Útiles
+ *  \brief Funciones con cadenas y archivos: Pds::Ra::ElementsInFile(), Pds::Ra::ToString(), etc
  *  <div class="fragment"> \#include <Pds/RaTools> </div>
  *  
  *  
@@ -50,6 +49,55 @@ namespace Pds{
  *  \ingroup PdsRaToolsGroup
  */
 namespace Ra{
+
+
+/** @name Datos de la biblioteca
+ *  Datos importantes de la biblioteca.
+ * @{
+ */
+
+/** 
+ *  \brief Retorna la versión de la biblioteca.
+ *
+ *  Given a version number MAJOR.MINOR.PATCH, increment the:
+ *
+ *  - MAJOR version when you make incompatible API changes,
+ *  - MINOR version when you add functionality in a backwards-compatible manner, and
+ *  - PATCH version when you make backwards-compatible bug fixes.
+ *
+ *  \return Retorna la versión de la biblioteca.
+ *  \ingroup PdsRaToolsGroup
+ */
+std::string Version(void);
+
+
+/** 
+ *  \brief Imprime em pantalla la versión de la biblioteca, imprime un salto de linea al final.
+ *
+ *  \param[in] str Texto a mostrar antes de la version
+ *  \ingroup PdsRaToolsGroup
+ */
+void PrintVersion(std::string str);
+
+/** 
+ *  \brief Retorna el nombre de la biblioteca.
+ *
+ *  \return Retorna el nombre de la biblioteca.
+ *  \ingroup PdsRaToolsGroup
+ */
+std::string Package(void);
+
+
+/** 
+ *  \brief Imprime em pantalla el nombre de la biblioteca, imprime un salto de linea al final.
+ *
+ *  \param[in] str Texto a mostrar antes del nombre
+ *  \ingroup PdsRaToolsGroup
+ */
+void PrintPackage(std::string str);
+/**
+ * @}
+ */
 
 /** @name Trabajar con archivos
  *  Salva datos de matrices
@@ -217,6 +265,23 @@ char str[]="abc  104\t\r\tde10j \n  ";
  */
 int ElementsInString(std::string str);
 
+
+
+/**
+ *  \brief Retorna una lista con los elementos en la cadena.
+ *  
+ *  Por ejemplo la siguiente cadena contiene 3 elementos ("abc", "104","de10j"):
+\code{.h}
+char str[]="abc;104\tde10j";
+
+std::list<std::string> token=Pds::Ra::Split(str,"\t;,");
+\endcode
+ *  \param[in] str Cadena a dividir.
+ *  \param[in] delimeters Cadena con posibles delimitadores.
+ *  \return Retorna una lista con los elementos separados por alguno de los delimitadores.
+ *  \ingroup PdsRaToolsGroup
+ */
+std::list<std::string> Split(std::string str, std::string delimeters);
 
 /**
  *  \brief Convierte en std::sring un int,long,unsigned int, unsigned long, float o double.

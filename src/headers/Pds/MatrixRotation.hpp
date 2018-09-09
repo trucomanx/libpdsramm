@@ -35,8 +35,8 @@
 #define __PDS_MATRIXROTATION_HPP__
 
 
-/** \defgroup MatrixRotationGroup Clase Pds::Matrix :: Funciones de Rotacion.
- *  \brief Funciones que trabajan con rotaciones en 2D y 3D con matrices 
+/** \defgroup MatrixRotationGroup Funciones usando Pds::Matrix -- Rotación
+ *  \brief Funciones para rotaciones: Pds::Rot2D(), Pds::RotX(), Pds::RotY(), Pds::RotZ(), etc
  *  <div class="fragment"> \#include <Pds/MatrixRotation> </div>
  *  
  *  <br>Estas funciones trabajan con una matriz de la forma.<br>

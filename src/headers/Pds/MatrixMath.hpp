@@ -35,8 +35,8 @@
 #define __PDS_MATRIXMATH_HPP__
 
 
-/** \defgroup MatrixMathGroup Clase Pds::Matrix :: Funciones math.
- *  \brief Funciones matemáticas Sin, Cos, Exp, Sqrt, etc, que trabajan con matrices 
+/** \defgroup MatrixMathGroup Funciones usando Pds::Matrix -- Math
+ *  \brief Funciones matemáticas Pds::Sin(), Pds::Cos(), Pds::Exp(), Pds::Sqrt, etc 
  *  <div class="fragment"> \#include <Pds/MatrixMath> </div>
  *  
  *  <br>Estas funciones trabajan con una matriz de la forma.<br>

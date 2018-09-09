@@ -35,8 +35,8 @@
 #define __PDS_MATRIXFUNC_HPP__
 
 
-/** \defgroup MatrixFuncGroup Clase Pds::Matrix :: Funciones básicas.
- *  \brief Funciones Diag, Eye, Ones, Zeros, etc 
+/** \defgroup MatrixFuncGroup Funciones usando Pds::Matrix -- Básicos
+ *  \brief Funciones Pds::Diag(), Pds::Eye(), Pds::Ones(), Pds::Zeros(), etc 
  *  <div class="fragment"> \#include <Pds/MatrixFunc> </div>
  *  
  *  <br>Estas funciones trabajan con una matriz de la forma.<br>

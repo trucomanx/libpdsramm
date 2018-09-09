@@ -15,6 +15,10 @@ int main(void)
     char str2[]=" Hola como\testas \n";
     long N;
     
+    std::list<std::string> Token=Pds::Ra::Split(str2," \t\n");
+    for (auto v : Token)
+    std::cout<<"["<<v<<"]\n";
+    
     Pds::Matrix A=Pds::Ones(4,3);
     A.Save(filepath);
     
@@ -49,5 +53,6 @@ int main(void)
                 <<Pds::Ra::ToString(0.1234567890123456789)<<std::endl;
     std::cout   <<"Pds::Ra::ToString(\"hola\"):"
                 <<Pds::Ra::ToString("hola")<<std::endl;
+    
     return 0;
 }

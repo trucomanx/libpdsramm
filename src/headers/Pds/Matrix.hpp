@@ -34,7 +34,7 @@
 #define __PDS_MATRIX_HPP__
 
 
-/** \defgroup MatrixGroup Clase Pds::Matrix.
+/** \defgroup MatrixGroup Métodos de Pds::Matrix
  *  \brief Métodos de la clase Pds::Matrix, una matriz 
  *  <div class="fragment"> \#include <Pds/Matrix> </div>
  *  

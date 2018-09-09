@@ -26,8 +26,8 @@
  */
     
 
-/** \defgroup DefinesGroup ---- Macro Defines.
- *  \brief Algunas macros interesantes 
+/** \defgroup DefinesGroup Funciones con namespace Pds::Ra -- Constantes y Defines
+ *  \brief Constantes y macros: pds_print_error_message(), Pds::Ra::WarningRCond, etc
  *  <div class="fragment"> \#include <Pds/RaDefines> </div>
  *  
  * @{

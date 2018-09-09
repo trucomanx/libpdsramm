@@ -30,6 +30,29 @@
 #include <cctype>
 #include <fstream>      // std::ifstream
 
+////////////////////////////////////////////////////////////////////////////////
+
+std::string Pds::Ra::Version(void)
+{
+    return PDS_LIBRARY_VERSION;
+}
+
+void Pds::Ra::PrintVersion(std::string str)
+{
+    std::cout<<str<<PDS_LIBRARY_VERSION<<std::endl;
+}
+////////////////////////////////////////////////////////////////////////////////
+
+std::string Pds::Ra::Package(void)
+{
+    return PDS_LIBRARY_PACKAGE;
+}
+
+void Pds::Ra::PrintPackage(std::string str)
+{
+    std::cout<<str<<PDS_LIBRARY_PACKAGE<<std::endl;
+}
+////////////////////////////////////////////////////////////////////////////////
 
 long Pds::Ra::SignificativeLinesInFile(const char*filepath)
 {
@@ -174,7 +197,33 @@ int Pds::Ra::ElementsInString(std::string str)
 {
     return Pds::Ra::ElementsInString(str.c_str());
 }
+////////////////////////////////////////////////////////////////////////////////
 
+#include <list>
+#include <string>
+#include <cstring>
+
+std::list<std::string> Pds::Ra::Split(std::string str, std::string delimeters)
+{
+    std::list<std::string> Element;
+    
+    char *token=NULL;
+    char *cadena=strdup(str.c_str());
+    
+    if(cadena==NULL)    return Element;
+    
+    token = strtok(cadena, delimeters.c_str());
+    
+    while( token != NULL )
+    {
+        Element.push_back(token);
+        token = strtok(NULL, delimeters.c_str());
+    }
+   
+    free(cadena);
+    
+    return Element;
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 

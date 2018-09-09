@@ -36,7 +36,7 @@
 #define __PDS_VECTOR_HPP__
 
 
-/** \defgroup VectorGroup Clase Pds::Vector.
+/** \defgroup VectorGroup Métodos de Pds::Vector
  *  \brief Metodos de la clase Pds::Vector, un vector columna/matriz 
  *  <div class="fragment"> \#include <Pds/Vector> </div>
  *  
@@ -66,7 +66,7 @@ A_{(Nlin-1),1}\equiv [a_{ij}]_{(Nlin-1),1}
 namespace Pds{
 
 /*! \class Vector
- *  \brief La clase tipo  Vector .
+ *  \brief La clase tipo  Pds::Vector .
  *  Esta clase genera una matriz de Nlin lineas y 1 columna.
  *  Para usar incluir Pds/Vector.
  *  \ingroup VectorGroup

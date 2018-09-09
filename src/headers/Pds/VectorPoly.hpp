@@ -35,8 +35,8 @@
 #define __PDS_VECTORPOLY_HPP__
 
 
-/** \defgroup VectorAlgebraGroup Clase Pds::Vector :: Funciones Polinómicas.
- *  \brief Funciones PolyMat 
+/** \defgroup VectorAlgebraGroup Funciones usando Pds::Vector -- Polinómios
+ *  \brief Funciones Pds::PolyMat(), Pds::PolyFit(), Pds::PolyVal(), etc 
  *  <div class="fragment"> \#include <Pds/VectorPoly> </div>
  *  
  *  <br>Estas funciones trabajan con una matriz de la forma.<br>

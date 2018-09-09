@@ -10,14 +10,12 @@ digraph G {
 		color = lightgrey;
 		label = "C++ Standard Library";
 	
-		LIBM		[ label ="Libm\n-lm"];
-		LIBC		[ label ="Libc"];
+		LIBC		[ label ="Libc++"];
 	}
 
 	PDSRA		[ label ="PDS Real Arrays in C++\n-lpdsramm"];
 	TESTC   	[ label ="Test program\nexample.cpp"];
 
-	LIBM		-> PDSRA  [label = "*.hpp *.so", style=dashed];
 	LIBC		-> PDSRA  [label = "*.hpp *.so", style=dashed];
 
 	LIBC		-> TESTC  [label = "*.so"];

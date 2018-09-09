@@ -50,13 +50,6 @@ Pds::Size::Size(const Size &A)
     return;
 }
 
-Pds::Size::Size(const Pds::Matrix &A)
-{
-    this->Nlin=A.Nlin();
-    this->Ncol=A.Ncol();
-    
-    return;
-}
 
 Pds::Size::~Size(void)
 {
