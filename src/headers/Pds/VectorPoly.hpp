@@ -82,7 +82,7 @@ namespace Pds{
      *  \return Retorna una matriz con el resultado.
      *  \ingroup VectorAlgebraGroup
      */
-    Pds::Matrix PolyMat(Vector X, unsigned int N);
+    Pds::Matrix PolyMat(Pds::Vector X, unsigned int N);
     
     /** 
      *  \brief Retorna Un polinomio de grado N con el menor error

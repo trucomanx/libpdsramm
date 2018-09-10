@@ -32,6 +32,7 @@
 #ifndef __PDS_SIZE_HPP__
 #define __PDS_SIZE_HPP__
 
+#include <string>
 
 /** \defgroup SizeGroup Métodos de Pds::Size
  *  \brief Metodos de la clase Pds::Size, el tamaño de una matriz 
@@ -100,6 +101,28 @@ public:
  * @}
  */
     
+
+/** @name Mostrando datos
+ *   
+ * @{
+ */
+ 
+    /** 
+     *  \brief Muestra en pantalla el contenido de Pds::Size, elementos separados por tabulador.
+     *  \param[in] str Texto a mostrar antes de imprimir el contenido.
+     *  \ingroup SizeGroup
+     */
+    void Print(std::string str="");
+ 
+    /** 
+     *  \brief Muestra en pantalla el contenido de Pds::Size, en el formato [Nli,Ncol].
+     *  \param[in] str Texto a mostrar antes de imprimir el contenido.
+     *  \ingroup SizeGroup
+     */
+    void PrintStylized(std::string str="");
+/**
+ * @}
+ */
 }; // Class Size
 
 } // namespace Pds

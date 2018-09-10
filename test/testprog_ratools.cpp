@@ -7,6 +7,7 @@
     
 #include <iostream>
 #include <Pds/Ra>
+
     
 int main(void)
 {
@@ -16,8 +17,10 @@ int main(void)
     long N;
     
     std::list<std::string> Token=Pds::Ra::Split(str2," \t\n");
-    for (auto v : Token)
-    std::cout<<"["<<v<<"]\n";
+    
+    std::list<std::string>::iterator iter;
+    for( iter = Token.begin(); iter != Token.end(); ++iter)
+    std::cout<<"["<<*iter<<"]\n";
     
     Pds::Matrix A=Pds::Ones(4,3);
     A.Save(filepath);

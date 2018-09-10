@@ -202,6 +202,7 @@ int Pds::Ra::ElementsInString(std::string str)
 #include <list>
 #include <string>
 #include <cstring>
+#include <cstdlib>
 
 std::list<std::string> Pds::Ra::Split(std::string str, std::string delimeters)
 {

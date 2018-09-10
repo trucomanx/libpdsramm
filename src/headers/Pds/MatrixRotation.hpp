@@ -73,11 +73,14 @@ namespace Pds{
      *  \brief Retorna una matriz de rotación anti-horaria en 2 dimensiones.
      *
    \f[
-\left(\begin{matrix}
+R_{\theta}=\left(\begin{matrix}
 cos(\theta)&-sin(\theta) \\ 
 sin(\theta)&cos(\theta)
-\end{matrix}\right)
+\end{matrix}\right)=\left( \begin{matrix} e_{1}(\theta) & e_{2}(\theta) \end{matrix} \right)
    \f]
+     * El punto \f$P\f$ rotacionado puede ser encontrado ahora en \f$P_R\f$
+   \f[ P_R = R_{\theta} P\f]
+     *
      *  \param[in] theta Ángulo de rotación anti-horaria en radianes.
      *  \return Retorna una matriz de rotación anti-horaria en 2 dimensiones.
      *  \ingroup MatrixRotationGroup
@@ -89,12 +92,15 @@ sin(\theta)&cos(\theta)
      *  del eje X en 3 dimensiones.
      *
    \f[
-\left(\begin{matrix}
+R_{X}=\left(\begin{matrix}
 1&0&0\\
 0&cos(\theta)&-sin(\theta) \\ 
 0&sin(\theta)&cos(\theta)
-\end{matrix}\right)
+\end{matrix}\right)=\left( \begin{matrix} e_{1} & e_{2}(\theta) & e_{3}(\theta) \end{matrix} \right)
    \f]
+     * El punto \f$P\f$ rotacionado puede ser encontrado ahora en \f$P_R\f$
+   \f[ P_R = R_{X} P\f]
+     *
      *  \param[in] RadAngle Ángulo de rotación horaria en radianes.
      *  \return Retorna una matriz de rotación anti-horaria al rededor
      *  del eje X en 3 dimensiones.
@@ -107,12 +113,15 @@ sin(\theta)&cos(\theta)
      *  del eje Y en 3 dimensiones.
      *
    \f[
-\left(\begin{matrix}
+R_{Y}=\left(\begin{matrix}
 cos(\theta)&0&sin(\theta)\\
 0&1&0 \\ 
 -sin(\theta)&0&cos(\theta)
-\end{matrix}\right)
+\end{matrix}\right)=\left(\begin{matrix} e_{1}(\theta) & e_{2} & e_{3}(\theta) \end{matrix}\right)
    \f]
+     * El punto \f$P\f$ rotacionado puede ser encontrado ahora en \f$P_R\f$
+   \f[ P_R = R_{Y} P\f]
+     *
      *  \param[in] RadAngle Ángulo de rotación horaria en radianes.
      *  \return Retorna una matriz de rotación anti-horaria al rededor
      *  del eje Y en 3 dimensiones.
@@ -125,12 +134,15 @@ cos(\theta)&0&sin(\theta)\\
      *  del eje Z en 3 dimensiones.
      *
    \f[
-\left(\begin{matrix}
+R_{Z}=\left(\begin{matrix}
 cos(\theta)&-sin(\theta)&0\\
 sin(\theta)&cos(\theta)&0 \\ 
 0&0&1
-\end{matrix}\right)
+\end{matrix}\right)=\left( \begin{matrix}e_{1}(\theta) &e_{2}(\theta) &e_{3} \end{matrix}\right)
    \f]
+     * El punto \f$P\f$ rotacionado puede ser encontrado ahora en \f$P_R\f$
+   \f[ P_R = R_{Z} P\f]
+     *
      *  \param[in] RadAngle Ángulo de rotación horaria en radianes.
      *  \return Retorna una matriz de rotación anti-horaria al rededor
      *  del eje Z en 3 dimensiones.

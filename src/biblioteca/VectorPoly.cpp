@@ -24,12 +24,15 @@
 #include <cmath>
 #include <Pds/Vector>
 #include <Pds/VectorPoly>
+#include <iostream>
+
 
 Pds::Matrix Pds::PolyMat(Pds::Vector X, unsigned int ORDER)
 {
     unsigned int col;
-    
+
     Pds::Matrix P(X.Nlin(),ORDER+1);
+    if(P.IsEmpty()) return P;
     
     for(col=0;col<=ORDER;col++)
     {
@@ -46,6 +49,7 @@ Pds::Vector Pds::PolyFit(Pds::Vector X, Pds::Vector Y, unsigned int ORDER)
     if(X.Nlin()!=Y.Nlin())  return Pds::Matrix();
     
     Pds::Matrix B(X.Nlin(),ORDER+1);
+    if(B.IsEmpty())         return B;
     
     for(col=0;col<=ORDER;col++)
     {
@@ -55,6 +59,7 @@ Pds::Vector Pds::PolyFit(Pds::Vector X, Pds::Vector Y, unsigned int ORDER)
     double rcond=0;
     
     Pds::Matrix mat=(B.TnoT()).Inv(&rcond);
+    
     
     if(rcond<Pds::Ra::WarningRCond)
     return Pds::Matrix();

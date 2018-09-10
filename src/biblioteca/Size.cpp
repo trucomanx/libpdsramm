@@ -57,3 +57,17 @@ Pds::Size::~Size(void)
     this->Ncol=0;
 }
 
+#include <iostream>
+#include <string>
+
+void Pds::Size::Print(std::string str)
+{
+    std::cout<<str<<this->Nlin<<"\t"<<this->Ncol<<std::endl;
+    return;
+}
+
+void Pds::Size::PrintStylized(std::string str)
+{
+    std::cout<<str<<"["<<this->Nlin<<","<<this->Ncol<<"]"<<std::endl;
+    return;
+}

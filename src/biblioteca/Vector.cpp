@@ -22,6 +22,7 @@
 
 
 #include <Pds/Vector>
+#include <iostream>
 
 Pds::Vector::Vector(void)
 {
@@ -50,11 +51,14 @@ Pds::Vector::Vector(const Matrix &A)
         this->array= Pds::Matrix::ArrayAllocate(N,1);
         if(this->array==NULL)  return;
         
-        for(id=0;id<N;id++)
-        this->Set(A.Get(id),id);
-        
         this->nlin=N;
         this->ncol=1;
+        
+        for(id=0;id<N;id++)
+        {
+            this->Set(A.Get(id),id);
+        }
+
     }
 
     return;
