@@ -20,8 +20,7 @@
  * 
  */
 
-#include <string>
-#include <iostream>
+
 
 #include <Pds/Vector>
 
@@ -36,3 +35,15 @@ Pds::Vector& Pds::Vector::operator = (const Pds::Vector &A)
     return *this;
 }
 
+////////////////////////////////////////////////////////////////////////
+/*
+#include <iostream>
+Pds::Vector& Pds::Vector::operator << (std::stringstream &out)
+{
+    std::string strValue;
+    out>>strValue;
+    std::cout<<strValue;
+    
+    return *this;
+}
+*/

@@ -61,7 +61,38 @@ a_{Nlin-1}
 namespace Pds{
 
 
-/** @name funciones para polinomios
+
+/** @name funciones de fitting 
+ *  Descripción de algunas funciones que usan  Pds::Vector.
+ * @{
+ */
+
+    /** 
+     *  \brief Retorna Un polinomio de grado N con el menor error
+     *  cuadrático medio para el par X e Y.
+     *
+   \f[
+A=\left(\begin{matrix}
+X^0 &  X^1  & X^2  & ... & X^{N-1} & X^N \\
+\end{matrix}\right)
+   \f]
+   \f[
+P \leftarrow (A^T A )^{-1}A^T Y
+   \f]
+     *  \param[in] X Vector a evaluar.
+     *  \param[in] Y Vector a evaluar.
+     *  \param[in] N Orden del polinomio.
+     *  \return Retorna el polinomio de grado N con el menor error
+     *  cuadrático medio para el par X e Y.
+     *  \ingroup VectorAlgebraGroup
+     */
+    Pds::Vector PolyFit(Pds::Vector X, Pds::Vector Y, unsigned int N);
+
+/**
+ * @}
+ */
+
+/** @name funciones básicas
  *  Descripción de algunas funciones que usan  Pds::Vector.
  * @{
  */
@@ -83,28 +114,7 @@ namespace Pds{
      *  \ingroup VectorAlgebraGroup
      */
     Pds::Matrix PolyMat(Pds::Vector X, unsigned int N);
-    
-    /** 
-     *  \brief Retorna Un polinomio de grado N con el menor error
-     *  cuadrático medio para el par X e Y.
-     *
-   \f[
-A=\left(\begin{matrix}
-X^0 &  X^1  & X^2  & ... & X^{N-1} & X^N \\
-\end{matrix}\right)
-   \f]
-   \f[
-P \leftarrow (A^T A )^{-1}A^T Y
-   \f]
-     *  \param[in] X Vector a evaluar.
-     *  \param[in] Y Vector a evaluar.
-     *  \param[in] N Orden del polinomio.
-     *  \return Retorna el polinomio de grado N con el menor error
-     *  cuadrático medio para el par X e Y.
-     *  \ingroup VectorAlgebraGroup
-     */
-    Pds::Vector PolyFit(Pds::Vector X, Pds::Vector Y, unsigned int N);
-    
+        
     /** 
      *  \brief Retorna El resultado de evaluar un polinomio P de grado N.
      *
@@ -120,10 +130,64 @@ Y= P(X)
      *  \ingroup VectorAlgebraGroup
      */
     Pds::Vector PolyVal(Pds::Vector P,Pds::Vector X);
+
 /**
  * @}
  */
 
+/** @name funciones relativas al calculo
+ *  Descripción de algunas funciones que usan  Pds::Vector.
+ * @{
+ */
+    
+    
+    /** 
+     *  \brief Retorna la derivada D del polinomio P(x).
+     *
+   \f[
+P(x) = p_0 x^0 + p_1 x^1 + p_2 x^2 + ... + p_{N-1} x^{N-1} + p_{N} x^N 
+   \f]
+   \f[
+D \leftarrow  \frac{ d^NP(x)}{dx^N} 
+   \f]
+     *  \param[in] P Polinomio a evaluar.
+     *  \param[in] N Orden de la derivada, por defecto es la primera derivada.
+     *  \return Retorna la N-esima derivada.
+     *  \ingroup VectorAlgebraGroup
+     */
+    Pds::Vector PolyDer(Pds::Vector P,unsigned int N=1);
+
+
+/**
+ * @}
+ */
+
+/** @name funciones aritméticas
+ *  Descripción de algunas funciones que usan  Pds::Vector.
+ * @{
+ */
+    /** 
+     *  \brief Retorna la derivada D del polinomio P(x).
+     *
+   \f[
+P(x) = p_0 x^0 + p_1 x^1 + p_2 x^2 + ... + p_{N-1} x^{N-1} + p_{N} x^N 
+   \f]
+   \f[
+Q(x) = q_0 x^0 + q_1 x^1 + q_2 x^2 + ... + q_{M-1} x^{M-1} + q_{M} x^M 
+   \f]
+   \f[
+D \leftarrow  P(x)Q(x)
+   \f]
+     *  \param[in] P Polinomio a multiplicar.
+     *  \param[in] Q Polinomio a multiplicar.
+     *  \return La multiplicación de los polinomios, \f$ P(x)Q(x)\f$.
+     *  \ingroup VectorAlgebraGroup
+     */
+    Pds::Vector PolyMul(Pds::Vector &P,Pds::Vector &Q);
+
+/**
+ * @}
+ */
 
 
 }

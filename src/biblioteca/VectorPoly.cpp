@@ -73,3 +73,34 @@ Pds::Vector Pds::PolyVal(Pds::Vector P,Pds::Vector X)
     B=Pds::PolyMat(X,P.Nlin()-1)*P;
     return B;
 }
+
+Pds::Vector Pds::PolyDer(Pds::Vector P,unsigned int N)
+{
+    if(P.IsEmpty()) return P;
+    
+    if(N==0)        return P;
+    else if(N>=P.Nlin())    return Pds::Vector(1);
+    else
+    {
+        unsigned int id;
+        unsigned int M;
+        
+        if(P.Nlin()>1)  M=P.Nlin()-1;
+        else            M=1;
+        
+        Pds::Vector R(M);
+        
+        for (id=0;id<M;id++)
+        R.Set(P.Get(id+1,0)*(id+1),id,0);
+        
+        if(N==1)    return R;
+        else        return Pds::PolyDer(R,N-1);
+    }
+
+}
+
+Pds::Vector Pds::PolyMul(Pds::Vector &P,Pds::Vector &Q)
+{
+    return P.Conv(Q);
+}
+

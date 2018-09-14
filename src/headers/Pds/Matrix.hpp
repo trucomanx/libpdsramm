@@ -679,6 +679,14 @@ public:
      *  \ingroup MatrixGroup
      */
     unsigned int Ncol() const;
+    
+    /** 
+     *  \brief Retorna el numero de elementos de la matriz (Nlin x Ncol).
+     *  \return Retorna el numero de elementos de la matriz.
+     *  \ingroup MatrixGroup
+     */
+    unsigned int Nel() const;
+    
 /**
  * @}
  */

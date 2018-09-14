@@ -79,7 +79,7 @@ sin(\theta)&cos(\theta)
 \end{matrix}\right)=\left( \begin{matrix} e_{1}(\theta) & e_{2}(\theta) \end{matrix} \right)
    \f]
      * El punto \f$P\f$ rotacionado puede ser encontrado ahora en \f$P_R\f$
-   \f[ P_R = R_{\theta} P\f]
+   \f[ P_R = R_{\theta} P \f]
      *
      *  \param[in] theta Ángulo de rotación anti-horaria en radianes.
      *  \return Retorna una matriz de rotación anti-horaria en 2 dimensiones.
@@ -99,7 +99,7 @@ R_{X}=\left(\begin{matrix}
 \end{matrix}\right)=\left( \begin{matrix} e_{1} & e_{2}(\theta) & e_{3}(\theta) \end{matrix} \right)
    \f]
      * El punto \f$P\f$ rotacionado puede ser encontrado ahora en \f$P_R\f$
-   \f[ P_R = R_{X} P\f]
+   \f[ P_R = R_{X} P \f]
      *
      *  \param[in] RadAngle Ángulo de rotación horaria en radianes.
      *  \return Retorna una matriz de rotación anti-horaria al rededor
@@ -120,7 +120,7 @@ cos(\theta)&0&sin(\theta)\\
 \end{matrix}\right)=\left(\begin{matrix} e_{1}(\theta) & e_{2} & e_{3}(\theta) \end{matrix}\right)
    \f]
      * El punto \f$P\f$ rotacionado puede ser encontrado ahora en \f$P_R\f$
-   \f[ P_R = R_{Y} P\f]
+   \f[ P_R = R_{Y} P \f]
      *
      *  \param[in] RadAngle Ángulo de rotación horaria en radianes.
      *  \return Retorna una matriz de rotación anti-horaria al rededor
@@ -141,7 +141,7 @@ sin(\theta)&cos(\theta)&0 \\
 \end{matrix}\right)=\left( \begin{matrix}e_{1}(\theta) &e_{2}(\theta) &e_{3} \end{matrix}\right)
    \f]
      * El punto \f$P\f$ rotacionado puede ser encontrado ahora en \f$P_R\f$
-   \f[ P_R = R_{Z} P\f]
+   \f[ P_R = R_{Z} P \f]
      *
      *  \param[in] RadAngle Ángulo de rotación horaria en radianes.
      *  \return Retorna una matriz de rotación anti-horaria al rededor

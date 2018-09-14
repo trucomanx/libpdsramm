@@ -99,3 +99,8 @@ unsigned int Pds::Matrix::Ncol(void) const
 {
     return this->ncol;
 }
+
+unsigned int Pds::Matrix::Nel(void) const
+{
+    return this->ncol*this->nlin;
+}

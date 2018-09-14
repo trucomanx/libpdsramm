@@ -30,6 +30,12 @@ int main(void)
     Pds::Vector Q=M.PInv()*Y;
     Q.Print("Q:\n");
     
+    Pds::Vector R(3);
+    R.Fill(1.0);
+    R.Print("R:\n");
+    Pds::PolyDer(R,4).Print("D R:\n");
+    
+    Pds::PolyMul(R,R).Print("R(x)*R(x):\n");
     
     return 0;
 }
