@@ -19,12 +19,15 @@ int main(void)
     
     F.Save("filedat.txt");
     
+    Pds::Matrix G(Pds::Ra::LoadText,"filedat.txt");
+    
     A.Print("\nA:\n");
     B.Print("\nB:\n");
     C.Print("\nC:\n");
     D.Print("\nD:\n");
     E.Print("\nE:\n");
     F.Print("\nF:\n");
+    G.Print("\nG:\n");
     
     
     std::cout<<std::endl<<(13/10)<<std::endl;

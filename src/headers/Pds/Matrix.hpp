@@ -62,6 +62,7 @@ A_{(Nlin-1),(Ncol-1)}\equiv [a_{i,j}]_{(Nlin-1),(Ncol-1)}
 
 #include <string>
 #include <Pds/Size>
+#include <Pds/RaDefines>
 
 namespace Pds{
 
@@ -106,7 +107,7 @@ public:
      *  \ingroup MatrixGroup
      */
     Matrix(void);
-
+    
     /** 
      *  \brief Crea un objeto de tipo Pds::Matrix de N lineas y N columnas,
      *  con elementos inicializados con cero.
@@ -152,16 +153,40 @@ A_{Nlin,Ncol}\equiv [0]_{Nlin,Ncol}
    \f]
    Para crear una matriz A de 4 filas y 3 columnas:
 \code{.cpp}
-    Pds::Matrix A(4,3);
+    Pds::Matrix B(4,3);
+    Pds::Matrix A(B.Size);
     
     if(A.IsEmpty()) std::cout<<"Yes,possible memory allocation problem\n";
     else            std::cout<<"No,all fine\n";
 \endcode
-     *  \param[in] Nlin El numero de lineas de la matriz.
-     *  \param[in] Ncol El numero de columnas de la matriz.
+     *  \param[in] S El tamaño de la matriz.
      *  \ingroup MatrixGroup
      */
-    Matrix(unsigned int Nlin,unsigned int Ncol);
+    Matrix(const Pds::Size &S);
+
+    /** 
+     *  \brief Crea un objeto de tipo Pds::Matrix copiando datos desde 
+     *  otra matriz. Este es un Copy assignment constructor.
+     * 
+   \f[
+B_{Nlin,Ncol}\equiv [b_{i,j}]_{Nlin,Ncol}
+   \f]
+   \f[
+\mathbf{A} \leftarrow \mathbf{B}
+   \f]
+   Para crear una matriz A con copia de datos de una matriz B:
+\code{.cpp}
+    Pds::Matrix B(4,3,-1.0);
+    Pds::Matrix A(B);
+    
+    if(A.IsEmpty()) std::cout<<"Yes,possible memory allocation problem\n";
+    else            std::cout<<"No,all fine\n";
+\endcode
+     *  \param[in] B Matriz a copiar.
+     *  \ingroup MatrixGroup
+     */
+    Matrix(const Pds::Matrix &B);
+    
     
     /** 
      *  \brief Crea un objeto de tipo Pds::Matrix con elementos inicializados con cero.
@@ -180,16 +205,16 @@ A_{Nlin,Ncol}\equiv [0]_{Nlin,Ncol}
    \f]
    Para crear una matriz A de 4 filas y 3 columnas:
 \code{.cpp}
-    Pds::Matrix B(4,3);
-    Pds::Matrix A(B.Size);
+    Pds::Matrix A(4,3);
     
     if(A.IsEmpty()) std::cout<<"Yes,possible memory allocation problem\n";
     else            std::cout<<"No,all fine\n";
 \endcode
-     *  \param[in] S El tamaño de la matriz.
+     *  \param[in] Nlin El numero de lineas de la matriz.
+     *  \param[in] Ncol El numero de columnas de la matriz.
      *  \ingroup MatrixGroup
      */
-    Matrix(const Pds::Size &S);
+    Matrix(unsigned int Nlin,unsigned int Ncol);
     
     /** 
      *  \brief Crea un objeto de tipo Pds::Matrix con elementos inicializados con val.
@@ -219,29 +244,6 @@ A_{Nlin,Ncol}\equiv [val]_{Nlin,Ncol}
      *  \ingroup MatrixGroup
      */
     Matrix(unsigned int Nlin,unsigned int Ncol,double val);
-
-    /** 
-     *  \brief Crea un objeto de tipo Pds::Matrix copiando datos desde 
-     *  otra matriz. Este es un Copy assignment constructor.
-     * 
-   \f[
-B_{Nlin,Ncol}\equiv [b_{i,j}]_{Nlin,Ncol}
-   \f]
-   \f[
-\mathbf{A} \leftarrow \mathbf{B}
-   \f]
-   Para crear una matriz A con copia de datos de una matriz B:
-\code{.cpp}
-    Pds::Matrix B(4,3,-1.0);
-    Pds::Matrix A(B);
-    
-    if(A.IsEmpty()) std::cout<<"Yes,possible memory allocation problem\n";
-    else            std::cout<<"No,all fine\n";
-\endcode
-     *  \param[in] B Matriz a copiar.
-     *  \ingroup MatrixGroup
-     */
-    Matrix(const Pds::Matrix &B);
     
     /** 
      *  \brief Crea un objeto de tipo Pds::Matrix, evaluando mediante una función, 
@@ -268,7 +270,21 @@ B_{Nlin,Ncol}\equiv [b_{i,j}]_{Nlin,Ncol}
     Matrix(double (*func)(double),const Pds::Matrix &B );
     
 
+    /** 
+     *  \brief Crea un objeto de tipo Pds::Matrix copiando datos desde 
+     *  un archivo.
+     * 
+\code{.cpp}
+    Pds::Matrix A(TEXT,"textfile.txt");
     
+    if(A.IsEmpty()) std::cout<<"Yes,possible memory allocation problem\n";
+    else            std::cout<<"No,all fine\n";
+\endcode
+     *  \param[in] Type Tipo de archivo de fuente de datos.
+     *  \param[in] filepath Path del archivo cargado.
+     *  \ingroup MatrixGroup
+     */
+    Matrix(Pds::Ra::LoadType Type,std::string filepath);
     
     ~Matrix(); 
     

@@ -110,6 +110,19 @@ namespace Ra{
     */
     const double ToRadians =Pi/180.0;
     
+    /*!
+     * \brief Tipo de dato en la carga de información desde archivo.
+     *
+     * Cuando existe una carga de datos esta puede proceder de varios tipos de fuentes.
+     * \ingroup DefinesGroup
+    */
+    typedef enum {
+        /*!
+         * Carga una matriz desde un archivo de texto.
+         */
+        LoadText=0  
+    } LoadType;
+    
 }
 }
 /*!
