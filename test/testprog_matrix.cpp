@@ -18,7 +18,6 @@ int main(void)
     Pds::Matrix F(sin,D);
     
     F.Save("filedat.txt");
-    Pds::Matrix G("filedat.txt");
     
     A.Print("\nA:\n");
     B.Print("\nB:\n");
@@ -26,7 +25,6 @@ int main(void)
     D.Print("\nD:\n");
     E.Print("\nE:\n");
     F.Print("\nF:\n");
-    G.Print("\nG:\n");
     
     
     std::cout<<std::endl<<(13/10)<<std::endl;

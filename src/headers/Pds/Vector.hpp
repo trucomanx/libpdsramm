@@ -162,23 +162,17 @@ B_{Nlin,1}\equiv [b_{i,j}]_{Nlin,Ncol}
     /** 
      *  \brief Calcula la convolución entre A y B. 
      * 
-   \f[
-\mathbf{A}\equiv [a_{i}]_{N,1}
-   \f]
-   \f[
-\mathbf{B}\equiv [b_{i}]_{M,1}
-   \f]
-   \f[
-\mathbf{C}\equiv [c_{l}]_{M+N-1,1}
-   \f]
-   \f[
-c[i] \leftarrow \sum \limits_{k=-\infty}^{+\infty}a_{i-k}b_{k}, ~~~~0 \leq i \leq M+N-2
-   \f]
+     * \f[ \mathbf{A}\equiv [a_{i}]_{N,1} \f]
+     *
+     * \f[ \mathbf{B}\equiv [b_{i}]_{M,1} \f]
+     * 
+     * \f[ \mathbf{C}\equiv [c_{l}]_{M+N-1,1} \f]
+     *
+     * \f[ c(i) \leftarrow \sum \limits_{k=-\infty}^{+\infty} a_{i-k}b_{k}, ~~0 \leq i \leq M+N-2 \f]
      *  O seu equivalente
-   \f[
-c[i] \leftarrow \sum \limits_{k=-\infty}^{+\infty}a_{k}b_{i-k}, ~~~~0 \leq i \leq M+N-2
-   \f]
-     *  .
+     * \f[ c(i) \leftarrow \sum \limits_{k=-\infty}^{+\infty} a_{k}b_{i-k}, ~~0 \leq i \leq M+N-2 \f]
+     *
+     *  
      * 
      *  \param[in] B Vector a aplicar la convolución.
      *  \ingroup VectorGroup
@@ -188,27 +182,18 @@ Pds::Vector Conv(const Pds::Vector &B) const;
     /** 
      *  \brief Calcula la correlacion cruzada entre A y B. 
      * 
-   \f[
-\mathbf{A}\equiv [a_{i}]_{N,1}
-   \f]
-   \f[
-\mathbf{B}\equiv [b_{i}]_{M,1}
-   \f]
-   \f[
-\mathbf{C}\equiv [c_{l}]_{M+N-1,1}
-   \f]
-   \f[
-c[i] \leftarrow \sum \limits_{k=-\infty}^{+\infty} a_{i+k} b_{k}, ~~~~1-M \leq i \leq N-1
-   \f]
+     * \f[ \mathbf{A}\equiv [a_{i}]_{N,1}   \f]
+     * \f[ \mathbf{B}\equiv [b_{i}]_{M,1}   \f]
+     * \f[ \mathbf{C}\equiv [c_{l}]_{M+N-1,1}   \f]
+     * \f[ c[i] \leftarrow \sum \limits_{k=-\infty}^{+\infty} a_{i+k} b_{k}, ~~~~1-M \leq i \leq N-1   \f]
      *  O seu equivalente
-   \f[
-c[i] \leftarrow \sum \limits_{k=-\infty}^{+\infty} a_{k} b_{k-i}, ~~~~1-M \leq i \leq N-1
-   \f]
-     *  .
+     * \f[ c[i] \leftarrow \sum \limits_{k=-\infty}^{+\infty} a_{k} b_{k-i}, ~~~~1-M \leq i \leq N-1   \f]
+     *  
      * 
      *  \param[in] B Vector a aplicar la correlacion cruzada.
      *  \param[in] Same indica si la correlación cruzada tendrá el mismo 
-     *  tamanho que A, \f$c[i] ~~~~0 \leq i \leq N-1\f$.
+     *  tamaño que A, si Same es igual a true entonces,\f$c[i], ~~~~0 \leq i \leq N-1\f$.
+     *  Por defecto Same es igual a false.
      *  \ingroup VectorGroup
      */
 Pds::Vector XCorr(const Pds::Vector &B, bool Same=false) const;

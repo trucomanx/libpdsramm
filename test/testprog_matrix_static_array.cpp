@@ -62,5 +62,19 @@ int main(void)
     str=Pds::Matrix::ArrayToString(array,Nlin,Ncol);
     std::cout<<str;
     
+    Pds::Matrix::ArrayRelease(array,A.Nlin());
+    std::cout<<std::endl<<"array="<<array<<std::endl<<std::endl;
+    
+    array=Pds::Matrix::ArrayFromString("1 2 3\n4 5 6\n",Nlin,Ncol);
+    str=Pds::Matrix::ArrayToString(array,Nlin,Ncol);
+    std::cout<<str;
+    
+    Pds::Matrix::ArrayRelease(array,A.Nlin());
+    std::cout<<std::endl<<"array="<<array<<std::endl<<std::endl;
+    
+    array=Pds::Matrix::ArrayColFromString("1 2 3\n4 5 6\n",Nlin);
+    str=Pds::Matrix::ArrayToString(array,Nlin,1);
+    std::cout<<str;
+    
     return 0;
 }

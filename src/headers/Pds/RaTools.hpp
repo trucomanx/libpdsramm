@@ -233,6 +233,7 @@ bool IsSpacesString(std::string str);
 \endcode
  *  
  *  Por ejemplo la siguiente cadena contiene 3 elementos ("abc", "104","de10j"):
+ * 
 \code{.h}
 char str[]="abc  104\t\r\tde10j \n  ";
 \endcode
@@ -256,6 +257,7 @@ int ElementsInString(const char *cstr);
 \endcode
  *  
  *  Por ejemplo la siguiente cadena contiene 3 elementos ("abc", "104","de10j"):
+ * 
 \code{.h}
 char str[]="abc  104\t\r\tde10j \n  ";
 \endcode
@@ -290,9 +292,32 @@ std::list<std::string> Split(std::string str, std::string delimeters);
  *  \return Retorna el valor convertido en std::string.
  *  \ingroup PdsRaToolsGroup
  */
- 
 template  <typename T>
 extern std::string ToString(T val);
+
+
+/** 
+ *  \brief Retorna el número de lineas significativas y columnas de un archivo.
+ *  Se asume que es un archivo de texto.
+ *
+ *  Una linea no significativa solo contiene white-spaces:
+\code{.h}
+' '     (0x20)	space (SPC)
+'\t'    (0x09)	horizontal tab (TAB)
+'\n'    (0x0a)	newline (LF)
+'\v'    (0x0b)	vertical tab (VT)
+'\f'    (0x0c)	feed (FF)
+'\r'    (0x0d)	carriage return (CR)
+\endcode
+ *  \param[in] str Cadena a leer.
+ *  \param[out] Nlin Variable donde se guardara el numero de lineas.
+ *  \param[out] Ncol Variable donde se guardara el numero de columnas.
+ *  \return Retorna true si todo fue bien o false si no. Si el numero de columnas 
+ *  no es constante entonces se retorna false. Si fue retornado false
+ *  entonces Nlin y Ncol no son modificados. 
+ *  \ingroup PdsRaToolsGroup
+ */
+bool ArraySizeInString(std::string str,unsigned int &Nlin,unsigned int &Ncol);
 
 /**
  * @}

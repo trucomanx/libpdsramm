@@ -255,3 +255,38 @@ std::string Pds::Ra::ToString(T val)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+#include <sstream>
+
+bool Pds::Ra::ArraySizeInString(std::string str,unsigned int &Nlin,unsigned int &Ncol)
+{
+    std::stringstream ifs(str);
+    unsigned int count;
+    int N;
+    unsigned int last_ncol=0;
+
+    std::string line;
+    if (str=="")    return false;
+
+    count=0;
+    while(!ifs.eof())
+    {
+        line.clear();
+
+        if (std::getline(ifs, line))
+        if(Pds::Ra::IsSpacesString(line.c_str())==false)
+        {
+            N=Pds::Ra::ElementsInString(line);
+            if(count==0)    last_ncol=(unsigned int)N;
+            else if(last_ncol!=(unsigned int)N)
+            {
+                return false;
+            }            
+            count++;
+        }
+    }
+
+    Nlin=count;
+    Ncol=last_ncol;
+
+	return true;
+}

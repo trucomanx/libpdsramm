@@ -119,8 +119,66 @@ void Pds::Matrix::ArrayRelease(double** &array,unsigned int Nlin)
     }
 }
 
-#include <iomanip>      // std::setprecision
+double **Pds::Matrix::ArrayFromString(const std::string &str,unsigned int &Nlin,unsigned int &Ncol)
+{
+    unsigned int nlin;
+    unsigned int ncol;
+    bool state=Pds::Ra::ArraySizeInString(str,nlin,ncol);
+    if(state==false)    return NULL;
+    
+    double **array=ArrayAllocate(nlin,ncol);
+    if(array==NULL)     return NULL;
+    
+    unsigned int lin,col;
+    
+    std::list<std::string> strlist=Pds::Ra::Split(str," \t\n\v\f\r");
+    std::list<std::string>::iterator it=strlist.begin();
+    
+    for(lin=0;lin<nlin;lin++)
+    for(col=0;col<ncol;col++)
+    {
+        array[lin][col]=std::stod(*it);
+        it++;
+    }
+    
+    Ncol=ncol;
+    Nlin=nlin;
+    
+    return array;
+}
 
+
+double **Pds::Matrix::ArrayColFromString(const std::string &str,unsigned int &Nlin)
+{
+    unsigned int nlin;
+    unsigned int ncol=1;
+    
+    int N=Pds::Ra::ElementsInString(str);
+    if(N<0) return NULL;
+    
+    nlin=(unsigned int)N;
+    
+    double **array=ArrayAllocate(nlin,ncol);
+    if(array==NULL)     return NULL;
+    
+    unsigned int lin,col;
+    
+    std::list<std::string> strlist=Pds::Ra::Split(str," \t\n\v\f\r");
+    std::list<std::string>::iterator it=strlist.begin();
+    
+    for(lin=0;lin<nlin;lin++)
+    for(col=0;col<ncol;col++)
+    {
+        array[lin][col]=std::stod(*it);
+        it++;
+    }
+    
+    Nlin=nlin;
+    
+    return array;
+}
+
+#include <iomanip>      // std::setprecision
 
 std::string Pds::Matrix::ArrayToString(double **array,unsigned int Nlin,unsigned int Ncol)
 {

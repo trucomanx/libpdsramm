@@ -19,8 +19,9 @@ int main(void)
     Pds::Matrix B=Pds::Matrix::Load(filepath);
     B.Print("B:\n");
     
-    Pds::Matrix C("filedat.txt");
-    C.Print("C:\n");
+    
+    Pds::Matrix D=Pds::Matrix::FromString("1 2 3\n 4 5 6\n\n");
+    D.Print("D:\n");
     
     return 0;
 }

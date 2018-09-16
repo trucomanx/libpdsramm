@@ -25,8 +25,6 @@
 
 #include <Pds/Matrix>
 
-
-
 ////////////////////////////////////////////////////////////////////////
 
 Pds::Matrix& Pds::Matrix::operator = (const Pds::Matrix &A)
@@ -227,6 +225,35 @@ bool Pds::Matrix::AddAssig(const Pds::Matrix &B)
     for(col=0;col<this->ncol;col++)
     {
         this->array[lin][col]=this->array[lin][col]+B.array[lin][col];  
+    }
+
+    return true;
+}
+////////////////////////////////////////////////////////////////////////
+
+bool Pds::Matrix::AddAssigAt(const Pds::Matrix &B,unsigned int l0,unsigned int c0)
+{
+    if( B.IsEmpty() )       return false;
+    if( this->IsEmpty() )   return false;
+
+    if(l0>=this->Nlin())    return false;
+    if(c0>=this->Ncol())    return false;
+
+    unsigned int lin;
+    unsigned int col;
+    unsigned int lin_end;
+    unsigned int col_end;
+    
+    lin_end=this->Nlin()-l0;
+    if(lin_end>B.Nlin()) lin_end=B.Nlin();
+    
+    col_end=this->Ncol()-c0;
+    if(col_end>B.Ncol()) col_end=B.Ncol();
+    
+    for(lin=0;lin<lin_end;lin++)
+    for(col=0;col<col_end;col++)
+    {
+        this->array[lin+l0][col+c0]=this->array[lin+l0][col+c0]+B.array[lin][col];  
     }
 
     return true;

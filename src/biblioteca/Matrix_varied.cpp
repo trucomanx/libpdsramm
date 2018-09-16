@@ -16,7 +16,7 @@ void Pds::Matrix::MakeEmpty(void)
 ////////////////////////////////////////////////////////////////////////
 
 #include <iomanip>      // std::setprecision
-void Pds::Matrix::Print(std::string str) const
+void Pds::Matrix::Print(std::string str="") const
 {
     std::cout<<str;
 
@@ -36,10 +36,6 @@ void Pds::Matrix::Print(std::string str) const
 
 }
 
-void Pds::Matrix::Print(void) const
-{
-    this->Print("");
-}
 
 ////////////////////////////////////////////////////////////////////////
 

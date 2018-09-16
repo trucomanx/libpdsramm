@@ -104,3 +104,21 @@ Pds::Vector Pds::PolyMul(Pds::Vector &P,Pds::Vector &Q)
     return P.Conv(Q);
 }
 
+Pds::Vector Pds::PolyAdd(Pds::Vector &P,Pds::Vector &Q)
+{
+    if(P.IsEmpty()) return P;
+    if(Q.IsEmpty()) return Q;
+    
+    if(P.Nlin()>Q.Nlin())
+    {
+        Pds::Vector V(P);
+        V.AddAssigAt(Q,0,0);
+        return V;
+    }
+    else
+    {
+        Pds::Vector V(Q);
+        V.AddAssigAt(P,0,0);
+        return V;
+    }
+}

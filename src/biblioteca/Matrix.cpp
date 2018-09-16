@@ -140,15 +140,7 @@ Pds::Matrix::Matrix(double (*func)(double),const Matrix &A)
     
     return;
 }
- 
-Pds::Matrix::Matrix(const char *filepath)
-{
-    this->nlin=0;
-    this->ncol=0;
-    this->array=NULL;
 
-    Pds::Matrix::ArrayLoad(filepath,this->array,this->nlin,this->ncol);
-}
 
 Pds::Matrix::~Matrix(void)
 {

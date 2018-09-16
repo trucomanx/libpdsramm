@@ -167,7 +167,7 @@ D \leftarrow  \frac{ d^NP(x)}{dx^N}
  * @{
  */
     /** 
-     *  \brief Retorna la derivada D del polinomio P(x).
+     *  \brief Retorna la multiplicación de los polinomio P(x) e Q(x).
      *
    \f[
 P(x) = p_0 x^0 + p_1 x^1 + p_2 x^2 + ... + p_{N-1} x^{N-1} + p_{N} x^N 
@@ -185,6 +185,24 @@ D \leftarrow  P(x)Q(x)
      */
     Pds::Vector PolyMul(Pds::Vector &P,Pds::Vector &Q);
 
+    /** 
+     *  \brief Retorna la suma de los polinomio P(x) e Q(x).
+     *
+   \f[
+P(x) = p_0 x^0 + p_1 x^1 + p_2 x^2 + ... + p_{N-1} x^{N-1} + p_{N} x^N 
+   \f]
+   \f[
+Q(x) = q_0 x^0 + q_1 x^1 + q_2 x^2 + ... + q_{M-1} x^{M-1} + q_{M} x^M 
+   \f]
+   \f[
+D \leftarrow  P(x)+Q(x)
+   \f]
+     *  \param[in] P Polinomio a sumar.
+     *  \param[in] Q Polinomio a sumar.
+     *  \return La suma de los polinomios, \f$ P(x)+Q(x)\f$.
+     *  \ingroup VectorAlgebraGroup
+     */
+    Pds::Vector PolyAdd(Pds::Vector &P,Pds::Vector &Q);
 /**
  * @}
  */

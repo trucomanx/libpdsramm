@@ -267,26 +267,7 @@ B_{Nlin,Ncol}\equiv [b_{i,j}]_{Nlin,Ncol}
      */
     Matrix(double (*func)(double),const Pds::Matrix &B );
     
-    /** 
-     *  \brief Crea un objeto de tipo Pds::Matrix copiando datos desde 
-     *  un archivo. 
-     * 
-     * Considerando el archivo "filedat.txt":
-\code{.cpp}
-0.1 -1.0  3
-9   4    -3
-\endcode
-   Para crear una matriz A con los datos del archivo "filedat.txt":
-\code{.cpp}
-    Pds::Matrix A("filedat.txt");
-    
-    if(A.IsEmpty()) std::cout<<"Yes,possible memory allocation problem,"
-                             <<"possible file not found,etc\n";
-    else            std::cout<<"No,all fine\n";
-\endcode
-     *  \ingroup MatrixGroup
-     */
-    Matrix(const char *filepath);
+
     
     
     ~Matrix(); 
@@ -548,7 +529,7 @@ public:
      *  \return Retorna true si todo fue bien o false si no.
      *  \ingroup MatrixGroup
      */
-    bool FillId(void);
+    bool FillId(void );
 
     /** 
      *  \brief Inicializa la matriz con un valor constante.
@@ -1012,11 +993,6 @@ public:
      */
     std::string ToString(void) const;
 
-    /** 
-     *  \brief Imprime en pantalla el contenido de la matriz
-     *  \ingroup MatrixGroup
-     */
-    void Print(void) const;
 
     /** 
      *  \brief Imprime en pantalla el contenido de la matriz después del
@@ -1081,6 +1057,14 @@ public:
      *  \ingroup MatrixGroup
      */
     static bool Save(const char* filepath,const Pds::Matrix &A);
+
+    /** 
+     *  \brief Convierte un sdt::string a una Matriz de Nlin lineas y Ncol columnas.
+     *  \param[in] str Cadena a leer.
+     *  \return Retorna una matriz. en caso de error se retorna una matriz vacía.
+     *  \ingroup MatrixGroup
+     */
+    static Pds::Matrix FromString(const std::string &str);
 /**
  * @}
  */
@@ -1155,6 +1139,25 @@ public:
      */
     static std::string ArrayToString(double **array,unsigned int Nlin,unsigned int Ncol);
 
+   /** 
+     *  \brief Convierte un sdt::string con arreglo de Nlin lineas y Ncol columnas a un arreglo.
+     *  \param[in] str Cadena a leer.
+     *  \param[out] Nlin El numero de lineas en el arreglo.
+     *  \param[out] Ncol El numero de columnas en el arreglo.
+     *  \return Retorna un arreglo. en caso de error se retorna NULL.
+     *  \ingroup MatrixGroup
+     */
+    static double **ArrayFromString(const std::string &str,unsigned int &Nlin,unsigned int &Ncol);
+
+   /** 
+     *  \brief Convierte un sdt::string con arreglo de Nlin lineas y 1 columna a un arreglo.
+     *  \param[in] str Cadena a leer.
+     *  \param[out] Nlin El numero de lineas en el arreglo.
+     *  \return Retorna un arreglo. en caso de error se retorna NULL.
+     *  \ingroup MatrixGroup
+     */
+    static double **ArrayColFromString(const std::string &str,unsigned int &Nlin);
+    
    /** 
      *  \brief Salva en un archivo un arreglo de Nlin lineas y Ncol columnas (arreglo de arreglos).
      *  \param[in] filepath El archivo donde se guardaran los datos.
@@ -1458,6 +1461,7 @@ public:
      *  \ingroup MatrixGroup
      */
     Pds::Matrix Add(const Pds::Matrix &B) const;
+    
     
     /** 
      *  \brief Resta con sigo mismo (A), un valor b y el resultado es
@@ -1824,6 +1828,28 @@ public:
      *  \ingroup MatrixGroup
      */
     bool AddAssig(const Pds::Matrix &B);
+    
+
+    /** 
+     *  \brief Suma y acumula en si mismo (A), una matriz B desde un punto (lin,col)
+     *  haciendo una intersección.
+     *
+     *  \f[ A(lin:end,col:end) \leftarrow A(lin:end,col:end)+B(0:lin_end,0:col_end) \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix B(3,3);
+    B.Fill(1.0);
+    A.AddAssigAt(B,2,2);
+\endcode
+     *  \param[in] B la matriz a acumular
+     *  \param[in] lin Suma desde esta linea
+     *  \param[in] col Suma desde esta columna
+     *  \return Retorna true si todo fue bien o false si no. Si se retorna false
+     *  el acumulador no altera su contenido. Retorna false si la intersección
+     *  no existe o si alguna de las matrices son nulas.
+     *  \ingroup MatrixGroup
+     */
+    bool AddAssigAt(const Pds::Matrix &B,unsigned int lin,unsigned int col);
     
     /** 
      *  \brief Multiplica y acumula en si mismo (A), un valor b. Este operador 

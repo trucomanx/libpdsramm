@@ -57,5 +57,9 @@ int main(void)
     std::cout   <<"Pds::Ra::ToString(\"hola\"):"
                 <<Pds::Ra::ToString("hola")<<std::endl;
     
+    std::cout   <<"STATE: "<<Pds::Ra::ArraySizeInString("1 2 3\n4 5 6",Nlin,Ncol)<<std::endl
+                <<" Nlin: "<<Nlin<<std::endl
+                <<" Ncol: "<<Ncol<<std::endl;
+    
     return 0;
 }

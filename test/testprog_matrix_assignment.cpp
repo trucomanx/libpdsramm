@@ -10,6 +10,8 @@
     
 int main(void)
 {
+    Pds::Matrix A(5,5);
+    Pds::Matrix B(2,2);
     Pds::Matrix C=Pds::Matrix(2,2);    
     
     
@@ -17,6 +19,12 @@ int main(void)
     std::cout<<"C= Pds::Matrix(2,2);\n";
     C=Pds::Matrix(2,2);
     std::cout<<C;
+    
+    A.Fill(1.0);
+    B.Fill(1.0);
+
+    A.AddAssigAt(B,2,2);
+    A.Print("A:\n");
     
     return 0;
 }
