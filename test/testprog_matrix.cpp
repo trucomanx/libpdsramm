@@ -16,10 +16,11 @@ int main(void)
     Pds::Matrix D(3,2,0.523598776);
     Pds::Matrix E(D);
     Pds::Matrix F(sin,D);
+    Pds::Matrix G="1 2 3\n4 5 6";
     
     F.Save("filedat.txt");
     
-    Pds::Matrix G(Pds::Ra::LoadText,"filedat.txt");
+    Pds::Matrix H(Pds::Ra::LoadText,"filedat.txt");
     
     A.Print("\nA:\n");
     B.Print("\nB:\n");
@@ -28,6 +29,7 @@ int main(void)
     E.Print("\nE:\n");
     F.Print("\nF:\n");
     G.Print("\nG:\n");
+    H.Print("\nH:\n");
     
     
     std::cout<<std::endl<<(13/10)<<std::endl;

@@ -27,19 +27,29 @@
 
 ////////////////////////////////////////////////////////////////////////
 
-Pds::Vector Pds::Vector::Conv(const Pds::Vector &B) const
+Pds::Vector Pds::Vector::Conv(const Pds::Vector &B, bool Same) const
 {
     if(this->IsEmpty()) return Pds::Vector();
     if(B.IsEmpty())     return Pds::Vector();
     
-    unsigned int N=this->nlin-1+B.nlin;
     unsigned int id,k;
     double S;
     unsigned int init,end;
     
+    unsigned int id_init=0;
+    unsigned int id_end=this->nlin-2+B.nlin;
+    unsigned int N=this->nlin-1+B.nlin;
+    if(Same==true)
+    {
+        id_init=B.nlin/2;
+        id_end =this->nlin-1+B.nlin/2;
+        N      =this->nlin;
+    }
+
+    
     Pds::Vector D(N);
     
-    for(id=0;id<N;id++)
+    for(id=id_init;id<=id_end;id++)
     {
         S=0.0;
         init = ((id+1)>    B.nlin) ? id-B.nlin+1 : 0;
@@ -48,7 +58,7 @@ Pds::Vector Pds::Vector::Conv(const Pds::Vector &B) const
         for(k=init;k<=end;k++)
         S=S+this->array[k][0]*B.array[id-k][0];
         
-        D.array[id][0]=S;
+        D.array[id-id_init][0]=S;
     }
 
     return D;

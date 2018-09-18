@@ -187,6 +187,24 @@ B_{Nlin,Ncol}\equiv [b_{i,j}]_{Nlin,Ncol}
      */
     Matrix(const Pds::Matrix &B);
     
+
+
+    /** 
+     *  \brief Crea un objeto de tipo Pds::Matrix copiando datos desde 
+     *  una cadena.
+     * 
+   Para crear una matriz A con los datos de una cadena:
+\code{.cpp}
+    Pds::Matrix A="1 2 3\n4 5 6\n";
+    
+    if(A.IsEmpty()) std::cout<<"Yes,possible memory allocation problem\n";
+    else            std::cout<<"No,all fine\n";
+\endcode
+     *  \param[in] str Cadena a leer.
+     *  \ingroup MatrixGroup
+     */
+    Matrix(const char *str);
+    
     
     /** 
      *  \brief Crea un objeto de tipo Pds::Matrix con elementos inicializados con cero.

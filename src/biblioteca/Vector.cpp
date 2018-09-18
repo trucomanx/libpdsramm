@@ -34,6 +34,26 @@ Pds::Vector::Vector(unsigned int N): Pds::Matrix(N,1)
     return;
 }
 
+Pds::Vector::Vector(unsigned int N,double val): Pds::Matrix(N,1,val)
+{
+    return;
+}
+
+Pds::Vector::Vector(const Pds::Size &A): Pds::Matrix(A.Nlin*A.Ncol,1)
+{
+    return;
+}
+
+Pds::Vector::Vector(double (*func)(double),const Pds::Vector &B ): Pds::Matrix(func,B)
+{
+    return;
+}
+
+Pds::Vector::Vector(double (*func)(double),const Pds::Matrix &B ): Pds::Matrix(func,Pds::Vector(B))
+{
+    return;
+}
+
 
 Pds::Vector::Vector(const Matrix &A)
 {
@@ -78,16 +98,29 @@ Pds::Vector::Vector(const Matrix &A, unsigned int col)
         
     this->array= Pds::Matrix::ArrayAllocate(A.Nlin(),1);
     if(this->array==NULL)  return;
-        
-    for(lin=0;lin<A.Nlin();lin++)
-    this->Set(A.Get(lin,col),lin,0);
-        
+    
     this->nlin=A.Nlin();
     this->ncol=1;
+        
+    for(lin=0;lin<A.Nlin();lin++)
+    {
+        this->Set(A.Get(lin,col),lin,0);
+    }
+    
     
     return;
 }
 
+Pds::Vector::Vector(const char *str)
+{
+    this->array=NULL;
+    this->nlin=0;
+    this->ncol=0;
+    this->array=Pds::Matrix::ArrayColFromString(str,this->nlin);
+    if(this->array!=NULL)   this->ncol=1;
+    
+    return;
+}
 
 Pds::Vector::~Vector(void)
 {

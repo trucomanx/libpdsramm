@@ -67,6 +67,17 @@ Pds::Matrix::Matrix(const Pds::Size &A)
     this->ncol=A.Ncol;
 }
 
+
+Pds::Matrix::Matrix(const char *str)
+{
+    this->array=NULL;
+    this->nlin=0;
+    this->ncol=0;
+    this->array=Pds::Matrix::ArrayFromString(str,this->nlin,this->ncol);
+    
+    return;
+}
+
 Pds::Matrix::Matrix(unsigned int nlin,unsigned int ncol)
 {
     this->nlin=0;

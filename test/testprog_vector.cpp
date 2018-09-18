@@ -7,26 +7,39 @@
     
     
 #include <Pds/Ra>
-
-
+#include <cmath>
     
 int main(void)
 {
+    Pds::Matrix M(2,2,1.5);
     
-    Pds::Vector A(3);
-    Pds::Vector B(2);
+    Pds::Vector A(2);
+    Pds::Vector B(3);
+    Pds::Vector C(M);
+    Pds::Vector D(M,1);
+    Pds::Vector E("1 2 3\n4 5 6");
+    Pds::Vector F(M.Size());
+    Pds::Vector G(cos,B);
+    Pds::Vector H(cos,M);
+    Pds::Vector I(3,-1.2);
     
-    A.FillId();
-    A=A+1;
-    B.FillId();
-    B=B+1;
+    A.Fill(1.0);
+    B.Fill(1.0);
     
-    A.Print("A:\n");
-    B.Print("B:\n");
+    A.T().Print("A.T():\n");
+    B.T().Print("B.T():\n");
+    C.T().Print("C.T():\n");
+    D.T().Print("D.T():\n");
+    E.T().Print("E.T():\n");
+    F.T().Print("F.T():\n");
+    G.T().Print("G.T():\n");
+    H.T().Print("H.T():\n");
+    I.T().Print("I.T():\n");
     
-    A.Conv(B).Print("A.Conv(B):\n");
-    A.XCorr(B).Print("A.XCorr(B):\n");
-    B.XCorr(A).Print("B.XCorr(A):\n");
-    A.XCorr(B,true).Print("A.XCorr(B,true):\n");
+    
+    A.Conv(B).T().Print("A.Conv(B).T():\n");
+    A.XCorr(B).T().Print("A.XCorr(B).T():\n");
+    B.XCorr(A).T().Print("B.XCorr(A).T():\n");
+    A.XCorr(B,true).T().Print("A.XCorr(B,true).T():\n");
     return 0;
 }

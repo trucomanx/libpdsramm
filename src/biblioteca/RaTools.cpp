@@ -154,9 +154,10 @@ bool Pds::Ra::ArraySizeInFile(const char*filepath,unsigned int &Nlin,unsigned in
 	return true;
 }
 
-bool Pds::Ra::IsSpacesString(const char *str)
+bool Pds::Ra::IsSpacesString(const std::string &stdstr)//(const char *str)
 {
     int i;
+    const char *str=stdstr.c_str();
     int N=strlen(str);
 
     for(i=0;i<N;i++)
@@ -167,17 +168,13 @@ bool Pds::Ra::IsSpacesString(const char *str)
     return true;
 }
 
-bool Pds::Ra::IsSpacesString(std::string str)
-{
-    return Pds::Ra::IsSpacesString(str.c_str());
-}
 
-int Pds::Ra::ElementsInString(const char *str)
+int Pds::Ra::ElementsInString(const std::string &stdstr)
 {
 
     int N=0;
     int i=0;
-
+    const char *str=stdstr.c_str();
     if(str==NULL)   return -1;
 
     while(str[i]!=0)
@@ -193,10 +190,6 @@ int Pds::Ra::ElementsInString(const char *str)
     return N;
 }
 
-int Pds::Ra::ElementsInString(std::string str)
-{
-    return Pds::Ra::ElementsInString(str.c_str());
-}
 ////////////////////////////////////////////////////////////////////////////////
 
 #include <list>

@@ -194,54 +194,12 @@ bool ArraySizeInFile(const char*filepath,unsigned int &Nlin,unsigned int &Ncol);
 '\f'    (0x0c)	feed (FF)
 '\r'    (0x0d)	carriage return (CR)
 \endcode
- *  \param[in] cstr Cadena a leer.
- *  \return Retorna true si la cadena solo contiene white-spaces y false si no.
- *  \ingroup PdsRaToolsGroup
- */
-bool IsSpacesString(const char *cstr);
-
-/**
- *  \brief Esta función comprueba si los caracteres en la cadena son caracteres
- *  no visibles (white-spaces).
- *
- *  Estos son:
-\code{.h}
-' '     (0x20)	space (SPC)
-'\t'    (0x09)	horizontal tab (TAB)
-'\n'    (0x0a)	newline (LF)
-'\v'    (0x0b)	vertical tab (VT)
-'\f'    (0x0c)	feed (FF)
-'\r'    (0x0d)	carriage return (CR)
-\endcode
  *  \param[in] str Cadena a leer.
  *  \return Retorna true si la cadena solo contiene white-spaces y false si no.
  *  \ingroup PdsRaToolsGroup
  */
-bool IsSpacesString(std::string str);
+bool IsSpacesString(const std::string &str);
 
-/**
- *  \brief Retorna el número de elementos en la cadena.
- *
- *  Un elemento es un grupo de caracteres consecutivos que no contienen white-spaces:
-\code{.h}
-' '     (0x20)	space (SPC)
-'\t'    (0x09)	horizontal tab (TAB)
-'\n'    (0x0a)	newline (LF)
-'\v'    (0x0b)	vertical tab (VT)
-'\f'    (0x0c)	feed (FF)
-'\r'    (0x0d)	carriage return (CR)
-\endcode
- *  
- *  Por ejemplo la siguiente cadena contiene 3 elementos ("abc", "104","de10j"):
- * 
-\code{.h}
-char str[]="abc  104\t\r\tde10j \n  ";
-\endcode
- *  \param[in] cstr Cadena a testar.
- *  \return Retorna el número de elementos en la cadena o negativo en caso de error.
- *  \ingroup PdsRaToolsGroup
- */
-int ElementsInString(const char *cstr);
 
 /**
  *  \brief Retorna el número de elementos en la cadena.
@@ -265,7 +223,7 @@ char str[]="abc  104\t\r\tde10j \n  ";
  *  \return Retorna el número de elementos en la cadena o negativo en caso de error.
  *  \ingroup PdsRaToolsGroup
  */
-int ElementsInString(std::string str);
+int ElementsInString(const std::string &str);
 
 
 

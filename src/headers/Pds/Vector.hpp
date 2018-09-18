@@ -93,12 +93,40 @@ public:
     
     /** 
      *  \brief Crea un objeto de tipo Pds::Vector
-     *  \param[in] N El numero de lineas de la matriz.
+     *  \param[in] N El numero de lineas del vector.
      *  \return un objeto de tipo Pds::Vector.
      *  \ingroup VectorGroup
      */
     Vector(unsigned int N);
 
+
+    /** 
+     *  \brief Crea un objeto de tipo Pds::Vector con elementos inicializados con cero.
+     * 
+   \f[
+\mathbf{A}=\left(\begin{matrix}
+0 \\ 
+0 \\
+\vdots \\
+0 \\ 
+0 \\
+\end{matrix}\right)\equiv A_{Nlin,1}
+   \f]
+   \f[ A_{Nlin,1}\equiv [0]_{Nlin,1}  \f]
+   Para crear una matriz A de 4 filas y 1 columna:
+\code{.cpp}
+    Pds::Matrix B(2,3);
+    Pds::Vector A(B.Size());
+    
+    if(A.IsEmpty()) std::cout<<"Yes,possible memory allocation problem\n";
+    else            std::cout<<"No,all fine\n";
+\endcode
+     *
+     *  \param[in] S El tamaño del vector, en general el tamaño es S.Ncol*S.Nlin.
+     *  \ingroup VectorGroup
+     */
+    Vector(const Pds::Size &S);
+    
     /** 
      *  \brief Crea un objeto de tipo Pds::Vector copiando datos desde 
      *  una matriz. Toda la matriz es vectorizada leyendo columna a columna.
@@ -122,6 +150,30 @@ B_{Nlin,1}\equiv [b_{i,j}]_{Nlin,Ncol}
      */
     Vector(const Pds::Matrix &B);
 
+    /** 
+     *  \brief Crea un objeto de tipo Pds::Vector copiando datos desde 
+     *  una cadena.
+     * 
+   Para crear una matriz A con los datos de una cadena:
+\code{.cpp}
+    Pds::Vector A="1 2 3\n4 5 6\n";
+    
+    if(A.IsEmpty()) std::cout<<"Yes,possible memory allocation problem\n";
+    else            std::cout<<"No,all fine\n";
+\endcode
+     *  \param[in] str Cadena a leer.
+     *  \ingroup VectorGroup
+     */
+    Vector(const char *str);
+    
+    /** 
+     *  \brief Crea un objeto de tipo Pds::Vector
+     *  \param[in] N El numero de lineas del vector.
+     *  \param[in] val El valor a inicializar.
+     *  \return un objeto de tipo Pds::Vector.
+     *  \ingroup VectorGroup
+     */
+    Vector(unsigned int N,double val);
 
     /** 
      *  \brief Crea un objeto de tipo Pds::Vector copiando datos desde
@@ -146,7 +198,54 @@ B_{Nlin,1}\equiv [b_{i,j}]_{Nlin,Ncol}
      *  \ingroup VectorGroup
      */
     Vector(const Pds::Matrix &B,unsigned int col);
+    
+    /** 
+     *  \brief Crea un objeto de tipo Pds::Vector, evaluando mediante una función, 
+     *  los datos de otro vector.
+     * 
+   \f[
+B_{Nlin,1}\equiv [b_{i,j}]_{Nlin,1}
+   \f]
+   \f[
+\mathbf{A} \leftarrow func(\mathbf{B})
+   \f]
+   Para crear un vector A , copia de sin(B):
+\code{.cpp}
+    Pds::Vector B(4);
+    Pds::Vector A(cos,B);
+    
+    if(A.IsEmpty()) std::cout<<"Yes,possible memory allocation problem\n";
+    else            std::cout<<"No,all fine\n";
+\endcode
+     *  \param[in] B Vector a evaluar para copiar los resultados.
+     *  \param[in] func Función a aplicar, esta debe tener a forma double func(double).
+     *  \ingroup VectorGroup
+     */
+    Vector(double (*func)(double),const Pds::Vector &B );
 
+    /** 
+     *  \brief Crea un objeto de tipo Pds::Vector, evaluando mediante una función, 
+     *  los datos de otro vector.
+     * 
+   \f[
+B_{Nlin,Ncol}\equiv [b_{i,j}]_{Nlin,Ncol}
+   \f]
+   \f[
+B_{Nlin~Ncol,1} \leftarrow func(\mathbf{B(:)})
+   \f]
+   Para crear un vector A , copia de sin(B(:)):
+\code{.cpp}
+    Pds::Matrix B(4);
+    Pds::Vector A(cos,B);
+    
+    if(A.IsEmpty()) std::cout<<"Yes,possible memory allocation problem\n";
+    else            std::cout<<"No,all fine\n";
+\endcode
+     *  \param[in] B Vector a evaluar para copiar los resultados.
+     *  \param[in] func Función a aplicar, esta debe tener a forma double func(double).
+     *  \ingroup VectorGroup
+     */
+    Vector(double (*func)(double),const Pds::Matrix &B );
     
     ~Vector();
 
@@ -162,38 +261,44 @@ B_{Nlin,1}\equiv [b_{i,j}]_{Nlin,Ncol}
     /** 
      *  \brief Calcula la convolución entre A y B. 
      * 
-     * \f[ \mathbf{A}\equiv [a_{i}]_{N,1} \f]
+     * \f[ \mathbf{A}\equiv [a_{i}]_{N,1} \overset{func}{\equiv} a(i),~0 \leq i\leq N-1 \f]
      *
-     * \f[ \mathbf{B}\equiv [b_{i}]_{M,1} \f]
+     * \f[ \mathbf{B}\equiv [b_{i}]_{M,1} \overset{func}{\equiv} b(i),~0 \leq i\leq M-1 \f]
      * 
-     * \f[ \mathbf{C}\equiv [c_{l}]_{M+N-1,1} \f]
+     * \f[ \mathbf{C}\equiv [c_{i}]_{M+N-1,1} \overset{func}{\equiv} c(i),~0 \leq i\leq M+N-2\f]
      *
-     * \f[ c(i) \leftarrow \sum \limits_{k=-\infty}^{+\infty} a_{i-k}b_{k}, ~~0 \leq i \leq M+N-2 \f]
+     * \f[ c(l) \leftarrow \sum \limits_{k=-\infty}^{+\infty} a(l-k)b(k) \f]
      *  O seu equivalente
-     * \f[ c(i) \leftarrow \sum \limits_{k=-\infty}^{+\infty} a_{k}b_{i-k}, ~~0 \leq i \leq M+N-2 \f]
+     * \f[ c(l) \leftarrow \sum \limits_{k=-\infty}^{+\infty} a(k)b(l-k) \f]
      *
      *  
      * 
      *  \param[in] B Vector a aplicar la convolución.
+     *  \param[in] Same Si Same es igual a true entonces, \f$\mathbf{C}\f$ describe
+     *  \f$[c_{i}]_{N,1} \overset{func}{\equiv}  c(i), ~ 0 \leq i \leq N-1\f$.
+     *  proveniente de um \f$\mathbf{B}\f$ como \f$[b_{i}]_{M,1} \overset{func}{\equiv} b(i-\left \lfloor M/2 \right \rfloor),~0 \leq i\leq M-1\f$.
+     *  Por defecto Same es igual a false.
+     *  \return retorna la convolucion.
      *  \ingroup VectorGroup
      */
-Pds::Vector Conv(const Pds::Vector &B) const;
+Pds::Vector Conv(const Pds::Vector &B, bool Same=false) const;
 
     /** 
      *  \brief Calcula la correlacion cruzada entre A y B. 
      * 
-     * \f[ \mathbf{A}\equiv [a_{i}]_{N,1}   \f]
-     * \f[ \mathbf{B}\equiv [b_{i}]_{M,1}   \f]
-     * \f[ \mathbf{C}\equiv [c_{l}]_{M+N-1,1}   \f]
-     * \f[ c[i] \leftarrow \sum \limits_{k=-\infty}^{+\infty} a_{i+k} b_{k}, ~~~~1-M \leq i \leq N-1   \f]
+     * \f[ \mathbf{A}\equiv [a_{i}]_{N,1}  \overset{func}{\equiv} a(i),~0 \leq i\leq N-1 \f]
+     * \f[ \mathbf{B}\equiv [b_{i}]_{M,1}  \overset{func}{\equiv} b(i),~0 \leq i\leq M-1 \f]
+     * \f[ \mathbf{C}\equiv [c_{i}]_{M+N-1,1}  \overset{func}{\equiv} c(i-(M-1)),~ 0 \leq i \leq M+N-2 \f]
+     * \f[ c(l) \leftarrow \sum \limits_{k=-\infty}^{+\infty} a(l+k) b(k) \f]
      *  O seu equivalente
-     * \f[ c[i] \leftarrow \sum \limits_{k=-\infty}^{+\infty} a_{k} b_{k-i}, ~~~~1-M \leq i \leq N-1   \f]
+     * \f[ c(l) \leftarrow \sum \limits_{k=-\infty}^{+\infty} a(k) b(k-l) \f]
      *  
      * 
      *  \param[in] B Vector a aplicar la correlacion cruzada.
      *  \param[in] Same indica si la correlación cruzada tendrá el mismo 
-     *  tamaño que A, si Same es igual a true entonces,\f$c[i], ~~~~0 \leq i \leq N-1\f$.
+     *  tamaño que A, si Same es igual a true entonces,\f$[c_{i}]_{N,1}  \overset{func}{\equiv} c(i), ~0 \leq i \leq N-1\f$.
      *  Por defecto Same es igual a false.
+     * \return retorna la correlacion cruzada.
      *  \ingroup VectorGroup
      */
 Pds::Vector XCorr(const Pds::Vector &B, bool Same=false) const;
