@@ -20,7 +20,7 @@ int main(void)
     
     F.Save("filedat.txt");
     
-    Pds::Matrix H(Pds::Ra::LoadText,"filedat.txt");
+    Pds::Matrix H(Pds::Ra::TextFormat,"filedat.txt");
     
     A.Print("\nA:\n");
     B.Print("\nB:\n");

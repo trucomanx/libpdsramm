@@ -21,60 +21,84 @@ int main(void)
     
     char filepath[]="filedat.txt";
     
+    
+    
     array=Pds::Matrix::ArrayAllocate(Nlin,Ncol);
     if(array==NULL)   return 0; 
     
-    array[0][0]=0.0/0.0;
-    array[0][1]=0.0/1.0;
-    array[1][0]=1.0/0.0;
-    array[1][1]=1.0/1.0;
+    array[0][0]=0.0/0.0;    array[0][1]=0.0/1.0;
+    array[1][0]=1.0/0.0;    array[1][1]=1.0/1.0;
+    std::cout<<"\n";
     
-    str=Pds::Matrix::ArrayToString(array,Nlin,Ncol);
-    std::cout<<str;
     
     Pds::Matrix::ArraySave(filepath,array,Nlin,Ncol);
     
+    std::cout   <<"ArrayAllocate(Nlin,Ncol):\n"
+                <<Pds::Matrix::ArrayToString(array,Nlin,Ncol);
+    
     Pds::Matrix::ArrayRelease(array,Nlin);
-    std::cout<<std::endl<<"array="<<array<<std::endl<<std::endl;
+    if(array==NULL) std::cout<<"Array released.\n\n\n";
+    
     
     
     array=Pds::Matrix::ArrayAllocate(A);
-    if(array==NULL)   return 0;
+    if(array==NULL)   {std::cout<<"Error Alocate.\n";return 0;}
+    else              std::cout<<"New array allocated.\n";
     
-    str=Pds::Matrix::ArrayToString(array,A.Nlin(),A.Ncol());
-    std::cout<<str;
+    std::cout   <<"ArrayAllocate(A):\n"
+                <<Pds::Matrix::ArrayToString(array,A.Nlin(),A.Ncol());
     
     Pds::Matrix::ArrayRelease(array,A.Nlin());
-    std::cout<<std::endl<<"array="<<array<<std::endl<<std::endl;
+    if(array==NULL) std::cout<<"Array released.\n\n\n";
+    
     
     
     array=Pds::Matrix::ArrayAllocate(sin,A);
-    if(array==NULL)   return 0;
+    if(array==NULL)   {std::cout<<"Error Alocate.\n";return 0;}
+    else              std::cout<<"New array allocated.\n";
     
-    str=Pds::Matrix::ArrayToString(array,A.Nlin(),A.Ncol());
-    std::cout<<str;
-    
-    Pds::Matrix::ArrayRelease(array,A.Nlin());
-    std::cout<<std::endl<<"array="<<array<<std::endl<<std::endl;
-    
-    
-    Pds::Matrix::ArrayLoad(filepath,array,Nlin,Ncol);
-    str=Pds::Matrix::ArrayToString(array,Nlin,Ncol);
-    std::cout<<str;
+    std::cout   <<"ArrayAllocate(sin,A):\n"
+                <<Pds::Matrix::ArrayToString(array,A.Nlin(),A.Ncol());
     
     Pds::Matrix::ArrayRelease(array,A.Nlin());
-    std::cout<<std::endl<<"array="<<array<<std::endl<<std::endl;
+    if(array==NULL) std::cout<<"Array released.\n\n\n";
+    
+    
+    
+    array=Pds::Matrix::ArrayLoad(filepath,Nlin,Ncol);
+    if(array==NULL)   {std::cout<<"Error Alocate.\n";return 0;}
+    else              std::cout<<"New array allocated.\n";
+    
+    std::cout   <<"ArrayLoad(filepath,Nlin,Ncol):\n"
+                <<Pds::Matrix::ArrayToString(array,Nlin,Ncol);
+    
+    Pds::Matrix::ArrayRelease(array,Nlin);
+    if(array==NULL) std::cout<<"Array released.\n\n\n";
+    
+    
     
     array=Pds::Matrix::ArrayFromString("1 2 3\n4 5 6\n",Nlin,Ncol);
-    str=Pds::Matrix::ArrayToString(array,Nlin,Ncol);
-    std::cout<<str;
+    if(array==NULL)   {std::cout<<"Error Alocate.\n";return 0;}
+    else              std::cout<<"New array allocated.\n";
     
-    Pds::Matrix::ArrayRelease(array,A.Nlin());
-    std::cout<<std::endl<<"array="<<array<<std::endl<<std::endl;
+    std::cout   <<"ArrayFromString(\"1 2 3\\n4 5 6\\n\",Nlin,Ncol):\n"
+                <<Pds::Matrix::ArrayToString(array,Nlin,Ncol);
     
-    array=Pds::Matrix::ArrayColFromString("1 2 3\n4 5 6\n",Nlin);
-    str=Pds::Matrix::ArrayToString(array,Nlin,1);
-    std::cout<<str;
+    Pds::Matrix::ArrayRelease(array,Nlin);
+    if(array==NULL) std::cout<<"Array released.\n\n\n";
+    
+    
+    
+    array=Pds::Matrix::ArrayColFromString("1 2 3\n4 5 6\n",Nlin,Ncol);
+    if(array==NULL)   {std::cout<<"Error Alocate.\n";return 0;}
+    else              std::cout<<"New array allocated.\n";
+    
+    std::cout   <<"ArrayColFromString(\"1 2 3\\n4 5 6\\n\",Nlin,Ncol):\n"
+                <<Pds::Matrix::ArrayToString(array,Nlin,Ncol);
+
+    bool ret=Pds::Matrix::ArrayWriteMatFile("filedat.mat",NULL,array,Nlin,Ncol);
+    if(ret) std::cout<<"filedat.mat saved.\n";
+    else    std::cout<<"filedat.mat NOT saved.\n";
     
     return 0;
 }

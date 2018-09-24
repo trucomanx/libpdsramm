@@ -22,9 +22,9 @@ int main(void)
     Pds::Vector G(cos,B);
     Pds::Vector H(cos,M);
     Pds::Vector I(3,-1.2);
+    Pds::Ra::SaveString("filedat.txt","1 2 3\n4 5 6\n");
+    Pds::Vector J(Pds::Ra::TextFormat,"filedat.txt");
     
-    A.Fill(1.0);
-    B.Fill(1.0);
     
     A.T().Print("A.T():\n");
     B.T().Print("B.T():\n");
@@ -35,11 +35,7 @@ int main(void)
     G.T().Print("G.T():\n");
     H.T().Print("H.T():\n");
     I.T().Print("I.T():\n");
+    J.T().Print("J.T():\n");
     
-    
-    A.Conv(B).T().Print("A.Conv(B).T():\n");
-    A.XCorr(B).T().Print("A.XCorr(B).T():\n");
-    B.XCorr(A).T().Print("B.XCorr(A).T():\n");
-    A.XCorr(B,true).T().Print("A.XCorr(B,true).T():\n");
     return 0;
 }

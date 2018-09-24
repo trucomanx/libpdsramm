@@ -152,17 +152,15 @@ Pds::Matrix::Matrix(double (*func)(double),const Matrix &A)
     return;
 }
 
-Pds::Matrix::Matrix(Pds::Ra::LoadType Type,std::string filepath)
+Pds::Matrix::Matrix(Pds::Ra::FormatType Type,std::string filepath)
 {
-    if(Type==Pds::Ra::LoadText)
+    this->array=0;
+    this->nlin=0;
+    this->ncol=0;
+        
+    if(Type==Pds::Ra::TextFormat)
     {
-        Pds::Matrix::ArrayLoad(filepath.c_str(),this->array,this->nlin,this->ncol);
-    }
-    else
-    {
-        this->array=0;
-        this->nlin=0;
-        this->ncol=0;
+        this->array=Pds::Matrix::ArrayLoad(filepath.c_str(),this->nlin,this->ncol);
     }
         
     return;

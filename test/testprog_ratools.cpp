@@ -16,7 +16,7 @@ int main(void)
     char str2[]=" Hola como\testas \n";
     long N;
     
-    std::list<std::string> Token=Pds::Ra::Split(str2," \t\n");
+    std::list<std::string> Token=Pds::Ra::SplitString(str2," \t\n");
     
     std::list<std::string>::iterator iter;
     for( iter = Token.begin(); iter != Token.end(); ++iter)

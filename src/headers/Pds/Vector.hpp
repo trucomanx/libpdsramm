@@ -247,6 +247,23 @@ B_{Nlin~Ncol,1} \leftarrow func(\mathbf{B(:)})
      */
     Vector(double (*func)(double),const Pds::Matrix &B );
     
+
+    /** 
+     *  \brief Crea un objeto de tipo Pds::Vector copiando datos desde 
+     *  un archivo.
+     * 
+\code{.cpp}
+    Pds::Vector A(TEXT,"textfile.txt");
+    
+    if(A.IsEmpty()) std::cout<<"Yes,possible memory allocation problem\n";
+    else            std::cout<<"No,all fine\n";
+\endcode
+     *  \param[in] Type Tipo de archivo de fuente de datos.
+     *  \param[in] filepath Path del archivo cargado.
+     *  \ingroup MatrixGroup
+     */
+    Vector(Pds::Ra::FormatType Type,std::string filepath);
+    
     ~Vector();
 
 /**

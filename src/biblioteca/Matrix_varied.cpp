@@ -55,12 +55,6 @@ bool Pds::Matrix::Apply( double (*func)(double) )
 
 ////////////////////////////////////////////////////////////////////////
 
-bool Pds::Matrix::Save(const char* filepath) const
-{
-    return Pds::Matrix::ArraySave(filepath,this->array,this->nlin,this->ncol);
-}
-
-////////////////////////////////////////////////////////////////////////
 std::string Pds::Matrix::ToString(void) const
 {
     std::string str="";
@@ -78,5 +72,27 @@ std::string Pds::Matrix::ToString(void) const
     }
 
     return str;
-} 
+}
+
+
+////////////////////////////////////////////////////////////////////////
+
+
+
+bool Pds::Matrix::Save(const char* filepath) const
+{
+    return Pds::Matrix::ArraySave(filepath,this->array,this->nlin,this->ncol);
+}
+
+////////////////////////////////////////////////////////////////////////
+bool Pds::Matrix::Write(Pds::Ra::FormatType type,const char* filepath) const
+{
+    if(type==Pds::Ra::MatFileFormat)
+        return Pds::Matrix::ArrayWriteMatFile(filepath,this->array,this->nlin,this->ncol);
+    else if(type==Pds::Ra::TextFormat)
+        return Pds::Matrix::ArraySave(filepath,this->array,this->nlin,this->ncol);
+    else
+        return false;
+}
+
 ////////////////////////////////////////////////////////////////////////

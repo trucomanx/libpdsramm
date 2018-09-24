@@ -234,14 +234,14 @@ int ElementsInString(const std::string &str);
 \code{.h}
 char str[]="abc;104\tde10j";
 
-std::list<std::string> token=Pds::Ra::Split(str,"\t;,");
+std::list<std::string> token=Pds::Ra::SplitString(str,"\t;,");
 \endcode
  *  \param[in] str Cadena a dividir.
  *  \param[in] delimeters Cadena con posibles delimitadores.
  *  \return Retorna una lista con los elementos separados por alguno de los delimitadores.
  *  \ingroup PdsRaToolsGroup
  */
-std::list<std::string> Split(std::string str, std::string delimeters);
+std::list<std::string> SplitString(std::string str, std::string delimeters);
 
 /**
  *  \brief Convierte en std::sring un int,long,unsigned int, unsigned long, float o double.
@@ -277,10 +277,43 @@ extern std::string ToString(T val);
  */
 bool ArraySizeInString(std::string str,unsigned int &Nlin,unsigned int &Ncol);
 
+
+/**
+ *  \brief Save the string in a text file
+ *  
+ *  Por ejemplo:
+\code{.h}
+std::string str="abc;104\tde10j";
+
+if(Pds::Ra::SaveString("filedat.txt",str))   sdt::cout<<"All OK\n";
+else                                         std::cout<<"Error saving the file\n";
+\endcode
+ *  \param[in] filepath Direccion y nombre del archivo donde se escribira la cadena.
+ *  \param[in] str Cadena a escribir.
+ *  \return Retorna true si todo salio bien o false en caso de error.
+ *  \ingroup PdsRaToolsGroup
+ */
+bool SaveString(std::string filepath, std::string str);
 /**
  * @}
  */
-    
+
+/** @name Variados
+ *  Funciones interesantes
+ * @{
+ */
+
+/**
+ *  \brief Indica si es big endian
+ *  
+ *  \return Retorna true es bigendian o false en caso contrario.
+ *  \ingroup PdsRaToolsGroup
+ */
+bool IsBigEndian(void);
+
+/**
+ * @}
+ */
     
 } // namespace Ra
 } // namespace Pds

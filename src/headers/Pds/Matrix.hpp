@@ -293,16 +293,19 @@ B_{Nlin,Ncol}\equiv [b_{i,j}]_{Nlin,Ncol}
      *  un archivo.
      * 
 \code{.cpp}
-    Pds::Matrix A(TEXT,"textfile.txt");
+    Pds::Matrix A(Pds::Ra::TextFormat,"textfile.txt");
     
     if(A.IsEmpty()) std::cout<<"Yes,possible memory allocation problem\n";
     else            std::cout<<"No,all fine\n";
 \endcode
-     *  \param[in] Type Tipo de archivo de fuente de datos.
+     *  \param[in] Type Tipo de archivo de fuente de datos. Los tipos aceptados son:
+     *  <table>
+     *  <tr><td> Pds::Ra::TextFormat    <td> Lee en formato de texto.
+     *  </table>
      *  \param[in] filepath Path del archivo cargado.
      *  \ingroup MatrixGroup
      */
-    Matrix(Pds::Ra::LoadType Type,std::string filepath);
+    Matrix(Pds::Ra::FormatType Type,std::string filepath);
     
     ~Matrix(); 
     
@@ -1045,12 +1048,26 @@ public:
     bool Apply( double (*func)(double) );
     
    /** 
-     *  \brief Escribe en un archivo el contenido de la matriz.
+     *  \brief Escribe en un archivo de texto el contenido de la matriz.
      *  \param[in] filepath El archivo donde se escribirán los datos.
      *  \return Retorna true si todo fue bien o false en caso de error.
      *  \ingroup MatrixGroup
      */
     bool Save(const char* filepath) const;
+
+   /** 
+     *  \brief Escribe en un archivo de cualquier tipo el contenido de la matriz.
+     *  \param[in] type El formato del archivo. Los tipos aceptados son:
+     *  <table>
+     *  <tr><td> Pds::Ra::TextFormat    <td> Escribe en formato de texto.
+     *  <tr><td> Pds::Ra::MatFileFormat <td> Escribe en formato binario, MAT-File 1.0 de MATLAB.
+     *  </table>
+     *  \param[in] filepath El archivo donde se escribirán los datos.
+     *  \return Retorna true si todo fue bien o false en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    bool Write(Pds::Ra::FormatType type,const char* filepath) const;
+    
 
 /**
  * @}
@@ -1091,6 +1108,7 @@ public:
      *  \ingroup MatrixGroup
      */
     static bool Save(const char* filepath,const Pds::Matrix &A);
+    
 
     /** 
      *  \brief Convierte un sdt::string a una Matriz de Nlin lineas y Ncol columnas.
@@ -1162,6 +1180,16 @@ public:
      */
     static void ArrayRelease(double** &array,unsigned int Nlin);
 
+   /** 
+     *  \brief Convierte a un arreglo unidimensional un arreglo de Nlin
+     *  lineas y Ncol columnas (arreglo de arreglos). Lee primero una columna entera.
+     *  \param[in] array El arreglo de arreglos de de Nlin lineas y Ncol columnas
+     *  \param[in] Nlin El numero de lineas en el arreglo.
+     *  \param[in] Ncol El numero de columnas en el arreglo.
+     *  \return Retorna un double *. Si la matriz es nula retorna NULL.
+     *  \ingroup MatrixGroup
+     */
+    static double *ArrayToArray(double **array,unsigned int Nlin,unsigned int Ncol);
 
    /** 
      *  \brief Convierte a un sdt::string un arreglo de Nlin lineas y Ncol columnas (arreglo de arreglos).
@@ -1187,10 +1215,12 @@ public:
      *  \brief Convierte un sdt::string con arreglo de Nlin lineas y 1 columna a un arreglo.
      *  \param[in] str Cadena a leer.
      *  \param[out] Nlin El numero de lineas en el arreglo.
+     *  \param[out]  Ncol El numero de columnas en el arreglo. En caso de exito 
+     *  este valor sera 1 en otro caso el valor original no es alterado.
      *  \return Retorna un arreglo. en caso de error se retorna NULL.
      *  \ingroup MatrixGroup
      */
-    static double **ArrayColFromString(const std::string &str,unsigned int &Nlin);
+    static double **ArrayColFromString(const std::string &str,unsigned int &Nlin,unsigned int &Ncol);
     
    /** 
      *  \brief Salva en un archivo un arreglo de Nlin lineas y Ncol columnas (arreglo de arreglos).
@@ -1203,20 +1233,100 @@ public:
      */
     static bool ArraySave(const char* filepath,double **array,unsigned int Nlin,unsigned int Ncol);
 
-
    /** 
      *  \brief Lee de un archivo un arreglo de Nlin lineas y Ncol columnas (arreglo de arreglos).
      *  \param[in] filepath El archivo donde se leerán los datos.
-     *  \param[out] array Donde se escribirá el arreglo de arreglos de de Nlin lineas y Ncol columnas.
-     *  La función no libera a memoria de array, entonces se le debe entregar siempre un array==NULL.
      *  \param[out] Nlin Donde se escribirá el numero de lineas en el arreglo.
      *  \param[out] Ncol Donde se escribirá el numero de columnas en el arreglo.
-     *  \return Retorna true si todo fue bien o false si no. Si el numero de columnas 
-     *  no es constante se retorna false. Si la función retorna false entonces los valores
-     *  de entrada no son alterados.
+     *  \return El arreglo de arreglos de de Nlin lineas y Ncol columnas. Si el numero de columnas 
+     *  no es constante se retorna NULL. Si la función retorna NULL entonces los valores
+     *  de entrada Nlin e Ncol no son alterados.
      *  \ingroup MatrixGroup
      */
-    static bool ArrayLoad(const char* filepath,double** &array,unsigned int& Nlin,unsigned int& Ncol);
+    static double** ArrayLoad(const char* filepath,unsigned int& Nlin,unsigned int& Ncol);
+
+   /** 
+     *  \brief Lee de un archivo un arreglo de Nlin lineas y Ncol=1 columna (arreglo de arreglos).
+     *  \param[in] filepath El archivo donde se leerán los datos.
+     *  \param[out] Nlin Donde se escribirá el numero de lineas en el arreglo.
+     *  \param[out] Ncol Donde se escribirá el numero de columnas en el arreglo.
+     *  \return El arreglo de arreglos de de Nlin lineas y Ncol=1 columnas.
+     *  No importa si el numero de columnas en el archivo no es constante,
+     *  la funcion so se interesa por la cantidad de elementos no vacios. 
+     *  Si la función retorna NULL entonces los valores
+     *  de entrada Nlin e Ncol no son alterados. En caso de acierto Ncol 
+     *  siempre es cargado con 1.
+     *  \ingroup MatrixGroup
+     */
+    static double** ArrayColLoad(const char* filepath,unsigned int& Nlin,unsigned int& Ncol);
+
+   /** 
+     *  \brief Escribe en un archivo binario en formato de octave un
+     *  arreglo de Nlin lineas y Ncol columnas (arreglo de arreglos).
+     *  Es usado el nombre MAT0 como identificador de matriz.
+     * 
+     *  Version 4 MAT-File Format:[Documento externo](https://www.eiscat.se/wp-content/uploads/2016/03/Version-4-MAT-File-Format.pdf)
+     *  [Documento oficial](https://www.mathworks.com/help/pdf_doc/matlab/matfile_format.pdf)
+     *  \param[in] fp El descriptor de fichero que apunta a donde se guardaran los datos.
+     *  \param[in] array El arreglo de arreglos de de Nlin lineas y Ncol columnas
+     *  \param[in] pname El nombre de la matriz.
+     *  \param[in] Nlin El numero de lineas en el arreglo.
+     *  \param[in] Ncol El numero de columnas en el arreglo.
+     *  \return Retorna true si todo fue bien o false si no.
+     *  \ingroup MatrixGroup
+     */
+    static bool ArrayWriteMatFile(FILE *fp,const char *pname,double **array,unsigned int Nlin,unsigned int Ncol);
+
+   /** 
+     *  \brief Escribe en un archivo binario en formato de octave un
+     *  arreglo de Nlin lineas y Ncol columnas (arreglo de arreglos).
+     *  Es usado el nombre MAT0 como identificador de matriz.
+     * 
+     *  Version 4 MAT-File Format:[Documento externo](https://www.eiscat.se/wp-content/uploads/2016/03/Version-4-MAT-File-Format.pdf)
+     *  [Documento oficial](https://www.mathworks.com/help/pdf_doc/matlab/matfile_format.pdf)
+     *  \param[in] fp El descriptor de fichero que apunta a donde se guardaran los datos.
+     *  \param[in] arrayr El arreglo real de arreglos de de Nlin lineas y Ncol columnas.
+     *  \param[in] arrayi El arreglo imag de arreglos de de Nlin lineas y Ncol columnas.
+     *  \param[in] pname El nombre de la matriz.
+     *  \param[in] Nlin El numero de lineas en el arreglo.
+     *  \param[in] Ncol El numero de columnas en el arreglo.
+     *  \return Retorna true si todo fue bien o false si no.
+     *  \ingroup MatrixGroup
+     */
+    static bool ArrayWriteMatFile(FILE *fp,const char *pname,double **arrayr,double **arrayi,unsigned int Nlin,unsigned int Ncol);
+
+   /** 
+     *  \brief Escribe en un archivo binario en formato de octave un
+     *  arreglo de Nlin lineas y Ncol columnas (arreglo de arreglos).
+     *  Es usado el nombre MAT0 como nombre para de matriz.
+     *
+     *  Version 4 MAT-File Format: https://www.eiscat.se/wp-content/uploads/2016/03/Version-4-MAT-File-Format.pdf
+     *  https://www.mathworks.com/help/pdf_doc/matlab/matfile_format.pdf
+     *  \param[in] filepath El archivo donde se guardaran los datos.
+     *  \param[in] array El arreglo de arreglos de de Nlin lineas y Ncol columnas.
+     *  \param[in] Nlin El numero de lineas en el arreglo.
+     *  \param[in] Ncol El numero de columnas en el arreglo.
+     *  \return Retorna true si todo fue bien o false si no.
+     *  \ingroup MatrixGroup
+     */
+    static bool ArrayWriteMatFile(const char* filepath,double **array,unsigned int Nlin,unsigned int Ncol);
+   /** 
+     *  \brief Escribe en un archivo binario en formato de octave un
+     *  arreglo de Nlin lineas y Ncol columnas (arreglo de arreglos).
+     *  Es usado el nombre MAT0 como nombre para de matriz.
+     *
+     *  Version 4 MAT-File Format: https://www.eiscat.se/wp-content/uploads/2016/03/Version-4-MAT-File-Format.pdf
+     *  https://www.mathworks.com/help/pdf_doc/matlab/matfile_format.pdf
+     *  \param[in] filepath El archivo donde se guardaran los datos.
+     *  \param[in] arrayr El arreglo real de arreglos de de Nlin lineas y Ncol columnas.
+     *  \param[in] arrayi El arreglo imag de arreglos de de Nlin lineas y Ncol columnas.
+     *  \param[in] Nlin El numero de lineas en el arreglo.
+     *  \param[in] Ncol El numero de columnas en el arreglo.
+     *  \return Retorna true si todo fue bien o false si no.
+     *  \ingroup MatrixGroup
+     */
+    static bool ArrayWriteMatFile(const char* filepath,double **arrayr,double **arrayi,unsigned int Nlin,unsigned int Ncol);
+
 
 /**
  * @}

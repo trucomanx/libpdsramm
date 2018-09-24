@@ -9,7 +9,7 @@ Pds::Matrix Pds::Matrix::Apply(double (*func)(double),const Pds::Matrix &B)
 Pds::Matrix Pds::Matrix::Load(const char* filepath)
 {
     Pds::Matrix A;
-    Pds::Matrix::ArrayLoad(filepath,A.array,A.nlin,A.ncol);
+    A.array=Pds::Matrix::ArrayLoad(filepath,A.nlin,A.ncol);
     return A;
 }
 

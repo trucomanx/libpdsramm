@@ -118,10 +118,14 @@ namespace Ra{
     */
     typedef enum {
         /*!
-         * Carga una matriz desde un archivo de texto.
+         *  Formato de texto.
          */
-        LoadText=0  
-    } LoadType;
+        TextFormat=0,
+        /*!
+         *  Formato compatible con archivo binario de octave.
+         */
+        MatFileFormat, 
+    } FormatType;
     
 }
 }

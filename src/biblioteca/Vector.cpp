@@ -116,9 +116,22 @@ Pds::Vector::Vector(const char *str)
     this->array=NULL;
     this->nlin=0;
     this->ncol=0;
-    this->array=Pds::Matrix::ArrayColFromString(str,this->nlin);
-    if(this->array!=NULL)   this->ncol=1;
+    this->array=Pds::Matrix::ArrayColFromString(str,this->nlin,this->ncol);
     
+    return;
+}
+
+Pds::Vector::Vector(Pds::Ra::FormatType Type,std::string filepath)
+{
+    this->array=0;
+    this->nlin=0;
+    this->ncol=0;
+    
+    if(Type==Pds::Ra::TextFormat)
+    {
+        this->array=Pds::Matrix::ArrayColLoad(filepath.c_str(),this->nlin,this->ncol);
+    }
+        
     return;
 }
 

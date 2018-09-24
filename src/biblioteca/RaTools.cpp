@@ -197,7 +197,7 @@ int Pds::Ra::ElementsInString(const std::string &stdstr)
 #include <cstring>
 #include <cstdlib>
 
-std::list<std::string> Pds::Ra::Split(std::string str, std::string delimeters)
+std::list<std::string> Pds::Ra::SplitString(std::string str, std::string delimeters)
 {
     std::list<std::string> Element;
     
@@ -282,4 +282,29 @@ bool Pds::Ra::ArraySizeInString(std::string str,unsigned int &Nlin,unsigned int 
     Ncol=last_ncol;
 
 	return true;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+#include <cstdio>
+
+bool Pds::Ra::SaveString(std::string filepath, std::string str)
+{
+    FILE *fd=NULL;
+    
+    fd=fopen(filepath.c_str(),"w");
+    if(fd==NULL)    return false;
+    
+    fprintf(fd,"%s",str.c_str());
+    fclose(fd);
+    
+    return true;
+}
+
+////////////////////////////////////////////////////////////////////////
+
+bool Pds::Ra::IsBigEndian(void)
+{
+        short int word = 0x0001;
+        char *b = (char *)&word;
+        return (b[0] ? false : true);
 }
