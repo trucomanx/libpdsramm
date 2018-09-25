@@ -21,7 +21,15 @@ int main(void)
     std::cout<<"A.Mean() : "<<A.Mean()<<std::endl;
     std::cout<<"A.Std()  : "<<A.Std() <<std::endl;
     std::cout<<"A.Corr(B): "<<A.Corr(B)<<std::endl;
-
+    
+    Pds::Matrix C("1 2 2 \n-1 2 -1\n 1 0 3");
+    Pds::Matrix D("1 1\n1 1");
+    
+    C.Print("C:\n");
+    D.Print("D:\n");
+    
+    C.XCorr(D).Print("C.XCorr(D):\n");
+    C.XCorr(D,true).Print("C.XCorr(D,true):\n");
     
     return 0;
 }

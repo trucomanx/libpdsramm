@@ -956,6 +956,37 @@ public:
      *  \ingroup MatrixGroup
      */
     double Min(unsigned int *id=NULL) const;
+    
+    /** 
+     *  \brief Calcula la correlacion cruzada entre A y B. 
+     * 
+     * \f[ \mathbf{A}\equiv [a_{i,j}]_{Nlin,Ncol}  \overset{func}{\equiv} a(i,j),~0 \leq i\leq Nlin-1,~0 \leq j\leq Ncol-1 \f]
+     * \f[ \mathbf{B}\equiv [b_{i,j}]_{Mlin,Mcol}  \overset{func}{\equiv} b(i,j),~0 \leq i\leq Mlin-1,~0 \leq j\leq Mcol-1 \f]
+     * \f[ \mathbf{C}\equiv [c_{i,j}]_{Mlin+Nlin-1,Mcol+Ncol-1}  \overset{func}{\equiv} c(i-(Mlin-1),j-(Mcol-1)),~ 0 \leq i \leq Mlin+Nlin-2 ,~ 0 \leq j \leq Mcol+Ncol-2\f]
+   \f[
+\mathbf{C}=\left(\begin{matrix}
+c(1-Mlin,1-Mcol)     & c(1-Mlin,2-Mcol)  & \hdots & c(1-Mlin,0)  & \hdots & c(1-Mlin,Ncol-1)\\ 
+c(2-Mlin,1-Mcol)     & c(2-Mlin,2-Mcol)  & \hdots & c(2-Mlin,0)  & \hdots & c(2-Mlin,Ncol-1)\\
+\vdots               & \vdots            & \vdots & \vdots       & \vdots & \vdots \\
+c(0,1-Mcol)          & c(0,2-Mcol)       & \hdots & c(0,0)       & \hdots & c(0,Ncol-1)\\
+\vdots               & \vdots            & \vdots & \vdots       & \vdots & \vdots \\
+c(Nlin-2,1-Mcol)     & c(Nlin-2,2-Mcol)  & \hdots & c(Nlin-2,0)  & \hdots & c(Nlin-2,Ncol-1) \\ 
+c(Nlin-1,1-Mcol)     & c(Nlin-1,2-Mcol)  & \hdots & c(Nlin-1,0)  & \hdots & c(Nlin-1,Ncol-1) \\
+\end{matrix}\right) 
+   \f] 
+     *  De modo que
+     * \f[ c(k,l) \leftarrow \sum \limits_{q=-\infty}^{+\infty} \sum \limits_{r=-\infty}^{+\infty} a(q,r) b(q-k,r-l) \f]
+     * \f[ c(k,l) \leftarrow \sum \limits_{q=max(0,k)}^{min(Nlin-1,Mlin-1+k)}~~ \sum \limits_{r=max(0,l)}^{min(Ncol-1,Mcol-1+l)} a(q,r) b(q-k,r-l) \f]
+     *  Esta funcion no usa FFT para economizar el tiempo.
+     * 
+     *  \param[in] B Matriz a aplicar la correlacion cruzada.
+     *  \param[in] Same indica si la correlación cruzada tendrá el mismo 
+     *  tamaño que A, si Same es igual a true entonces,\f$[c_{i,j}]_{Nlin,Ncol}  \overset{func}{\equiv} c(i,j), ~0 \leq i \leq Nlin-1, ~0 \leq j \leq Ncol-1\f$.
+     *  Por defecto Same es igual a false.
+     * \return retorna la correlacion cruzada.
+     *  \ingroup VectorGroup
+     */
+    Pds::Matrix XCorr(const Pds::Matrix &B, bool Same=false) const;
 /**
  * @}
  */
