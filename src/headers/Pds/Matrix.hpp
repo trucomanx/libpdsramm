@@ -616,6 +616,32 @@ public:
  *  Herramientas genéricas para lectura y escritura de datos.
  * @{
  */
+    
+    /** 
+     *  \brief Retorna una sub matriz desde la posición (lin_init,col_init) hasta (lin_end,col_end), inclusive. 
+     *  Hace una verificación si la posición existe, si no existe llena con ceros. 
+     *  \param[in] lin_init La linea inicial en consulta.
+     *  \param[in] col_init La columna inicial en consulta.
+     *  \param[in] lin_end La linea final en consulta.
+     *  \param[in] col_end La columna final en consulta.
+     *  \return Retorna una sub matriz. Si no existe interseccion entre 
+     * la matriz y las cordenadas pedidas, entonces se retorna una matriz vacia.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix GetMatrix(unsigned int lin_init,unsigned int col_init,unsigned int lin_end,unsigned int col_end) const;
+    
+    /** 
+     *  \brief Retorna una sub matriz desde la posición (lin_init,col_init) hasta (lin_end,col_end), inclusive. 
+     *  Hace una verificación si la posición existe, si no existe llena con ceros. 
+     *  \param[in] lin_init La linea inicial en consulta.
+     *  \param[in] col_init La columna inicial en consulta.
+     *  \param[in] size Tamaño de la matriz a recibir.
+     *  \return Retorna una sub matriz. Si no existe interseccion entre 
+     * la matriz y las cordenadas pedidas, entonces se retorna una matriz vacia.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix GetMatrix(unsigned int lin_init,unsigned int col_init,Pds::Size size) const;
+    
     /** 
      *  \brief Retorna el valor en la posición del índice id, hace una verificación
      *  si la posición existe. 
@@ -692,6 +718,13 @@ public:
     unsigned int Nlin() const;
     
     /** 
+     *  \brief Retorna el identificador de la ultima linea de la matriz.
+     *  \return Retorna Nlin-1.
+     *  \ingroup MatrixGroup
+     */
+    unsigned int LinEnd() const;
+    
+    /** 
      *  \brief Retorna el numero de columnas de la matriz.
      *  \return Retorna el numero de columnas de la matriz.
      *  \ingroup MatrixGroup
@@ -699,11 +732,25 @@ public:
     unsigned int Ncol() const;
     
     /** 
+     *  \brief Retorna el identificador de la ultima columna  de la matriz.
+     *  \return Retorna Ncol-1.
+     *  \ingroup MatrixGroup
+     */
+    unsigned int ColEnd() const;
+    
+    /** 
      *  \brief Retorna el numero de elementos de la matriz (Nlin x Ncol).
      *  \return Retorna el numero de elementos de la matriz.
      *  \ingroup MatrixGroup
      */
     unsigned int Nel() const;
+    
+    /** 
+     *  \brief Retorna el identificador del ultimo elemento de la matriz.
+     *  \return Retorna ((Nlin x Ncol)-1).
+     *  \ingroup MatrixGroup
+     */
+    unsigned int End() const;
     
 /**
  * @}

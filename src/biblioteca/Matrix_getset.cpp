@@ -21,8 +21,50 @@
  */
 
 #include <Pds/Matrix>
+#include <Pds/Size>
 #include <cmath>
 
+
+Pds::Matrix Pds::Matrix::GetMatrix(unsigned int lin_init,unsigned int col_init,unsigned int lin_end,unsigned int col_end) const
+{
+    if((this->ncol==0)||(this->nlin==0)||(this->array==NULL)) return Pds::Matrix();
+    
+    if(lin_init >= lin_end) return Pds::Matrix();
+    if(col_init >= col_end) return Pds::Matrix();
+    
+    if(lin_init >= this->nlin) return Pds::Matrix();
+    if(col_init >= this->ncol) return Pds::Matrix();
+    
+    Pds::Matrix A(lin_end-lin_init+1,col_end-col_init+1);
+    
+    unsigned int Lend=std::min(this->nlin-1,lin_end);
+    unsigned int Cend=std::min(this->ncol-1,col_end);
+    
+    for(unsigned int lin=lin_init;lin<=Lend;lin++)
+    for(unsigned int col=col_init;col<=Cend;col++)
+    A.array[lin-lin_init][col-col_init]=this->array[lin][col];
+    
+    return A;
+}
+
+Pds::Matrix Pds::Matrix::GetMatrix(unsigned int lin_init,unsigned int col_init,Pds::Size size) const
+{
+    if((this->ncol==0)||(this->nlin==0)||(this->array==NULL)) return Pds::Matrix();
+    
+    if(lin_init >= this->nlin) return Pds::Matrix();
+    if(col_init >= this->ncol) return Pds::Matrix();
+    
+    Pds::Matrix A(size.Nlin,size.Ncol);
+    
+    unsigned int Lend=std::min(this->nlin-1,lin_init+size.Nlin-1);
+    unsigned int Cend=std::min(this->ncol-1,col_init+size.Ncol-1);
+    
+    for(unsigned int lin=lin_init;lin<=Lend;lin++)
+    for(unsigned int col=col_init;col<=Cend;col++)
+    A.array[lin-lin_init][col-col_init]=this->array[lin][col];
+    
+    return A;
+}
 
 double Pds::Matrix::Get(unsigned int id) const
 {
@@ -95,12 +137,27 @@ unsigned int Pds::Matrix::Nlin(void) const
     return this->nlin;
 }
 
+unsigned int Pds::Matrix::LinEnd(void) const
+{
+    return this->nlin-1;
+}
+
 unsigned int Pds::Matrix::Ncol(void) const
 {
     return this->ncol;
 }
 
+unsigned int Pds::Matrix::ColEnd(void) const
+{
+    return this->ncol-1;
+}
+
 unsigned int Pds::Matrix::Nel(void) const
 {
     return this->ncol*this->nlin;
+}
+
+unsigned int Pds::Matrix::End(void) const
+{
+    return (this->ncol*this->nlin-1);
 }
