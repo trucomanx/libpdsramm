@@ -3,13 +3,13 @@ project(testprograms)
 
 include_directories(${CMAKE_SOURCE_DIR}/src/headers)
 
-add_executable(exampleprog exampleprog.cpp)
-target_link_libraries(exampleprog lib${PROJECT_LIB_ABBREVIATION}_static ${TARGET_EXTRA_LINK})
-
 file(GLOB TEST_FILES
     "test*.cpp"
 )
 
+file(GLOB EXAMPLE_FILES
+    "example*.cpp"
+)
 
 MESSAGE(STATUS "++")
 FOREACH(FILEPATH ${TEST_FILES})
@@ -20,4 +20,15 @@ FOREACH(FILEPATH ${TEST_FILES})
     add_executable(${MYBASENAME} ${MYFILENAME})
     target_link_libraries(${MYBASENAME} lib${PROJECT_LIB_ABBREVIATION}_static ${TARGET_EXTRA_LINK})
 ENDFOREACH()
+
+MESSAGE(STATUS "++")
+FOREACH(FILEPATH ${EXAMPLE_FILES})
+    get_filename_component(MYFILENAME ${FILEPATH} NAME)
+    get_filename_component(MYBASENAME ${FILEPATH} NAME_WE)
+    MESSAGE(STATUS "++  Adding example program           : ${MYFILENAME}")
+
+    add_executable(${MYBASENAME} ${MYFILENAME})
+    target_link_libraries(${MYBASENAME} lib${PROJECT_LIB_ABBREVIATION}_static ${TARGET_EXTRA_LINK})
+ENDFOREACH()
+
 

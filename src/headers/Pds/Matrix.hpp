@@ -506,6 +506,12 @@ public:
     /** 
      *  \brief Inicializa la matriz con números aleatorios, distribuidos usando una distribución
      * Gaussiana normalizada con media 0 y desvío padrón 1.0.
+     *  Usa internamente la función rand(), para incializar usar
+     *  void srand(unsigned int seed).
+\code{.cpp}
+#include <time.h>       // clock_t, clock, CLOCKS_PER_SEC 
+srand (clock());
+\endcode
      * 
    \f[ f_{X}(x)=\frac {1}{\sqrt {2\pi }} e^{-{\frac {1}{2}}x^{2}},~~x \in R \f]
    \f[ \mathbf{A}\equiv [a_{i,j}]_{M,N} \f]
@@ -518,6 +524,12 @@ public:
     /** 
      *  \brief Inicializa la matriz con números aleatorios, distribuidos uniformemente,
      *  desde 0 a 1.0, incluyendo 0 y excluyendo 1.0.
+     *  Usa internamente la función rand(), para incializar usar
+     *  void srand(unsigned int seed).
+\code{.cpp}
+#include <time.h>       // clock_t, clock, CLOCKS_PER_SEC 
+srand (clock());
+\endcode
      * 
    \f[ f_{X}(x)= 1,~~0\leq x<1, x \in R \f]
    \f[ \mathbf{A}\equiv [a_{i,j}]_{M,N} \f]
@@ -530,6 +542,12 @@ public:
     /** 
      *  \brief Inicializa la matriz con números aleatorios, distribuidos uniformemente,
      *  desde 0 a 1.0, incluyendo 0 y excluyendo 1.0.
+     *  Usa internamente la función rand(), para incializar usar
+     *  void srand(unsigned int seed).
+\code{.cpp}
+#include <time.h>       // clock_t, clock, CLOCKS_PER_SEC 
+srand (clock());
+\endcode
      * 
    \f[ f_{X}(x)= 1,~~min(a,b)\leq x\leq max(a,b), x \in R \f]
    \f[ \mathbf{A}\equiv [a_{i,j}]_{M,N} \f]
@@ -542,6 +560,12 @@ public:
     /** 
      *  \brief Inicializa la matriz con números aleatorios, distribuidos uniformemente,
      *  desde 0 a 1.0, incluyendo 0 y excluyendo 1.0.
+     *  Usa internamente la función rand(), para incializar usar
+     *  void srand(unsigned int seed).
+\code{.cpp}
+#include <time.h>       // clock_t, clock, CLOCKS_PER_SEC 
+srand (clock());
+\endcode
      * 
    \f[ f_{X}(x)= 1,~~min(a,b)\leq x\leq max(a,b), x \in R \f]
    \f[ \mathbf{A}\equiv [a_{i,j}]_{M,N} \f]

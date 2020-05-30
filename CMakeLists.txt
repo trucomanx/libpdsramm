@@ -53,7 +53,7 @@ file(GLOB SOURCE_FILES
 )
 
 file(GLOB HEADER_FILES 
-    src/headers/pds/*.hpp
+    src/headers/Pds/*
 )
 include_directories(src/headers ${ADD_INCLUDE_DIRECTORY})
 
@@ -96,7 +96,7 @@ install(TARGETS     ${PROJECT_NAME}_static
 )
 
 install(FILES       ${HEADER_FILES}
-        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/pds
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Pds
 )
 
 # pkgconfig

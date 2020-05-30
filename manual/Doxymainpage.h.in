@@ -94,7 +94,7 @@
 @PROJECT_EXAMPLE@
 \endcode
     example.cpp
-    \subsection Compilando 3.2 Compilando un ejemplo : Biblioteca instalada en el "linker path" de g++
+    \subsection Compilando 3.2 Compilando un ejemplo
 	Para compilar <b>enlazando estáticamente</b> (Statically linked) un archivo 
     de código fuente llamado example.cpp, debe ser usado el siguiente comando
 \code{.hpp}
@@ -106,22 +106,7 @@
 	g++ -o example example.cpp -l@PROJECT_LIB_ABBREVIATION@ @DEVELOP_EXTRA_SHARED_LINK@
 \endcode
 
-    \subsection CompilandoGen 3.3 Compilando un ejemplo : Forma genérica
-	Para compilar <b>enlazando estáticamente</b> (Statically linked) un archivo 
-    de código fuente llamado example.cpp, debe ser usado el siguiente comando
-\code{.hpp}
-	g++ -static -o example example.cpp -l@PROJECT_LIB_ABBREVIATION@ @DEVELOP_EXTRA_STATIC_LINK@ -L/installation/path/of/lib -I/installation/path/of/include
-\endcode
-    Por otro lado si se desea compilar <b>enlazando dinamicamente</b> (Dynamically linked) un archivo 
-    de código fuente llamado example.cpp, debe ser usado el siguiente comando
-\code{.hpp}
-	g++ -o example example.cpp -l@PROJECT_LIB_ABBREVIATION@ @DEVELOP_EXTRA_SHARED_LINK@ -L/installation/path/of/lib -I/installation/path/of/include
-\endcode
-    En todos los casos "/installation/path/of/lib" es el directório de instalación de los
-archivos *.so o *.a de la biblioteca. Y "/installation/path/of/include" es el directório de instalación
-que contiene la carpeta "Pds".
-
-    \subsection CompilandoPkgConfig 3.4 Compilando un ejemplo : Usando pkg-config
+    \subsection CompilandoPkgConfig 3.3 Compilando un ejemplo : usando pkg-config
     Adicionalmente es posible usar pkg-config para obtener los datos de 
     configuración del proceso de compilación.
     \warning Es necesario tener instalado pkg-config

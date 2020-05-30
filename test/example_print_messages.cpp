@@ -1,6 +1,4 @@
-/** \example testprog_defines.cpp
- *  \author Fernando Pujaico Rivera
- *  \date 18-04-2018
+/** \example example_print_messages.cpp
  *  \brief Programa para el testeo de las funciones.
  *  
  */

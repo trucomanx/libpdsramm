@@ -2,7 +2,7 @@
 # first we can indicate the documentation build as an option and set it to ON by default
 option(BUILD_DOC "Build documentation" ON)
 
-file(READ "${CMAKE_CURRENT_SOURCE_DIR}/../test/exampleprog.cpp" PROJECT_EXAMPLE)
+file(READ "${CMAKE_CURRENT_SOURCE_DIR}/../test/example.cpp" PROJECT_EXAMPLE)
 
 # check if Doxygen is installed
 find_package(Doxygen)
