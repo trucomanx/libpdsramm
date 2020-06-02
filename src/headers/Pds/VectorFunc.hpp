@@ -35,8 +35,8 @@
 #define __PDS_VECTORFUNC_HPP__
 
 
-/** \defgroup VectorFuncGroup Funciones usando Pds::Vector -- Básicos
- *  \brief Funciones Pds::LinSpace(), Pds::GeomSpace(), Pds::X2D(), Pds::Y2D(), Pds::X3D(), etc 
+/** \defgroup VectorFuncGroup Funciones Pds::Vector -- Básicos
+ *  \brief Funciones que usan Pds::Vector, Ejemplo:  Pds::LinSpace(), Pds::GeomSpace(), Pds::X2D(), Pds::Y2D(), Pds::X3D(), etc 
  *  <div class="fragment"> \#include <Pds/VectorFunc> </div>
  *  
  *  <br>Estas funciones trabajan con una matriz de la forma.<br>

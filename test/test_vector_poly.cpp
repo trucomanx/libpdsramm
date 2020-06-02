@@ -1,4 +1,4 @@
-/** \example testprog_vectorpoly.cpp
+/** \file test_vector_poly.cpp
  *  \author Fernando Pujaico Rivera
  *  \date 18-04-2018
  *  \brief Programa para el testeo de las funciones.
@@ -17,7 +17,7 @@ int main(void)
     Y.Size().Print("Y.Size(): ");
     
     Pds::Vector P=Pds::PolyFit(X,Y,1);
-    P.Print("P:\n");
+    P.T().Print("\nP.T():\n");
     
     Pds::Vector Xa=Pds::LinSpace(0,5,6);
     Xa.Print("Xa:\n");

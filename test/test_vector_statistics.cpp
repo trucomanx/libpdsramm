@@ -1,4 +1,4 @@
-/** \example testprog_vector_statistics.cpp
+/** \file test_vector_statistics.cpp
  *  \author Fernando Pujaico Rivera
  *  \date 18-09-2018
  *  \brief Programa para el testeo de las funciones.

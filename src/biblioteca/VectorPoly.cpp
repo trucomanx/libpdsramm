@@ -23,6 +23,9 @@
 
 #include <cmath>
 #include <Pds/Vector>
+#include <Pds/Matrix>
+#include <Pds/MatrixMath>
+#include <Pds/MatrixFunc> 
 #include <Pds/VectorPoly>
 #include <iostream>
 
@@ -42,29 +45,62 @@ Pds::Matrix Pds::PolyMat(Pds::Vector X, unsigned int ORDER)
     return P;
 }
 
-Pds::Vector Pds::PolyFit(Pds::Vector X, Pds::Vector Y, unsigned int ORDER)
+Pds::Matrix Pds::PolyMat(double x, unsigned int ORDER)
 {
     unsigned int col;
 
-    if(X.Nlin()!=Y.Nlin())  return Pds::Matrix();
-    
-    Pds::Matrix B(X.Nlin(),ORDER+1);
-    if(B.IsEmpty())         return B;
+    Pds::Matrix P(1,ORDER+1);
+    if(P.IsEmpty()) return P;
     
     for(col=0;col<=ORDER;col++)
     {
-        B.SetColVector(pow,X,col,col);
+        P.Set(pow(x,col),col);
     }
     
-    double rcond=0;
+    return P;
+}
+
+
+Pds::Vector Pds::PolyFit(Pds::Vector X, Pds::Vector Y, unsigned int ORDER)
+{
+    unsigned int col;
     
-    Pds::Matrix mat=(B.TnoT()).Inv(&rcond);
+    if(X.Nlin()!=Y.Nlin())  return Pds::Matrix();
+    
+    double M1=fabs(X.Max());
+    double M2=fabs(X.Min());
+    double Max=M1>M2?M1:M2;
+
+    X.MulAssig(1.0/Max);
+    
+    // Calculando a matriz de Vandermonde
+    Pds::Matrix Vander(X.Nlin(),ORDER+1);
+    if(Vander.IsEmpty())    return Vander;
+    for(col=0;col<=ORDER;col++)
+    {
+        Vander.SetColVector(pow,X,col,col);
+    }
+    
+    // Calculando inv(MtM)
+    double rcond=0;
+    Pds::Matrix mat=(Vander.MtM()).Inv(&rcond);
     
     
     if(rcond<Pds::Ra::WarningRCond)
-    return Pds::Matrix();
+    {
+        pds_print_warning_message("POLYFIT FUNCTION RETURNED A VOID MATRIX.");
+        pds_print_warning_message("Rcond "<<rcond<<" < "<<Pds::Ra::WarningRCond);
+        return Pds::Matrix();
+    }
     
-    return mat.MulT(B)*Y;
+    Pds::Vector P=mat.MulT(Vander)*Y;
+    
+    for(col=0;col<=ORDER;col++)
+    {
+        P.RowMulAssig (col,pow(1.0/Max,col));
+    }
+    
+    return P;
 }
 
 Pds::Vector Pds::PolyVal(Pds::Vector P,Pds::Vector X)
@@ -73,6 +109,28 @@ Pds::Vector Pds::PolyVal(Pds::Vector P,Pds::Vector X)
     B=Pds::PolyMat(X,P.Nlin()-1)*P;
     return B;
 }
+
+Pds::Matrix Pds::PolyVal(Pds::Vector P,Pds::Matrix X)
+{
+    Pds::Matrix B=P.Get(0)*Pds::Ones(X.Size());
+    
+    Pds::Matrix Tmp=Pds::Ones(X.Size());
+    for(unsigned int i=1;i<P.Nel();i++)
+    {
+        Tmp=Tmp.Product(X);
+        B.AddAssig(P.Get(i)*Tmp);
+    }
+    return B;
+}
+
+
+Pds::Vector Pds::PolyVal(Pds::Vector P,double x)
+{
+    Pds::Vector B;
+    B=Pds::PolyMat(x,P.Nlin()-1)*P;
+    return B;
+}
+
 
 Pds::Vector Pds::PolyDer(Pds::Vector P,unsigned int N)
 {

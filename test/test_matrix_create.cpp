@@ -1,4 +1,4 @@
-/** \file testprog_matrix_create.cpp
+/** \file test_matrix_create.cpp
  *  \author Fernando Pujaico Rivera
  *  \date 18-04-2018
  *  \brief Programa para el testeo de las funciones.

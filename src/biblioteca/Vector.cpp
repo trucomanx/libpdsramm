@@ -39,7 +39,7 @@ Pds::Vector::Vector(unsigned int N,double val): Pds::Matrix(N,1,val)
     return;
 }
 
-Pds::Vector::Vector(const Pds::Size &A): Pds::Matrix(A.Nlin*A.Ncol,1)
+Pds::Vector::Vector(const Pds::Size &A): Pds::Matrix(A.nlin*A.ncol,1)
 {
     return;
 }

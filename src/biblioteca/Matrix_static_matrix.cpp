@@ -6,6 +6,11 @@ Pds::Matrix Pds::Matrix::Apply(double (*func)(double),const Pds::Matrix &B)
     return Pds::Matrix(func,B);
 }
 
+Pds::Matrix Pds::Matrix::Apply(double (*func)(double,double),const Pds::Matrix &B,double var)
+{
+    return Pds::Matrix(func,B,var);
+}
+
 Pds::Matrix Pds::Matrix::Load(const char* filepath)
 {
     Pds::Matrix A;

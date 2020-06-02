@@ -34,7 +34,7 @@
 #include <list>
 
 
-/** \defgroup PdsRaToolsGroup Funciones con namespace Pds::Ra -- Útiles
+/** \defgroup PdsRaToolsGroup Extras Pds::Ra -- Útiles
  *  \brief Funciones con cadenas y archivos: Pds::Ra::ElementsInFile(), Pds::Ra::ToString(), etc
  *  <div class="fragment"> \#include <Pds/RaTools> </div>
  *  

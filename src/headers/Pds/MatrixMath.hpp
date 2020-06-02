@@ -35,8 +35,8 @@
 #define __PDS_MATRIXMATH_HPP__
 
 
-/** \defgroup MatrixMathGroup Funciones usando Pds::Matrix -- Math
- *  \brief Funciones matemáticas Pds::Sin(), Pds::Cos(), Pds::Exp(), Pds::Sqrt, etc 
+/** \defgroup MatrixMathGroup Funciones Pds::Matrix -- Math
+ *  \brief Funciones que usan Pds::Matrix, Ejemplo: Pds::Sin(), Pds::Cos(), Pds::Exp(), Pds::Sqrt, etc 
  *  <div class="fragment"> \#include <Pds/MatrixMath> </div>
  *  
  *  <br>Estas funciones trabajan con una matriz de la forma.<br>
@@ -70,7 +70,7 @@ namespace Pds{
  */
     
     /** 
-     *  \brief Retorna el el resultado de evaluar la funcion seno.  
+     *  \brief Retorna el resultado de evaluar elemento a elemento la funcion seno.  
      *
      *  \f[ sin(A) \f]
      *  \param[in] A La matriz a evaluar
@@ -78,10 +78,10 @@ namespace Pds{
      *  \see Pds::Matrix::Apply()
      *  \ingroup MatrixMathGroup
      */
-    Matrix Sin(const Matrix A);
+    Matrix Sin(const Matrix &A);
     
     /** 
-     *  \brief Retorna el el resultado de evaluar la funcion coseno.  
+     *  \brief Retorna el resultado de evaluar elemento a elemento la funcion coseno.  
      *
      *  \f[ cos(A) \f]
      *  \param[in] A La matriz a evaluar
@@ -89,10 +89,10 @@ namespace Pds{
      *  \see Pds::Matrix::Apply()
      *  \ingroup MatrixMathGroup
      */
-    Matrix Cos(const Matrix A);
+    Matrix Cos(const Matrix &A);
     
     /** 
-     *  \brief Retorna el el resultado de evaluar la funcion tangente.  
+     *  \brief Retorna el resultado de evaluar elemento a elemento la funcion tangente.  
      *
      *  \f[ tan(A) \f]
      *  \param[in] A La matriz a evaluar
@@ -100,7 +100,7 @@ namespace Pds{
      *  \see Pds::Matrix::Apply()
      *  \ingroup MatrixMathGroup
      */
-    Matrix Tan(const Matrix A);
+    Matrix Tan(const Matrix &A);
 /**
  * @}
  */
@@ -111,7 +111,7 @@ namespace Pds{
  * @{
  */
     /** 
-     *  \brief Retorna el el resultado de evaluar la funcion exponente.  
+     *  \brief Retorna el resultado de evaluar elemento a elemento la funcion exponente.  
      *
      *  \f[ e^A \f]
      *  \param[in] A La matriz a evaluar
@@ -119,10 +119,10 @@ namespace Pds{
      *  \see Pds::Matrix::Apply()
      *  \ingroup MatrixMathGroup
      */
-    Matrix Exp(const Matrix A);
+    Matrix Exp(const Matrix &A);
     
     /** 
-     *  \brief Retorna el el resultado de evaluar la funcion exponente de 2.  
+     *  \brief Retorna el resultado de evaluar elemento a elemento la funcion exponente de 2.  
      *
      *  \f[ 2^A \f]
      *  \param[in] A La matriz a evaluar
@@ -130,21 +130,34 @@ namespace Pds{
      *  \see Pds::Matrix::Apply()
      *  \ingroup MatrixMathGroup
      */
-    Matrix Exp2(const Matrix A);
+    Matrix TwoExp(const Matrix &A);
     
     /** 
-     *  \brief Retorna el el resultado de evaluar la funcion logaritmo natural.
+     *  \brief Retorna el resultado de evaluar elemento a elemento la funcion logaritmo natural.
      *
      *  \f[ ln(A) \f]
      *  \param[in] A La matriz a evaluar
      *  \return Retorna la matriz evaluada.
      *  \see Pds::Matrix::Apply()
+     *  \see Pds::Ln()
      *  \ingroup MatrixMathGroup
      */
-    Matrix Log(const Matrix A);
+    Matrix Log(const Matrix &A);
+
+    /** 
+     *  \brief Retorna el resultado de evaluar elemento a elemento la funcion logaritmo natural.
+     *
+     *  \f[ ln(A) \f]
+     *  \param[in] A La matriz a evaluar
+     *  \return Retorna la matriz evaluada.
+     *  \see Pds::Matrix::Apply()
+     *  \see Pds::Log()
+     *  \ingroup MatrixMathGroup
+     */
+    Matrix Ln(const Matrix &A);
     
     /** 
-     *  \brief Retorna el el resultado de evaluar la funcion logaritmo de base 2.
+     *  \brief Retorna el resultado de evaluar elemento a elemento la funcion logaritmo de base 2.
      *
      *  \f[ log_2(A) \f]
      *  \param[in] A La matriz a evaluar
@@ -152,10 +165,10 @@ namespace Pds{
      *  \see Pds::Matrix::Apply()
      *  \ingroup MatrixMathGroup
      */
-    Matrix Log2(const Matrix A);
+    Matrix Log2(const Matrix &A);
 
     /** 
-     *  \brief Retorna el el resultado de evaluar la funcion logaritmo de base 10.
+     *  \brief Retorna el resultado de evaluar elemento a elemento la funcion logaritmo de base 10.
      *
      *  \f[ log_{10}(A) \f]
      *  \param[in] A La matriz a evaluar
@@ -163,7 +176,7 @@ namespace Pds{
      *  \see Pds::Matrix::Apply()
      *  \ingroup MatrixMathGroup
      */
-    Matrix Log10(const Matrix A);
+    Matrix Log10(const Matrix &A);
 
 /**
  * @}
@@ -176,7 +189,7 @@ namespace Pds{
  */
  
     /** 
-     *  \brief Retorna el el resultado de evaluar la funcion raiz cuadrada.
+     *  \brief Retorna el resultado de evaluar elemento a elemento la funcion raiz cuadrada.
      *
      *  \f[ \sqrt{A} \f]
      *  \param[in] A La matriz a evaluar
@@ -184,7 +197,278 @@ namespace Pds{
      *  \see Pds::Matrix::Apply()
      *  \ingroup MatrixMathGroup
      */
-    Matrix Sqrt(const Matrix A);
+    Matrix Sqrt(const Matrix &A);
+ 
+    /** 
+     *  \brief Retorna el resultado de evaluar elemento a elemento la funcion pow.
+     *
+     *  \f[ A^{var} \equiv pow(A,var) \f]
+     *  \param[in] A La matriz a evaluar
+     *  \param[in] var La variable a evaluar
+     *  \return Retorna la matriz evaluada.
+     *  \see Pds::Matrix::Apply()
+     *  \ingroup MatrixMathGroup
+     */
+    Matrix Pow(const Matrix &A,double var);
+/**
+ * @}
+ */
+
+
+/** @name Funciones de activación
+ *  Descripcion de algunas funciones matematicas que usan  Pds::Matrix.
+ * @{
+ */
+    /** 
+     *  \brief Retorna el resultado de evaluar la funcion
+     *  <a href="https://www.doi.org/10.1109/IJCNN.2018.8489043">SQNL</a>.
+     *
+     *  \f[ sqnl(x)=+1 \quad if(2<x)\f]
+     *  \f[ sqnl(x)=x-\frac{x^2}{4} \quad if(0\leq x\leq 2)\f]
+     *  \f[ sqnl(x)=x+\frac{x^2}{4} \quad if(-2 \leq x< 0)\f]
+     *  \f[ sqnl(x)=-1 \quad if(x<-2)\f]
+     *  \param[in] x La variable a evaluar
+     *  \return Retorna la varaible evaluada.
+     *  \ingroup MatrixMathGroup
+     */
+    double SQNL(double x);
+
+    /** 
+     *  \brief Retorna el resultado de evaluar elemento a elemento la funcion
+     *  <a href="https://www.doi.org/10.1109/IJCNN.2018.8489043">SQNL</a>.
+     *
+     *  \f[ sqnl(x)=+1 \quad if(2<x)\f]
+     *  \f[ sqnl(x)=x-\frac{x^2}{4} \quad if(0\leq x\leq 2)\f]
+     *  \f[ sqnl(x)=x+\frac{x^2}{4} \quad if(-2 \leq x< 0)\f]
+     *  \f[ sqnl(x)=-1 \quad if(x<-2)\f]
+     *  \f[ sqnl(A)\f]
+     *  \param[in] A La matriz a evaluar
+     *  \return Retorna la matriz evaluada.
+     *  \see Pds::Matrix::Apply()
+     *  \ingroup MatrixMathGroup
+     */
+    Matrix SQNL(const Matrix &A);
+    
+
+    /** 
+     *  \brief Retorna el resultado de evaluar la funcion gaussiana.
+     *
+     *  \f[ gaussian(x)=e^{-x^2} \f]
+     *  \param[in] x La variable a evaluar
+     *  \return Retorna la variable evaluada.
+     *  \ingroup MatrixMathGroup
+     */
+    double Gaussian(double x);
+
+    /** 
+     *  \brief Retorna el resultado de evaluar elemento a elemento la funcion gaussiana.
+     *
+     *  \f[ gaussian(A)=e^{-A^2} \f]
+     *  \param[in] A La matriz a evaluar
+     *  \return Retorna la matriz evaluada.
+     *  \see Pds::Matrix::Apply()
+     *  \ingroup MatrixMathGroup
+     */
+    Matrix Gaussian(const Matrix &A);
+ 
+    /** 
+     *  \brief Retorna el resultado de evaluar elemento a elemento la funcion tangente hiperbólico.
+     *
+     *  \f[ tanh{A}=\frac{e^{2A}-1}{e^{2A}+1} \f]
+     *  \param[in] A La matriz a evaluar
+     *  \return Retorna la matriz evaluada.
+     *  \see Pds::Matrix::Apply()
+     *  \ingroup MatrixMathGroup
+     */
+    Matrix Tanh(const Matrix &A);
+
+     /** 
+     *  \brief Retorna el resultado de evaluar elemento a elemento la funcion sigmoid.
+     *
+     *  \f[ \frac{1}{1+e^{-x}} \f]
+     *  \param[in] x La varaible a evaluar
+     *  \return Retorna la variable evaluada.
+     *  \ingroup MatrixMathGroup
+     */
+    double Sigmoid(double x);
+    
+     /** 
+     *  \brief Retorna el resultado de evaluar elemento a elemento la funcion sigmoid.
+     *
+     *  \f[ \frac{1}{1+e^{-A}} \f]
+     *  \param[in] A La matriz a evaluar
+     *  \return Retorna la matriz evaluada.
+     *  \see Pds::Matrix::Apply()
+     *  \ingroup MatrixMathGroup
+     */
+    Matrix Sigmoid(const Matrix &A);
+
+/**
+ * @}
+ */
+
+/** @name Outras funciones
+ *  Descripcion de algunas funciones matematicas que usan  Pds::Matrix.
+ * @{
+ */
+
+     /** 
+     *  \brief Retorna el resultado de evaluar la funcion logit.
+     *
+     *  \f[ log\left(\frac{x}{1-x}\right) \f]
+     *  \param[in] x La variable a evaluar
+     *  \return Retorna la variable evaluada.
+     *  \ingroup MatrixMathGroup
+     */
+    double Logit(double x);
+
+     /** 
+     *  \brief Retorna el resultado de evaluar elemento a elemento la funcion logit.
+     *
+     *  \f[ log\left(\frac{A}{1-A}\right) \f]
+     *  \param[in] A La matriz a evaluar
+     *  \return Retorna la matriz evaluada.
+     *  \see Pds::Matrix::Apply()
+     *  \ingroup MatrixMathGroup
+     */
+    Matrix Logit(const Matrix &A);
+
+     /** 
+     *  \brief Retorna el resultado de evaluar la funcion sinc.
+     *
+     *  \f[ sinc(x)=\frac{sin(x)}{x} \f]
+     *  \param[in] x La variable a evaluar
+     *  \return Retorna la variable evaluada.
+     *  \ingroup MatrixMathGroup
+     */
+    double Sinc(double x);
+
+     /** 
+     *  \brief Retorna el resultado de evaluar elemento a elemento la funcion sinc.
+     *
+     *  \f[ sinc(x)=\frac{sin(x)}{x} \f]
+     *  \f[ sinc(A) \f]
+     *  \param[in] A La matriz a evaluar
+     *  \return Retorna la matriz evaluada.
+     *  \see Pds::Matrix::Apply()
+     *  \ingroup MatrixMathGroup
+     */
+    Matrix Sinc(const Matrix &A);
+
+     /** 
+     *  \brief Retorna el resultado de evaluar la funcion Entropia binária.
+     *
+     *  \f[ h_b(x)=-x~log_2(x)-(1-x) log_2(1-x) \f]
+     *  \param[in] x La varaible a evaluar
+     *  \return Retorna lavaraible evaluada.
+     *  \ingroup MatrixMathGroup
+     */
+    double Hb(double x);
+
+     /** 
+     *  \brief Retorna el resultado de evaluar elemento a elemento la funcion Entropia binária.
+     *
+     *  \f[ h_b(x)=-x~log_2(x)-(1-x) log_2(1-x) \f]
+     *  \f[ h_b(A) \f]
+     *  \param[in] A La matriz a evaluar
+     *  \return Retorna la matriz evaluada.
+     *  \see Pds::Matrix::Apply()
+     *  \ingroup MatrixMathGroup
+     */
+    Matrix Hb(const Matrix &A);
+
+/**
+ * @}
+ */
+
+
+    /** @name Funciones de integración
+     *  Descripcion de algunas funciones matematicas que usan  Pds::Matrix.
+     * @{
+     */
+    
+    /** 
+     *  \brief Evalúa la integral de a-->b de la función f(x), aplicando la regla de 
+     *  Simpson con n divisiones, si n no es par internamente la función hace n=n+1.
+     *  
+     *  \f[S_n=\int_{a}^{b}f(x)dx\f] 
+     *  \f[h=\frac{b-a}{n}\f] 
+     *  \f[x_i=a+h~i\f] 
+     *  \f[S_n=\frac{h}{3}(f(x_0)+f(x_n)+4\left [ f(x_1)+f(x_3)+\cdots +f(x_{n-1}) \right ]+2\left [ f(x_2)+f(x_4)+\cdots +f(x_{n-2}) \right ])\f] 
+     *  \param[in] f La función a integrar.
+     *  \param[in] a Límite inferior de la integral.
+     *  \param[in] b Límite superior de la integral.
+     *  \param[in] n Es el número de divisiones.
+     *  \return El valor de la integral o cero si hubo un error, ejemplo b<a o n==0.
+     *  \ingroup MatrixMathGroup
+     */
+    double SimpsonIntegration(double (*f)(double), double a,double b,unsigned int n);
+    
+    /** 
+     *  \brief Evalúa la integral de a-->b de la función f(x,r), aplicando la regla de 
+     *  Simpson con n divisiones, si n no es par internamente la función hace n=n+1.
+     *  
+     *  \f[S_n=\int_{a}^{b}f(x,r)dx\f] 
+     *  \f[h=\frac{b-a}{n}\f] 
+     *  \f[x_i=a+h~i\f] 
+     *  \f[S_n=\frac{h}{3}(f(x_0,r)+f(x_n,r)+4\left [ f(x_1,r)+f(x_3,r)+\cdots +f(x_{n-1},r) \right ]+2\left [ f(x_2,r)+f(x_4,r)+\cdots +f(x_{n-2},r) \right ])\f] 
+     *  \param[in] f La función a integrar.
+     *  \param[in] r Parámetro de la función.
+     *  \param[in] a Límite inferior de la integral.
+     *  \param[in] b Límite superior de la integral.
+     *  \param[in] n Es el número de divisiones.
+     *  \return El valor de la integral o cero si hubo un error, ejemplo b<a o n==0.
+     *  \ingroup MatrixMathGroup
+     */
+    double SimpsonIntegration(double (*f)(double,double),double r, double a,double b,unsigned int n);
+    
+    /** 
+     *  \brief Evalúa la integral de a-->infinito de la función f(x), aplicando el 
+     *  cambio de variable u<--1/(x+1) para integrar de 0-->1/(a+1) y ejecutar luego 
+     *  la regla de Simpson con n divisiones, si n no es par internamente la 
+     *  función hace n=n+1. Además es necesario que el limite de f(1/u-1)/u^2-->0 cuando u-->0.
+     *  
+     *  \f[S_t=\left \{ \begin{matrix}
+                ~&~&\int_{x_{0}=a}^{ \infty }f(x)dx &  a \geq 0 \\
+                \int_{a}^{0}f(x)dx &+ &\int_{x_{0}=0}^{ \infty }f(x)dx &  a < 0 
+           \end{matrix}\right.\f] 
+     *  
+     *  \f[\int_{x_{0}}^{ \infty }f(x)dx \xrightarrow{u=\frac{1}{x+1}} \int_{0}^{ \frac{1}{x_{0}+1} }\frac{f(\frac{1}{u}-1)}{u^2}du\f] 
+     *  Se asume que
+     *  \f[ \lim_{u \rightarrow 0+}\frac{f(\frac{1}{u}-1)}{u^2}=0 \f] 
+     *
+     *  \param[in] f La función a integrar.
+     *  \param[in] a Límite inferior de la integral.
+     *  \param[in] n Es el número de divisiones.
+     *  \return El valor de la integral o cero si hubo un error, ejemplo b<a o n<=0.
+     *  \ingroup MatrixMathGroup
+     */
+    double ImproperIntegration(double (*f)(double), double a,unsigned int n);
+
+
+    /** 
+     *  \brief Evalúa la integral de a-->infinito de la función f(x,r) en x, aplicando el 
+     *  cambio de variable u<--1/(x+1) para integrar de 0-->1/(a+1) y ejecutar luego 
+     *  la regla de Simpson con n divisiones, si n no es par internamente la 
+     *  función hace n=n+1. Además es necesario que el limite de f(1/u-1,r)/u^2-->0 cuando u-->0.
+     *  
+     *  \f[S_t=\left \{ \begin{matrix}
+                ~&~&\int_{x_{0}=a}^{ \infty }f(x,r)dx &  a \geq 0 \\
+                \int_{a}^{0}f(x,r)dx &+ &\int_{x_{0}=0}^{ \infty }f(x,r)dx &  a < 0 
+           \end{matrix}\right.\f] 
+     *  
+     *  \f[\int_{x_{0}}^{ \infty }f(x,r)dx \xrightarrow{u=\frac{1}{x+1}} \int_{0}^{ \frac{1}{x_{0}+1} }\frac{f(\frac{1}{u}-1,r)}{u^2}du\f] 
+     *  Se asume que
+     *  \f[ \lim_{u \rightarrow 0+}\frac{f(\frac{1}{u}-1,r)}{u^2}=0 \f] 
+     *
+     *  \param[in] f La función a integrar.
+     *  \param[in] r Valor del parámetro .
+     *  \param[in] a Límite inferior de la integral.
+     *  \param[in] n Es el número de divisiones.
+     *  \return El valor de la integral o cero si hubo un error, ejemplo b<a o n<=0.
+     *  \ingroup MatrixMathGroup
+     */
+    double ImproperIntegration(double (*f)(double,double),double r, double a,unsigned int n);
 /**
  * @}
  */

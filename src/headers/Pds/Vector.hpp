@@ -36,7 +36,7 @@
 #define __PDS_VECTOR_HPP__
 
 
-/** \defgroup VectorGroup Métodos de Pds::Vector
+/** \defgroup VectorGroup Métodos Pds::Vector
  *  \brief Metodos de la clase Pds::Vector, un vector columna/matriz 
  *  <div class="fragment"> \#include <Pds/Vector> </div>
  *  
@@ -225,7 +225,7 @@ B_{Nlin,1}\equiv [b_{i,j}]_{Nlin,1}
 
     /** 
      *  \brief Crea un objeto de tipo Pds::Vector, evaluando mediante una función, 
-     *  los datos de otro vector.
+     *  los datos de una matriz vectorizada.
      * 
    \f[
 B_{Nlin,Ncol}\equiv [b_{i,j}]_{Nlin,Ncol}

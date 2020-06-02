@@ -1,4 +1,4 @@
-/** \example testprog_matrix_getset_extras.cpp
+/** \file test_matrix_getset_extras.cpp
  *  \author Fernando Pujaico Rivera
  *  \date 18-04-2018
  *  \brief Programa para el testeo de las funciones.
@@ -10,20 +10,19 @@
     
 int main(void)
 {
-    Pds::Matrix A(4,4);
+    Pds::Matrix A("0 3 6\n1 4 7\n2 5 8");
     
-    A.FillId();
-    A.Print("A=\n");
+    A.Print("\nA=\n");
     
-    Pds::Vector  C=A.GetColVector(2);
-    C.Print("C=\n");
+    Pds::Vector  C=A.GetColVector(1);
+    C.Print("\nC=A.GetColVector(1)=\n");
     
     C.Fill(-1.0);
     A.SetColVector(C,2);
-    A.Print("A=\n");
+    A.Print("\nA=\n");
     
     Pds::Vector  D=A.GetDiagonal();
-    D.Print("D=\n");
+    D.Print("\nD=A.GetDiagonal()=\n");
     
     return 0;
 }

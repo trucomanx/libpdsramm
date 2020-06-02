@@ -1,4 +1,4 @@
-/** \example testprog_matrix_assignment.cpp
+/** \file test_matrix_assignment.cpp
  *  \author Fernando Pujaico Rivera
  *  \date 18-04-2018
  *  \brief Programa para el testeo de las funciones.

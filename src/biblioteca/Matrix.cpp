@@ -58,13 +58,13 @@ Pds::Matrix::Matrix(const Pds::Size &A)
     this->ncol=0;
     this->array=NULL;
     
-    if((A.Nlin==0)||(A.Ncol==0))    return;
+    if((A.nlin==0)||(A.ncol==0))    return;
     
-    this->array= Pds::Matrix::ArrayAllocate(nlin,ncol);
+    this->array= Pds::Matrix::ArrayAllocate(A.nlin,A.ncol);
     if(this->array==NULL)       return;
     
-    this->nlin=A.Nlin;
-    this->ncol=A.Ncol;
+    this->nlin=A.nlin;
+    this->ncol=A.ncol;
 }
 
 
@@ -151,6 +151,25 @@ Pds::Matrix::Matrix(double (*func)(double),const Matrix &A)
     
     return;
 }
+
+Pds::Matrix::Matrix(double (*func)(double,double),const Matrix &A,double var)
+{
+    this->nlin=0;
+    this->ncol=0;
+    this->array=NULL;
+        
+    if(A.IsEmpty())  return;
+
+
+    this->array= Pds::Matrix::ArrayAllocate(func,A,var);
+    if(this->array==NULL)  return;
+    
+    this->nlin=A.nlin;
+    this->ncol=A.ncol;
+    
+    return;
+}
+
 
 Pds::Matrix::Matrix(Pds::Ra::FormatType Type,std::string filepath)
 {

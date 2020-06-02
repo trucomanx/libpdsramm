@@ -31,6 +31,33 @@ double** Pds::Matrix::ArrayAllocate(double (*func)(double),const Pds::Matrix &A)
 }
 ////////////////////////////////////////////////////////////////////////
 
+double** Pds::Matrix::ArrayAllocate(double (*func)(double,double),const Pds::Matrix &A,double var)
+{
+    double **array=NULL;
+    unsigned int lin,col;
+    
+    if((A.nlin==0)||(A.ncol==0)||(A.array==NULL))    return NULL;
+
+    array= new double*[A.nlin];
+    if(array==NULL) return NULL;
+    
+    
+    for (lin = 0; lin < A.nlin; lin++)
+    {
+        array[lin] = new double[A.ncol];
+        if(array[lin]==NULL)
+        {
+            Pds::Matrix::ArrayRelease(array,lin);
+            return NULL;
+        }
+        for (col = 0; col < A.ncol; col++) array[lin][col]=(*func)(A.array[lin][col],var);
+    }
+    return array;
+    
+}
+
+////////////////////////////////////////////////////////////////////////
+
 double** Pds::Matrix::ArrayAllocate(const Pds::Matrix &A)
 {
     double **array=NULL;

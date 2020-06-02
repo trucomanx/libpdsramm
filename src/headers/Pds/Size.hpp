@@ -34,7 +34,7 @@
 
 #include <string>
 
-/** \defgroup SizeGroup Métodos de Pds::Size
+/** \defgroup SizeGroup Métodos Pds::Size
  *  \brief Metodos de la clase Pds::Size, el tamaño de una matriz 
  *  <div class="fragment"> \#include <Pds/Size> </div>
  *  
@@ -59,8 +59,8 @@ class Size
 
 public:
 
-    unsigned int Nlin;
-    unsigned int Ncol;
+    unsigned int nlin;
+    unsigned int ncol;
 
 public:
 

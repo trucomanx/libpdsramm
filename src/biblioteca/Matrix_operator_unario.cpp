@@ -34,7 +34,7 @@ Pds::Matrix Pds::Matrix::PInv(double *rcond) const
     
     if( this->IsEmpty() )   return Pds::Matrix();
     
-    Pds::Matrix mat=this->TnoT().Inv(rcond);
+    Pds::Matrix mat=this->MtM().Inv(rcond);
     
     return mat.MulT(*this);
 }
@@ -128,7 +128,7 @@ Pds::Matrix Pds::Matrix::Inv(double *rcond) const
     return A;
 }
 ////////////////////////////////////////////////////////////////////////
-Pds::Matrix Pds::Matrix::TnoT(void) const
+Pds::Matrix Pds::Matrix::MtM(void) const
 {
     if( this->IsEmpty() )   return Pds::Matrix();
 

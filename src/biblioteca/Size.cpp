@@ -27,15 +27,15 @@
 
 Pds::Size::Size(void)
 {
-    this->Nlin=0;
-    this->Ncol=0;
+    this->nlin=0;
+    this->ncol=0;
     return;
 }
 
 Pds::Size::Size(unsigned int Nlin,unsigned int Ncol)
 {
-    this->Nlin=Nlin;
-    this->Ncol=Ncol;
+    this->nlin=Nlin;
+    this->ncol=Ncol;
     return;
 }
 
@@ -43,8 +43,8 @@ Pds::Size::Size(const Size &A)
 {
     if(this!=&A) //Comprueba que no se esté intentando igualar un objeto a sí mismo
     {
-        this->Nlin=A.Nlin;
-        this->Ncol=A.Ncol;
+        this->nlin=A.nlin;
+        this->ncol=A.ncol;
     }
 
     return;
@@ -53,8 +53,8 @@ Pds::Size::Size(const Size &A)
 
 Pds::Size::~Size(void)
 {
-    this->Nlin=0;
-    this->Ncol=0;
+    this->nlin=0;
+    this->ncol=0;
 }
 
 #include <iostream>
@@ -62,12 +62,12 @@ Pds::Size::~Size(void)
 
 void Pds::Size::Print(std::string str)
 {
-    std::cout<<str<<this->Nlin<<"\t"<<this->Ncol<<std::endl;
+    std::cout<<str<<this->nlin<<"\t"<<this->ncol<<std::endl;
     return;
 }
 
 void Pds::Size::PrintStylized(std::string str)
 {
-    std::cout<<str<<"["<<this->Nlin<<","<<this->Ncol<<"]"<<std::endl;
+    std::cout<<str<<"["<<this->nlin<<","<<this->ncol<<"]"<<std::endl;
     return;
 }

@@ -54,10 +54,10 @@ Pds::Matrix Pds::Matrix::GetMatrix(unsigned int lin_init,unsigned int col_init,P
     if(lin_init >= this->nlin) return Pds::Matrix();
     if(col_init >= this->ncol) return Pds::Matrix();
     
-    Pds::Matrix A(size.Nlin,size.Ncol);
+    Pds::Matrix A(size.nlin,size.ncol);
     
-    unsigned int Lend=std::min(this->nlin-1,lin_init+size.Nlin-1);
-    unsigned int Cend=std::min(this->ncol-1,col_init+size.Ncol-1);
+    unsigned int Lend=std::min(this->nlin-1,lin_init+size.nlin-1);
+    unsigned int Cend=std::min(this->ncol-1,col_init+size.ncol-1);
     
     for(unsigned int lin=lin_init;lin<=Lend;lin++)
     for(unsigned int col=col_init;col<=Cend;col++)

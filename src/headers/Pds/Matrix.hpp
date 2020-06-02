@@ -34,7 +34,7 @@
 #define __PDS_MATRIX_HPP__
 
 
-/** \defgroup MatrixGroup Métodos de Pds::Matrix
+/** \defgroup MatrixGroup Métodos Pds::Matrix
  *  \brief Métodos de la clase Pds::Matrix, una matriz 
  *  <div class="fragment"> \#include <Pds/Matrix> </div>
  *  
@@ -276,17 +276,41 @@ B_{Nlin,Ncol}\equiv [b_{i,j}]_{Nlin,Ncol}
    Para crear una matriz A , copia de sin(B):
 \code{.cpp}
     Pds::Matrix B(4,3,1.0);
-    Pds::Matrix A(B,sin);
+    Pds::Matrix A(sin,B);
     
     if(A.IsEmpty()) std::cout<<"Yes,possible memory allocation problem\n";
     else            std::cout<<"No,all fine\n";
 \endcode
-     *  \param[in] B Matriz a evaluar para copiar los resultados.
      *  \param[in] func Función a aplicar, esta debe tener a forma double func(double).
+     *  \param[in] B Matriz a evaluar para copiar los resultados.
      *  \ingroup MatrixGroup
      */
     Matrix(double (*func)(double),const Pds::Matrix &B );
     
+    /** 
+     *  \brief Crea un objeto de tipo Pds::Matrix, evaluando mediante una función, 
+     *  los datos de otra matriz.
+     * 
+   \f[
+B_{Nlin,Ncol}\equiv [b_{i,j}]_{Nlin,Ncol}
+   \f]
+   \f[
+\mathbf{A} \leftarrow func(\mathbf{B},var)
+   \f]
+   Para crear una matriz A , copia de pow(B,3):
+\code{.cpp}
+    Pds::Matrix B(4,3,2.0);
+    Pds::Matrix A(pow,B,3);
+    
+    if(A.IsEmpty()) std::cout<<"Yes,possible memory allocation problem\n";
+    else            std::cout<<"No,all fine\n";
+\endcode
+     *  \param[in] func Función a aplicar, esta debe tener a forma double func(double,double).
+     *  \param[in] B Matriz a evaluar para copiar los resultados.
+     *  \param[in] var Segunda variable de la función.
+     *  \ingroup MatrixGroup
+     */
+    Matrix(double (*func)(double,double),const Pds::Matrix &B , double var);
 
     /** 
      *  \brief Crea un objeto de tipo Pds::Matrix copiando datos desde 
@@ -724,11 +748,12 @@ public:
     /** 
      *  \brief Retorna el valor en la posición (lin,col),  usando una
      *  interpolación bilinear, valores fuera del rango de la matriz retornan cero.
+     *  \image html Bilinear.png "Matrix A"
      *
-     *  \f[ return \leftarrow a_0 + a_1~lin+ a_2~col+ a_3~lin~col\f]
+     *  \f[ A(P) \leftarrow (1-\beta)(1-\alpha)A(P_1)+(1-\beta)\alpha A(P_2)+\beta(1-\alpha)A(P_3)+ \beta \alpha A(P_4)\f]
      *  \param[in] lin La linea en consulta.
      *  \param[in] col La columna en consulta.
-     *  \return Retorna el valor en la posición (lin,col) o cero si lin<0
+     *  \return Retorna el valor en la posición P=(lin,col) o cero si lin<0
      *  o col<0 o lin>(Nlin-1) o col>(Ncol-1).
      *  \ingroup MatrixGroup
      */
@@ -1148,6 +1173,15 @@ public:
      *  \ingroup MatrixGroup
      */
     bool Apply( double (*func)(double) );
+
+    /** 
+     *  \brief Aplica la función func a cada elemento de la matriz.
+     * \param[in] func Función a aplicar, esta debe tener a forma double func(double,double).
+     * \param[in] var Variable a usar em func(double,var).
+     * \return true si todo fue bien o false si la matriz era vacia.
+     *  \ingroup MatrixGroup
+     */
+    bool Apply( double (*func)(double,double), double var);
     
    /** 
      *  \brief Escribe en un archivo de texto el contenido de la matriz.
@@ -1186,13 +1220,25 @@ public:
    /** 
      *  \brief Crea una nueva martiz con el resultado de func(B).
      *
-     *  \f[ A_\leftarrow func(B) \f]
+     *  \f[ A \leftarrow func(B) \f]
      *  \param[in] func La función evaluadora.
      *  \param[in] B La matriz a evaluar.
      *  \return Retorna una matriz evaluada.
      *  \ingroup MatrixGroup
      */
     static Pds::Matrix Apply(double (*func)(double),const Pds::Matrix &B);
+
+   /** 
+     *  \brief Crea una nueva martiz con el resultado de func(B,var).
+     *
+     *  \f[ A \leftarrow func(B,var) \f]
+     *  \param[in] func La función evaluadora.
+     *  \param[in] B La matriz a evaluar.
+     *  \param[in] var Variable a evaluar.
+     *  \return Retorna una matriz evaluada.
+     *  \ingroup MatrixGroup
+     */
+    static Pds::Matrix Apply(double (*func)(double,double),const Pds::Matrix &B,double var);
     
    /** 
      *  \brief Lee de un archivo una matriz de Nlin lineas y Ncol columnas.
@@ -1233,13 +1279,26 @@ public:
     /** 
      *  \brief crea dinámicamente un arreglo de A.Nlin() lineas y A.Ncol() columnas,
      *  con los datos copiados de aplicar func(A).
-     *  \param[in] A Matriz de donde se copiaran datos.
      *  \param[in] func Función a aplicar, esta debe tener a forma double func(double).
+     *  \param[in] A Matriz de donde se copiaran datos.
      *  \return Retorna un puntero al arreglo, o NULL si no consiguió reservar
      * la memoria. Esta memoria debe ser liberada siempre com ArrayRelease
      *  \ingroup MatrixGroup
      */
     static double** ArrayAllocate(double (*func)(double),const Pds::Matrix &A);
+
+    /** 
+     *  \brief crea dinámicamente un arreglo de A.Nlin() lineas y A.Ncol() columnas,
+     *  con los datos copiados de aplicar func(A,var).
+     *  \param[in] func Función a aplicar, esta debe tener a forma double func(double).
+     *  \param[in] A Matriz de donde se copiaran datos.
+     *  \param[in] var Variable a evaluar.
+     *  \return Retorna un puntero al arreglo, o NULL si no consiguió reservar
+     * la memoria. Esta memoria debe ser liberada siempre com ArrayRelease
+     *  \ingroup MatrixGroup
+     */
+    static double** ArrayAllocate(double (*func)(double,double),const Pds::Matrix &A,double var);
+
     
     /** 
      *  \brief crea dinámicamente un arreglo de A.Nlin() lineas y A.Ncol() columnas,
@@ -1472,7 +1531,7 @@ public:
     
     A.FillRandU();
     
-    B=A.TnoT();
+    B=A.MtM();
     
     std::cout<<B;
 \endcode
@@ -1480,7 +1539,7 @@ public:
      *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
-    Pds::Matrix TnoT(void) const;
+    Pds::Matrix MtM(void) const;
     
     
     /** 
@@ -1921,6 +1980,31 @@ public:
      *  \ingroup MatrixGroup
      */
     Pds::Matrix MulT(const Pds::Matrix &B) const;
+
+
+    /** 
+     *  \brief Multiplica con sigo mismo (A), elemento a elemento, una matriz B y el resultado es
+     * cargado en C. Este método  es similar al operador  
+     *
+     *  \f[ C \leftarrow A B \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix B(4,4);
+    Pds::Matrix C;
+    
+    A.Fill(2.0);
+    B.Fill(1.0);
+    
+    C=A.Product(B);
+    
+    std::cout<<C;
+\endcode
+     *  \param[in] B la matriz a multiplicar
+     *  \return Retorna C con el
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix Product(const Pds::Matrix &B) const;
 /**
  * @}
  */

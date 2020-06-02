@@ -35,8 +35,8 @@
 #define __PDS_VECTORPOLY_HPP__
 
 
-/** \defgroup VectorAlgebraGroup Funciones usando Pds::Vector -- Polinómios
- *  \brief Funciones Pds::PolyMat(), Pds::PolyFit(), Pds::PolyVal(), etc 
+/** \defgroup VectorAlgebraGroup Funciones Pds::Vector -- Polinómios
+ *  \brief Funciones que usan Pds::Vector, Ejemplo: Pds::PolyMat(), Pds::PolyFit(), Pds::PolyVal(), etc 
  *  <div class="fragment"> \#include <Pds/VectorPoly> </div>
  *  
  *  <br>Estas funciones trabajan con una matriz de la forma.<br>
@@ -73,16 +73,19 @@ namespace Pds{
      *
    \f[
 A=\left(\begin{matrix}
-X^0 &  X^1  & X^2  & ... & X^{N-1} & X^N \\
+X^0 &  X^1  & X^2  & ... & X^N \\
 \end{matrix}\right)
    \f]
    \f[
 P \leftarrow (A^T A )^{-1}A^T Y
    \f]
+   \f[
+p(x)= p_0 x^0 + p_1 x^1 + p_2 x^2 + ... + p_{N} x^N 
+   \f]
      *  \param[in] X Vector a evaluar.
      *  \param[in] Y Vector a evaluar.
      *  \param[in] N Orden del polinomio.
-     *  \return Retorna el polinomio de grado N con el menor error
+     *  \return Retorna un vector \f$P=[p_0~p_1~p_2~...p_N]\f$ que representa um polinomio \f$p(x)\f$ de grado N con el menor error
      *  cuadrático medio para el par X e Y.
      *  \ingroup VectorAlgebraGroup
      */
@@ -116,6 +119,21 @@ P \leftarrow (A^T A )^{-1}A^T Y
     Pds::Matrix PolyMat(Pds::Vector X, unsigned int N);
         
     /** 
+     *  \brief Retorna la Matriz de Vandermonde del vector X de M elementos.
+     *
+   \f[
+\left(\begin{matrix}
+1 & x_0^1 & x_0^2   & ... &  x_0^{N-1} & x_0^N \\
+\end{matrix}\right)
+   \f]
+     *  \param[in] x Valor a evaluar.
+     *  \param[in] N Orden del polinomio.
+     *  \return Retorna una matriz con el resultado.
+     *  \ingroup VectorAlgebraGroup
+     */
+    Pds::Matrix PolyMat(double x, unsigned int N);
+    
+    /** 
      *  \brief Retorna El resultado de evaluar un polinomio P de grado N.
      *
    \f[
@@ -130,6 +148,38 @@ Y= P(X)
      *  \ingroup VectorAlgebraGroup
      */
     Pds::Vector PolyVal(Pds::Vector P,Pds::Vector X);
+    
+    /** 
+     *  \brief Retorna El resultado de evaluar un polinomio P de grado N.
+     *
+   \f[
+y= p_0 x^0 + p_1 x^1 + p_2 x^2 + ... + p_{N-1} x^{N-1} + p_{N} x^N 
+   \f]
+   \f[
+Y= P(X)
+   \f]
+     *  \param[in] P Polinomio a evaluar.
+     *  \param[in] X Matriz a evaluar.
+     *  \return Retorna Y=P(X).
+     *  \ingroup VectorAlgebraGroup
+     */
+    Pds::Matrix PolyVal(Pds::Vector P,Pds::Matrix X);
+    
+    /** 
+     *  \brief Retorna El resultado de evaluar un polinomio P de grado N.
+     *
+   \f[
+y= p_0 x^0 + p_1 x^1 + p_2 x^2 + ... + p_{N-1} x^{N-1} + p_{N} x^N 
+   \f]
+   \f[
+Y= P(X)
+   \f]
+     *  \param[in] P Polinomio a evaluar.
+     *  \param[in] x Variable a avaliar.
+     *  \return Retorna Y=P(x).
+     *  \ingroup VectorAlgebraGroup
+     */
+    Pds::Vector PolyVal(Pds::Vector P,double x);
 
 /**
  * @}

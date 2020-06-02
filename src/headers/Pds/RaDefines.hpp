@@ -26,7 +26,7 @@
  */
     
 
-/** \defgroup DefinesGroup Funciones con namespace Pds::Ra -- Constantes y Defines
+/** \defgroup DefinesGroup Extras Pds::Ra -- Constantes y Defines
  *  \brief Constantes y macros: pds_print_error_message(), Pds::Ra::WarningRCond, etc
  *  <div class="fragment"> \#include <Pds/RaDefines> </div>
  *  
@@ -99,7 +99,7 @@ namespace Ra{
     const unsigned int StringPrecision=14;
     
     /*!
-     * Valor máximo que puede tener rcond para mostrar un mensaje en pantalla.
+     * Valor minimo que puede tener rcond, abajo de este valor será mostrado un mensaje en pantalla.
      * \ingroup DefinesGroup
     */
     const double WarningRCond=0.000000001;
