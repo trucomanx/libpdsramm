@@ -121,6 +121,20 @@ Pds::Vector::Vector(const char *str)
     return;
 }
 
+
+Pds::Vector::Vector(const std::initializer_list<double> list): Pds::Matrix(list.size(),1)
+{    
+    if(list.size()==0)    return;
+
+    unsigned int i=0;
+    for (auto val = list.begin(); val != list.end(); val++) 
+    {
+        this->array[i][0]=*val;
+        i++;
+    }
+    return;
+}
+
 Pds::Vector::Vector(Pds::Ra::FormatType Type,std::string filepath)
 {
     this->array=0;

@@ -24,6 +24,7 @@ int main(void)
     Pds::Vector I(3,-1.2);
     Pds::Ra::SaveString("filedat.txt","1 2 3\n4 5 6\n");
     Pds::Vector J(Pds::Ra::TextFormat,"filedat.txt");
+    Pds::Vector K={-1,2,3,-2};
     
     
     A.T().Print("A.T():\n");
@@ -36,6 +37,7 @@ int main(void)
     H.T().Print("H.T():\n");
     I.T().Print("I.T():\n");
     J.T().Print("J.T():\n");
+    K.T().Print("K.T():\n");
     
     return 0;
 }

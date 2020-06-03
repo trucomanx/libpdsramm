@@ -1165,6 +1165,12 @@ public:
      *  \ingroup MatrixGroup
      */
     void Print(std::string str) const;
+
+    /** 
+     *  \brief Imprime en pantalla el contenido de la matriz.
+     *  \ingroup MatrixGroup
+     */
+    void Print(void) const;
     
     /** 
      *  \brief Aplica la función func a cada elemento de la matriz.

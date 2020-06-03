@@ -165,6 +165,23 @@ B_{Nlin,1}\equiv [b_{i,j}]_{Nlin,Ncol}
      *  \ingroup VectorGroup
      */
     Vector(const char *str);
+
+
+    /** 
+     *  \brief Crea un objeto de tipo Pds::Vector copiando datos desde 
+     *  una lista.
+     * 
+   Para crear una matriz A con los datos de una cadena:
+\code{.cpp}
+    Pds::Vector A={1, 2, 3, 4, 5 6};
+    
+    if(A.IsEmpty()) std::cout<<"Yes,possible memory allocation problem\n";
+    else            std::cout<<"No,all fine\n";
+\endcode
+     *  \param[in] list Lista a leer.
+     *  \ingroup VectorGroup
+     */
+    Vector(const std::initializer_list<double> list);
     
     /** 
      *  \brief Crea un objeto de tipo Pds::Vector
