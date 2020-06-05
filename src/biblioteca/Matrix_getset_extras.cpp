@@ -78,6 +78,18 @@ Pds::Vector Pds::Matrix::GetColVector(unsigned int col) const
     return C;
 }
     
+bool Pds::Matrix::SetColValue(double value,unsigned int col)
+{   
+    if(col>=this->ncol) return false;
+    
+    if(this->IsEmpty()) return false;
+    
+    for(unsigned int lin=0;lin<this->nlin;lin++)
+    this->array[lin][col]=value;
+    
+    return true;
+}
+    
 bool Pds::Matrix::SetColVector(const Pds::Vector V,unsigned int col)
 {   
     if(col>=this->ncol) return false;

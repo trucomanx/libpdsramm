@@ -70,6 +70,28 @@ namespace Pds{
  */
     
     /** 
+     *  \brief Retorna el resultado de evaluar elemento a elemento la funcion round.  
+     *
+     *  \f[ round(A) \f]
+     *  \param[in] A La matriz a evaluar
+     *  \return Retorna la matriz evaluada.
+     *  \see Pds::Matrix::Apply()
+     *  \ingroup MatrixMathGroup
+     */
+    Matrix Round(const Matrix &A);
+    
+    /** 
+     *  \brief Retorna el resultado de evaluar elemento a elemento la funcion valor absoluto.  
+     *
+     *  \f[ |A| \f]
+     *  \param[in] A La matriz a evaluar
+     *  \return Retorna la matriz evaluada.
+     *  \see Pds::Matrix::Apply()
+     *  \ingroup MatrixMathGroup
+     */
+    Matrix Abs(const Matrix &A);
+
+    /** 
      *  \brief Retorna el resultado de evaluar elemento a elemento la funcion seno.  
      *
      *  \f[ sin(A) \f]
@@ -376,6 +398,34 @@ namespace Pds{
      *  \ingroup MatrixMathGroup
      */
     Matrix Hb(const Matrix &A);
+
+
+     /** 
+     *  \brief Retorna el resultado de evaluar la funcion Sign.
+     *
+     *  \f[ if(x>0)\quad return\quad+1 \f]
+     *  \f[ if(x=0)\quad return\quad~0 \f]
+     *  \f[ if(x<0)\quad return\quad-1 \f]
+     *  \param[in] x La varaible a evaluar
+     *  \return Retorna la varaible evaluada.
+     *  \ingroup MatrixMathGroup
+     */
+    double Sign(double x);
+
+
+
+     /** 
+     *  \brief Retorna el resultado de evaluar elemento a elemento la funcion Sign.
+     *
+     *  \f[ if(x>0)\quad sign(x)\quad return\quad+1 \f]
+     *  \f[ if(x=0)\quad sign(x)\quad return\quad~0 \f]
+     *  \f[ if(x<0)\quad sign(x)\quad return\quad-1 \f]
+     *  \f[ sign(A) \f]
+     *  \param[in] A La matriz a evaluar
+     *  \return Retorna la matriz evaluada.
+     *  \ingroup MatrixMathGroup
+     */
+    Matrix Sign(const Matrix &A);
 
 /**
  * @}

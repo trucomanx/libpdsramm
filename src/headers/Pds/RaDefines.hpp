@@ -38,7 +38,11 @@
 #define __PDS_RADEFINES_HPP__
     
 #include <iostream>
-    
+#include <cstring>
+
+#ifndef __CURRENT_FILENAME__
+#define __CURRENT_FILENAME__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : strrchr(__FILE__, '\\') ? strrchr(__FILE__, '\\') + 1 : __FILE__)
+#endif    
     
 #ifndef pds_print_error_message
 /*!
@@ -47,7 +51,7 @@
  * \ingroup DefinesGroup
 */
 #define pds_print_error_message(msg) \
-    std::cout<<"----ERROR :: "<<__FILE__<<"::"<<__FUNCTION__<<"::line "<<__LINE__<<std::endl \
+    std::cout<<"----ERROR :: "<<__CURRENT_FILENAME__<<" -- "<<__PRETTY_FUNCTION__<<" -- line "<<__LINE__<<std::endl \
     <<"----ERROR :: "<<msg<<std::endl
 #endif
 

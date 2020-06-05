@@ -733,6 +733,21 @@ public:
      *  \ingroup MatrixGroup
      */
     bool Set(double val,unsigned int lin,unsigned int col);
+
+    
+    /** 
+     *  \brief Copia en si mismo (A) en la posicion (lin,col), el contenido de una matriz B.
+     * Si a matriz B no cabe em A se retorna false.
+     * 
+     *  \param[in] B la matriz a copiar
+     *  \param[in] lin Linea donde se inicia a copia.
+     *  \param[in] col Columna donde se inicia a copia.
+     *  \return Retorna true si todo fue bien o false si no. Si se retorna false
+     *  no se copia nada. Si IsEmpty() iguala true retorna false.
+     *  \ingroup MatrixGroup
+     */
+    bool CopyAt(const Pds::Matrix &B,unsigned int lin,unsigned int col);
+
     
     /** 
      *  \brief Retorna un puntero a la posición (lin,col), hace una verificación
@@ -839,6 +854,16 @@ public:
      *  \ingroup MatrixGroup
      */
     Pds::Vector GetColVector(unsigned int col) const;
+    
+    /** 
+     *  \brief Copia un valor en una columna de la matriz.
+     *  \param[in] value El valor a copiar.
+     *  \param[in] col La columna en consulta.
+     *  \return Retorna true si la copia fue hecha y la posición (col) existe
+     *  o false si hubo algún problema. En caso de retornar false no se modifica la matriz.
+     *  \ingroup MatrixGroup
+     */
+    bool SetColValue(double value,unsigned int col);
     
     /** 
      *  \brief Copia un vector columna en una columna de la matriz. Si los 
@@ -1551,10 +1576,11 @@ public:
     /** 
      *  \brief Retorna la matriz inversa.
      *
-     *  \param[out] rcond Esta variable es cargada con el valor del
-     *  reciproco del condicional de la matriz. Si esta es la matriz A,
      * rcond es:
      *  \f[ rcond \leftarrow \frac{1.0}{||A||_1 ||A^{-1}||_1} \f]
+     *
+     *  \param[out] rcond Esta variable es cargada con el valor del
+     *  reciproco del condicional de la matriz. Si esta es la matriz A.
      * Si la matriz esta bien condicionada entonces rcond es próximo a 1.0 y si la matriz
      * esta pobremente condicionada este valor estará proximo a 0.0.
      * Si la variable rcond no es entregada entonces sera mostrado un mensaje
@@ -1569,9 +1595,10 @@ public:
      *  inversa de Moore Penrose.
      *
      *  \f[ B \leftarrow (A^T A)^{-1}A^T \f]
-     *  \param[out] rcond Esta variable es cargada con el valor del
-     *  reciproco del condicional de la matriz A^T A:
      *  \f[ rcond \leftarrow \frac{1.0}{||A^T A||_1 ||(A^T A)^{-1}||_1} \f]
+     *
+     *  \param[out] rcond Esta variable es cargada con el valor del
+     *  reciproco del condicional de la matriz \f$A^T A\f$.
      * Si la matriz está bien condicionada entonces rcond es próximo a 1.0 y si la matriz
      * esta pobremente condicionada este valor estará proximo a 0.0.
      * Si la variable rcond no es entregada entonces sera mostrado un mensaje

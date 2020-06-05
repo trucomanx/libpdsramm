@@ -174,3 +174,119 @@ Pds::Matrix Pds::Zeros(unsigned int N)
     return A;
 }
 
+Pds::Matrix  Pds::MergeVer(const std::initializer_list<Pds::Matrix> list)
+{
+    unsigned int Ncol=0;
+    unsigned int Nlin=0;
+    
+    unsigned int i=0;
+    for (auto pmat = list.begin(); pmat != list.end(); pmat++) 
+    {
+        if(i==0)    Ncol=pmat->Ncol();
+        else
+        {
+            if(pmat->Ncol()!=Ncol)
+            {
+                pds_print_error_message("The "<<i<<"-th matrix in list don't have the same column length of 0-th.");
+                return Pds::Matrix();
+            }
+        }
+
+        Nlin=Nlin+pmat->Nlin();
+        i++;
+    }
+    
+    Pds::Matrix A(Nlin,Ncol);
+    
+    unsigned int lin=0;
+    for (auto pmat = list.begin(); pmat != list.end(); pmat++) 
+    {
+        A.CopyAt(*pmat,lin,0);
+        lin=lin+pmat->Nlin();
+    }
+
+    return A;
+}
+
+
+Pds::Matrix  Pds::MergeHor(const std::initializer_list<Pds::Matrix> list)
+{
+    unsigned int Ncol=0;
+    unsigned int Nlin=0;
+    
+    unsigned int i=0;
+    for (auto pmat = list.begin(); pmat != list.end(); pmat++) 
+    {
+        if(i==0)    Nlin=pmat->Nlin();
+        else
+        {
+            if(pmat->Nlin()!=Nlin)
+            {
+                pds_print_error_message("The "<<i<<"-th matrix in list don't have the same line length of 0-th.");
+                return Pds::Matrix();
+            }
+        }
+
+        Ncol=Ncol+pmat->Ncol();
+        i++;
+    }
+    
+    Pds::Matrix A(Nlin,Ncol);
+    
+    unsigned int col=0;
+    for (auto pmat = list.begin(); pmat != list.end(); pmat++) 
+    {
+        A.CopyAt(*pmat,0,col);
+        col=col+pmat->Ncol();
+    }
+
+    return A;
+}
+
+
+Pds::Matrix  Pds::RegressorMatrix(const std::initializer_list<Pds::Matrix> list)
+{
+    unsigned int Ncol=0;
+    unsigned int Nlin=0;
+    
+    unsigned int i=0;
+    for (auto pmat = list.begin(); pmat != list.end(); pmat++) 
+    {
+        if(i==0)    Ncol=pmat->Ncol();
+        else
+        {
+            if(pmat->Ncol()!=Ncol)
+            {
+                pds_print_error_message("The "<<i<<"-th matrix in list don't have the same column length of 0-th.");
+                return Pds::Matrix();
+            }
+        }
+
+        Nlin=Nlin+pmat->Nlin();
+        i++;
+    }
+    
+    Pds::Matrix A(Nlin,Ncol+1);
+    A.SetColValue(1.0,0);
+    
+    unsigned int lin=0;
+    for (auto pmat = list.begin(); pmat != list.end(); pmat++) 
+    {
+        A.CopyAt(*pmat,lin,1);
+        lin=lin+pmat->Nlin();
+    }
+
+    return A;
+}
+
+
+
+Pds::Matrix  Pds::RegressorMatrix(const Pds::Matrix &B)
+{     
+    Pds::Matrix A(B.Nlin(),B.Ncol()+1);
+    A.SetColValue(1.0,0);
+    
+    A.CopyAt(B,0,1);
+
+    return A;
+}

@@ -24,6 +24,18 @@
 #include <Pds/MatrixMath>
 #include <cmath>
 
+Pds::Matrix Pds::Round(const Pds::Matrix &A)
+{
+    Pds::Matrix B(round,A);
+    return B;
+}
+
+Pds::Matrix Pds::Abs(const Pds::Matrix &A)
+{
+    Pds::Matrix B(fabs,A);
+    return B;
+}
+
 Pds::Matrix Pds::Sin(const Pds::Matrix &A)
 {
     Pds::Matrix B(sin,A);
@@ -189,6 +201,20 @@ Pds::Matrix Pds::Hb(const Pds::Matrix &A)
     Pds::Matrix B(Pds::Hb,A);
     return B;
 }
+
+
+////////////////////////////////////////////////////////////////////////
+double Pds::Sign(double x)
+{   
+    return ((x > 0) - (x < 0));
+}
+
+Pds::Matrix Pds::Sign(const Pds::Matrix &A)
+{
+    Pds::Matrix B(Pds::Sign,A);
+    return B;
+}
+
 
 ////////////////////////////////////////////////////////////////////////
 // Integration

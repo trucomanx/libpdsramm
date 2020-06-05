@@ -290,10 +290,75 @@ a_{10} & a_{11}
      *  \ingroup MatrixFuncGroup
      */
     Matrix Zeros(unsigned int N);
+
+/**
+ * @}
+ */
+
+/** @name funciones de concatenacion
+ *  Descripción de algunas funciones que usan  Pds::Matrix.
+ * @{
+ */
+
+    /** 
+     *  \brief Retorna una matriz concatenando verticalmente otras.  
+     *  Si las matrices no tienen el mismo número de columnas se considera um error.
+     *
+     *  \param[in] list La lista de matrices a concatenar.
+     *  \return Retorna la matriz concatenada o una matriz vacía en caso de error.
+     *  \ingroup MatrixFuncGroup
+     */
+    Matrix  MergeVer(const std::initializer_list<Pds::Matrix> list);
+
+    /** 
+     *  \brief Retorna una matriz concatenando horizontalmente otras.  
+     *  Si las matrices no tienen el mismo número de lineas se considera um error.
+     *
+     *  \param[in] list La lista de matrices a concatenar.
+     *  \return Retorna la matriz concatenada o una matriz vacía en caso de error.
+     *  \ingroup MatrixFuncGroup
+     */
+    Matrix  MergeHor(const std::initializer_list<Pds::Matrix> list);
+
+    /** 
+     *  \brief Retorna una Regressor Matrix concatenando horizontalmente matrices.  
+     *  Si las matrices no tienen el mismo número de lineas se considera um error.
+     *
+   \f[
+R=\left(\begin{matrix}
+1 & list_0\\ 
+1 & list_1\\
+1 & list_2\\
+\vdots & \vdots\\
+1 & 1 & list_{N-1}\\
+\end{matrix}\right)
+   \f]
+     *  \param[in] list La lista de matrices a concatenar.
+     *  \return Retorna una Regressor Matrix o una matriz vacía en caso de error.
+     *  \ingroup MatrixFuncGroup
+     */
+    Matrix RegressorMatrix(const std::initializer_list<Pds::Matrix> list);
+
+
+    /** 
+     *  \brief Retorna una Regressor Matrix .
+     *
+   \f[
+R=\left(\begin{matrix}
+1 & B
+\end{matrix}\right)
+   \f]
+     *  \param[in] B La matriz a usar.
+     *  \return Retorna una Regressor Matrix o una matriz vacía en caso de error.
+     *  \ingroup MatrixFuncGroup
+     */
+    Matrix RegressorMatrix(const Pds::Matrix &B);
     
 /**
  * @}
  */
+
+
 
 
 }

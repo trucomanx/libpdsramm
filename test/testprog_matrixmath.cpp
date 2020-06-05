@@ -49,5 +49,9 @@ int main(void)
     
     Pds::Hb(A).Print("Hb(A):\n");
     
+    A.FillRandN();
+    A.Print("\nA:\n");
+    Pds::Round(A).Print("round(A):\n");
+    Pds::Sign(A).Print("sign(A):\n");
     return 0;
 }

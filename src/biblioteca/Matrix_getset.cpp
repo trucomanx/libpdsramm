@@ -131,6 +131,21 @@ bool Pds::Matrix::Set(double val,unsigned int lin,unsigned int col)
     this->array[lin][col]=val;
     return true;
 }
+
+bool Pds::Matrix::CopyAt(const Pds::Matrix &B,unsigned int lin,unsigned int col)
+{
+    if(this->IsEmpty()) return false;
+    if(B.IsEmpty())     return false;
+    
+    if( (lin+B.Nlin()) > this->nlin ) return false;
+    if( (col+B.Ncol()) > this->ncol ) return false;
+    
+    for(unsigned int l=0;l<B.Nlin();l++)
+    for(unsigned int c=0;c<B.Ncol();c++)
+    this->array[lin+l][col+c]=B.Get(l,c);
+    
+    return true;
+}
     
 unsigned int Pds::Matrix::Nlin(void) const
 {

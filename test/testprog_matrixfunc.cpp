@@ -17,6 +17,8 @@ int main(void)
     Pds::Matrix E = Pds::RandN(3);
     Pds::Matrix F = Pds::MatrixId(3);
     Pds::Matrix G = Pds::Diag(F);
+    Pds::Matrix H = Pds::MergeHor({A,B,C});
+    Pds::Matrix I = Pds::MergeVer({A,B,C});
     
     A.Print("\nA:\n");
     B.Print("\nB:\n");
@@ -25,6 +27,8 @@ int main(void)
     E.Print("\nE:\n");
     F.Print("\nF:\n");
     G.Print("\nG:\n");
+    H.Print("\nH=[A,B,C]:\n");
+    I.Print("\nI=[A;B;C]:\n");
     
     return 0;
 }
