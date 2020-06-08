@@ -2,6 +2,8 @@
 #include <Pds/Matrix>
 #include <Pds/RaDefines>
 #include <Pds/RaTools>
+#include <Pds/RaString>
+#include <Pds/RaFile>
 
 ////////////////////////////////////////////////////////////////////////
 

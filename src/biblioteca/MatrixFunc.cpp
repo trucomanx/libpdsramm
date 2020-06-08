@@ -23,6 +23,8 @@
 #include <cmath>
 
 #include <Pds/Matrix>
+#include <Pds/Vector>
+#include <Pds/MatrixMath>
 #include <Pds/MatrixFunc>
 
 Pds::Matrix Pds::MatrixId(unsigned int N)
@@ -174,6 +176,88 @@ Pds::Matrix Pds::Zeros(unsigned int N)
     return A;
 }
 
+////////////////////////////////////////////////////////////////////////
+Pds::Matrix Pds::MultisetIndexSum(unsigned int N,unsigned int M)
+{
+    unsigned int Nlin=0;
+    Pds::Matrix A,Block;
+
+    if (N==1)   return Pds::Matrix(1,1,M);
+    if (M==0)   return Pds::Zeros(1,N);
+
+    Nlin=Pds::NmultichooseK(N-1,M);
+    A=Pds::MergeHor({   Pds::MultisetIndexSum(N-1,M),
+                        Pds::Zeros(Nlin,1)});
+    
+    for(unsigned int m=1;m<=M;m++)
+    {
+
+        Nlin=Pds::NmultichooseK(N-1,M-m);
+        Block=Pds::MergeHor({   Pds::MultisetIndexSum(N-1,M-m),
+                                Pds::Matrix(Nlin,1,m)});
+        A=Pds::MergeVer({A,Block});
+    }
+    return A;
+}
+
+std::string Pds::MultisetIndexSumToString(const Pds::Matrix &ID,std::string Separator,unsigned int xinit)
+{
+    std::string str="";
+    std::string str_m="";
+    unsigned int L=ID.Nlin();
+    unsigned int N=ID.Ncol();
+    unsigned int lin,col,id;
+    
+    for(lin=0;lin<L;lin++)
+    {
+        str_m="";
+        for (col=0;col<N;col++)
+        {
+            id=ID.Get(lin,col);
+            if(id>1)    str_m=str_m+"x_{"+std::to_string(col+xinit)+"}^{"+std::to_string(id)+"}";
+            if(id==1)   str_m=str_m+"x_{"+std::to_string(col+xinit)+"}";
+
+        }
+        if (str_m.length()==0)  str_m="1";
+        
+        if(lin==0)  str=str_m;
+        else        str=str+Separator+ str_m;
+    }
+    return str;
+}
+
+////////////////////////////////////////////////////////////////////////
+
+Pds::Matrix Pds::Monomials(const Pds::Matrix &X,unsigned int M,Pds::Matrix &ID)
+{
+    if(X.IsEmpty()) return Pds::Matrix();
+    if(M==0)        return Pds::Matrix(X.Nlin(),1,1);
+    if(M==1)        return X;
+    
+    unsigned int N=X.Ncol();
+    unsigned int L=Pds::NmultichooseK(N,M);
+    
+    ID=Pds::MultisetIndexSum(N,M);
+
+    Pds::Vector V;
+    Pds::Matrix R(X.Nlin(),L);
+
+    for(unsigned int i=0;i<L;i++)
+    {
+        V=X.Multiindex(ID.GetRowAsColVector(i));// faltam
+        R.SetColVector(i,V);
+    }
+
+    return R;
+}
+
+Pds::Matrix Pds::Monomials(const Pds::Matrix &X,unsigned int M)
+{
+    Pds::Matrix ID;
+    return Pds::Monomials(X,M,ID);
+}
+////////////////////////////////////////////////////////////////////////
+
 Pds::Matrix  Pds::MergeVer(const std::initializer_list<Pds::Matrix> list)
 {
     unsigned int Ncol=0;
@@ -201,7 +285,7 @@ Pds::Matrix  Pds::MergeVer(const std::initializer_list<Pds::Matrix> list)
     unsigned int lin=0;
     for (auto pmat = list.begin(); pmat != list.end(); pmat++) 
     {
-        A.CopyAt(*pmat,lin,0);
+        A.SetMatrix(lin,0,*pmat);
         lin=lin+pmat->Nlin();
     }
 
@@ -236,7 +320,7 @@ Pds::Matrix  Pds::MergeHor(const std::initializer_list<Pds::Matrix> list)
     unsigned int col=0;
     for (auto pmat = list.begin(); pmat != list.end(); pmat++) 
     {
-        A.CopyAt(*pmat,0,col);
+        A.SetMatrix(0,col,*pmat);
         col=col+pmat->Ncol();
     }
 
@@ -267,12 +351,12 @@ Pds::Matrix  Pds::RegressorMatrix(const std::initializer_list<Pds::Matrix> list)
     }
     
     Pds::Matrix A(Nlin,Ncol+1);
-    A.SetColValue(1.0,0);
+    A.SetColValue(0,1.0);
     
     unsigned int lin=0;
     for (auto pmat = list.begin(); pmat != list.end(); pmat++) 
     {
-        A.CopyAt(*pmat,lin,1);
+        A.SetMatrix(lin,1,*pmat);
         lin=lin+pmat->Nlin();
     }
 
@@ -284,9 +368,46 @@ Pds::Matrix  Pds::RegressorMatrix(const std::initializer_list<Pds::Matrix> list)
 Pds::Matrix  Pds::RegressorMatrix(const Pds::Matrix &B)
 {     
     Pds::Matrix A(B.Nlin(),B.Ncol()+1);
-    A.SetColValue(1.0,0);
+    A.SetColValue(0,1.0);
     
-    A.CopyAt(B,0,1);
+    A.SetMatrix(0,1,B);
 
     return A;
 }
+
+Pds::Matrix  Pds::RegressorMatrix(const Pds::Matrix &B,unsigned int M)
+{
+    if(B.IsEmpty()) return Pds::Matrix();
+    if(M==0)        return Pds::Ones(B.Nlin(),1);
+
+    Pds::Matrix A=Pds::RegressorMatrix(B);
+    if(M==1)        return A;
+
+    for(unsigned int m=2;m<=M;m++)
+    {
+        A=Pds::MergeHor({A,Pds::Monomials(B,m)});
+    }
+    return A;
+}
+
+
+Pds::Matrix  Pds::RegressorMatrix(const Pds::Matrix &B,unsigned int M,Pds::Matrix &ID)
+{
+    if(B.IsEmpty()) return Pds::Matrix();
+    
+    ID=Pds::Zeros(1,B.Ncol());
+    if(M==0)        return Pds::Ones(B.Nlin(),1);
+    
+    ID=Pds::MergeVer({ID,Pds::Eye(B.Ncol())});
+    Pds::Matrix A=Pds::RegressorMatrix(B);
+    if(M==1)        return A;
+
+    Pds::Matrix TMPID;
+    for(unsigned int m=2;m<=M;m++)
+    {
+        A=Pds::MergeHor({A,Pds::Monomials(B,m,TMPID)});
+        ID=Pds::MergeVer({ID,TMPID});
+    }
+    return A;
+}
+

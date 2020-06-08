@@ -660,35 +660,72 @@ a         & 4\alpha+a & 8\alpha+a\\
 
 public:
 
-/** @name Métodos get y set
+/** @name Métodos de tamaño
  *  Herramientas genéricas para lectura y escritura de datos.
  * @{
  */
     
     /** 
-     *  \brief Retorna una sub matriz desde la posición (lin_init,col_init) hasta (lin_end,col_end), inclusive. 
-     *  Hace una verificación si la posición existe, si no existe llena con ceros. 
-     *  \param[in] lin_init La linea inicial en consulta.
-     *  \param[in] col_init La columna inicial en consulta.
-     *  \param[in] lin_end La linea final en consulta.
-     *  \param[in] col_end La columna final en consulta.
-     *  \return Retorna una sub matriz. Si no existe interseccion entre 
-     * la matriz y las cordenadas pedidas, entonces se retorna una matriz vacia.
+     *  \brief Retorna el numero de lineas de la matriz.
+     *  \return Retorna el numero de lineas de la matriz.
      *  \ingroup MatrixGroup
      */
-    Pds::Matrix GetMatrix(unsigned int lin_init,unsigned int col_init,unsigned int lin_end,unsigned int col_end) const;
+    unsigned int Nlin() const;
     
     /** 
-     *  \brief Retorna una sub matriz desde la posición (lin_init,col_init) hasta (lin_end,col_end), inclusive. 
-     *  Hace una verificación si la posición existe, si no existe llena con ceros. 
-     *  \param[in] lin_init La linea inicial en consulta.
-     *  \param[in] col_init La columna inicial en consulta.
-     *  \param[in] size Tamaño de la matriz a recibir.
-     *  \return Retorna una sub matriz. Si no existe interseccion entre 
-     * la matriz y las cordenadas pedidas, entonces se retorna una matriz vacia.
+     *  \brief Retorna el identificador de la ultima linea de la matriz.
+     *  \return Retorna Nlin-1.
      *  \ingroup MatrixGroup
      */
-    Pds::Matrix GetMatrix(unsigned int lin_init,unsigned int col_init,Pds::Size size) const;
+    unsigned int LinEnd() const;
+    
+    /** 
+     *  \brief Retorna el numero de columnas de la matriz.
+     *  \return Retorna el numero de columnas de la matriz.
+     *  \ingroup MatrixGroup
+     */
+    unsigned int Ncol() const;
+    
+    /** 
+     *  \brief Retorna el identificador de la ultima columna  de la matriz.
+     *  \return Retorna Ncol-1.
+     *  \ingroup MatrixGroup
+     */
+    unsigned int ColEnd() const;
+    
+    /** 
+     *  \brief Retorna el numero de elementos de la matriz (Nlin x Ncol).
+     *  \return Retorna el numero de elementos de la matriz.
+     *  \ingroup MatrixGroup
+     */
+    unsigned int Nel() const;
+    
+    /** 
+     *  \brief Retorna el identificador del ultimo elemento de la matriz.
+     *  \return Retorna ((Nlin x Ncol)-1).
+     *  \ingroup MatrixGroup
+     */
+    unsigned int End() const;
+    
+    /** 
+     *  \brief Retorna un objeto de tipo Pds::Size con el numero de lineas y columans.
+     *  \return Retorna el tamano de la matriz.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Size Size(void) const;
+
+/**
+ * @}
+ */
+
+public:
+
+/** @name Métodos get y set
+ *  Herramientas genéricas para lectura y escritura de datos.
+ * @{
+ */
+    
+
     
     /** 
      *  \brief Retorna el valor en la posición del índice id, hace una verificación
@@ -735,18 +772,6 @@ public:
     bool Set(double val,unsigned int lin,unsigned int col);
 
     
-    /** 
-     *  \brief Copia en si mismo (A) en la posicion (lin,col), el contenido de una matriz B.
-     * Si a matriz B no cabe em A se retorna false.
-     * 
-     *  \param[in] B la matriz a copiar
-     *  \param[in] lin Linea donde se inicia a copia.
-     *  \param[in] col Columna donde se inicia a copia.
-     *  \return Retorna true si todo fue bien o false si no. Si se retorna false
-     *  no se copia nada. Si IsEmpty() iguala true retorna false.
-     *  \ingroup MatrixGroup
-     */
-    bool CopyAt(const Pds::Matrix &B,unsigned int lin,unsigned int col);
 
     
     /** 
@@ -773,48 +798,6 @@ public:
      *  \ingroup MatrixGroup
      */
     double Bilinear(double lin,double col) const;
-    
-    /** 
-     *  \brief Retorna el numero de lineas de la matriz.
-     *  \return Retorna el numero de lineas de la matriz.
-     *  \ingroup MatrixGroup
-     */
-    unsigned int Nlin() const;
-    
-    /** 
-     *  \brief Retorna el identificador de la ultima linea de la matriz.
-     *  \return Retorna Nlin-1.
-     *  \ingroup MatrixGroup
-     */
-    unsigned int LinEnd() const;
-    
-    /** 
-     *  \brief Retorna el numero de columnas de la matriz.
-     *  \return Retorna el numero de columnas de la matriz.
-     *  \ingroup MatrixGroup
-     */
-    unsigned int Ncol() const;
-    
-    /** 
-     *  \brief Retorna el identificador de la ultima columna  de la matriz.
-     *  \return Retorna Ncol-1.
-     *  \ingroup MatrixGroup
-     */
-    unsigned int ColEnd() const;
-    
-    /** 
-     *  \brief Retorna el numero de elementos de la matriz (Nlin x Ncol).
-     *  \return Retorna el numero de elementos de la matriz.
-     *  \ingroup MatrixGroup
-     */
-    unsigned int Nel() const;
-    
-    /** 
-     *  \brief Retorna el identificador del ultimo elemento de la matriz.
-     *  \return Retorna ((Nlin x Ncol)-1).
-     *  \ingroup MatrixGroup
-     */
-    unsigned int End() const;
     
 /**
  * @}
@@ -845,7 +828,45 @@ public:
      *  \ingroup MatrixGroup
      */
     bool SetDiagonal(const Pds::Vector V);
+
+    /** 
+     *  \brief Retorna una sub matriz desde la posición (lin_init,col_init) hasta (lin_end,col_end), inclusive. 
+     *  Hace una verificación si la posición existe, si no existe llena con ceros. 
+     *  \param[in] lin_init La linea inicial en consulta.
+     *  \param[in] col_init La columna inicial en consulta.
+     *  \param[in] lin_end La linea final en consulta.
+     *  \param[in] col_end La columna final en consulta.
+     *  \return Retorna una sub matriz. Si no existe interseccion entre 
+     * la matriz y las cordenadas pedidas, entonces se retorna una matriz vacia.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix GetMatrix(unsigned int lin_init,unsigned int col_init,unsigned int lin_end,unsigned int col_end) const;
     
+    /** 
+     *  \brief Retorna una sub matriz desde la posición (lin_init,col_init) hasta (lin_end,col_end), inclusive. 
+     *  Hace una verificación si la posición existe, si no existe llena con ceros. 
+     *  \param[in] lin_init La linea inicial en consulta.
+     *  \param[in] col_init La columna inicial en consulta.
+     *  \param[in] size Tamaño de la matriz a recibir.
+     *  \return Retorna una sub matriz. Si no existe interseccion entre 
+     * la matriz y las cordenadas pedidas, entonces se retorna una matriz vacia.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix GetMatrix(unsigned int lin_init,unsigned int col_init,Pds::Size size) const;
+    
+    /** 
+     *  \brief Copia en si mismo (A) en la posicion (lin,col), el contenido de una matriz B.
+     * Si a matriz B no cabe em A se retorna false.
+     * 
+     *  \param[in] lin Linea donde se inicia a copia.
+     *  \param[in] col Columna donde se inicia a copia.
+     *  \param[in] B la matriz a copiar
+     *  \return Retorna true si todo fue bien o false si no. Si se retorna false
+     *  no se copia nada. Si IsEmpty() iguala true retorna false.
+     *  \ingroup MatrixGroup
+     */
+    bool SetMatrix(unsigned int lin,unsigned int col,const Pds::Matrix &B);
+
     /** 
      *  \brief Retorna un vector columna copia de una columna de la matriz. 
      *  \param[in] col La columna en consulta.
@@ -863,7 +884,7 @@ public:
      *  o false si hubo algún problema. En caso de retornar false no se modifica la matriz.
      *  \ingroup MatrixGroup
      */
-    bool SetColValue(double value,unsigned int col);
+    bool SetColValue(unsigned int col,double value);
     
     /** 
      *  \brief Copia un vector columna en una columna de la matriz. Si los 
@@ -875,7 +896,7 @@ public:
      *  o false si hubo algún problema. En caso de retornar false no se modifica la matriz.
      *  \ingroup MatrixGroup
      */
-    bool SetColVector(const Pds::Vector V,unsigned int col);
+    bool SetColVector(unsigned int col,const Pds::Vector V);
     
     /** 
      *  \brief Copia un vector columna en una columna de la matriz, despues
@@ -889,7 +910,7 @@ public:
      *  o false si hubo algún problema. En caso de retornar false no se modifica la matriz.
      *  \ingroup MatrixGroup
      */
-    bool SetColVector(double (*func)(double),const Pds::Vector V,unsigned int col);
+    bool SetColVector(unsigned int col,double (*func)(double),const Pds::Vector V);
     
     /** 
      *  \brief Copia un vector columna en una columna de la matriz, despues
@@ -904,15 +925,16 @@ public:
      *  o false si hubo algún problema. En caso de retornar false no se modifica la matriz.
      *  \ingroup MatrixGroup
      */
-    bool SetColVector(double (*func)(double,double),const Pds::Vector V,double var,unsigned int col);
+    bool SetColVector(unsigned int col,double (*func)(double,double),const Pds::Vector V,double var);
     
-        
     /** 
-     *  \brief Retorna un objeto de tipo Pds::Size con el numero de lineas y columans.
-     *  \return Retorna el tamano de la matriz.
+     *  \brief Retorna un vector columna copia de una linea de la matriz. 
+     *  \param[in] lin La linea en consulta.
+     *  \return Retorna un vector columna correspondiente a la linea (lin) o un vector vacío si la 
+     *  posición no existe.
      *  \ingroup MatrixGroup
      */
-    Pds::Size Size(void) const;
+    Pds::Vector GetRowAsColVector(unsigned int lin) const;
 /**
  * @}
  */
@@ -924,27 +946,6 @@ public:
  *  operaciones con lineas
  * @{
  */
-    /** 
-     *  \brief Intercambia los valores de las lineas de una matriz.
-     *  \param[in] lin1 Lineas a intercambiar.
-     *  \param[in] lin2 Lineas a intercambiar.
-     *  \return Retorna true si todo fue bien o false si no.
-     *  \ingroup MatrixGroup
-     */
-    bool RowSwap(unsigned int lin1,unsigned int lin2);
-    
-    /** 
-     *  \brief Si el n-avo elemento de la diagonal es cero entonces intercambia 
-     *  la linea n de la matriz con cualquier linea inferior con elemento 
-     *  diferente de cero en la columna n.
-     *  \param[in] n Linea a intercambiar.
-     *  \return Retorna el numero de la fila con quien intercambio o -1
-     *  en caso de error. Si el n-avo 
-     *  elemento de la diagonal ja es diferente de cero no se hace nada y
-     *  se retorna n.
-     *  \ingroup MatrixGroup
-     */
-    int RowDizSwapBelow(unsigned int n);
 
     /** 
      *  \brief Multiplica los valores de la linea lin2 por alfa y el 
@@ -980,6 +981,28 @@ public:
      *  \ingroup MatrixGroup
      */
     bool RowDivAssig(unsigned int lin,double alpha);
+    
+    /** 
+     *  \brief Intercambia los valores de las lineas de una matriz.
+     *  \param[in] lin1 Lineas a intercambiar.
+     *  \param[in] lin2 Lineas a intercambiar.
+     *  \return Retorna true si todo fue bien o false si no.
+     *  \ingroup MatrixGroup
+     */
+    bool RowSwap(unsigned int lin1,unsigned int lin2);
+    
+    /** 
+     *  \brief Si el n-avo elemento de la diagonal es cero entonces intercambia 
+     *  la linea n de la matriz con cualquier linea inferior con elemento 
+     *  diferente de cero en la columna n.
+     *  \param[in] n Linea a intercambiar.
+     *  \return Retorna el numero de la fila con quien intercambio o -1
+     *  en caso de error. Si el n-avo 
+     *  elemento de la diagonal ja es diferente de cero no se hace nada y
+     *  se retorna n.
+     *  \ingroup MatrixGroup
+     */
+    int RowSwapBelow(unsigned int n);
     
     /** 
      *  \brief Convierte la matriz en una matriz reducida.
@@ -1115,7 +1138,7 @@ c(Nlin-1,1-Mcol)     & c(Nlin-1,2-Mcol)  & \hdots & c(Nlin-1,0)  & \hdots & c(Nl
 
 public:
 
-/** @name Métodos de base para calculos de álgebra lineal
+/** @name Métodos de álgebra lineal
  *  Herramientas genéricas
  * @{
  */
@@ -1123,9 +1146,7 @@ public:
     /** 
      *  \brief Calcula el producto punto entre dos matrices.
      *
-     *  \f[ \mathbf{A} \equiv [a_{i,j}]_{Nlin,Ncol}  \f]
-     *  \f[ \mathbf{B} \equiv [b_{i,j}]_{Nlin,Ncol}  \f]
-     *  \f[ d \leftarrow \sum \limits_{i,j} a_{i,j}b_{i,j} \f]
+     *  \f[ A.Dot(B) = \sum \limits_{i,j} a_{i,j}b_{i,j} \f]
      *  \param[in] B Matriz a multiplicar.
      *  \return Retorna la norma de un vector. En caso de que la matriz sea vacía
      *  se retorna 0.0.
@@ -1134,7 +1155,27 @@ public:
     double Dot(const Pds::Matrix &B) const;
     
     /** 
-     *  \brief Calcula la 2-norm de un vector.
+     *  \brief Calcula valor quadrático medio de una matriz.
+     *
+     *  \f[ A.MeanSquare()=\frac{1}{Nlin~Ncol}\sum \limits_{i}^{Nlin} \sum \limits_{j}^{Ncol} {|a_{ij}|}^2 \f]
+     *  \return Retorna el valor cuadrático medio. En caso de que la matriz sea vacía
+     *  se retorna 0.0.
+     *  \ingroup MatrixGroup
+     */
+    double MeanSquare(void) const;
+
+    /** 
+     *  \brief Calcula valor de la suma quadrática de una matriz.
+     *
+     *  \f[ A.SumSquare()=\sum \limits_{i} \sum \limits_{j} {|a_{ij}|}^2 \f]
+     *  \return Retorna la suma cuadrática. En caso de que la matriz sea vacía
+     *  se retorna 0.0.
+     *  \ingroup MatrixGroup
+     */
+    double SumSquare(void) const;
+
+    /** 
+     *  \brief Calcula la 2-norm de una matriz (Frobenius norm).
      *
      *  \f[ ||A||_2=\sqrt{\sum \limits_{i} \sum \limits_{j} {|a_{ij}|}^2} \f]
      *  \return Retorna la norma de un vector. En caso de que la matriz sea vacía
@@ -1152,8 +1193,68 @@ public:
      *  se retorna 0.0.
      *  \ingroup MatrixGroup
      */
-    double Norm1(void) const;
+    double PNorm1(void) const;
+
     
+    /** 
+     *  \brief Calcula la inf-norm de una matriz.
+     *
+     *  \f[ ||A||_{\infty}=\max \limits_{i} \sum \limits_{j} {|a_{ij}|} \f]
+     *  \return Retorna la norma de un vector. En caso de que la matriz sea vacía
+     *  se retorna 0.0.
+     *  \ingroup MatrixGroup
+     */
+    double PNormInf(void) const;
+
+
+    Pds::Vector Multiindex(const Pds::Vector &ID) const;
+/**
+ * @}
+ */
+
+
+public:
+
+/** @name Métodos para aplicar operaciones
+ *  Herramientas genéricas
+ * @{
+ */
+
+    /** 
+     *  \brief Aplica la función func a cada elemento de la matriz.
+     * \param[in] func Función a aplicar, esta debe tener a forma double func(double).
+     * \return true si todo fue bien o false si la matriz era vacia.
+     *  \ingroup MatrixGroup
+     */
+    bool Apply( double (*func)(double) );
+
+    /** 
+     *  \brief Aplica la función func a cada elemento de la matriz.
+     * \param[in] func Función a aplicar, esta debe tener a forma double func(double,double).
+     * \param[in] var Variable a usar em func(double,var).
+     * \return true si todo fue bien o false si la matriz era vacia.
+     *  \ingroup MatrixGroup
+     */
+    bool Apply( double (*func)(double,double), double var);
+
+    /** 
+     *  \brief Aplica la función func a cada elemento de la matriz.
+     * \param[in] col Columna a aplicar la función.
+     * \param[in] func Función a aplicar, esta debe tener a forma double func(double).
+     * \return true si todo fue bien o false si la matriz era vacia.
+     *  \ingroup MatrixGroup
+     */
+    bool ApplyInCol(unsigned int col, double (*func)(double) );
+
+    /** 
+     *  \brief Aplica la función func a cada elemento de la matriz.
+     * \param[in] col Columna a aplicar la función.
+     * \param[in] func Función a aplicar, esta debe tener a forma double func(double,double).
+     * \param[in] var Variable a usar em func(double,var).
+     * \return true si todo fue bien o false si la matriz era vacia.
+     *  \ingroup MatrixGroup
+     */
+    bool ApplyInCol(unsigned int col, double (*func)(double,double), double var);
 /**
  * @}
  */
@@ -1197,22 +1298,6 @@ public:
      */
     void Print(void) const;
     
-    /** 
-     *  \brief Aplica la función func a cada elemento de la matriz.
-     * \param[in] func Función a aplicar, esta debe tener a forma double func(double).
-     * \return true si todo fue bien o false si la matriz era vacia.
-     *  \ingroup MatrixGroup
-     */
-    bool Apply( double (*func)(double) );
-
-    /** 
-     *  \brief Aplica la función func a cada elemento de la matriz.
-     * \param[in] func Función a aplicar, esta debe tener a forma double func(double,double).
-     * \param[in] var Variable a usar em func(double,var).
-     * \return true si todo fue bien o false si la matriz era vacia.
-     *  \ingroup MatrixGroup
-     */
-    bool Apply( double (*func)(double,double), double var);
     
    /** 
      *  \brief Escribe en un archivo de texto el contenido de la matriz.

@@ -277,7 +277,7 @@ B_{Nlin~Ncol,1} \leftarrow func(\mathbf{B(:)})
 \endcode
      *  \param[in] Type Tipo de archivo de fuente de datos.
      *  \param[in] filepath Path del archivo cargado.
-     *  \ingroup MatrixGroup
+     *  \ingroup VectorGroup
      */
     Vector(Pds::Ra::FormatType Type,std::string filepath);
     

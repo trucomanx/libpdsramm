@@ -3,6 +3,7 @@
 #include <Pds/Matrix>
 #include <Pds/RaDefines>
 #include <Pds/RaTools>
+#include <Pds/RaString>
 
 
 ////////////////////////////////////////////////////////////////////////
@@ -40,37 +41,7 @@ void Pds::Matrix::Print(void) const
 {
     this->Print("");
 }
-////////////////////////////////////////////////////////////////////////
 
-bool Pds::Matrix::Apply( double (*func)(double) )
-{
-    if(this->IsEmpty())   return false;
-    
-    unsigned int lin,col;
-
-    for(lin=0;lin<this->nlin;lin++)
-    for(col=0;col<this->ncol;col++)
-    {
-        this->array[lin][col]=(*func)(this->array[lin][col]);
-    }
-    return true;
-}
-
-////////////////////////////////////////////////////////////////////////
-
-bool Pds::Matrix::Apply( double (*func)(double,double),double var)
-{
-    if(this->IsEmpty())   return false;
-    
-    unsigned int lin,col;
-
-    for(lin=0;lin<this->nlin;lin++)
-    for(col=0;col<this->ncol;col++)
-    {
-        this->array[lin][col]=(*func)(this->array[lin][col],var);
-    }
-    return true;
-}
 ////////////////////////////////////////////////////////////////////////
 
 std::string Pds::Matrix::ToString(void) const

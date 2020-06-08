@@ -50,6 +50,7 @@ endif()
 ################################################################################
 file(GLOB SOURCE_FILES
     src/biblioteca/*.cpp
+    src/biblioteca/*/*.cpp
 )
 
 file(GLOB HEADER_FILES 

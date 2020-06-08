@@ -62,7 +62,7 @@ Pds::Matrix Pds::Matrix::Inv(double *rcond) const
     // obtengo una matriz escalonada
     for(lin=0;lin<B.nlin;lin++)
     {
-        id=B.RowDizSwapBelow(lin);
+        id=B.RowSwapBelow(lin);
         if(id>=0)
         {
             if(((unsigned int)id)!=lin)
@@ -115,10 +115,10 @@ Pds::Matrix Pds::Matrix::Inv(double *rcond) const
         }
     }
 
-    if(rcond!=NULL) *rcond=1.0/(this->Norm1()*A.Norm1());
+    if(rcond!=NULL) *rcond=1.0/(this->PNorm1()*A.PNorm1());
     else
     {
-        double r=1.0/(this->Norm1()*A.Norm1());
+        double r=1.0/(this->PNorm1()*A.PNorm1());
         
         if(r<Pds::Ra::WarningRCond)
         {

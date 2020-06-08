@@ -18,7 +18,7 @@ int main(void)
     C.Print("\nC=A.GetColVector(1)=\n");
     
     C.Fill(-1.0);
-    A.SetColVector(C,2);
+    A.SetColVector(2,C);
     A.Print("\nA=\n");
     
     Pds::Vector  D=A.GetDiagonal();

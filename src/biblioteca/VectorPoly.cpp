@@ -39,7 +39,7 @@ Pds::Matrix Pds::PolyMat(Pds::Vector X, unsigned int ORDER)
     
     for(col=0;col<=ORDER;col++)
     {
-        P.SetColVector(pow,X,col,col);
+        P.SetColVector(col,pow,X,col);
     }
     
     return P;
@@ -78,7 +78,7 @@ Pds::Vector Pds::PolyFit(Pds::Vector X, Pds::Vector Y, unsigned int ORDER)
     if(Vander.IsEmpty())    return Vander;
     for(col=0;col<=ORDER;col++)
     {
-        Vander.SetColVector(pow,X,col,col);
+        Vander.SetColVector(col,pow,X,col);
     }
     
     // Calculando inv(MtM)

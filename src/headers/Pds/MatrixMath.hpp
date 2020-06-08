@@ -47,10 +47,10 @@ a_{10} & a_{11} & \hdots & a_{1(Ncol-1)}\\
 \vdots & \vdots & \vdots & \vdots \\
 a_{(Nlin-2)0} & a_{(Nlin-2)1} & \hdots & a_{(Nlin-2)(Ncol-1)}\\ 
 a_{(Nlin-1)0} & a_{(Nlin-1)1} & \hdots & a_{(Nlin-1)(Ncol-1)}\\
-\end{matrix}\right)\equiv A_{(Nlin-1),(Ncol-1)}
+\end{matrix}\right)
    \f]
    \f[
-A_{(Nlin-1),(Ncol-1)}\equiv [a_{i,j}]_{(Nlin-1),(Ncol-1)}
+A\equiv [a_{i,j}]
    \f]
  *  \b nlin es el número de lineas y \b ncol es el número de columnas.
  *  
@@ -64,32 +64,11 @@ A_{(Nlin-1),(Ncol-1)}\equiv [a_{i,j}]_{(Nlin-1),(Ncol-1)}
 namespace Pds{
     
 
-/** @name Sobrecarga de funciones trigonometricas
+/** @name Funciones trigonometricas
  *  Descripcion de algunas funciones matematicas que usan  Pds::Matrix.
  * @{
  */
-    
-    /** 
-     *  \brief Retorna el resultado de evaluar elemento a elemento la funcion round.  
-     *
-     *  \f[ round(A) \f]
-     *  \param[in] A La matriz a evaluar
-     *  \return Retorna la matriz evaluada.
-     *  \see Pds::Matrix::Apply()
-     *  \ingroup MatrixMathGroup
-     */
-    Matrix Round(const Matrix &A);
-    
-    /** 
-     *  \brief Retorna el resultado de evaluar elemento a elemento la funcion valor absoluto.  
-     *
-     *  \f[ |A| \f]
-     *  \param[in] A La matriz a evaluar
-     *  \return Retorna la matriz evaluada.
-     *  \see Pds::Matrix::Apply()
-     *  \ingroup MatrixMathGroup
-     */
-    Matrix Abs(const Matrix &A);
+
 
     /** 
      *  \brief Retorna el resultado de evaluar elemento a elemento la funcion seno.  
@@ -128,7 +107,7 @@ namespace Pds{
  */
 
 
-/** @name Sobrecarga de funciones exponencial
+/** @name Funciones exponencial
  *  Descripcion de algunas funciones matematicas que usan  Pds::Matrix.
  * @{
  */
@@ -205,7 +184,7 @@ namespace Pds{
  */
 
 
-/** @name Sobrecarga de funciones potencia
+/** @name Funciones de potencia
  *  Descripcion de algunas funciones matematicas que usan  Pds::Matrix.
  * @{
  */
@@ -329,11 +308,170 @@ namespace Pds{
  * @}
  */
 
-/** @name Outras funciones
+
+/** @name Funcione de analisis combinatorio
  *  Descripcion de algunas funciones matematicas que usan  Pds::Matrix.
  * @{
  */
+    /** 
+     *  \brief Evalúa  factorial de n, igual a n!.
+     *  
+     *  \f[ y=n!\equiv n(n-1)(n-2)(n-3)...1 \f]
+     *  
+     *  Tiene problemas de presición, cuando n es muy grande.
+     *  \param[in] n Valor de entrada.
+     *  \return El valor de n!.
+     *  \ingroup MatrixMathGroup
+     */
+    unsigned int Factorial(unsigned int n);
 
+
+    /** 
+     *  \brief Retorna el combinatorio (n,k)
+     *  
+     *  \f[ {n \choose k}=\frac{n!}{k!(n-k)!} \f] 
+     *  \param[in] n Valor superior del combinatorio.
+     *  \param[in] k Valor inferior del combinatorio.
+     *  \return El valor del combinatorio (n,k).
+     *  \ingroup MatrixMathGroup
+     */
+    unsigned int NchooseK(unsigned int n,unsigned int k);
+
+    /** 
+     *  \brief Retorna el combinatorio (n,k)
+     *  
+     *  \f[ \left({n \choose k}\right)={{n+k-1} \choose k} \f] 
+     *  \param[in] n Valor superior del combinatorio.
+     *  \param[in] k Valor inferior del combinatorio.
+     *  \return El valor del combinatorio (n,k).
+     *  \ingroup MatrixMathGroup
+     */
+    unsigned int NmultichooseK(unsigned int n,unsigned int k);
+
+/**
+ * @}
+ */
+
+
+/** @name Funciones de aredondamento a enteros
+ *  Descripcion de algunas funciones matematicas que usan  Pds::Matrix.
+ * @{
+ */
+     /** 
+     *  \brief Retorna el resultado de evaluar la funcion Sign.
+     *
+     *  \f[ if(x>0)\quad return\quad+1 \f]
+     *  \f[ if(x=0)\quad return\quad~0 \f]
+     *  \f[ if(x<0)\quad return\quad-1 \f]
+     *  \param[in] x La varaible a evaluar
+     *  \return Retorna la varaible evaluada.
+     *  \ingroup MatrixMathGroup
+     */
+    double Sign(double x);
+
+
+
+     /** 
+     *  \brief Retorna el resultado de evaluar elemento a elemento la funcion Sign.
+     *
+     *  \f[ if(x>0)\quad sign(x)\quad return\quad+1 \f]
+     *  \f[ if(x=0)\quad sign(x)\quad return\quad~0 \f]
+     *  \f[ if(x<0)\quad sign(x)\quad return\quad-1 \f]
+     *  \f[ sign(A) \f]
+     *  \param[in] A La matriz a evaluar
+     *  \return Retorna la matriz evaluada.
+     *  \ingroup MatrixMathGroup
+     */
+    Matrix Sign(const Matrix &A);
+    
+    /** 
+     *  \brief Retorna el resultado de evaluar elemento a elemento la funcion round.  
+     *
+     *  \f[ round(A) \f]
+     *  \param[in] A La matriz a evaluar
+     *  \return Retorna la matriz evaluada.
+     *  \see Pds::Matrix::Apply()
+     *  \ingroup MatrixMathGroup
+     */
+    Matrix Round(const Matrix &A);
+
+
+/**
+ * @}
+ */
+
+
+/** @name Funciones de teoria de la informacion
+ *  Descripcion de algunas funciones matematicas que usan  Pds::Matrix.
+ * @{
+ */
+     /** 
+     *  \brief Retorna el resultado de evaluar la funcion Entropia binária.
+     *
+     *  \f[ h_b(x)=-x~log_2(x)-(1-x) log_2(1-x) \f]
+     *  \param[in] x La varaible a evaluar
+     *  \return Retorna lavaraible evaluada.
+     *  \ingroup MatrixMathGroup
+     */
+    double Hb(double x);
+
+     /** 
+     *  \brief Retorna el resultado de evaluar elemento a elemento la funcion Entropia binária.
+     *
+     *  \f[ h_b(x)=-x~log_2(x)-(1-x) log_2(1-x) \f]
+     *  \f[ h_b(A) \f]
+     *  \param[in] A La matriz a evaluar
+     *  \return Retorna la matriz evaluada.
+     *  \see Pds::Matrix::Apply()
+     *  \ingroup MatrixMathGroup
+     */
+    Matrix Hb(const Matrix &A);
+
+    /** 
+     *  \brief Retorna el valor \f$p\f$ de la función de entropía binaria para un
+     *  valor de \f$h\approx h_b(p)\f$.
+     *  
+     *  \f[h_b(p)\equiv -p~log_2(p)-(1-p)~log_2(1-p)\f] 
+     *  \param[in] h Valor de entrada.
+     *  \return El valor de \f$p\f$ en \f$h\approx h_b(p)\f$. La busqueeda finaliza quando \f$|h-H_b(p)|<|\frac{E(h)}{1000000}|\f$,
+     *  \f$ E(h)=h +(1-2 h) u(h-0.5)\f$ .
+     *  \ingroup MatrixMathGroup
+     */
+    double HbInv(double h);
+
+    /** 
+     *  \brief Retorna el resultado de evaluar elemento a elemento la funcion inversa de la Entropia binária.
+     *  
+     *  \f[h_b(p)\equiv -p~log_2(p)-(1-p)~log_2(1-p)\f] 
+     *  \param[in] A La matriz a evaluar
+     *  \return El valor de \f$p\f$ en \f$h\approx h_b(p)\f$. La busqueeda finaliza quando \f$|h-H_b(p)|<|\frac{E(h)}{1000000}|\f$,
+     *  \f$ E(h)=h +(1-2 h) u(h-0.5)\f$ .
+     *  \see Pds::Matrix::Apply()
+     *  \ingroup MatrixMathGroup
+     */
+    Matrix HbInv(const Matrix &A);
+
+/**
+ * @}
+ */
+
+
+
+/** @name Funciones varias
+ *  Descripcion de algunas funciones matematicas que usan  Pds::Matrix.
+ * @{
+ */
+    
+    /** 
+     *  \brief Retorna el resultado de evaluar elemento a elemento la funcion valor absoluto.  
+     *
+     *  \f[ |A| \f]
+     *  \param[in] A La matriz a evaluar
+     *  \return Retorna la matriz evaluada.
+     *  \see Pds::Matrix::Apply()
+     *  \ingroup MatrixMathGroup
+     */
+    Matrix Abs(const Matrix &A);
      /** 
      *  \brief Retorna el resultado de evaluar la funcion logit.
      *
@@ -377,66 +515,17 @@ namespace Pds{
      */
     Matrix Sinc(const Matrix &A);
 
-     /** 
-     *  \brief Retorna el resultado de evaluar la funcion Entropia binária.
-     *
-     *  \f[ h_b(x)=-x~log_2(x)-(1-x) log_2(1-x) \f]
-     *  \param[in] x La varaible a evaluar
-     *  \return Retorna lavaraible evaluada.
-     *  \ingroup MatrixMathGroup
-     */
-    double Hb(double x);
-
-     /** 
-     *  \brief Retorna el resultado de evaluar elemento a elemento la funcion Entropia binária.
-     *
-     *  \f[ h_b(x)=-x~log_2(x)-(1-x) log_2(1-x) \f]
-     *  \f[ h_b(A) \f]
-     *  \param[in] A La matriz a evaluar
-     *  \return Retorna la matriz evaluada.
-     *  \see Pds::Matrix::Apply()
-     *  \ingroup MatrixMathGroup
-     */
-    Matrix Hb(const Matrix &A);
-
-
-     /** 
-     *  \brief Retorna el resultado de evaluar la funcion Sign.
-     *
-     *  \f[ if(x>0)\quad return\quad+1 \f]
-     *  \f[ if(x=0)\quad return\quad~0 \f]
-     *  \f[ if(x<0)\quad return\quad-1 \f]
-     *  \param[in] x La varaible a evaluar
-     *  \return Retorna la varaible evaluada.
-     *  \ingroup MatrixMathGroup
-     */
-    double Sign(double x);
-
-
-
-     /** 
-     *  \brief Retorna el resultado de evaluar elemento a elemento la funcion Sign.
-     *
-     *  \f[ if(x>0)\quad sign(x)\quad return\quad+1 \f]
-     *  \f[ if(x=0)\quad sign(x)\quad return\quad~0 \f]
-     *  \f[ if(x<0)\quad sign(x)\quad return\quad-1 \f]
-     *  \f[ sign(A) \f]
-     *  \param[in] A La matriz a evaluar
-     *  \return Retorna la matriz evaluada.
-     *  \ingroup MatrixMathGroup
-     */
-    Matrix Sign(const Matrix &A);
 
 /**
  * @}
  */
 
 
-    /** @name Funciones de integración
-     *  Descripcion de algunas funciones matematicas que usan  Pds::Matrix.
-     * @{
-     */
-    
+/** @name Funciones de integración
+ *  Descripcion de algunas funciones matematicas que usan  Pds::Matrix.
+ * @{
+ */
+
     /** 
      *  \brief Evalúa la integral de a-->b de la función f(x), aplicando la regla de 
      *  Simpson con n divisiones, si n no es par internamente la función hace n=n+1.

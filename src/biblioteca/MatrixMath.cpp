@@ -190,6 +190,7 @@ Pds::Matrix Pds::Sinc(const Pds::Matrix &A)
     return B;
 }
 
+
 ////////////////////////////////////////////////////////////////////////
 double Pds::Hb(double x)
 {   
@@ -202,6 +203,42 @@ Pds::Matrix Pds::Hb(const Pds::Matrix &A)
     return B;
 }
 
+////////////////////////////////////////////////////////////////////////
+
+double Pds::HbInv(double h)
+{
+	double p_low,p_high,p_out;
+    double h_out;
+    double Error;
+	if(h==1.0)	return 0.5;
+	if(h==0.0)	return 0.0;
+	if(h>1.0)	return NAN;
+	if(h<0.0)	return NAN;
+
+	p_low=0.0;	p_high=h/2;	
+	p_out=0.0;
+
+	//dp=0.001;
+	if(h<=0.5)	{Error=h/1000000;}
+	else		{Error=(1.0-h)/1000000;}
+	
+	do{
+		p_out=(p_low+p_high)/2.0;
+
+		h_out=Pds::Hb(p_out);
+
+		if(h_out<h)	p_low  = p_out;
+		else		p_high = p_out;
+	}while(fabs(h-h_out)>Error);
+
+	return p_out;
+}
+
+Pds::Matrix Pds::HbInv(const Pds::Matrix &A)
+{
+    Pds::Matrix B(Pds::HbInv,A);
+    return B;
+}
 
 ////////////////////////////////////////////////////////////////////////
 double Pds::Sign(double x)
@@ -216,6 +253,34 @@ Pds::Matrix Pds::Sign(const Pds::Matrix &A)
 }
 
 
+unsigned int Pds::Factorial(unsigned int n)
+{
+    return n == 0 ? 1 : n * Pds::Factorial(n - 1);
+}
+
+
+unsigned int Pds::NchooseK(unsigned int n,unsigned int k)
+{
+	double C;
+	unsigned int a;
+	unsigned int i;
+
+	if((n-k)>k)	a=k;
+	else		a=n-k;
+
+	C=1.0;
+	for(i=0;i<a;i++)	
+	{
+		C=C*(n-i)/(a-i);
+	}
+
+	return round(C);
+}
+
+unsigned int Pds::NmultichooseK(unsigned int n,unsigned int k)
+{
+    return Pds::NchooseK(n+k-1,k);
+}
 ////////////////////////////////////////////////////////////////////////
 // Integration
 ////////////////////////////////////////////////////////////////////////
