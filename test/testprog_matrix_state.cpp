@@ -14,24 +14,24 @@ int main(void)
     Pds::Matrix A;
     Pds::Matrix B(3,3);
     Pds::Matrix C(3,3);
+    
+    C.At(4)=1.0/0.0;
 
-    B.Set(+1.0/0.0,0,0);
-    B.Set( 0.0/0.0,1,1);
-    B.Set(-1.0/0.0,2,2);
+    B.Set(0,0,+1.0/0.0);
+    B.Set(1,1, 0.0/0.0);
+    B.Set(2,2,-1.0/0.0);
 
     B.Print("B:\n");
     
-    
-    
     pds_print_info_message("... is void?");
     
-    if(A.IsEmpty())      std::cout<<"A is NULL"<<std::endl;
+    if(A.IsEmpty())     std::cout<<"A is NULL"<<std::endl;
     else                std::cout<<"A is not NULL"<<std::endl;
     
-    if(B.IsNotEmpty())   std::cout<<"B is not NULL"<<std::endl;
+    if(B.IsNotEmpty())  std::cout<<"B is not NULL"<<std::endl;
     else                std::cout<<"B is NULL"<<std::endl;
     
-    if(C.IsNotEmpty())   std::cout<<"C is not NULL"<<std::endl;
+    if(C.IsNotEmpty())  std::cout<<"C is not NULL"<<std::endl;
     else                std::cout<<"C is NULL"<<std::endl;
     
     
@@ -69,12 +69,15 @@ int main(void)
     else                            std::cout<<"(1.5,0.1) is not in size range of B"<<std::endl;
     
     
-    
     B.IsInf().Print("\nB.IsInf()\n");
     
     B.IsNan().Print("\nB.IsNan()\n");
     
     B.IsFinite().Print("\nB.IsFinite()\n");
     
+    C.Print("\nC:\n");
+    std::cout<<"C.HasInf()      :\t"<<C.HasInf()<<std::endl;
+    std::cout<<"C.HasNan()      :\t"<<C.HasNan()<<std::endl;
+    std::cout<<"C.HasNotFinite():\t"<<C.HasNotFinite()<<std::endl;
     return 0;
 }

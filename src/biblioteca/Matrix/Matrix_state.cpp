@@ -168,3 +168,47 @@ Pds::Matrix Pds::Matrix::IsFinite(void) const
     
     return A;
 }
+
+bool Pds::Matrix::HasNan(void) const
+{
+    if(this->IsEmpty())  return false;
+    
+    unsigned int lin,col;
+    
+    for(lin=0;lin<this->nlin;lin++)
+    for(col=0;col<this->ncol;col++)
+    if(std::isnan(this->array[lin][col]))
+    return true;
+    
+    return false;
+}
+
+bool Pds::Matrix::HasInf(void) const
+{
+    if(this->IsEmpty())  return false;
+    
+    unsigned int lin,col;
+    
+    for(lin=0;lin<this->nlin;lin++)
+    for(col=0;col<this->ncol;col++)
+    if(std::isinf(this->array[lin][col]))
+    return true;
+    
+    return false;
+}
+
+bool Pds::Matrix::HasNotFinite(void) const
+{
+    if(this->IsEmpty())  return false;
+    
+    unsigned int lin,col;
+    
+    for(lin=0;lin<this->nlin;lin++)
+    for(col=0;col<this->ncol;col++)
+    if(!std::isfinite(this->array[lin][col]))
+    return true;
+    
+    return false;
+}
+
+

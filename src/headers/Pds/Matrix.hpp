@@ -517,6 +517,57 @@ public:
      */
     Pds::Matrix IsFinite(void) const;
     
+    
+    /** 
+     *  \brief Verifica si la matriz tiene algun valor infinito.
+     * 
+     * Los valores infinitos pueden producirse con \f$+\frac{1}{0},-\frac{1}{0} y \frac{1}{0}\f$.
+   \f[
+true\qquad \overleftarrow{HasInf()}\qquad \left(\begin{matrix}
+1 & NaN & NaN\\ 
+0 & 2 & -\infty\\
+\infty & 0 & 0\\ 
+3 & -\infty & NaN\\
+\end{matrix}\right)
+   \f]
+     *  \return Retorna true si tiene algun elemento infinito y false si no lo tiene.
+     *  \ingroup MatrixGroup
+     */
+    bool HasInf(void) const;
+    
+    /** 
+     *  \brief Verifica si la matriz tiene algun valor NAN (Not A Number).
+     * 
+     *  Los valores NAN pueden producirse con \f$\frac{0}{0}\f$.
+   \f[
+true\qquad \overleftarrow{IsNan()}\qquad \left(\begin{matrix}
+1 & NaN & NaN\\ 
+0 & 2 &  -\infty\\
+\infty & 0 & 0\\ 
+3 & -\infty & NaN\\
+\end{matrix}\right)
+   \f]
+     *  \return Retorna true si tiene NAN y false si no lo tiene.
+     *  \ingroup MatrixGroup
+     */
+    bool HasNan(void) const;
+    
+
+    /** 
+     *  \brief Verifica si la matriz tiene elementos no finitos (+inf, -inf y  NAN).
+     * 
+   \f[
+true\qquad \overleftarrow{IsFinite()}\qquad \left(\begin{matrix}
+1 & NaN & NaN\\ 
+0 & 2 & -\infty\\
+\infty & 0 & 0\\ 
+3 & -\infty & NaN\\
+\end{matrix}\right)
+   \f]
+     *  \return Retorna true si tiene un valor no finito y false si no lo tiene.
+     *  \ingroup MatrixGroup
+     */
+    bool HasNotFinite(void) const;
 /**
  * @}
  */
