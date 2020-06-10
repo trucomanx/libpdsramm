@@ -47,10 +47,10 @@ a_{10} & a_{11} & \hdots & a_{1(Ncol-1)}\\
 \vdots & \vdots & \vdots & \vdots \\
 a_{(Nlin-2)0} & a_{(Nlin-2)1} & \hdots & a_{(Nlin-2)(Ncol-1)}\\ 
 a_{(Nlin-1)0} & a_{(Nlin-1)1} & \hdots & a_{(Nlin-1)(Ncol-1)}\\
-\end{matrix}\right)\equiv A_{(Nlin-1),(Ncol-1)}
+\end{matrix}\right)
    \f]
    \f[
-A_{(Nlin-1),(Ncol-1)}\equiv [a_{i,j}]_{(Nlin-1),(Ncol-1)}
+A\equiv [a_{i,j}]
    \f]
  *  
  *  \b Nlin es el número de lineas y \b Ncol es el número de columnas.
@@ -96,7 +96,7 @@ public:
      *  \brief Crea un objeto de tipo Pds::Matrix vacio.
      * 
    \f[
-\mathbf{A}=A_{0,0}\equiv []_{0,0}
+\mathbf{A}\equiv []
    \f]
    Para crear una matriz vacia:
 \code{.cpp}
@@ -119,10 +119,10 @@ public:
 \vdots & \vdots & \vdots & \vdots \\
 0 & 0 & \hdots & 0\\ 
 0 & 0 & \hdots & 0\\
-\end{matrix}\right)\equiv A_{N,N}
+\end{matrix}\right)
    \f]
    \f[
-A_{N,N}\equiv [0]_{N,N}
+A_{N,N}\equiv [0]
    \f]
    Para crear una matriz A de 4 filas y 4 columnas:
 \code{.cpp}
@@ -146,10 +146,10 @@ A_{N,N}\equiv [0]_{N,N}
 \vdots & \vdots & \vdots & \vdots \\
 0 & 0 & \hdots & 0\\ 
 0 & 0 & \hdots & 0\\
-\end{matrix}\right)\equiv A_{Nlin,Ncol}
+\end{matrix}\right)
    \f]
    \f[
-A_{Nlin,Ncol}\equiv [0]_{Nlin,Ncol}
+A\equiv [0]
    \f]
    Para crear una matriz A de 4 filas y 3 columnas:
 \code{.cpp}
@@ -169,7 +169,7 @@ A_{Nlin,Ncol}\equiv [0]_{Nlin,Ncol}
      *  otra matriz. Este es un Copy assignment constructor.
      * 
    \f[
-B_{Nlin,Ncol}\equiv [b_{i,j}]_{Nlin,Ncol}
+B\equiv [b_{i,j}]
    \f]
    \f[
 \mathbf{A} \leftarrow \mathbf{B}
@@ -216,10 +216,10 @@ B_{Nlin,Ncol}\equiv [b_{i,j}]_{Nlin,Ncol}
 \vdots & \vdots & \vdots & \vdots \\
 0 & 0 & \hdots & 0\\ 
 0 & 0 & \hdots & 0\\
-\end{matrix}\right)\equiv A_{Nlin,Ncol}
+\end{matrix}\right)
    \f]
    \f[
-A_{Nlin,Ncol}\equiv [0]_{Nlin,Ncol}
+A\equiv [0]
    \f]
    Para crear una matriz A de 4 filas y 3 columnas:
 \code{.cpp}
@@ -244,10 +244,10 @@ val & val & \hdots & val\\
 \vdots & \vdots & \vdots & \vdots \\
 val & val & \hdots & val\\ 
 val & val & \hdots & val\\
-\end{matrix}\right)\equiv A_{Nlin,Ncol}
+\end{matrix}\right)
    \f]
    \f[
-A_{Nlin,Ncol}\equiv [val]_{Nlin,Ncol}
+A\equiv [val]
    \f]
    Para crear una matriz A de 4 filas y 3 columnas inicializado con -1:
 \code{.cpp}
@@ -268,7 +268,7 @@ A_{Nlin,Ncol}\equiv [val]_{Nlin,Ncol}
      *  los datos de otra matriz.
      * 
    \f[
-B_{Nlin,Ncol}\equiv [b_{i,j}]_{Nlin,Ncol}
+B\equiv [b_{i,j}]
    \f]
    \f[
 \mathbf{A} \leftarrow func(\mathbf{B})
@@ -292,7 +292,7 @@ B_{Nlin,Ncol}\equiv [b_{i,j}]_{Nlin,Ncol}
      *  los datos de otra matriz.
      * 
    \f[
-B_{Nlin,Ncol}\equiv [b_{i,j}]_{Nlin,Ncol}
+B\equiv [b_{i,j}]
    \f]
    \f[
 \mathbf{A} \leftarrow func(\mathbf{B},var)
@@ -347,7 +347,7 @@ public:
     /** 
      *  \brief Verifica si la matriz es nula es decir con lineas o columnas cero o arreglo NULL.
      *  
-     *  Una matriz\f$\mathbf{A}\f$ está vacía si  \f$ \mathbf{A}=[]_{0,0}\f$.
+     *  Una matriz\f$\mathbf{A}\f$ está vacía si  \f$ \mathbf{A}=[]\f$.
      *  \return Retorna true si es nula e false si no.
      *  \ingroup MatrixGroup
      */
@@ -356,7 +356,7 @@ public:
     /** 
      *  \brief Verifica si la matriz NO es nula, es decir con lineas y columnas diferentes cero y arreglo diferente de NULL.
      * 
-     *  Una matriz \f$\mathbf{A}\f$ está vacía si  \f$ \mathbf{A}=[]_{0,0}\f$.
+     *  Una matriz \f$\mathbf{A}\f$ está vacía si  \f$ \mathbf{A}=[]\f$.
      *  \return Retorna true si NO es nula e false si lo es.
      *  \ingroup MatrixGroup
      */
@@ -847,6 +847,25 @@ public:
      *  \ingroup MatrixGroup
      */
     bool SetDiagonal(const Pds::Vector V);
+    
+    /** 
+     *  \brief Retorna una sub matriz escojida desde la linea lin_init hasta lin_end, inclusive. 
+     *  Hace una verificación si la linea existe, si no existe llena esta con ceros. 
+     *  \param[in] lin_init La linea inicial en consulta.
+     *  \param[in] lin_end  La linea final en consulta.
+     *  \return Retorna una sub matriz. Si no existe interseccion entre 
+     *  la matriz y las lineas pedidas, entonces se retorna una matriz vacia.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix GetRows(unsigned int lin_init,unsigned int lin_end) const;
+    
+    /** 
+     *  \brief Retorna una sub matriz escojiendo N lineas aleatoriamente (sin repetición). 
+     *  \param[in] N El número de lineas a escojer.
+     *  \return Retorna una sub matriz. Si N=0 o N>Ncol entonces se retorna una matriz vacia.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix GetRowsRand(unsigned int N) const;
 
     /** 
      *  \brief Retorna una sub matriz desde la posición (lin_init,col_init) hasta (lin_end,col_end), inclusive. 
@@ -1144,7 +1163,7 @@ c(Nlin-1,1-Mcol)     & c(Nlin-1,2-Mcol)  & \hdots & c(Nlin-1,0)  & \hdots & c(Nl
      * 
      *  \param[in] B Matriz a aplicar la correlacion cruzada.
      *  \param[in] Same indica si la correlación cruzada tendrá el mismo 
-     *  tamaño que A, si Same es igual a true entonces,\f$[c_{i,j}]_{Nlin,Ncol}  \overset{func}{\equiv} c(i,j), ~0 \leq i \leq Nlin-1, ~0 \leq j \leq Ncol-1\f$.
+     *  tamaño que A, si Same es igual a true entonces,\f$[c_{i,j}]  \overset{func}{\equiv} c(i,j), ~0 \leq i \leq Nlin-1, ~0 \leq j \leq Ncol-1\f$.
      *  Por defecto Same es igual a false.
      * \return retorna la correlacion cruzada.
      *  \ingroup VectorGroup

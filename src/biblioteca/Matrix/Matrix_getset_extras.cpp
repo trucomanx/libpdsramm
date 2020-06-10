@@ -63,6 +63,56 @@ bool Pds::Matrix::SetDiagonal(const Pds::Vector V)
 ////////////////////////////////////////////////////////////////////////////////
 
 
+Pds::Matrix Pds::Matrix::GetRows(unsigned int lin_init,unsigned int lin_end) const
+{
+    if((this->ncol==0)||(this->nlin==0)||(this->array==NULL)) return Pds::Matrix();
+    
+    if(lin_init >= lin_end)     return Pds::Matrix();
+    
+    if(lin_init >= this->nlin)  return Pds::Matrix();
+    
+    Pds::Matrix A(lin_end-lin_init+1,this->ncol);
+    
+    unsigned int Lend=std::min(this->nlin-1,lin_end);
+    unsigned int Cend=this->ncol-1;
+    
+    for(unsigned int lin=lin_init;lin<=Lend;lin++)
+    for(unsigned int col=0       ;col<=Cend;col++)
+    A.array[lin-lin_init][col]=this->array[lin][col];
+    
+    return A;
+}
+
+#include <set>
+Pds::Matrix Pds::Matrix::GetRowsRand(unsigned int N) const
+{
+    if((this->ncol==0)||(this->nlin==0)||(this->array==NULL)) return Pds::Matrix();
+    
+    if(N==0)            return Pds::Matrix();
+    if(N>this->nlin)    return Pds::Matrix();
+     
+    Pds::Matrix A(N,this->ncol);
+    unsigned int id;
+    std::set<unsigned int> SetId; 
+
+    for(unsigned int lin=0;lin<N;lin++)
+    {   
+        do{
+            id=rand()%N;
+        }while(SetId.count(id)!=0); 
+        SetId.insert(id);
+
+        for(unsigned int col=0;col<this->ncol;col++)
+        {
+            A.array[lin][col]=this->array[id][col];
+        }
+    }
+    return A;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+
 Pds::Matrix Pds::Matrix::GetMatrix(unsigned int lin_init,unsigned int col_init,unsigned int lin_end,unsigned int col_end) const
 {
     if((this->ncol==0)||(this->nlin==0)||(this->array==NULL)) return Pds::Matrix();

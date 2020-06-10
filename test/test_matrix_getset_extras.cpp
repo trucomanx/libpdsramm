@@ -10,7 +10,7 @@
     
 int main(void)
 {
-    Pds::Matrix A("0 3 6\n1 4 7\n2 5 8");
+    Pds::Matrix A("0 3 6\n1 4 7\n2 5 8\n3 3 1");
     
     A.Print("\nA=\n");
     
@@ -23,6 +23,11 @@ int main(void)
     
     Pds::Vector  D=A.GetDiagonal();
     D.Print("\nD=A.GetDiagonal()=\n");
-    
+
+    A.Print("\nA=\n");
+    Pds::Matrix B=A.GetRowsRand(4);
+    B.Print("\nB=\n");    
+    Pds::Matrix F=A.GetRows(2,6);
+    F.Print("\nF=\n");    
     return 0;
 }
