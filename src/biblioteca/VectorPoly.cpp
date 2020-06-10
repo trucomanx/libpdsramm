@@ -54,7 +54,7 @@ Pds::Matrix Pds::PolyMat(double x, unsigned int ORDER)
     
     for(col=0;col<=ORDER;col++)
     {
-        P.Set(pow(x,col),col);
+        P.Set(col,pow(x,col));
     }
     
     return P;
@@ -149,7 +149,7 @@ Pds::Vector Pds::PolyDer(Pds::Vector P,unsigned int N)
         Pds::Vector R(M);
         
         for (id=0;id<M;id++)
-        R.Set(P.Get(id+1,0)*(id+1),id,0);
+        R.Set(id,0,P.Get(id+1,0)*(id+1));
         
         if(N==1)    return R;
         else        return Pds::PolyDer(R,N-1);

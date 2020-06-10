@@ -39,6 +39,7 @@
     
 #include <iostream>
 #include <cstring>
+#include <cmath>
 
 #ifndef __CURRENT_FILENAME__
 #define __CURRENT_FILENAME__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : strrchr(__FILE__, '\\') ? strrchr(__FILE__, '\\') + 1 : __FILE__)
@@ -113,6 +114,13 @@ namespace Ra{
      * \ingroup DefinesGroup
     */
     const double ToRadians =Pi/180.0;
+    
+    /*!
+     * Not A Number.
+     * \ingroup DefinesGroup
+    */
+    const double Nan=nan("");
+    
     
     /*!
      * \brief Tipo de dato en la carga de información desde archivo.

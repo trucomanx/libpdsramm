@@ -30,34 +30,34 @@
 Pds::Matrix Pds::Rot2D(double RadAngle)
 {
     Pds::Matrix A(2,2);
-    A.Set(+cos(RadAngle),0,0); A.Set(-sin(RadAngle),0,1);
-    A.Set(+sin(RadAngle),1,0); A.Set(+cos(RadAngle),1,1);
+    A.Set(0,0,+cos(RadAngle)); A.Set(0,1,-sin(RadAngle));
+    A.Set(1,0,+sin(RadAngle)); A.Set(1,1,+cos(RadAngle));
     return A;
 }
 
 Pds::Matrix Pds::RotX(double RadAngle)
 {
     Pds::Matrix A(3,3);
-    A.Set(1.0,0,0);A.Set(0.0           ,0,1); A.Set(0.0           ,0,2);
-    A.Set(0.0,1,0);A.Set(+cos(RadAngle),1,1); A.Set(-sin(RadAngle),1,2);
-    A.Set(0.0,2,0);A.Set(+sin(RadAngle),2,1); A.Set(+cos(RadAngle),2,2);
+    A.Set(0,0,1.0);A.Set(0,1,0.0           ); A.Set(0,2,0.0           );
+    A.Set(1,0,0.0);A.Set(1,1,+cos(RadAngle)); A.Set(1,2,-sin(RadAngle));
+    A.Set(2,0,0.0);A.Set(2,1,+sin(RadAngle)); A.Set(2,2,+cos(RadAngle));
     return A;
 }
 
 Pds::Matrix Pds::RotY(double RadAngle)
 {
     Pds::Matrix A(3,3);
-    A.Set(+cos(RadAngle),0,0);A.Set(0.0,0,1); A.Set(+sin(RadAngle),0,2);
-    A.Set(0.0           ,1,0);A.Set(1.0,1,1); A.Set(0.0           ,1,2);
-    A.Set(-sin(RadAngle),2,0);A.Set(0.0,2,1); A.Set(+cos(RadAngle),2,2);
+    A.Set(0,0,+cos(RadAngle));A.Set(0,1,0.0); A.Set(0,2,+sin(RadAngle));
+    A.Set(1,0,0.0           );A.Set(1,1,1.0); A.Set(1,2,0.0           );
+    A.Set(2,0,-sin(RadAngle));A.Set(2,1,0.0); A.Set(2,2,+cos(RadAngle));
     return A;
 }
 
 Pds::Matrix Pds::RotZ(double RadAngle)
 {
     Pds::Matrix A(3,3);
-    A.Set(+cos(RadAngle),0,0);A.Set(-sin(RadAngle),0,1); A.Set(0.0,0,2);
-    A.Set(+sin(RadAngle),1,0);A.Set(+cos(RadAngle),1,1); A.Set(0.0,1,2);
-    A.Set(0.0           ,2,0);A.Set(0.0           ,2,1); A.Set(1.0,2,2);
+    A.Set(0,0,+cos(RadAngle));A.Set(0,1,-sin(RadAngle)); A.Set(0,2,0.0);
+    A.Set(1,0,+sin(RadAngle));A.Set(1,1,+cos(RadAngle)); A.Set(1,2,0.0);
+    A.Set(2,0,0.0           );A.Set(2,1,0.0           ); A.Set(2,2,1.0);
     return A;
 }

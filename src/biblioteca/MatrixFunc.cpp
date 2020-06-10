@@ -105,7 +105,7 @@ Pds::Matrix Pds::Diag(Pds::Matrix A)
     
     for(id=0;id<N;id++)
     {
-        B.Set(A.Get(id),id,id);
+        B.Set(id,id,A.Get(id));
     }
     return B;
 }
@@ -120,7 +120,7 @@ Pds::Matrix Pds::Eye(unsigned int N)
     if(A.IsEmpty())  return A;
     
     for(lin=0;lin<N;lin++)
-    A.Set(1.0,lin,lin);
+    A.Set(lin,lin,1.0);
     
     return A;
 }
@@ -244,7 +244,7 @@ Pds::Matrix Pds::Monomials(const Pds::Matrix &X,unsigned int M,Pds::Matrix &ID)
 
     for(unsigned int i=0;i<L;i++)
     {
-        V=X.Multiindex(ID.GetRowAsColVector(i));// faltam
+        V=X.Multiindex(ID.GetRowAsColVector(i));
         R.SetColVector(i,V);
     }
 

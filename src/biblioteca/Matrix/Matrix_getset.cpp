@@ -35,7 +35,15 @@ double Pds::Matrix::Get(unsigned int id) const
     return this->array[id%this->nlin][id/this->nlin];
 }
 
-bool Pds::Matrix::Set(double val,unsigned int id)
+
+double Pds::Matrix::Get(unsigned int lin,unsigned int col) const
+{
+    if(this->IsInRange(lin,col))   return this->array[lin][col];
+    else                           return 0.0;
+}
+    
+
+bool Pds::Matrix::Set(unsigned int id,double val)
 {
     if((this->ncol==0)||(this->nlin==0)||(this->array==NULL)) return false;
     
@@ -46,16 +54,35 @@ bool Pds::Matrix::Set(double val,unsigned int id)
     return  true;
 }
     
-double Pds::Matrix::Get(unsigned int lin,unsigned int col) const
+
+bool Pds::Matrix::Set(unsigned int lin,unsigned int col,double val)
 {
-    if(this->IsInRange(lin,col))   return this->array[lin][col];
-    else                           return 0.0;
-}
+    if(this->IsNotInRange(lin,col))   return false;
     
+    this->array[lin][col]=val;
+    return true;
+}
+
+
 const double *Pds::Matrix::Pointer(unsigned int lin,unsigned int col) const
 {
     if(this->IsInRange(lin,col))   return (this->array[lin]+col);
     else                           return NULL;
+}
+    
+double &Pds::Matrix::At(unsigned int lin,unsigned int col)
+{
+    lin=lin%(this->nlin);
+    col=col%(this->ncol);
+    
+    return this->array[lin][col];
+}
+
+double &Pds::Matrix::At(unsigned int id)
+{
+    id=id%((this->nlin)*(this->ncol));
+   
+    return this->array[id%this->nlin][id/this->nlin];
 }
     
 double Pds::Matrix::Bilinear(double lin,double col) const
@@ -83,15 +110,6 @@ double Pds::Matrix::Bilinear(double lin,double col) const
 }
     
 
-bool Pds::Matrix::Set(double val,unsigned int lin,unsigned int col)
-{
-    if(this->IsNotInRange(lin,col))   return false;
-    
-    this->array[lin][col]=val;
-    return true;
-}
-
-    
 unsigned int Pds::Matrix::Nlin(void) const
 {
     return this->nlin;

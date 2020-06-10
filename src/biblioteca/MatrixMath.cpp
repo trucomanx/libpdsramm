@@ -212,8 +212,8 @@ double Pds::HbInv(double h)
     double Error;
 	if(h==1.0)	return 0.5;
 	if(h==0.0)	return 0.0;
-	if(h>1.0)	return NAN;
-	if(h<0.0)	return NAN;
+	if(h>1.0)	return Pds::Ra::Nan;
+	if(h<0.0)	return Pds::Ra::Nan;
 
 	p_low=0.0;	p_high=h/2;	
 	p_out=0.0;
@@ -264,6 +264,8 @@ unsigned int Pds::NchooseK(unsigned int n,unsigned int k)
 	double C;
 	unsigned int a;
 	unsigned int i;
+
+    if(k>n) return 0;
 
 	if((n-k)>k)	a=k;
 	else		a=n-k;

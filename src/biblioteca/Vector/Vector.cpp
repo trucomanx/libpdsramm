@@ -76,7 +76,7 @@ Pds::Vector::Vector(const Matrix &A)
         
         for(id=0;id<N;id++)
         {
-            this->Set(A.Get(id),id);
+            this->Set(id,A.Get(id));
         }
 
     }
@@ -104,7 +104,7 @@ Pds::Vector::Vector(const Matrix &A, unsigned int col)
         
     for(lin=0;lin<A.Nlin();lin++)
     {
-        this->Set(A.Get(lin,col),lin,0);
+        this->Set(lin,0,A.Get(lin,col));
     }
     
     

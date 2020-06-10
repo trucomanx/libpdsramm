@@ -670,42 +670,21 @@ public:
      *  \return Retorna el numero de lineas de la matriz.
      *  \ingroup MatrixGroup
      */
-    unsigned int Nlin() const;
-    
-    /** 
-     *  \brief Retorna el identificador de la ultima linea de la matriz.
-     *  \return Retorna Nlin-1.
-     *  \ingroup MatrixGroup
-     */
-    unsigned int LinEnd() const;
+    unsigned int Nlin(void) const;
     
     /** 
      *  \brief Retorna el numero de columnas de la matriz.
      *  \return Retorna el numero de columnas de la matriz.
      *  \ingroup MatrixGroup
      */
-    unsigned int Ncol() const;
-    
-    /** 
-     *  \brief Retorna el identificador de la ultima columna  de la matriz.
-     *  \return Retorna Ncol-1.
-     *  \ingroup MatrixGroup
-     */
-    unsigned int ColEnd() const;
+    unsigned int Ncol(void) const;
     
     /** 
      *  \brief Retorna el numero de elementos de la matriz (Nlin x Ncol).
      *  \return Retorna el numero de elementos de la matriz.
      *  \ingroup MatrixGroup
      */
-    unsigned int Nel() const;
-    
-    /** 
-     *  \brief Retorna el identificador del ultimo elemento de la matriz.
-     *  \return Retorna ((Nlin x Ncol)-1).
-     *  \ingroup MatrixGroup
-     */
-    unsigned int End() const;
+    unsigned int Nel(void) const;
     
     /** 
      *  \brief Retorna un objeto de tipo Pds::Size con el numero de lineas y columans.
@@ -713,6 +692,28 @@ public:
      *  \ingroup MatrixGroup
      */
     Pds::Size Size(void) const;
+    
+    /** 
+     *  \brief Retorna el identificador de la ultima linea de la matriz.
+     *  \return Retorna Nlin-1.
+     *  \ingroup MatrixGroup
+     */
+    unsigned int LinEnd(void) const;
+    
+    /** 
+     *  \brief Retorna el identificador de la ultima columna  de la matriz.
+     *  \return Retorna Ncol-1.
+     *  \ingroup MatrixGroup
+     */
+    unsigned int ColEnd(void) const;
+    
+    /** 
+     *  \brief Retorna el identificador del ultimo elemento de la matriz.
+     *  \return Retorna ((Nlin x Ncol)-1).
+     *  \ingroup MatrixGroup
+     */
+    unsigned int End(void) const;
+
 
 /**
  * @}
@@ -757,7 +758,7 @@ public:
      *  posición (id\%Nlin,id/Nlin) o false si no.
      *  \ingroup MatrixGroup
      */
-    bool Set(double val,unsigned int id);
+    bool Set(unsigned int id,double val);
     
     /** 
      *  \brief Escribe el valor en la posición (lin,col), hace una verificación
@@ -769,10 +770,28 @@ public:
      *  posicion (lin,col) o false si no.
      *  \ingroup MatrixGroup
      */
-    bool Set(double val,unsigned int lin,unsigned int col);
-
+    bool Set(unsigned int lin,unsigned int col,double val);
     
+    /** 
+     *  \brief Retorna una variable double en la posición (lin,col) de la matriz. 
+     *  Hace una verificación para evitar leer o escribir fuera de la memoria, 
+     *  con este fin hace lin=lin%Nlin y col=col%Ncol. 
+     *  \param[in] lin La linea en consulta.
+     *  \param[in] col La columna en consulta.
+     *  \return Retorna una variable double en la posición (lin,col). 
+     *  \ingroup MatrixGroup
+     */
+    double &At(unsigned int lin,unsigned int col);
 
+    /** 
+     *  \brief Retorna una variable double en la posición (id) de la matriz. 
+     *  Hace una verificación para evitar leer o escribir fuera de la memoria, 
+     *  con este fin hace id=id%(Nlin*Ncol). 
+     *  \param[in] id La posicion en consulta.
+     *  \return Retorna una variable double en la posición (id). 
+     *  \ingroup MatrixGroup
+     */
+    double &At(unsigned int id);
     
     /** 
      *  \brief Retorna un puntero a la posición (lin,col), hace una verificación
@@ -1104,9 +1123,9 @@ public:
     /** 
      *  \brief Calcula la correlacion cruzada entre A y B. 
      * 
-     * \f[ \mathbf{A}\equiv [a_{i,j}]_{Nlin,Ncol}  \overset{func}{\equiv} a(i,j),~0 \leq i\leq Nlin-1,~0 \leq j\leq Ncol-1 \f]
-     * \f[ \mathbf{B}\equiv [b_{i,j}]_{Mlin,Mcol}  \overset{func}{\equiv} b(i,j),~0 \leq i\leq Mlin-1,~0 \leq j\leq Mcol-1 \f]
-     * \f[ \mathbf{C}\equiv [c_{i,j}]_{Mlin+Nlin-1,Mcol+Ncol-1}  \overset{func}{\equiv} c(i-(Mlin-1),j-(Mcol-1)),~ 0 \leq i \leq Mlin+Nlin-2 ,~ 0 \leq j \leq Mcol+Ncol-2\f]
+     * \f[ \mathbf{A}\equiv [a_{i,j}]  \overset{func}{\equiv} a(i,j),\qquad 0 \leq i< Nlin,\qquad 0 \leq j< Ncol \f]
+     * \f[ \mathbf{B}\equiv [b_{i,j}]  \overset{func}{\equiv} b(i,j),\qquad 0 \leq i< Mlin,\qquad 0 \leq j< Mcol \f]
+     * \f[ \mathbf{C}\equiv [c_{i,j}]  \overset{func}{\equiv} c(i-(Mlin-1),j-(Mcol-1)),\qquad 0 \leq i < Mlin+Nlin-1 ,\qquad  0 \leq j < Mcol+Ncol-1\f]
    \f[
 \mathbf{C}=\left(\begin{matrix}
 c(1-Mlin,1-Mcol)     & c(1-Mlin,2-Mcol)  & \hdots & c(1-Mlin,0)  & \hdots & c(1-Mlin,Ncol-1)\\ 
@@ -1206,8 +1225,18 @@ public:
      */
     double PNormInf(void) const;
 
-
-    Pds::Vector Multiindex(const Pds::Vector &ID) const;
+    /** 
+     *  \brief Dada una matriz 
+     *  \f$\mathbf{X}=\left[\mathbf{x}_1,\quad \mathbf{x}_2,\quad ...,\quad \mathbf{x}_n,\quad ...,\quad \mathbf{x}_N\right]\f$
+     *  es calculado el vector 
+     *  \f$\mathbf{\overline{X}}^{\mathbf{d}}\f$.
+\f[\mathbf{\overline{X}}^{\mathbf{d}}\equiv \mathbf{x}_1^{d_1} \mathbf{x}_2^{d_2} \mathbf{x}_3^{d_3} ... \mathbf{x}_N^{d_N}\f]
+     *  \param[in] d Vector de indices \f$\mathbf{d}=\left[d_1,\quad d_2,\quad ...,\quad d_n,\quad ...,\quad d_N\right]\f$.
+     *  \return Retorna el vector \f$\mathbf{\overline{X}}^{\mathbf{d}}\f$. En caso de error
+     *  se retorna una matriz vazia.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Vector Multiindex(const Pds::Vector &d) const;
 /**
  * @}
  */

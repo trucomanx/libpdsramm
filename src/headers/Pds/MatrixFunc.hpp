@@ -332,24 +332,22 @@ Donde se sabe que
 
      /** 
      *  \brief Retorna una cadena que representa una matriz de indices \f$\mathbf{ID}\f$ con \f$L\f$ lineas
-     *  y \f$N\f$ columnas. Los indices \f$\mathbf{d}_l\f$ estan agrupados en las
-     *  \f$L\f$ lineas de la matriz \f$\mathbf{ID}\f$.
-     *
+     *  y \f$N\f$ columnas. Los indices \f$\mathbf{d}_l\f$ estan agrupados 
+     *  en las \f$L\f$ lineas de la matriz \f$\mathbf{ID}\f$.
+
 \f[
-\mathbf{ID}= \left(\begin{matrix}
+\mathbf{ID}= 
+\left(\begin{matrix}
 \mathbf{d}_1\\ 
 \mathbf{d}_2 \\
 \mathbf{d}_3 \\
 \vdots  \\
-\mathbf{d}_{L-1} \\
 \mathbf{d}_{L} \\
-\end{matrix}\right)
-\leftarrow Pds::MultisetIndexSum(N,M)
+\end{matrix}\right)  \leftarrow Pds::MultisetIndexSum(N,M)
 \f]
 
 Donde el indice \f$\mathbf{d}_l\f$ genera el monomio 
 \f$\mathbf{\overline{X}}^{\mathbf{d}_l}\equiv \mathbf{x}_1^{d_{l1}} \mathbf{x}_2^{d_{l2}} \mathbf{x}_3^{d_{l3}} ... \mathbf{x}_N^{d_{lN}}\f$
-.
      *  \param[in] ID Una matriz con indices en las lineas.
      *  \param[in] Separator El texto separador entre monomios.
      *  \param[in] xinit Valor inicial de x, si xinit=0 inicia en x_{0}

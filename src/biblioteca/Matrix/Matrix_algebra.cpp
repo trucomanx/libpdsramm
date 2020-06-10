@@ -115,6 +115,9 @@ double Pds::Matrix::Dot(const Pds::Matrix &B) const
 ////////////////////////////////////////////////////////////////////////
 Pds::Vector Pds::Matrix::Multiindex(const Pds::Vector &ID) const
 {
+    if(ID.IsEmpty())            return Pds::Matrix();
+    if(ID.Nel()!=this->Ncol())  return Pds::Matrix();
+    
     Pds::Vector V(this->Nlin(),1.0);
     
     unsigned int lin,col;

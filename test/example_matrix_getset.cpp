@@ -39,7 +39,7 @@ A.GetMatrix( 1,1,Pds::Size(2,2) ):
     
 int main(void)
 {
-    Pds::Matrix A(4,4);
+    Pds::Matrix A(3,5);
     Pds::Matrix Sa1;
     Pds::Matrix Sa2;
     
@@ -47,7 +47,17 @@ int main(void)
     A.Print("A=\n");
     
     std::cout<<std::endl;
+    std::cout<<"A.Get(6)           ="<<A.Get(6)<<std::endl;
+    std::cout<<"A.Get(10)          ="<<A.Get(10)<<std::endl;
     std::cout<<"A.Get(1,1)         ="<<A.Get(1,1)<<std::endl;
+    std::cout<<"A.Pointer(1,1)     ="<<A.Pointer(1,1)<<std::endl;
+    std::cout<<"*(A.Pointer(1,1))  ="<<*A.Pointer(1,1)<<std::endl;
+    
+    A.At(1,1)=-1;
+    std::cout<<"A.At(1,1))=-1;      "<<std::endl;
+    A.Print("A=\n");
+    
+    std::cout<<"A.At(1,1))         ="<<A.At(1,1)<<std::endl;
     std::cout<<"A.Bilinear(1.0,1.0)="<<A.Bilinear(1.0,1.0)<<std::endl;
     std::cout<<"A.Bilinear(1.5,1.5)="<<A.Bilinear(1.5,1.5)<<std::endl;
     

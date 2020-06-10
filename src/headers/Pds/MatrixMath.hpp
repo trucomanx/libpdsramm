@@ -332,7 +332,7 @@ namespace Pds{
      *  \f[ {n \choose k}=\frac{n!}{k!(n-k)!} \f] 
      *  \param[in] n Valor superior del combinatorio.
      *  \param[in] k Valor inferior del combinatorio.
-     *  \return El valor del combinatorio (n,k).
+     *  \return El valor del combinatorio (n,k). Si k>n retorna 0.
      *  \ingroup MatrixMathGroup
      */
     unsigned int NchooseK(unsigned int n,unsigned int k);

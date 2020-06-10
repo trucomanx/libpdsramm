@@ -31,12 +31,12 @@ Pds::Vector Pds::LinSpace(double start,double end,unsigned int N)
     unsigned int id;
     double factor=(end-start)/(N-1.0);
     
-    V.Set(start,0);
-    V.Set(end,N-1);
+    V.Set(0,start);
+    V.Set(N-1,end);
     
     if(N>2)
     for(id=1;id<(N-1);id++)
-    V.Set(start+factor*id,id);
+    V.Set(id,start+factor*id);
     
     return V;
 }
@@ -53,12 +53,12 @@ Pds::Vector Pds::GeomSpace(double start,double end,unsigned int N)
     unsigned int id;
     double factor=pow(end/start,1.0/(N-1.0));
     
-    V.Set(start,0);
-    V.Set(end,N-1);
+    V.Set(0,start);
+    V.Set(N-1,end);
     
     if(N>2)
     for(id=1;id<(N-1);id++)
-    V.Set(start+factor*id,id);
+    V.Set(id,start+factor*id);
 
     return V;
 }
@@ -69,14 +69,14 @@ Pds::Vector Pds::GeomSpace(double start,double end,unsigned int N)
 Pds::Vector Pds::X2D(void)
 {
     Pds::Vector A(2);
-    A.Set(1.0,0,0);
+    A.Set(0,1.0);
     return A;
 }
 
 Pds::Vector Pds::Y2D(void)
 {
     Pds::Vector A(2);
-    A.Set(1.0,1);
+    A.Set(1,1.0);
     return A;
 }
 
@@ -85,20 +85,20 @@ Pds::Vector Pds::Y2D(void)
 Pds::Vector Pds::X3D(void)
 {
     Pds::Vector A(3);
-    A.Set(1.0,0);
+    A.Set(0,1.0);
     return A;
 }
 
 Pds::Vector Pds::Y3D(void)
 {
     Pds::Vector A(3);
-    A.Set(1.0,1);
+    A.Set(1,1.0);
     return A;
 }
 
 Pds::Vector Pds::Z3D(void)
 {
     Pds::Vector A(3);
-    A.Set(1.0,2);
+    A.Set(2,1.0);
     return A;
 }
