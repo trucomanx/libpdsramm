@@ -76,6 +76,19 @@ std::list<unsigned int> Pds::Ra::RandIndices(unsigned int Init,unsigned int End,
     return List;
 }
 
+std::string Pds::Ra::IndicesToString(std::list<unsigned int> IDs, std::string separator)
+{
+    unsigned int i=0;
+    std::string str;
+    
+    for (auto pmat = IDs.begin(); pmat != IDs.end(); pmat++)
+    { 
+        if(i==0)    str=std::to_string(*pmat);
+        else        str=str+separator+std::to_string(*pmat);
+        i++;
+    }
+    return str;
+}
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////

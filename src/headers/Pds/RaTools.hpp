@@ -116,6 +116,15 @@ void PrintPackage(std::string str);
 std::list<unsigned int> RandIndices(unsigned int Init,unsigned int End, unsigned int N);
 
 /**
+ *  \brief Convierte una lista de indices a un std::string.
+ *  
+ *  \param[in] IDs Lista de indices.
+ *  \param[in] separator Separador de elementos.
+ *  \ingroup PdsRaToolsGroup
+ */
+std::string IndicesToString(std::list<unsigned int> IDs, std::string separator="");
+
+/**
  * @}
  */
 
