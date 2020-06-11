@@ -139,24 +139,6 @@ Pds::Matrix Pds::Matrix::Sub(const Pds::Matrix &B) const
 
     return Ans;
 }
-////////////////////////////////////////////////////////////////////////
-Pds::Matrix Pds::Matrix::Product(const Pds::Matrix &B) const
-{
-    if( this->IsNotSimilarTo(B) )    return Pds::Matrix();
-    
-    Pds::Matrix Ans(B.Size());
-    
-    unsigned int lin,col;
-   
-    for(lin=0;lin<B.nlin;lin++)
-    for(col=0;col<B.ncol;col++)
-    {       
-        Ans.array[lin][col]=(this->array[lin][col])*B.array[lin][col];
-    }
-
-    return Ans;
-}
-
 
 ////////////////////////////////////////////////////////////////////////
 Pds::Matrix operator*(double b,const Pds::Matrix &mat)
@@ -242,3 +224,57 @@ Pds::Matrix Pds::Matrix::MulT(const Pds::Matrix &B) const
     }
     return Ans;
 }
+////////////////////////////////////////////////////////////////////////
+Pds::Matrix Pds::Matrix::Product(const Pds::Matrix &B) const
+{
+    if( this->IsNotSimilarTo(B) )    return Pds::Matrix();
+    
+    Pds::Matrix Ans(B.Size());
+    
+    unsigned int lin,col;
+   
+    for(lin=0;lin<B.nlin;lin++)
+    for(col=0;col<B.ncol;col++)
+    {       
+        Ans.array[lin][col]=(this->array[lin][col])*B.array[lin][col];
+    }
+
+    return Ans;
+}
+
+////////////////////////////////////////////////////////////////////////
+
+Pds::Matrix Pds::Matrix::Geq(double b) const
+{
+    if( this->IsEmpty() )                return Pds::Matrix();
+
+    Pds::Matrix Ans(this->nlin,this->ncol);
+
+    unsigned int lin,col;
+   
+    for(lin=0;lin<this->nlin;lin++)
+    for(col=0;col<this->ncol;col++)
+    {
+        Ans.array[lin][col]=(this->array[lin][col]>=b);
+    }
+
+    return Ans;
+}
+
+Pds::Matrix Pds::Matrix::Leq(double b) const
+{
+    if( this->IsEmpty() )                return Pds::Matrix();
+
+    Pds::Matrix Ans(this->nlin,this->ncol);
+
+    unsigned int lin,col;
+   
+    for(lin=0;lin<this->nlin;lin++)
+    for(col=0;col<this->ncol;col++)
+    {
+        Ans.array[lin][col]=(this->array[lin][col]<=b);
+    }
+
+    return Ans;
+}
+

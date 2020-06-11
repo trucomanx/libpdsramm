@@ -38,6 +38,13 @@ int main(void)
     
     C=A*B;
     C.Print("A*B\n");
-    
+
+    C=Pds::MatrixId(4,4);
+    C.Print("\nC\n");
+
+    C.Geq(8).Print("\nC.Geq(8)\n");
+
+    C.Leq(8).Print("\nC.Leq(8)\n");
+
     return 0;
 }

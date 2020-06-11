@@ -2232,6 +2232,51 @@ public:
      *  \ingroup MatrixGroup
      */
     Pds::Matrix Product(const Pds::Matrix &B) const;
+    
+    /** 
+     *  \brief Calcula con sigo mismo (A), si (A) es mayor que un valor b y el resultado es
+     * cargado en C. Este método  es similar al operador >= 
+     *
+     *  \f[ C \leftarrow A>=b \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix C;
+    
+    A.FillId();
+    
+    C=A.Geq(8);
+    
+    std::cout<<C;
+\endcode
+     *  \param[in] b el valor a comparar
+     *  \return Retorna C con el
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix Geq(double b) const;
+    
+    /** 
+     *  \brief Calcula con sigo mismo (A), si (A) es menor que un valor b y el resultado es
+     * cargado en C. Este método  es similar al operador <= 
+     *
+     *  \f[ C \leftarrow A<=b \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix C;
+    
+    A.FillId();
+    
+    C=A.Leq(8);
+    
+    std::cout<<C;
+\endcode
+     *  \param[in] b el valor a comparar
+     *  \return Retorna C con el
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix Leq(double b) const;
+    
 /**
  * @}
  */
