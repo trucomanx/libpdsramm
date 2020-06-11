@@ -53,6 +53,29 @@ void Pds::Ra::PrintPackage(std::string str)
 {
     std::cout<<str<<PDS_LIBRARY_PACKAGE<<std::endl;
 }
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+#include <cstdlib>
+#include <algorithm>    // std::count
+
+std::list<unsigned int> Pds::Ra::RandIndices(unsigned int Init,unsigned int End, unsigned int N)
+{
+    std::list<unsigned int> List;
+    unsigned int M=End-Init+1;
+    unsigned int dat;
+    
+    for(unsigned int id=0;id<N;id++)
+    {   
+        do{
+            dat=Init+std::rand()%M;
+        }while( (std::count(List.begin(), List.end(), dat)!=0)&&(M>=N) );
+        
+        List.push_front(dat);
+    }
+    return List;
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////

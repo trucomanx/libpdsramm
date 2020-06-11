@@ -61,6 +61,7 @@ A\equiv [a_{i,j}]
 
 
 #include <string>
+#include <list>
 #include <Pds/Size>
 #include <Pds/RaDefines>
 
@@ -909,6 +910,15 @@ public:
      *  \ingroup MatrixGroup
      */
     Pds::Matrix GetRows(unsigned int lin_init,unsigned int lin_end) const;
+    
+    /** 
+     *  \brief Retorna una sub matriz escojida desde una lista de indices. 
+     *  Hace una verificación si los indices existen, si no existe devuelve una matriz vacia. 
+     *  \param[in] List La liista de indices.
+     *  \return Retorna una sub matriz. Si no existe algun elemento en la lista se devuelve una matriz vacia.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix GetRows(std::list<unsigned int> List) const;
     
     /** 
      *  \brief Retorna una sub matriz escojiendo N lineas aleatoriamente (sin repetición). 

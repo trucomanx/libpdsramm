@@ -63,6 +63,31 @@ bool Pds::Matrix::SetDiagonal(const Pds::Vector V)
 ////////////////////////////////////////////////////////////////////////////////
 
 
+Pds::Matrix Pds::Matrix::GetRows(std::list<unsigned int> List) const
+{
+    if((this->ncol==0)||(this->nlin==0)||(this->array==NULL)) return Pds::Matrix();
+
+    for (auto pdat = List.begin(); pdat != List.end(); pdat++) 
+    {
+        if( (*pdat)>=this->nlin )   return Pds::Matrix();
+    }
+    
+
+    Pds::Matrix A(List.size(),this->ncol);
+    
+    unsigned int lin=0;
+    
+    for (auto pdat = List.begin(); pdat != List.end(); pdat++) 
+    {
+        for(unsigned int col=0;col<this->ncol;col++)
+        A.array[lin][col]=this->array[*pdat][col];
+
+        lin++;
+
+    }
+    return A;
+}
+
 Pds::Matrix Pds::Matrix::GetRows(unsigned int lin_init,unsigned int lin_end) const
 {
     if((this->ncol==0)||(this->nlin==0)||(this->array==NULL)) return Pds::Matrix();
