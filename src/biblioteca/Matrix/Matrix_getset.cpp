@@ -63,12 +63,6 @@ bool Pds::Matrix::Set(unsigned int lin,unsigned int col,double val)
     return true;
 }
 
-
-const double *Pds::Matrix::Pointer(unsigned int lin,unsigned int col) const
-{
-    if(this->IsInRange(lin,col))   return (this->array[lin]+col);
-    else                           return NULL;
-}
     
 double &Pds::Matrix::At(unsigned int lin,unsigned int col)
 {

@@ -845,16 +845,6 @@ public:
      */
     double &At(unsigned int id);
     
-    /** 
-     *  \brief Retorna un puntero a la posición (lin,col), hace una verificación
-     *  si la posición existe. 
-     *  \param[in] lin La linea en consulta.
-     *  \param[in] col La columna en consulta.
-     *  \return Retorna el valor en la posición (lin,col) o cero si la 
-     *  posición no existe.
-     *  \ingroup MatrixGroup
-     */
-    const double *Pointer(unsigned int lin,unsigned int col) const;
     
     /** 
      *  \brief Retorna el valor en la posición (lin,col),  usando una

@@ -48,10 +48,10 @@ a_{10}  \\
 \vdots  \\
 a_{(Nlin-2)0}  \\ 
 a_{(Nlin-1)0} \\
-\end{matrix}\right)\equiv A_{(Nlin-1),1}
+\end{matrix}\right)
    \f]
    \f[
-A_{(Nlin-1),1}\equiv [a_{ij}]_{(Nlin-1),1}
+A\equiv [a_{i0}]
    \f]
  *  \b nlin es el número de lineas.
  *  
@@ -110,10 +110,10 @@ public:
 \vdots \\
 0 \\ 
 0 \\
-\end{matrix}\right)\equiv A_{Nlin,1}
+\end{matrix}\right)
    \f]
-   \f[ A_{Nlin,1}\equiv [0]_{Nlin,1}  \f]
-   Para crear una matriz A de 4 filas y 1 columna:
+   \f[ A\equiv [0]  \f]
+   Para crear una matriz A de 6 filas y 1 columna:
 \code{.cpp}
     Pds::Matrix B(2,3);
     Pds::Vector A(B.Size());
@@ -121,7 +121,6 @@ public:
     if(A.IsEmpty()) std::cout<<"Yes,possible memory allocation problem\n";
     else            std::cout<<"No,all fine\n";
 \endcode
-     *
      *  \param[in] S El tamaño del vector, en general el tamaño es S.Ncol*S.Nlin.
      *  \ingroup VectorGroup
      */
@@ -132,7 +131,7 @@ public:
      *  una matriz. Toda la matriz es vectorizada leyendo columna a columna.
      * 
    \f[
-B_{Nlin,1}\equiv [b_{i,j}]_{Nlin,Ncol}
+B\equiv [b_{i,j}]
    \f]
    \f[
 \mathbf{A} \leftarrow \mathbf{B\{:\}}
@@ -197,7 +196,7 @@ B_{Nlin,1}\equiv [b_{i,j}]_{Nlin,Ncol}
      *  una columna de una matriz. 
      * 
    \f[
-B_{Nlin,1}\equiv [b_{i,j}]_{Nlin,Ncol}
+B\equiv [b_{i,j}]
    \f]
    \f[
 \mathbf{A} \leftarrow \mathbf{B\{:,col\}}
@@ -221,7 +220,7 @@ B_{Nlin,1}\equiv [b_{i,j}]_{Nlin,Ncol}
      *  los datos de otro vector.
      * 
    \f[
-B_{Nlin,1}\equiv [b_{i,j}]_{Nlin,1}
+B\equiv [b_{i,j}]
    \f]
    \f[
 \mathbf{A} \leftarrow func(\mathbf{B})
@@ -245,7 +244,7 @@ B_{Nlin,1}\equiv [b_{i,j}]_{Nlin,1}
      *  los datos de una matriz vectorizada.
      * 
    \f[
-B_{Nlin,Ncol}\equiv [b_{i,j}]_{Nlin,Ncol}
+B\equiv [b_{i,j}]
    \f]
    \f[
 B_{Nlin~Ncol,1} \leftarrow func(\mathbf{B(:)})

@@ -50,8 +50,6 @@ int main(void)
     std::cout<<"A.Get(6)           ="<<A.Get(6)<<std::endl;
     std::cout<<"A.Get(10)          ="<<A.Get(10)<<std::endl;
     std::cout<<"A.Get(1,1)         ="<<A.Get(1,1)<<std::endl;
-    std::cout<<"A.Pointer(1,1)     ="<<A.Pointer(1,1)<<std::endl;
-    std::cout<<"*(A.Pointer(1,1))  ="<<*A.Pointer(1,1)<<std::endl;
     
     A.At(1,1)=-1;
     std::cout<<"A.At(1,1))=-1;      "<<std::endl;
