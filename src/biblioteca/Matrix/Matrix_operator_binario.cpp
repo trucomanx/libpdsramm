@@ -172,6 +172,32 @@ Pds::Matrix Pds::Matrix::Mul(double b) const
 }
 
 ////////////////////////////////////////////////////////////////////////
+Pds::Matrix Pds::Matrix::operator /(double b) const
+{
+    return this->Div(b);
+}
+
+Pds::Matrix Pds::Matrix::Div(double b) const
+{
+    if( this->IsEmpty() )                return Pds::Matrix();
+
+    Pds::Matrix Ans(this->nlin,this->ncol);
+
+    //this->Print("(+)this\n");
+
+    unsigned int lin,col;
+   
+    for(lin=0;lin<this->nlin;lin++)
+    for(col=0;col<this->ncol;col++)
+    {
+        Ans.array[lin][col]=this->array[lin][col]/b;
+    }
+
+    return Ans;
+}
+
+
+////////////////////////////////////////////////////////////////////////
 Pds::Matrix Pds::Matrix::operator *(const Pds::Matrix &B) const
 {
     return this->Mul(B);

@@ -2091,6 +2091,52 @@ public:
      */
     Pds::Matrix Sub(const Pds::Matrix &B) const;
     
+
+    /** 
+     *  \brief Divide con sigo mismo (A), un valor b y el resultado es
+     * cargado en C. Este operador es similar al método Div() 
+     *
+     *  \f[ C \leftarrow A/b \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix C;
+    
+    A.Fill(2.0);
+    
+    C=A/2.0;
+    
+    std::cout<<C;
+\endcode
+     *  \param[in] b el valor a dividir
+     *  \return Retorna C con el
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \see Mul
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix operator / (double b) const;
+
+    /** 
+     *  \brief Divide con sigo mismo (A), un valor b y el resultado es
+     * cargado en C. Este método  es similar al operador / 
+     *
+     *  \f[ C \leftarrow A/b \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix C;
+    
+    A.Fill(2.0);
+    
+    C=A.Div(2.0);
+    
+    std::cout<<C;
+\endcode
+     *  \param[in] b el valor a dividir
+     *  \return Retorna C con el
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix Div(double b) const;
+
     /** 
      *  \brief Multiplica con sigo mismo (A), un valor b y el resultado es
      * cargado en C. Este operador es similar al método Mul() 

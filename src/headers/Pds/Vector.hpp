@@ -314,7 +314,7 @@ B_{Nlin~Ncol,1} \leftarrow func(\mathbf{B(:)})
      *  \return retorna la convolucion.
      *  \ingroup VectorGroup
      */
-Pds::Vector Conv(const Pds::Vector &B, bool Same=false) const;
+    Pds::Vector Conv(const Pds::Vector &B, bool Same=false) const;
 
     /** 
      *  \brief Calcula la correlacion cruzada entre A y B. 
@@ -334,8 +334,25 @@ Pds::Vector Conv(const Pds::Vector &B, bool Same=false) const;
      * \return retorna la correlacion cruzada.
      *  \ingroup VectorGroup
      */
-Pds::Vector XCorr(const Pds::Vector &B, bool Same=false) const;
+    Pds::Vector XCorr(const Pds::Vector &B, bool Same=false) const;
+    
+/**
+ * @}
+ */
+    
+    
+/** @name Operadores unarios.
+ * @{
+ */
 
+    /** 
+     *  \brief Calcula el vector unitario de A. 
+     * 
+     * \f[ \mathbf{B}\leftarrow \frac{\mathbf{A}}{||\mathbf{A}||} \f]
+     * \return retorna un vector unitario \f$\mathbf{B}\f$.
+     *  \ingroup VectorGroup
+     */
+    Pds::Vector Unit(void) const;
     
 /**
  * @}

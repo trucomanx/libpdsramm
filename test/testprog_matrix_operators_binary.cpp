@@ -13,6 +13,7 @@ int main(void)
     Pds::Matrix A(2,2);
     Pds::Matrix B(2,2);
     Pds::Matrix C;
+
     
     A.Fill(1.0);    std::cout<<"A:\n"<<A;
     B.Fill(2.0);    std::cout<<"B:\n"<<B;
@@ -22,7 +23,7 @@ int main(void)
     std::cout<<std::endl;
     
     C=A.Add(B);
-    C.Print("A+B\n");
+    C.Print("A.Add(B)\n");
     
     C=A+B;
     C.Print("A+B\n");
@@ -34,11 +35,21 @@ int main(void)
     std::cout<<std::endl;
     
     C=A.Mul(B);
-    C.Print("A*B\n");
+    C.Print("A.Mul(B)\n");
     
     C=A*B;
     C.Print("A*B\n");
-
+    
+    // / operator
+    std::cout<<std::endl;
+    
+    C=A.Div(2);
+    C.Print("A.Div(2)\n");
+    
+    C=A/2;
+    C.Print("A/2\n");
+    
+    // Geq y Leq
     C=Pds::MatrixId(4,4);
     C.Print("\nC\n");
 
