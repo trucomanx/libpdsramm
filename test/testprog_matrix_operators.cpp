@@ -60,8 +60,16 @@ int main(void)
     C.Print("C\n");
     double rcond;
     Pds::Matrix D=C.Inv(&rcond);
+    D.Print("D=C.Inv(&rcond)\n");
 
     (C*D).Print("\nC*D=\n");
+
+    D.Fill(1.0);
+    D.Print("\nD.Fill(1.0)\n");
+    
+    Pds::Matrix F=D.PInv(&rcond);
+    F.Print("\nF:\n");   
+    std::cout<<"rcond: "<<rcond<<std::endl;
     
     return 0;
 }

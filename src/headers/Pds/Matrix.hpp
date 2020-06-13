@@ -448,6 +448,15 @@ public:
     bool IsInSizeRange(double lin,double col) const;
     
     /** 
+     *  \brief Verifica si la matriz está llena de zeros.
+     * 
+     *  
+     *  \return Retorna true si la matriz está llena de zeros o false si no.
+     *  Si la matriz está vacia se retorna false.
+     *  \ingroup MatrixGroup
+     */
+    bool IsZero(void) const;
+    /** 
      *  \brief Verifica si la matriz tiene elementos con valores infinitos.
      * 
      * Los valores infinitos pueden producirse con \f$+\frac{1}{0},-\frac{1}{0} y \frac{1}{0}\f$.
@@ -1769,7 +1778,8 @@ public:
      * esta pobremente condicionada este valor estará proximo a 0.0.
      * Si la variable rcond no es entregada entonces sera mostrado un mensaje
      * de advertencia por consola si el valor de rcond es menor a Pds::Ra::WarningRCond.
-     *  \return Retorna la matriz inversa si todo fue bien o una matriz vacia si no.
+     *  \return Retorna la matriz inversa si todo fue bien o una matriz vacia (.IsEmpty()==true) 
+     *  si no es posible calcular la inversa.
      *  \ingroup MatrixGroup
      */
     Pds::Matrix Inv(double *rcond=NULL) const;
@@ -1787,7 +1797,8 @@ public:
      * esta pobremente condicionada este valor estará proximo a 0.0.
      * Si la variable rcond no es entregada entonces sera mostrado un mensaje
      * de advertencia por consola si el valor de rcond es menor a Pds::Ra::WarningRCond.
-     *  \return Retorna la matriz inversa si todo fue bien o una matriz vacia si no.
+     *  \return Retorna la matriz inversa si todo fue bien o una matriz vacia (.IsEmpty()==true) 
+     *  si no es posible calcular la inversa.
      *  \ingroup MatrixGroup
      */
     Pds::Matrix PInv(double *rcond=NULL) const;

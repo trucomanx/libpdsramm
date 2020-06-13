@@ -118,6 +118,16 @@ bool Pds::Matrix::IsNotInRange(unsigned int lin,unsigned int col) const
     return false;
 }
 
+bool Pds::Matrix::IsZero(void) const
+{
+    if(this->IsEmpty()) return false;
+    
+    for(unsigned int lin=0;lin<this->nlin;lin++)
+    for(unsigned int col=0;col<this->ncol;col++)
+    if(this->array[lin][col]!=0.0)  return false;
+    
+    return true;
+}
 
 Pds::Matrix Pds::Matrix::IsInf(void) const
 {

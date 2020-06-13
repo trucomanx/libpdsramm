@@ -79,5 +79,10 @@ int main(void)
     std::cout<<"C.HasInf()      :\t"<<C.HasInf()<<std::endl;
     std::cout<<"C.HasNan()      :\t"<<C.HasNan()<<std::endl;
     std::cout<<"C.HasNotFinite():\t"<<C.HasNotFinite()<<std::endl;
+
+    Pds::Matrix D(4,4);
+    D.Print("\nD:\n");
+    if(D.IsZero())  std::cout<<"D is zero matrix"<<std::endl;
+    else            std::cout<<"D is not zero matrix"<<std::endl;
     return 0;
 }
