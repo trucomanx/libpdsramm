@@ -1415,6 +1415,22 @@ public:
      *  \ingroup MatrixGroup
      */
     bool ApplyInCol(unsigned int col, double (*func)(double,double), double var);
+
+    /** 
+     *  \brief Opera la función func usando como entrada cada fila de la matriz.
+     * \param[in] func Función a aplicar, esta debe tener a forma double func(const Pds::Matrix &Row).
+     * \return Una matriz columna si todo fue bien o una vacia en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix OperateRows(double (*func)(const Pds::Matrix &Row)) const;
+
+    /** 
+     *  \brief Opera la función func usando como entrada cada columna de la matriz.
+     * \param[in] func Función a aplicar, esta debe tener a forma double func(const Pds::Matrix &Col).
+     * \return Una matriz linea si todo fue bien o una vacia en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix OperateCols(double (*func)(const Pds::Matrix &Col)) const;
 /**
  * @}
  */

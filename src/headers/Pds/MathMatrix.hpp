@@ -518,7 +518,7 @@ namespace Pds{
     /** 
      *  \brief Calcula el valor quadrático medio de una matriz.
      *
-     *  \f[ A.MeanSquare()=\frac{1}{Nlin~Ncol}\sum \limits_{i}^{Nlin} \sum \limits_{j}^{Ncol} {|a_{ij}|}^2 \f]
+     *  \f[ Pds::MeanSquare(A)=\frac{1}{Nlin~Ncol}\sum \limits_{i}^{Nlin} \sum \limits_{j}^{Ncol} {|a_{ij}|}^2 \f]
      *  \return Retorna el valor cuadrático medio. En caso de que la matriz sea vacía
      *  se retorna Pds::Ra::Nan.
      *  \ingroup MatrixGroup
@@ -529,7 +529,7 @@ namespace Pds{
     /** 
      *  \brief Calcula el valor  de la suma quadrática de una matriz.
      *
-     *  \f[ A.MeanSquare()=\sum \limits_{i}^{Nlin} \sum \limits_{j}^{Ncol} {|a_{ij}|}^2 \f]
+     *  \f[ Pds::SumSquare(A)=\sum \limits_{i}^{Nlin} \sum \limits_{j}^{Ncol} {|a_{ij}|}^2 \f]
      *  \return Retorna el valor de la suma cuadrática. En caso de que la matriz sea vacía
      *  se retorna Pds::Ra::Nan.
      *  \ingroup MatrixGroup
@@ -539,7 +539,7 @@ namespace Pds{
     /** 
      *  \brief Calcula el valor dela norma (Frobenius) de una matriz.
      *
-     *  \f[ A.MeanSquare()=\sqrt{\sum \limits_{i}^{Nlin} \sum \limits_{j}^{Ncol} {|a_{ij}|}^2} \f]
+     *  \f[ Pds::Norm(A)=\sqrt{\sum \limits_{i}^{Nlin} \sum \limits_{j}^{Ncol} {|a_{ij}|}^2} \f]
      *  \return Retorna el valor de la norma de Frobenius. En caso de que la matriz sea vacía
      *  se retorna Pds::Ra::Nan.
      *  \ingroup MatrixGroup
