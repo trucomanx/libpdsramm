@@ -24,8 +24,8 @@
 #include <cmath>
 #include <Pds/Vector>
 #include <Pds/Matrix>
-#include <Pds/MatrixMath>
-#include <Pds/MatrixFunc> 
+#include <Pds/MathMatrix>
+#include <Pds/FuncMatrix> 
 #include <Pds/FuncVectorPoly>
 #include <iostream>
 

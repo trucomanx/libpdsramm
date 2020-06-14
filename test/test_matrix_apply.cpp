@@ -34,6 +34,9 @@ int main(void)
 
     B=A.OperateRows(Pds::SumSquare);
     B.Print("\nA.OperateRows(Pds::SumSquare):\n");
+
+    B=A.OperateRows(Pds::Rms);
+    B.Print("\nA.OperateRows(Pds::Rms):\n");
     
     return 0;
 }

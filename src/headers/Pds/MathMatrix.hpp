@@ -516,6 +516,16 @@ namespace Pds{
     Matrix Sinc(const Matrix &A);
 
     /** 
+     *  \brief Calcula el valor raiz quadrático medio de una matriz.
+     *
+     *  \f[ Pds::Rms(A)=\sqrt{\frac{1}{Nlin~Ncol}\sum \limits_{i}^{Nlin} \sum \limits_{j}^{Ncol} {|a_{ij}|}^2} \f]
+     *  \return Retorna el valor raiz cuadrático medio. En caso de que la matriz sea vacía
+     *  se retorna Pds::Ra::Nan.
+     *  \ingroup MatrixGroup
+     */
+    double Rms(const Matrix &A);
+
+    /** 
      *  \brief Calcula el valor quadrático medio de una matriz.
      *
      *  \f[ Pds::MeanSquare(A)=\frac{1}{Nlin~Ncol}\sum \limits_{i}^{Nlin} \sum \limits_{j}^{Ncol} {|a_{ij}|}^2 \f]

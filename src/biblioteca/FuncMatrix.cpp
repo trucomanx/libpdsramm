@@ -24,7 +24,7 @@
 
 #include <Pds/Matrix>
 #include <Pds/Vector>
-#include <Pds/MatrixMath>
+#include <Pds/MathMatrix>
 #include <Pds/FuncMatrix>
 
 Pds::Matrix Pds::MatrixId(unsigned int N)

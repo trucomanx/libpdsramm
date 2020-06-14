@@ -5,6 +5,21 @@
 #include <cmath>
 
 
+double Pds::Matrix::Rms(void) const
+{
+    unsigned int lin,col;
+    double S=0;
+    
+    if((this->nlin==0)||(this->ncol==0)||(this->array==NULL))
+    return Pds::Ra::Nan;
+    
+    for(lin=0;lin<this->nlin;lin++)
+    for(col=0;col<this->ncol;col++)
+    S=S+this->array[lin][col]*this->array[lin][col];
+
+    return sqrt(S/((this->ncol)*(this->nlin)));
+}
+
 double Pds::Matrix::MeanSquare(void) const
 {
     unsigned int lin,col;

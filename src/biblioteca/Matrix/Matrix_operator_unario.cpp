@@ -24,7 +24,7 @@
 #include <iostream>
 
 #include <Pds/Matrix>
-#include <Pds/MatrixFunc>
+#include <Pds/FuncMatrix>
 #include <Pds/RaDefines>
 
 ////////////////////////////////////////////////////////////////////////

@@ -178,6 +178,11 @@ Pds::Matrix Pds::Logit(const Pds::Matrix &A)
 }
 
 ////////////////////////////////////////////////////////////////////////
+double Pds::Rms(const Pds::Matrix &A)
+{
+    return A.Rms();
+}
+
 double Pds::SumSquare(const Pds::Matrix &A)
 {
     return A.SumSquare();

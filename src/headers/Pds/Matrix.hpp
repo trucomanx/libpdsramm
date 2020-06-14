@@ -1303,7 +1303,17 @@ public:
      *  \ingroup MatrixGroup
      */
     double Dot(const Pds::Matrix &B) const;
-    
+   
+    /** 
+     *  \brief Calcula valor raiz quadrático medio de una matriz.
+     *
+     *  \f[ A.Rms()=\sqrt{\frac{1}{Nlin~Ncol}\sum \limits_{i}^{Nlin} \sum \limits_{j}^{Ncol} {|a_{ij}|}^2} \f]
+     *  \return Retorna el valor raiz cuadrático medio. En caso de que la matriz sea vacía
+     *  se retorna Pds::Ra::Nan.
+     *  \ingroup MatrixGroup
+     */
+    double Rms(void) const;
+ 
     /** 
      *  \brief Calcula valor quadrático medio de una matriz.
      *
