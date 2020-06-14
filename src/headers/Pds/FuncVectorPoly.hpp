@@ -1,5 +1,5 @@
 /*
- * VectorPoly.hpp
+ * FuncVectorPoly.hpp
  * 
  * Copyright 2018 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
  * 
@@ -20,7 +20,7 @@
  * 
  */
 
-/** \file VectorPoly.hpp
+/** \file FuncVectorPoly.hpp
  *  \author Fernando Pujaico Rivera
  *  \brief Funciones que trabajan con Polinomios.
  *  
@@ -37,7 +37,7 @@
 
 /** \defgroup VectorAlgebraGroup Funciones Pds::Vector -- Polinómios
  *  \brief Funciones que usan Pds::Vector, Ejemplo: Pds::PolyMat(), Pds::PolyFit(), Pds::PolyVal(), etc 
- *  <div class="fragment"> \#include <Pds/VectorPoly> </div>
+ *  <div class="fragment"> \#include <Pds/FuncVectorPoly> </div>
  *  
  *  <br>Estas funciones trabajan con una matriz de la forma.<br>
    \f[

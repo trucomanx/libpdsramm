@@ -1,5 +1,5 @@
 /*
- * MatrixFunc.hpp
+ * FuncMatrix.hpp
  * 
  * Copyright 2018 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
  * 
@@ -20,7 +20,7 @@
  * 
  */
 
-/** \file MatrixFunc.hpp
+/** \file FuncMatrix.hpp
  *  \author Fernando Pujaico Rivera
  *  \brief Funciones que trabajan con matrices.
  *  
@@ -35,9 +35,9 @@
 #define __PDS_MATRIXFUNC_HPP__
 
 
-/** \defgroup MatrixFuncGroup Funciones Pds::Matrix -- Básicos
+/** \defgroup FuncMatrixGroup Funciones Pds::Matrix -- Básicos
  *  \brief Funciones que usan Pds::Matrix, Ejemplo: Pds::Diag(), Pds::Eye(), Pds::Ones(), Pds::Zeros(), etc 
- *  <div class="fragment"> \#include <Pds/MatrixFunc> </div>
+ *  <div class="fragment"> \#include <Pds/FuncMatrix> </div>
  *  
  *  <br>Estas funciones trabajan con una matriz de la forma.<br>
    \f[
@@ -72,7 +72,7 @@ namespace Pds{
      *  \brief Crea una matriz con datos correspondentes ao Id de cada elemento.
      *  \param[in] N Número de lineas y columnas.
      *  \return Retorna una matriz no vacía si todo fue bien o una matriz vacía en caso de error.
-     *  \ingroup MatrixFuncGroup
+     *  \ingroup FuncMatrixGroup
      */
     Pds::Matrix MatrixId(unsigned int N);
    
@@ -80,7 +80,7 @@ namespace Pds{
      *  \brief Crea una matriz con datos correspondentes ao Id de cada elemento.
      *  \param[in] S Tamaño de la matriz.
      *  \return Retorna una matriz no vacía si todo fue bien o una matriz vacía en caso de error.
-     *  \ingroup MatrixFuncGroup
+     *  \ingroup FuncMatrixGroup
      */
     Pds::Matrix MatrixId(const Pds::Size &S);
    
@@ -89,7 +89,7 @@ namespace Pds{
      *  \param[in] Nlin Número de lineas.
      *  \param[in] Ncol Número de columnas.
      *  \return Retorna una matriz no vacía si todo fue bien o una matriz vacía en caso de error.
-     *  \ingroup MatrixFuncGroup
+     *  \ingroup FuncMatrixGroup
      */
     Pds::Matrix MatrixId(unsigned int Nlin,unsigned int Ncol);
     
@@ -98,7 +98,7 @@ namespace Pds{
      *  de media cero 0.0 y desvío padrón 1.0.
      *  \param[in] N Número de lineas y columnas.
      *  \return Retorna una matriz no vacía si todo fue bien o una matriz vacía en caso de error.
-     *  \ingroup MatrixFuncGroup
+     *  \ingroup FuncMatrixGroup
      */
     Pds::Matrix RandN(unsigned int N);
    
@@ -107,7 +107,7 @@ namespace Pds{
      *  de media cero 0.0 y desvío padrón 1.0.
      *  \param[in] S Tamaño de la matriz.
      *  \return Retorna una matriz no vacía si todo fue bien o una matriz vacía en caso de error.
-     *  \ingroup MatrixFuncGroup
+     *  \ingroup FuncMatrixGroup
      */
     Pds::Matrix RandN(const Pds::Size &S);
    
@@ -117,7 +117,7 @@ namespace Pds{
      *  \param[in] Nlin Número de lineas.
      *  \param[in] Ncol Número de columnas.
      *  \return Retorna una matriz no vacía si todo fue bien o una matriz vacía en caso de error.
-     *  \ingroup MatrixFuncGroup
+     *  \ingroup FuncMatrixGroup
      */
     Pds::Matrix RandN(unsigned int Nlin,unsigned int Ncol);
     
@@ -125,7 +125,7 @@ namespace Pds{
      *  \brief Crea una matriz con datos aleatorios uniformemente distribuidos entre 0.0 y 1.0.
      *  \param[in] N Número de lineas y columnas.
      *  \return Retorna una matriz no vacía si todo fue bien o una matriz vacía en caso de error.
-     *  \ingroup MatrixFuncGroup
+     *  \ingroup FuncMatrixGroup
      */
     Pds::Matrix RandU(unsigned int N);
     
@@ -133,7 +133,7 @@ namespace Pds{
      *  \brief Crea una matriz con datos aleatorios uniformemente distribuidos entre 0.0 y 1.0.
      *  \param[in] S Tamaño de la matriz.
      *  \return Retorna una matriz no vacía si todo fue bien o una matriz vacía en caso de error.
-     *  \ingroup MatrixFuncGroup
+     *  \ingroup FuncMatrixGroup
      */
     Pds::Matrix RandU(const Pds::Size &S);
     
@@ -142,7 +142,7 @@ namespace Pds{
      *  \param[in] Nlin Número de lineas.
      *  \param[in] Ncol Número de columnas.
      *  \return Retorna una matriz no vacía si todo fue bien o una matriz vacía en caso de error.
-     *  \ingroup MatrixFuncGroup
+     *  \ingroup FuncMatrixGroup
      */
     Pds::Matrix RandU(unsigned int Nlin,unsigned int Ncol);
     
@@ -165,7 +165,7 @@ a_{10} & a_{11}
    \f]
      *  \param[in] A La matriz donde se extraen los datos.
      *  \return Retorna la matriz diagonal.
-     *  \ingroup MatrixFuncGroup
+     *  \ingroup FuncMatrixGroup
      */
     Pds::Matrix Diag(Matrix A);
 
@@ -182,7 +182,7 @@ a_{10} & a_{11}
    \f]
      *  \param[in] N El numero de lineas y columnas de la matriz.
      *  \return Retorna la matriz o una matriz vacía en caso de error.
-     *  \ingroup MatrixFuncGroup
+     *  \ingroup FuncMatrixGroup
      */
     Pds::Matrix Eye(unsigned int N);
     
@@ -199,7 +199,7 @@ a_{10} & a_{11}
    \f]
      *  \param[in] S El tamaño de la matriz.
      *  \return Retorna la matriz o una matriz vacía en caso de error.
-     *  \ingroup MatrixFuncGroup
+     *  \ingroup FuncMatrixGroup
      */
     Pds::Matrix Ones(const Pds::Size &S);
     
@@ -217,7 +217,7 @@ a_{10} & a_{11}
      *  \param[in] Nlin El numero de lineas de la matriz.
      *  \param[in] Ncol El numero de columnas de la matriz.
      *  \return Retorna la matriz o una matriz vacía en caso de error.
-     *  \ingroup MatrixFuncGroup
+     *  \ingroup FuncMatrixGroup
      */
     Pds::Matrix Ones(unsigned int Nlin, unsigned int Ncol);
     
@@ -234,7 +234,7 @@ a_{10} & a_{11}
    \f]
      *  \param[in] N El numero de lineas y columnas de la matriz.
      *  \return Retorna la matriz o una matriz vacía en caso de error.
-     *  \ingroup MatrixFuncGroup
+     *  \ingroup FuncMatrixGroup
      */
     Pds::Matrix Ones(unsigned int N);
     
@@ -252,7 +252,7 @@ a_{10} & a_{11}
    \f]
      *  \param[in] S El tamaño de la matriz.
      *  \return Retorna la matriz o una matriz vacía en caso de error.
-     *  \ingroup MatrixFuncGroup
+     *  \ingroup FuncMatrixGroup
      */
     Pds::Matrix Zeros(const Pds::Size &S);
     
@@ -270,7 +270,7 @@ a_{10} & a_{11}
      *  \param[in] Nlin El numero de lineas de la matriz.
      *  \param[in] Ncol El numero de columnas de la matriz.
      *  \return Retorna la matriz o una matriz vacía en caso de error.
-     *  \ingroup MatrixFuncGroup
+     *  \ingroup FuncMatrixGroup
      */
     Pds::Matrix Zeros(unsigned int Nlin, unsigned int Ncol);
     
@@ -287,7 +287,7 @@ a_{10} & a_{11}
    \f]
      *  \param[in] N El numero de lineas y columnas de la matriz.
      *  \return Retorna la matriz o una matriz vacía en caso de error.
-     *  \ingroup MatrixFuncGroup
+     *  \ingroup FuncMatrixGroup
      */
     Pds::Matrix Zeros(unsigned int N);
 
@@ -325,7 +325,7 @@ Donde se sabe que
      *  \param[in] N Número de numeros usados en la suma.
      *  \param[in] M Suma que tien que tener los N números.
      *  \return Retorna la matriz con los indices.
-     *  \ingroup MatrixFuncGroup
+     *  \ingroup FuncMatrixGroup
      */
     Pds::Matrix MultisetIndexSum(unsigned int N,unsigned int M);
 
@@ -352,7 +352,7 @@ Donde el indice \f$\mathbf{d}_l\f$ genera el monomio
      *  \param[in] Separator El texto separador entre monomios.
      *  \param[in] xinit Valor inicial de x, si xinit=0 inicia en x_{0}
      *  \return Una cadena con los indices.
-     *  \ingroup MatrixFuncGroup
+     *  \ingroup FuncMatrixGroup
      */
     std::string MultisetIndexSumToString(const Pds::Matrix &ID,std::string Separator=", ",unsigned int xinit=1);
 
@@ -398,7 +398,7 @@ La funcion calcula los exponentes en los monomios usando Pds::MultisetIndexSum(N
      *  \param[in] M Orden de los monomios.
      *  \param[out] ID Matriz de indices (en las lineas) de todos los monomios en las columnas de la matriz \f$\overline{\mathbf{X}}^{M}\f$.
      *  \return Retorna la matriz \f$\overline{\mathbf{X}}^{M}\f$ con los monomios.
-     *  \ingroup MatrixFuncGroup
+     *  \ingroup FuncMatrixGroup
      */
     Pds::Matrix Monomials(const Pds::Matrix &X,unsigned int M,Pds::Matrix &ID);
 
@@ -443,7 +443,7 @@ La funcion calcula los exponentes en los monomios usando Pds::MultisetIndexSum(N
      *  \param[in] X Matriz \f$\mathbf{X}=\left[\mathbf{x}_1,\quad \mathbf{x}_2,\quad ...,\quad \mathbf{x}_N\right]\f$.
      *  \param[in] M Orden de los monomios.
      *  \return Retorna la matriz \f$\overline{\mathbf{X}}^{M}\f$ con los monomios.
-     *  \ingroup MatrixFuncGroup
+     *  \ingroup FuncMatrixGroup
      */
     Pds::Matrix Monomials(const Pds::Matrix &X,unsigned int M);
 
@@ -462,7 +462,7 @@ La funcion calcula los exponentes en los monomios usando Pds::MultisetIndexSum(N
      *
      *  \param[in] list La lista de matrices a concatenar.
      *  \return Retorna la matriz concatenada o una matriz vacía en caso de error.
-     *  \ingroup MatrixFuncGroup
+     *  \ingroup FuncMatrixGroup
      */
     Pds::Matrix  MergeVer(const std::initializer_list<Pds::Matrix> list);
 
@@ -472,7 +472,7 @@ La funcion calcula los exponentes en los monomios usando Pds::MultisetIndexSum(N
      *
      *  \param[in] list La lista de matrices a concatenar.
      *  \return Retorna la matriz concatenada o una matriz vacía en caso de error.
-     *  \ingroup MatrixFuncGroup
+     *  \ingroup FuncMatrixGroup
      */
     Pds::Matrix  MergeHor(const std::initializer_list<Pds::Matrix> list);
 
@@ -492,7 +492,7 @@ La funcion calcula los exponentes en los monomios usando Pds::MultisetIndexSum(N
    \f]
      *  \param[in] list La lista de matrices \f$\mathbf{list_n}\f$ a concatenar.
      *  \return Retorna una Regressor Matrix o una matriz vacía en caso de error.
-     *  \ingroup MatrixFuncGroup
+     *  \ingroup FuncMatrixGroup
      */
     Pds::Matrix RegressorMatrix(const std::initializer_list<Pds::Matrix> list);
 
@@ -508,7 +508,7 @@ La funcion calcula los exponentes en los monomios usando Pds::MultisetIndexSum(N
    \f]
      *  \param[in] B La matriz a usar.
      *  \return Retorna una Regressor Matrix o una matriz vacía en caso de error.
-     *  \ingroup MatrixFuncGroup
+     *  \ingroup FuncMatrixGroup
      */
     Pds::Matrix RegressorMatrix(const Pds::Matrix &B);
 
@@ -528,7 +528,7 @@ es decir \f$\overline{\mathbf{B}}^{m}\f$=Pds::Monomials(B,m).
      *  \param[in] M El orden del polinomio multivariado.
      *  \return Retorna una Regressor Matrix o una matriz vacía en caso de error.
      *  \see Pds::Monomials()
-     *  \ingroup MatrixFuncGroup
+     *  \ingroup FuncMatrixGroup
      */
     Pds::Matrix  RegressorMatrix(const Pds::Matrix &B,unsigned int M);
 
@@ -550,7 +550,7 @@ es decir \f$\overline{\mathbf{B}}^{m}\f$=Pds::Monomials(B,m).
      *  los monomios en las columnas de \f$\mathbf{R}\f$.
      *  \return Retorna una Regressor Matrix o una matriz vacía en caso de error.
      *  \see Pds::Monomials()
-     *  \ingroup MatrixFuncGroup
+     *  \ingroup FuncMatrixGroup
      */
     Pds::Matrix  RegressorMatrix(const Pds::Matrix &B,unsigned int M,Pds::Matrix &ID);
     

@@ -1,5 +1,5 @@
 /*
- * VectorFunc.cpp
+ * FuncVector.cpp
  * 
  * Copyright 2018 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
  * 
@@ -23,7 +23,7 @@
 #include <cmath>
 
 #include <Pds/Vector>
-#include <Pds/VectorFunc>
+#include <Pds/FuncVector>
 
 Pds::Vector Pds::LinSpace(double start,double end,unsigned int N)
 {

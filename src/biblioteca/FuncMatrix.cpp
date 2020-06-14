@@ -1,5 +1,5 @@
 /*
- * MatrixFunc.cpp
+ * FuncMatrix.cpp
  * 
  * Copyright 2018 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
  * 
@@ -25,7 +25,7 @@
 #include <Pds/Matrix>
 #include <Pds/Vector>
 #include <Pds/MatrixMath>
-#include <Pds/MatrixFunc>
+#include <Pds/FuncMatrix>
 
 Pds::Matrix Pds::MatrixId(unsigned int N)
 {

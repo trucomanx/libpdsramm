@@ -1,5 +1,5 @@
 /*
- * MatrixMath.cpp
+ * MathMatrix.cpp
  * 
  * Copyright 2018 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
  * 
@@ -21,7 +21,7 @@
  */
 
 
-#include <Pds/MatrixMath>
+#include <Pds/MathMatrix>
 #include <cmath>
 
 Pds::Matrix Pds::Round(const Pds::Matrix &A)
@@ -175,6 +175,22 @@ Pds::Matrix Pds::Logit(const Pds::Matrix &A)
 {
     Pds::Matrix B(Pds::Logit,A);
     return B;
+}
+
+////////////////////////////////////////////////////////////////////////
+double Pds::SumSquare(const Pds::Matrix &A)
+{
+    return A.SumSquare();
+}
+
+double Pds::MeanSquare(const Pds::Matrix &A)
+{
+    return A.MeanSquare();
+}
+
+double Pds::Norm(const Pds::Matrix &A)
+{
+    return A.Norm();
 }
 
 ////////////////////////////////////////////////////////////////////////

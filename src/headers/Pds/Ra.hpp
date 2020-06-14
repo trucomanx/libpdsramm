@@ -49,14 +49,14 @@
 #include <Pds/Size>
     
 #include <Pds/Matrix>
-#include <Pds/MatrixMath>
-#include <Pds/MatrixFunc>
-#include <Pds/MatrixRotation>
+#include <Pds/MathMatrix>
+#include <Pds/FuncMatrix>
+#include <Pds/FuncMatrixRotation>
     
     
 #include <Pds/Vector>
-#include <Pds/VectorFunc>
-#include <Pds/VectorPoly>
+#include <Pds/FuncVector>
+#include <Pds/FuncVectorPoly>
     
     
 #endif /* __PDS_RA_HPP__ */

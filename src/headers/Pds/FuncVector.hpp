@@ -1,5 +1,5 @@
 /*
- * VectorFunc.hpp
+ * FuncVector.hpp
  * 
  * Copyright 2018 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
  * 
@@ -20,7 +20,7 @@
  * 
  */
 
-/** \file VectorFunc.hpp
+/** \file FuncVector.hpp
  *  \author Fernando Pujaico Rivera
  *  \brief Funciones que trabajan con vectores.
  *  
@@ -35,9 +35,9 @@
 #define __PDS_VECTORFUNC_HPP__
 
 
-/** \defgroup VectorFuncGroup Funciones Pds::Vector -- Básicos
+/** \defgroup FuncVectorGroup Funciones Pds::Vector -- Básicos
  *  \brief Funciones que usan Pds::Vector, Ejemplo:  Pds::LinSpace(), Pds::GeomSpace(), Pds::X2D(), Pds::Y2D(), Pds::X3D(), etc 
- *  <div class="fragment"> \#include <Pds/VectorFunc> </div>
+ *  <div class="fragment"> \#include <Pds/FuncVector> </div>
  *  
  *  <br>Estas funciones trabajan con una matriz de la forma.<br>
    \f[
@@ -88,7 +88,7 @@ a_{i} \leftarrow i \alpha +start
      *  \param[in] end Final del espacio linear.
      *  \param[in] N Numero de elementos del vetor.
      *  \return Retorna la matriz diagonal.
-     *  \ingroup VectorFuncGroup
+     *  \ingroup FuncVectorGroup
      */
     Vector LinSpace(double start,double end,unsigned int N);
 
@@ -125,7 +125,7 @@ a_{i} \leftarrow  {\alpha}^{i} start
      *  \param[in] end Final del espacio linear.
      *  \param[in] N Numero de elementos del vetor.
      *  \return Retorna la matriz diagonal.
-     *  \ingroup VectorFuncGroup
+     *  \ingroup FuncVectorGroup
      */
     Vector GeomSpace(double start,double end,unsigned int N);
 
@@ -148,7 +148,7 @@ a_{i} \leftarrow  {\alpha}^{i} start
 \end{matrix}\right)
    \f]
      *  \return Retorna una matriz vector columna eje X en 2 dimensiones.
-     *  \ingroup VectorFuncGroup
+     *  \ingroup FuncVectorGroup
      */
     Vector X2D(void);
     
@@ -162,7 +162,7 @@ a_{i} \leftarrow  {\alpha}^{i} start
 \end{matrix}\right)
    \f]
      *  \return Retorna una matriz vector columna eje Y en 2 dimensiones.
-     *  \ingroup VectorFuncGroup
+     *  \ingroup FuncVectorGroup
      */
     Vector Y2D(void);
 /**
@@ -185,7 +185,7 @@ a_{i} \leftarrow  {\alpha}^{i} start
 \end{matrix}\right)
    \f]
      *  \return Retorna una matriz vector columna eje X en 3 dimensiones.
-     *  \ingroup VectorFuncGroup
+     *  \ingroup FuncVectorGroup
      */
     Vector X3D(void);
     
@@ -200,7 +200,7 @@ a_{i} \leftarrow  {\alpha}^{i} start
 \end{matrix}\right)
    \f]
      *  \return Retorna una matriz vector columna eje Y en 3 dimensiones.
-     *  \ingroup VectorFuncGroup
+     *  \ingroup FuncVectorGroup
      */
     Vector Y3D(void);
     
@@ -215,7 +215,7 @@ a_{i} \leftarrow  {\alpha}^{i} start
 \end{matrix}\right)
    \f]
      *  \return Retorna una matriz vector columna eje Z en 3 dimensiones.
-     *  \ingroup VectorFuncGroup
+     *  \ingroup FuncVectorGroup
      */
     Vector Z3D(void);
 /**

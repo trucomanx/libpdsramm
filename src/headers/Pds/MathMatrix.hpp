@@ -1,5 +1,5 @@
 /*
- * MatrixMath.hpp
+ * MathMatrix.hpp
  * 
  * Copyright 2018 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
  * 
@@ -20,7 +20,7 @@
  * 
  */
 
-/** \file MatrixMath.hpp
+/** \file MathMatrix.hpp
  *  \author Fernando Pujaico Rivera
  *  \brief Funciones que trabajan con matrices.
  *  
@@ -35,9 +35,9 @@
 #define __PDS_MATRIXMATH_HPP__
 
 
-/** \defgroup MatrixMathGroup Funciones Pds::Matrix -- Math
+/** \defgroup MathMatrixGroup Funciones Pds::Matrix -- Math
  *  \brief Funciones que usan Pds::Matrix, Ejemplo: Pds::Sin(), Pds::Cos(), Pds::Exp(), Pds::Sqrt, etc 
- *  <div class="fragment"> \#include <Pds/MatrixMath> </div>
+ *  <div class="fragment"> \#include <Pds/MathMatrix> </div>
  *  
  *  <br>Estas funciones trabajan con una matriz de la forma.<br>
    \f[
@@ -77,7 +77,7 @@ namespace Pds{
      *  \param[in] A La matriz a evaluar
      *  \return Retorna la matriz evaluada.
      *  \see Pds::Matrix::Apply()
-     *  \ingroup MatrixMathGroup
+     *  \ingroup MathMatrixGroup
      */
     Matrix Sin(const Matrix &A);
     
@@ -88,7 +88,7 @@ namespace Pds{
      *  \param[in] A La matriz a evaluar
      *  \return Retorna la matriz evaluada.
      *  \see Pds::Matrix::Apply()
-     *  \ingroup MatrixMathGroup
+     *  \ingroup MathMatrixGroup
      */
     Matrix Cos(const Matrix &A);
     
@@ -99,7 +99,7 @@ namespace Pds{
      *  \param[in] A La matriz a evaluar
      *  \return Retorna la matriz evaluada.
      *  \see Pds::Matrix::Apply()
-     *  \ingroup MatrixMathGroup
+     *  \ingroup MathMatrixGroup
      */
     Matrix Tan(const Matrix &A);
 /**
@@ -118,7 +118,7 @@ namespace Pds{
      *  \param[in] A La matriz a evaluar
      *  \return Retorna la matriz evaluada.
      *  \see Pds::Matrix::Apply()
-     *  \ingroup MatrixMathGroup
+     *  \ingroup MathMatrixGroup
      */
     Matrix Exp(const Matrix &A);
     
@@ -129,7 +129,7 @@ namespace Pds{
      *  \param[in] A La matriz a evaluar
      *  \return Retorna la matriz evaluada.
      *  \see Pds::Matrix::Apply()
-     *  \ingroup MatrixMathGroup
+     *  \ingroup MathMatrixGroup
      */
     Matrix TwoExp(const Matrix &A);
     
@@ -141,7 +141,7 @@ namespace Pds{
      *  \return Retorna la matriz evaluada.
      *  \see Pds::Matrix::Apply()
      *  \see Pds::Ln()
-     *  \ingroup MatrixMathGroup
+     *  \ingroup MathMatrixGroup
      */
     Matrix Log(const Matrix &A);
 
@@ -153,7 +153,7 @@ namespace Pds{
      *  \return Retorna la matriz evaluada.
      *  \see Pds::Matrix::Apply()
      *  \see Pds::Log()
-     *  \ingroup MatrixMathGroup
+     *  \ingroup MathMatrixGroup
      */
     Matrix Ln(const Matrix &A);
     
@@ -164,7 +164,7 @@ namespace Pds{
      *  \param[in] A La matriz a evaluar
      *  \return Retorna la matriz evaluada.
      *  \see Pds::Matrix::Apply()
-     *  \ingroup MatrixMathGroup
+     *  \ingroup MathMatrixGroup
      */
     Matrix Log2(const Matrix &A);
 
@@ -175,7 +175,7 @@ namespace Pds{
      *  \param[in] A La matriz a evaluar
      *  \return Retorna la matriz evaluada.
      *  \see Pds::Matrix::Apply()
-     *  \ingroup MatrixMathGroup
+     *  \ingroup MathMatrixGroup
      */
     Matrix Log10(const Matrix &A);
 
@@ -196,7 +196,7 @@ namespace Pds{
      *  \param[in] A La matriz a evaluar
      *  \return Retorna la matriz evaluada.
      *  \see Pds::Matrix::Apply()
-     *  \ingroup MatrixMathGroup
+     *  \ingroup MathMatrixGroup
      */
     Matrix Sqrt(const Matrix &A);
  
@@ -208,7 +208,7 @@ namespace Pds{
      *  \param[in] var La variable a evaluar
      *  \return Retorna la matriz evaluada.
      *  \see Pds::Matrix::Apply()
-     *  \ingroup MatrixMathGroup
+     *  \ingroup MathMatrixGroup
      */
     Matrix Pow(const Matrix &A,double var);
 /**
@@ -230,7 +230,7 @@ namespace Pds{
      *  \f[ sqnl(x)=-1 \quad if(x<-2)\f]
      *  \param[in] x La variable a evaluar
      *  \return Retorna la varaible evaluada.
-     *  \ingroup MatrixMathGroup
+     *  \ingroup MathMatrixGroup
      */
     double SQNL(double x);
 
@@ -246,7 +246,7 @@ namespace Pds{
      *  \param[in] A La matriz a evaluar
      *  \return Retorna la matriz evaluada.
      *  \see Pds::Matrix::Apply()
-     *  \ingroup MatrixMathGroup
+     *  \ingroup MathMatrixGroup
      */
     Matrix SQNL(const Matrix &A);
     
@@ -257,7 +257,7 @@ namespace Pds{
      *  \f[ gaussian(x)=e^{-x^2} \f]
      *  \param[in] x La variable a evaluar
      *  \return Retorna la variable evaluada.
-     *  \ingroup MatrixMathGroup
+     *  \ingroup MathMatrixGroup
      */
     double Gaussian(double x);
 
@@ -268,7 +268,7 @@ namespace Pds{
      *  \param[in] A La matriz a evaluar
      *  \return Retorna la matriz evaluada.
      *  \see Pds::Matrix::Apply()
-     *  \ingroup MatrixMathGroup
+     *  \ingroup MathMatrixGroup
      */
     Matrix Gaussian(const Matrix &A);
  
@@ -279,7 +279,7 @@ namespace Pds{
      *  \param[in] A La matriz a evaluar
      *  \return Retorna la matriz evaluada.
      *  \see Pds::Matrix::Apply()
-     *  \ingroup MatrixMathGroup
+     *  \ingroup MathMatrixGroup
      */
     Matrix Tanh(const Matrix &A);
 
@@ -289,7 +289,7 @@ namespace Pds{
      *  \f[ \frac{1}{1+e^{-x}} \f]
      *  \param[in] x La varaible a evaluar
      *  \return Retorna la variable evaluada.
-     *  \ingroup MatrixMathGroup
+     *  \ingroup MathMatrixGroup
      */
     double Sigmoid(double x);
     
@@ -300,7 +300,7 @@ namespace Pds{
      *  \param[in] A La matriz a evaluar
      *  \return Retorna la matriz evaluada.
      *  \see Pds::Matrix::Apply()
-     *  \ingroup MatrixMathGroup
+     *  \ingroup MathMatrixGroup
      */
     Matrix Sigmoid(const Matrix &A);
 
@@ -321,7 +321,7 @@ namespace Pds{
      *  Tiene problemas de presición, cuando n es muy grande.
      *  \param[in] n Valor de entrada.
      *  \return El valor de n!.
-     *  \ingroup MatrixMathGroup
+     *  \ingroup MathMatrixGroup
      */
     unsigned int Factorial(unsigned int n);
 
@@ -333,7 +333,7 @@ namespace Pds{
      *  \param[in] n Valor superior del combinatorio.
      *  \param[in] k Valor inferior del combinatorio.
      *  \return El valor del combinatorio (n,k). Si k>n retorna 0.
-     *  \ingroup MatrixMathGroup
+     *  \ingroup MathMatrixGroup
      */
     unsigned int NchooseK(unsigned int n,unsigned int k);
 
@@ -344,7 +344,7 @@ namespace Pds{
      *  \param[in] n Valor superior del combinatorio.
      *  \param[in] k Valor inferior del combinatorio.
      *  \return El valor del combinatorio (n,k).
-     *  \ingroup MatrixMathGroup
+     *  \ingroup MathMatrixGroup
      */
     unsigned int NmultichooseK(unsigned int n,unsigned int k);
 
@@ -365,7 +365,7 @@ namespace Pds{
      *  \f[ if(x<0)\quad return\quad-1 \f]
      *  \param[in] x La varaible a evaluar
      *  \return Retorna la varaible evaluada.
-     *  \ingroup MatrixMathGroup
+     *  \ingroup MathMatrixGroup
      */
     double Sign(double x);
 
@@ -380,7 +380,7 @@ namespace Pds{
      *  \f[ sign(A) \f]
      *  \param[in] A La matriz a evaluar
      *  \return Retorna la matriz evaluada.
-     *  \ingroup MatrixMathGroup
+     *  \ingroup MathMatrixGroup
      */
     Matrix Sign(const Matrix &A);
     
@@ -391,7 +391,7 @@ namespace Pds{
      *  \param[in] A La matriz a evaluar
      *  \return Retorna la matriz evaluada.
      *  \see Pds::Matrix::Apply()
-     *  \ingroup MatrixMathGroup
+     *  \ingroup MathMatrixGroup
      */
     Matrix Round(const Matrix &A);
 
@@ -411,7 +411,7 @@ namespace Pds{
      *  \f[ h_b(x)=-x~log_2(x)-(1-x) log_2(1-x) \f]
      *  \param[in] x La varaible a evaluar
      *  \return Retorna lavaraible evaluada.
-     *  \ingroup MatrixMathGroup
+     *  \ingroup MathMatrixGroup
      */
     double Hb(double x);
 
@@ -423,7 +423,7 @@ namespace Pds{
      *  \param[in] A La matriz a evaluar
      *  \return Retorna la matriz evaluada.
      *  \see Pds::Matrix::Apply()
-     *  \ingroup MatrixMathGroup
+     *  \ingroup MathMatrixGroup
      */
     Matrix Hb(const Matrix &A);
 
@@ -435,7 +435,7 @@ namespace Pds{
      *  \param[in] h Valor de entrada.
      *  \return El valor de \f$p\f$ en \f$h\approx h_b(p)\f$. La busqueeda finaliza quando \f$|h-H_b(p)|<|\frac{E(h)}{1000000}|\f$,
      *  \f$ E(h)=h +(1-2 h) u(h-0.5)\f$ .
-     *  \ingroup MatrixMathGroup
+     *  \ingroup MathMatrixGroup
      */
     double HbInv(double h);
 
@@ -447,7 +447,7 @@ namespace Pds{
      *  \return El valor de \f$p\f$ en \f$h\approx h_b(p)\f$. La busqueeda finaliza quando \f$|h-H_b(p)|<|\frac{E(h)}{1000000}|\f$,
      *  \f$ E(h)=h +(1-2 h) u(h-0.5)\f$ .
      *  \see Pds::Matrix::Apply()
-     *  \ingroup MatrixMathGroup
+     *  \ingroup MathMatrixGroup
      */
     Matrix HbInv(const Matrix &A);
 
@@ -469,7 +469,7 @@ namespace Pds{
      *  \param[in] A La matriz a evaluar
      *  \return Retorna la matriz evaluada.
      *  \see Pds::Matrix::Apply()
-     *  \ingroup MatrixMathGroup
+     *  \ingroup MathMatrixGroup
      */
     Matrix Abs(const Matrix &A);
      /** 
@@ -478,7 +478,7 @@ namespace Pds{
      *  \f[ log\left(\frac{x}{1-x}\right) \f]
      *  \param[in] x La variable a evaluar
      *  \return Retorna la variable evaluada.
-     *  \ingroup MatrixMathGroup
+     *  \ingroup MathMatrixGroup
      */
     double Logit(double x);
 
@@ -489,7 +489,7 @@ namespace Pds{
      *  \param[in] A La matriz a evaluar
      *  \return Retorna la matriz evaluada.
      *  \see Pds::Matrix::Apply()
-     *  \ingroup MatrixMathGroup
+     *  \ingroup MathMatrixGroup
      */
     Matrix Logit(const Matrix &A);
 
@@ -499,7 +499,7 @@ namespace Pds{
      *  \f[ sinc(x)=\frac{sin(x)}{x} \f]
      *  \param[in] x La variable a evaluar
      *  \return Retorna la variable evaluada.
-     *  \ingroup MatrixMathGroup
+     *  \ingroup MathMatrixGroup
      */
     double Sinc(double x);
 
@@ -511,11 +511,41 @@ namespace Pds{
      *  \param[in] A La matriz a evaluar
      *  \return Retorna la matriz evaluada.
      *  \see Pds::Matrix::Apply()
-     *  \ingroup MatrixMathGroup
+     *  \ingroup MathMatrixGroup
      */
     Matrix Sinc(const Matrix &A);
 
+    /** 
+     *  \brief Calcula el valor quadrático medio de una matriz.
+     *
+     *  \f[ A.MeanSquare()=\frac{1}{Nlin~Ncol}\sum \limits_{i}^{Nlin} \sum \limits_{j}^{Ncol} {|a_{ij}|}^2 \f]
+     *  \return Retorna el valor cuadrático medio. En caso de que la matriz sea vacía
+     *  se retorna Pds::Ra::Nan.
+     *  \ingroup MatrixGroup
+     */
+    double MeanSquare(const Matrix &A);
 
+
+    /** 
+     *  \brief Calcula el valor  de la suma quadrática de una matriz.
+     *
+     *  \f[ A.MeanSquare()=\sum \limits_{i}^{Nlin} \sum \limits_{j}^{Ncol} {|a_{ij}|}^2 \f]
+     *  \return Retorna el valor de la suma cuadrática. En caso de que la matriz sea vacía
+     *  se retorna Pds::Ra::Nan.
+     *  \ingroup MatrixGroup
+     */
+    double SumSquare(const Matrix &A);
+
+    /** 
+     *  \brief Calcula el valor dela norma (Frobenius) de una matriz.
+     *
+     *  \f[ A.MeanSquare()=\sqrt{\sum \limits_{i}^{Nlin} \sum \limits_{j}^{Ncol} {|a_{ij}|}^2} \f]
+     *  \return Retorna el valor de la norma de Frobenius. En caso de que la matriz sea vacía
+     *  se retorna Pds::Ra::Nan.
+     *  \ingroup MatrixGroup
+     */
+    double Norm(const Matrix &A);
+    
 /**
  * @}
  */
@@ -539,7 +569,7 @@ namespace Pds{
      *  \param[in] b Límite superior de la integral.
      *  \param[in] n Es el número de divisiones.
      *  \return El valor de la integral o cero si hubo un error, ejemplo b<a o n==0.
-     *  \ingroup MatrixMathGroup
+     *  \ingroup MathMatrixGroup
      */
     double SimpsonIntegration(double (*f)(double), double a,double b,unsigned int n);
     
@@ -557,7 +587,7 @@ namespace Pds{
      *  \param[in] b Límite superior de la integral.
      *  \param[in] n Es el número de divisiones.
      *  \return El valor de la integral o cero si hubo un error, ejemplo b<a o n==0.
-     *  \ingroup MatrixMathGroup
+     *  \ingroup MathMatrixGroup
      */
     double SimpsonIntegration(double (*f)(double,double),double r, double a,double b,unsigned int n);
     
@@ -580,7 +610,7 @@ namespace Pds{
      *  \param[in] a Límite inferior de la integral.
      *  \param[in] n Es el número de divisiones.
      *  \return El valor de la integral o cero si hubo un error, ejemplo b<a o n<=0.
-     *  \ingroup MatrixMathGroup
+     *  \ingroup MathMatrixGroup
      */
     double ImproperIntegration(double (*f)(double), double a,unsigned int n);
 
@@ -605,7 +635,7 @@ namespace Pds{
      *  \param[in] a Límite inferior de la integral.
      *  \param[in] n Es el número de divisiones.
      *  \return El valor de la integral o cero si hubo un error, ejemplo b<a o n<=0.
-     *  \ingroup MatrixMathGroup
+     *  \ingroup MathMatrixGroup
      */
     double ImproperIntegration(double (*f)(double,double),double r, double a,unsigned int n);
 /**

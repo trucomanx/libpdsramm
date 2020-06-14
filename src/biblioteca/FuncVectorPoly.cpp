@@ -1,5 +1,5 @@
 /*
- * VectorPoly.cpp
+ * FuncVectorPoly.cpp
  * 
  * Copyright 2018 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
  * 
@@ -26,7 +26,7 @@
 #include <Pds/Matrix>
 #include <Pds/MatrixMath>
 #include <Pds/MatrixFunc> 
-#include <Pds/VectorPoly>
+#include <Pds/FuncVectorPoly>
 #include <iostream>
 
 

@@ -1299,7 +1299,7 @@ public:
      *  \f[ A.Dot(B) = \sum \limits_{i,j} a_{i,j}b_{i,j} \f]
      *  \param[in] B Matriz a multiplicar.
      *  \return Retorna la norma de un vector. En caso de que la matriz sea vacía
-     *  se retorna 0.0.
+     *  se retorna Pds::Ra::Nan.
      *  \ingroup MatrixGroup
      */
     double Dot(const Pds::Matrix &B) const;
@@ -1309,7 +1309,7 @@ public:
      *
      *  \f[ A.MeanSquare()=\frac{1}{Nlin~Ncol}\sum \limits_{i}^{Nlin} \sum \limits_{j}^{Ncol} {|a_{ij}|}^2 \f]
      *  \return Retorna el valor cuadrático medio. En caso de que la matriz sea vacía
-     *  se retorna 0.0.
+     *  se retorna Pds::Ra::Nan.
      *  \ingroup MatrixGroup
      */
     double MeanSquare(void) const;
@@ -1319,7 +1319,7 @@ public:
      *
      *  \f[ A.SumSquare()=\sum \limits_{i} \sum \limits_{j} {|a_{ij}|}^2 \f]
      *  \return Retorna la suma cuadrática. En caso de que la matriz sea vacía
-     *  se retorna 0.0.
+     *  se retorna Pds::Ra::Nan.
      *  \ingroup MatrixGroup
      */
     double SumSquare(void) const;
@@ -1329,7 +1329,7 @@ public:
      *
      *  \f[ ||A||_2=\sqrt{\sum \limits_{i} \sum \limits_{j} {|a_{ij}|}^2} \f]
      *  \return Retorna la norma de un vector. En caso de que la matriz sea vacía
-     *  se retorna 0.0.
+     *  se retorna Pds::Ra::Nan.
      *  \ingroup MatrixGroup
      */
     double Norm(void) const;
@@ -1340,7 +1340,7 @@ public:
      *
      *  \f[ ||A||_1=\max \limits_{j} \sum \limits_{i} {|a_{ij}|} \f]
      *  \return Retorna la norma de un vector. En caso de que la matriz sea vacía
-     *  se retorna 0.0.
+     *  se retorna Pds::Ra::Nan.
      *  \ingroup MatrixGroup
      */
     double PNorm1(void) const;
@@ -1351,7 +1351,7 @@ public:
      *
      *  \f[ ||A||_{\infty}=\max \limits_{i} \sum \limits_{j} {|a_{ij}|} \f]
      *  \return Retorna la norma de un vector. En caso de que la matriz sea vacía
-     *  se retorna 0.0.
+     *  se retorna Pds::Ra::Nan.
      *  \ingroup MatrixGroup
      */
     double PNormInf(void) const;
@@ -1398,7 +1398,7 @@ public:
     bool Apply( double (*func)(double,double), double var);
 
     /** 
-     *  \brief Aplica la función func a cada elemento de la matriz.
+     *  \brief Aplica la función func a cada elemento de la columna col  de la matriz.
      * \param[in] col Columna a aplicar la función.
      * \param[in] func Función a aplicar, esta debe tener a forma double func(double).
      * \return true si todo fue bien o false si la matriz era vacia.
@@ -1407,7 +1407,7 @@ public:
     bool ApplyInCol(unsigned int col, double (*func)(double) );
 
     /** 
-     *  \brief Aplica la función func a cada elemento de la matriz.
+     *  \brief Aplica la función func a cada elemento de la columna col  de la matriz.
      * \param[in] col Columna a aplicar la función.
      * \param[in] func Función a aplicar, esta debe tener a forma double func(double,double).
      * \param[in] var Variable a usar em func(double,var).

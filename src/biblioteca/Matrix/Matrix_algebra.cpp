@@ -11,7 +11,7 @@ double Pds::Matrix::MeanSquare(void) const
     double S=0;
     
     if((this->nlin==0)||(this->ncol==0)||(this->array==NULL))
-    return 0.0;
+    return Pds::Ra::Nan;
     
     for(lin=0;lin<this->nlin;lin++)
     for(col=0;col<this->ncol;col++)
@@ -26,7 +26,7 @@ double Pds::Matrix::SumSquare(void) const
     double S=0;
     
     if((this->nlin==0)||(this->ncol==0)||(this->array==NULL))
-    return 0.0;
+    return Pds::Ra::Nan;
     
     for(lin=0;lin<this->nlin;lin++)
     for(col=0;col<this->ncol;col++)
@@ -41,7 +41,7 @@ double Pds::Matrix::Norm(void) const
     double S=0;
     
     if((this->nlin==0)||(this->ncol==0)||(this->array==NULL))
-    return 0.0;
+    return Pds::Ra::Nan;
     
     for(lin=0;lin<this->nlin;lin++)
     for(col=0;col<this->ncol;col++)
@@ -57,7 +57,7 @@ double Pds::Matrix::PNorm1(void) const
     double S,max=0;
     
     if((this->nlin==0)||(this->ncol==0)||(this->array==NULL))
-    return 0.0;
+    return Pds::Ra::Nan;
     
     for(col=0;col<this->ncol;col++)
     {
@@ -77,7 +77,7 @@ double Pds::Matrix::PNormInf(void) const
     double S,max=0;
     
     if((this->nlin==0)||(this->ncol==0)||(this->array==NULL))
-    return 0.0;
+    return Pds::Ra::Nan;
     
     for(lin=0;lin<this->nlin;lin++)
     {
@@ -99,10 +99,10 @@ double Pds::Matrix::Dot(const Pds::Matrix &B) const
     double S=0;
     
     if((this->nlin==0)||(this->ncol==0)||(this->array==NULL))
-    return 0.0;
+    return Pds::Ra::Nan;
     
     if((B.nlin!=this->nlin)||(B.ncol!=this->ncol))
-    return 0.0;
+    return Pds::Ra::Nan;
     
     
     for(lin=0;lin<this->nlin;lin++)
