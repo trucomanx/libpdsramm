@@ -69,8 +69,6 @@ Pds::Matrix Pds::Matrix::Add(const Pds::Matrix &B) const
 
     Pds::Matrix Ans(B.nlin,B.ncol);
 
-    //this->Print("(+)this\n");
-
     unsigned int lin,col;
    
     for(lin=0;lin<this->nlin;lin++)
@@ -82,7 +80,10 @@ Pds::Matrix Pds::Matrix::Add(const Pds::Matrix &B) const
     return Ans;
 }
 
+
+
 ////////////////////////////////////////////////////////////////////////
+
 Pds::Matrix operator-(double b,const Pds::Matrix &mat)
 {
     Pds::Matrix C=mat;
@@ -248,6 +249,45 @@ Pds::Matrix Pds::Matrix::MulT(const Pds::Matrix &B) const
         
         Ans.array[lin][col]=S;
     }
+    return Ans;
+}
+
+////////////////////////////////////////////////////////////////////////
+
+Pds::Matrix Pds::Matrix::AddRowMatrix(const Pds::Matrix &B) const
+{
+    if(!B.IsRowMatrix())    return Pds::Matrix();
+    if(this->ncol!=B.ncol)  return Pds::Matrix();
+    
+    Pds::Matrix Ans(this->nlin,this->ncol);
+
+    unsigned int lin,col;
+   
+    for(lin=0;lin<Ans.nlin;lin++)
+    for(col=0;col<Ans.ncol;col++)
+    {
+        Ans.array[lin][col]=this->array[lin][col]+B.array[0][col];  
+    }
+
+    return Ans;
+}
+
+
+Pds::Matrix Pds::Matrix::SubRowMatrix(const Pds::Matrix &B) const
+{
+    if(!B.IsRowMatrix())    return Pds::Matrix();
+    if(this->ncol!=B.ncol)  return Pds::Matrix();
+    
+    Pds::Matrix Ans(this->nlin,this->ncol);
+
+    unsigned int lin,col;
+   
+    for(lin=0;lin<Ans.nlin;lin++)
+    for(col=0;col<Ans.ncol;col++)
+    {
+        Ans.array[lin][col]=this->array[lin][col]-B.array[0][col];  
+    }
+
     return Ans;
 }
 ////////////////////////////////////////////////////////////////////////

@@ -129,6 +129,22 @@ bool Pds::Matrix::IsZero(void) const
     return true;
 }
 
+bool Pds::Matrix::IsColMatrix(void) const
+{
+    if(this->IsEmpty()) return false;
+    if(this->ncol==1) return true;
+    return false;
+}
+
+
+bool Pds::Matrix::IsRowMatrix(void) const
+{
+    if(this->IsEmpty()) return false;
+    if(this->nlin==1) return true;
+    return false;
+}
+
+
 Pds::Matrix Pds::Matrix::IsInf(void) const
 {
     Pds::Matrix A(this->nlin,this->ncol);

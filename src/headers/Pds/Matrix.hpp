@@ -447,15 +447,48 @@ public:
      */
     bool IsInSizeRange(double lin,double col) const;
     
+
+    /** 
+     *  \brief Verifica si la matriz tiene solo una linea.
+     * 
+     *  
+     *  \return Retorna true si la matriz tiene solo una linea o false si no.
+     *  Si la matriz está vacia se retorna false.
+     *  \ingroup MatrixGroup
+     */
+    bool IsRowMatrix(void) const;
+
+
+    /** 
+     *  \brief Verifica si la matriz tiene solo una columna.
+     * 
+     *  
+     *  \return Retorna true si la matriz tiene solo una columna o false si no.
+     *  Si la matriz está vacia se retorna false.
+     *  \ingroup MatrixGroup
+     */
+    bool IsColMatrix(void) const;
+
     /** 
      *  \brief Verifica si la matriz está llena de zeros.
      * 
+   \f[
+true \overleftarrow{IsZero} 
+\left(\begin{matrix}
+0 & 0 & \hdots & 0\\ 
+0 & 0 & \hdots & 0\\
+\vdots & \vdots & \vdots & \vdots \\
+0 & 0 & \hdots & 0\\ 
+0 & 0 & \hdots & 0\\
+\end{matrix}\right)
+   \f]
      *  
      *  \return Retorna true si la matriz está llena de zeros o false si no.
      *  Si la matriz está vacia se retorna false.
      *  \ingroup MatrixGroup
      */
     bool IsZero(void) const;
+    
     /** 
      *  \brief Verifica si la matriz tiene elementos con valores infinitos.
      * 
@@ -900,6 +933,15 @@ public:
     bool SetDiagonal(const Pds::Vector V);
     
     /** 
+     *  \brief Retorna una matriz linea escojida en la linea lin. 
+     *  Hace una verificación si la linea existe, si no existe devuelve una matriz vacia. 
+     *  \param[in] lin La linea en consulta.
+     *  \return Retorna una matriz linea. Si no existe la linea, entonces se retorna una matriz vacia.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix GetRow(unsigned int lin) const;
+    
+    /** 
      *  \brief Retorna una sub matriz escojida desde la linea lin_init hasta lin_end, inclusive. 
      *  Hace una verificación si la linea existe, si no existe llena esta con ceros. 
      *  \param[in] lin_init La linea inicial en consulta.
@@ -965,6 +1007,16 @@ public:
      */
     bool SetMatrix(unsigned int lin,unsigned int col,const Pds::Matrix &B);
 
+
+    /** 
+     *  \brief Retorna una matriz columna escojida en la columna col. 
+     *  Hace una verificación si la columna existe, si no existe devuelve una matriz vacia. 
+     *  \param[in] col La columna en consulta.
+     *  \return Retorna una matriz columna. Si no existe la columna, entonces se retorna una matriz vacia.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix GetCol(unsigned int col) const;
+    
     /** 
      *  \brief Retorna un vector columna copia de una columna de la matriz. 
      *  \param[in] col La columna en consulta.
@@ -2279,6 +2331,56 @@ public:
      *  \ingroup MatrixGroup
      */
     Pds::Matrix Product(const Pds::Matrix &B) const;
+
+    /** 
+     *  \brief Suma con sigo mismo (A), una matriz B linea y el resultado es
+     * cargado en C. La unica linea de B es sumada a cada linea de A
+     *
+     *  \f[ C \leftarrow A+B \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix B(1,4);
+    Pds::Matrix C;
+    
+    A.Fill(2.0);
+    B.Fill(1.0);
+    
+    C=A.AddRowMatrix(B);
+    
+    std::cout<<C;
+\endcode
+     *  \param[in] B la matriz que suma
+     *  \return Retorna un nuevo objeto con el
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  Existe error si B esta vacio o si B no es una matri linea.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix AddRowMatrix(const Pds::Matrix &B) const;
+    
+    /** 
+     *  \brief Resta con sigo mismo (A), una matriz B linea y el resultado es
+     * cargado en C. La unica linea de B es restada a cada linea de A
+     *
+     *  \f[ C \leftarrow A-B \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix B(1,4);
+    Pds::Matrix C;
+    
+    A.Fill(2.0);
+    B.Fill(1.0);
+    
+    C=A.SubRowMatrix(B);
+    
+    std::cout<<C;
+\endcode
+     *  \param[in] B la matriz que resta
+     *  \return Retorna un nuevo objeto con el
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  Existe error si B esta vacio o si B no es una matri linea.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix SubRowMatrix(const Pds::Matrix &B) const;
     
     /** 
      *  \brief Calcula con sigo mismo (A), si (A) es mayor que un valor b y el resultado es

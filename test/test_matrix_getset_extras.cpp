@@ -26,8 +26,11 @@ int main(void)
 
     A.Print("\nA=\n");
     Pds::Matrix B=A.GetRowsRand(4);
-    B.Print("\nB=\n");    
+    B.Print("\nB=A.GetRowsRand(4)\n");    
     Pds::Matrix F=A.GetRows(2,6);
-    F.Print("\nF=\n");    
+    F.Print("\nF=A.GetRows(2,6)\n");    
+
+    A.GetRow(1).Print("\nA.GetRow(1)\n");
+    A.GetCol(1).T().Print("\nA.GetCol(1).T()\n");
     return 0;
 }

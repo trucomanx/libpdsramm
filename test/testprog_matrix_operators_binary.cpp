@@ -12,6 +12,7 @@ int main(void)
 {
     Pds::Matrix A(2,2);
     Pds::Matrix B(2,2);
+    Pds::Matrix B1(1,2,3);
     Pds::Matrix C;
 
     
@@ -57,5 +58,13 @@ int main(void)
 
     C.Leq(8).Print("\nC.Leq(8)\n");
 
+    A.Print("\nA\n");
+    B1.Print("B1\n");
+
+    C=A.AddRowMatrix(B1);
+    C.Print("A.AddRowMatrix(B1)\n");
+
+    C=A.SubRowMatrix(B1);
+    C.Print("A.SubRowMatrix(B1)\n");
     return 0;
 }
