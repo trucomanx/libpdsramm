@@ -63,7 +63,7 @@ namespace Ra{
  *  \param[in] N Numero de elementos de la lista
  *  \return Retorna una std::list con datos aleatorios con indices.
  *  Si N>(End-Init+1) los elementos en la lista no se repetiran, caso contrario si.
- *  \ingroup PdsRaToolsGroup
+ *  \ingroup PdsRaIndicesGroup
  */
 std::list<unsigned int> IndicesRand(unsigned int Init,unsigned int End, unsigned int N);
 
@@ -72,7 +72,7 @@ std::list<unsigned int> IndicesRand(unsigned int Init,unsigned int End, unsigned
  *  
  *  \param[in] IDs Lista de indices.
  *  \param[in] separator Separador de elementos.
- *  \ingroup PdsRaToolsGroup
+ *  \ingroup PdsRaIndicesGroup
  */
 std::string IndicesToString(std::list<unsigned int> IDs, std::string separator="");
 

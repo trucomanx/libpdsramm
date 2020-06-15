@@ -61,5 +61,7 @@ int main(void)
 
     std::cout<<Pds::MultisetIndexSumToString(ID)<<std::endl;
     
+    A.Print("\nA:\n");
+    std::cout<<"Pds::Find(A): "<<Pds::Ra::IndicesToString(Pds::Find(A),", ")<<std::endl;
     return 0;
 }

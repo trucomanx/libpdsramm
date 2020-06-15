@@ -26,6 +26,7 @@
 #include <Pds/Vector>
 #include <Pds/MathMatrix>
 #include <Pds/FuncMatrix>
+#include <list>
 
 Pds::Matrix Pds::MatrixId(unsigned int N)
 {
@@ -256,6 +257,13 @@ Pds::Matrix Pds::Monomials(const Pds::Matrix &X,unsigned int M)
     Pds::Matrix ID;
     return Pds::Monomials(X,M,ID);
 }
+////////////////////////////////////////////////////////////////////////////////
+
+std::list<unsigned int>  Pds::Find(const Pds::Matrix &A)
+{
+    return A.Find();
+}
+
 ////////////////////////////////////////////////////////////////////////
 
 Pds::Matrix  Pds::MergeVer(const std::initializer_list<Pds::Matrix> list)

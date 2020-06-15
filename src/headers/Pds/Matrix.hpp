@@ -1385,10 +1385,33 @@ public:
 
 public:
 
+/** @name Métodos para find
+ *  Herramientas genéricas
+ * @{
+ */
+
+
+    /** 
+     *  \brief Retorna una lista de indices donde existe un 1 en la matriz A.
+     *
+     *  \return Retorna  una lista de indices donde existe un 1 en la matriz A.
+     *  \ingroup MatrixGroup
+     */
+    std::list<unsigned int> Find(void) const;
+
+
+/**
+ * @}
+ */
+
+
+public:
+
 /** @name Métodos para aplicar operaciones
  *  Herramientas genéricas
  * @{
  */
+
 
     /** 
      *  \brief Aplica la función func a cada elemento de la matriz.

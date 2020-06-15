@@ -451,6 +451,25 @@ La funcion calcula los exponentes en los monomios usando Pds::MultisetIndexSum(N
  * @}
  */
 
+/** @name funciones de busqueda
+ *  Descripción de algunas funciones que usan  Pds::Matrix.
+ * @{
+ */
+
+    /** 
+     *  \brief Retorna una lista de indices donde existe un 1 en la matriz A.
+     *
+     *  \param[in] A Matriz a consultar.
+     *  \return Retorna  una lista de indices donde existe un 1 en la matriz A.
+     *  \ingroup FuncMatrixGroup
+     */
+    std::list<unsigned int>  Find(const Pds::Matrix &A);
+
+
+/**
+ * @}
+ */
+
 /** @name funciones de concatenacion
  *  Descripción de algunas funciones que usan  Pds::Matrix.
  * @{
