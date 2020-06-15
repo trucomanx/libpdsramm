@@ -98,36 +98,6 @@ void PrintPackage(std::string str);
  * @}
  */
 
-/** @name Indices
- *  Funciones interesantes
- * @{
- */
-
-/**
- *  \brief Retorna una lista aleatoria de indices
- *  
- *  \param[in] Init Menor posible valor de los indices en la lista.
- *  \param[in] End Maior posible valor de los indices en la lista.
- *  \param[in] N Numero de elementos de la lista
- *  \return Retorna una std::list con datos aleatorios con indices.
- *  Si N>(End-Init+1) los elementos en la lista no se repetiran, caso contrario si.
- *  \ingroup PdsRaToolsGroup
- */
-std::list<unsigned int> RandIndices(unsigned int Init,unsigned int End, unsigned int N);
-
-/**
- *  \brief Convierte una lista de indices a un std::string.
- *  
- *  \param[in] IDs Lista de indices.
- *  \param[in] separator Separador de elementos.
- *  \ingroup PdsRaToolsGroup
- */
-std::string IndicesToString(std::list<unsigned int> IDs, std::string separator="");
-
-/**
- * @}
- */
-
 /** @name Variados
  *  Funciones interesantes
  * @{

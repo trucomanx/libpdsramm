@@ -14,7 +14,7 @@ int main(void)
 
     std::srand(std::time(0));
     
-    std::list<unsigned int> List=Pds::Ra::RandIndices(2,7,4);
+    std::list<unsigned int> List=Pds::Ra::IndicesRand(2,7,4);
         
     std::cout<<std::endl;
     for (auto pmat = List.begin(); pmat != List.end(); pmat++) 

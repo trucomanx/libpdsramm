@@ -45,6 +45,7 @@
 #include <Pds/RaTools>
 #include <Pds/RaString>
 #include <Pds/RaFile>
+#include <Pds/RaIndices>
         
 #include <Pds/Size>
     
