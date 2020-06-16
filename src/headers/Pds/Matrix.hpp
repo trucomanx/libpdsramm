@@ -1178,7 +1178,7 @@ public:
      *  \brief Calcula el valor de la suma de elementos de la matriz.
      *
      *  \return Retorna el valor de la suma de elementos de la matriz. En caso de que la matriz sea vacía
-     *  se retorna 0.0.
+     *  se retorna Pds::Ra::Nan.
      *  \ingroup MatrixGroup
      */
     double Sum(void) const;
@@ -1187,36 +1187,36 @@ public:
      *  \brief Calcula el valor medio de la matriz.
      *
      *  \return Retorna el valor medio de la matriz. En caso de que la matriz sea vacía
-     *  se retorna 0.0.
+     *  se retorna Pds::Ra::Nan.
      *  \ingroup MatrixGroup
      */
     double Mean(void) const;
     
     /** 
+     *  \brief Calcula el valor de la varianza de la matriz.
+     *
+     *  \return Retorna el valor de la varianza de la matriz. En caso de que la matriz sea vacía
+     *  se retorna Pds::Ra::Nan.
+     *  \ingroup MatrixGroup
+     */
+    double Var(double *mean=NULL) const;
+    
+    /** 
      *  \brief Calcula el valor del desvío padrón de la matriz.
      *
      *  \return Retorna el valor del desvío padrón de la matriz. En caso de que la matriz sea vacía
-     *  se retorna 0.0.
+     *  se retorna Pds::Ra::Nan.
      *  \ingroup MatrixGroup
      */
     double Std(double *mean=NULL) const;
 
     
     /** 
-     *  \brief Calcula la correlación de Pearson con la matriz.
-     *
-     *  \return Retorna el valor de la correlación. En caso de que la matriz sea vacía
-     *  se retorna 0.0.
-     *  \ingroup MatrixGroup
-     */
-    double Corr(const Pds::Matrix &B) const;
-    
-    /** 
      *  \brief Calcula el máximo valor del valor absoluto de la matriz.
      *
      *  \param[in] id Se retorna el id do valor máximo.
      *  \return Retorna el máximo valor del valor absoluto de la matriz. En caso de que la matriz sea vacía
-     *  se retorna 0.0.
+     *  se retorna Pds::Ra::Nan.
      *  \ingroup MatrixGroup
      */
     double MaxAbs(unsigned int *id=NULL) const;
@@ -1226,7 +1226,7 @@ public:
      *
      *  \param[in] id Se retorna el id do valor mínimo.
      *  \return Retorna el mínimo valor del valor absoluto de la matriz. En caso de que la matriz sea vacía
-     *  se retorna 0.0.
+     *  se retorna Pds::Ra::Nan.
      *  \ingroup MatrixGroup
      */
     double MinAbs(unsigned int *id=NULL) const;
@@ -1236,7 +1236,7 @@ public:
      *
      *  \param[in] id Se retorna el id do valor máximo.
      *  \return Retorna el máximo valor de la matriz. En caso de que la matriz sea vacía
-     *  se retorna 0.0.
+     *  se retorna Pds::Ra::Nan.
      *  \ingroup MatrixGroup
      */
     double Max(unsigned int *id=NULL) const;
@@ -1246,10 +1246,20 @@ public:
      *
      *  \param[in] id Se retorna el id do valor mínimo.
      *  \return Retorna el mínimo valor de la matriz. En caso de que la matriz sea vacía
-     *  se retorna 0.0.
+     *  se retorna Pds::Ra::Nan.
      *  \ingroup MatrixGroup
      */
     double Min(unsigned int *id=NULL) const;
+
+    
+    /** 
+     *  \brief Calcula la correlación de Pearson con la matriz.
+     *
+     *  \return Retorna el valor de la correlación. En caso de que la matriz sea vacía
+     *  se retorna Pds::Ra::Nan.
+     *  \ingroup MatrixGroup
+     */
+    double Corr(const Pds::Matrix &B) const;
     
     /** 
      *  \brief Calcula la correlacion cruzada entre A y B. 

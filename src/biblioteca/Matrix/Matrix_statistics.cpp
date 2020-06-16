@@ -7,7 +7,7 @@ double Pds::Matrix::MaxAbs(unsigned int *id) const
     double S;
     
     if((this->nlin==0)||(this->ncol==0)||(this->array==NULL))
-    return 0.0;
+    return Pds::Ra::Nan;
     
     S=fabs(this->array[0][0]);
     if(id!=NULL) *id=0;
@@ -30,7 +30,7 @@ double Pds::Matrix::Max(unsigned int *id) const
     double S;
     
     if((this->nlin==0)||(this->ncol==0)||(this->array==NULL))
-    return 0.0;
+    return Pds::Ra::Nan;
     
     S=this->array[0][0];
     if(id!=NULL) *id=0;
@@ -53,7 +53,7 @@ double Pds::Matrix::MinAbs(unsigned int *id) const
     double S;
     
     if((this->nlin==0)||(this->ncol==0)||(this->array==NULL))
-    return 0.0;
+    return Pds::Ra::Nan;
     
     S=fabs(this->array[0][0]);
     if(id!=NULL) *id=0;
@@ -76,7 +76,7 @@ double Pds::Matrix::Min(unsigned int *id) const
     double S;
     
     if((this->nlin==0)||(this->ncol==0)||(this->array==NULL))
-    return 0.0;
+    return Pds::Ra::Nan;
     
     S=this->array[0][0];
     if(id!=NULL) *id=0;
@@ -99,7 +99,7 @@ double Pds::Matrix::Sum(void) const
     double S;
     
     if((this->nlin==0)||(this->ncol==0)||(this->array==NULL))
-    return 0.0;
+    return Pds::Ra::Nan;
     
     S=0;
     for(lin=0;lin<this->nlin;lin++)
@@ -116,12 +116,32 @@ double Pds::Matrix::Mean(void) const
     double S;
     
     if((this->nlin==0)||(this->ncol==0)||(this->array==NULL))
-    return 0.0;
+    return Pds::Ra::Nan;
     
     S=0;
     for(lin=0;lin<this->nlin;lin++)
     for(col=0;col<this->ncol;col++)
     S=S+this->array[lin][col];
+    
+    return S/(this->nlin*this->ncol);
+}
+////////////////////////////////////////////////////////////////////////
+
+double Pds::Matrix::Var(double *mean) const
+{
+    unsigned int lin,col;
+    double S;
+    
+    if((this->nlin==0)||(this->ncol==0)||(this->array==NULL))
+    return Pds::Ra::Nan;
+    
+    double m=this->Mean();
+    if(mean!=NULL)  *mean=m;
+    
+    S=0;
+    for(lin=0;lin<this->nlin;lin++)
+    for(col=0;col<this->ncol;col++)
+    S=S+(this->array[lin][col]-m)*(this->array[lin][col]-m);
     
     return S/(this->nlin*this->ncol);
 }
@@ -133,7 +153,7 @@ double Pds::Matrix::Std(double *mean) const
     double S;
     
     if((this->nlin==0)||(this->ncol==0)||(this->array==NULL))
-    return 0.0;
+    return Pds::Ra::Nan;
     
     double m=this->Mean();
     if(mean!=NULL)  *mean=m;
@@ -153,10 +173,10 @@ double Pds::Matrix::Corr(const Pds::Matrix &B) const
     double S;
     
     if((B.nlin==0)||(B.ncol==0)||(B.array==NULL))
-    return 0.0;
+    return Pds::Ra::Nan;
         
     if((this->nlin==0)||(this->ncol==0)||(this->array==NULL))
-    return 0.0;
+    return Pds::Ra::Nan;
 
     double m1;
     double m2;
