@@ -1250,7 +1250,42 @@ public:
      *  \ingroup MatrixGroup
      */
     double Min(unsigned int *id=NULL) const;
+    
+    /** 
+     *  \brief Calcula el coeficiente de determinación o \f$R^2\f$.
+     *
+     *  \f[ R^2\equiv A.R2(Y)\quad =\quad 1-\frac{\sigma_r^2}{\sigma^2}\quad =\quad 1-\frac{\frac{1}{L}|| \mathbf{A}_{ij}-\mathbf{Y}_{ij}||^2}{Var(\mathbf{A})}\f]
+     *  \f[-\infty < R^2 < 1\f]
+     *  Varianza \f$\sigma^2\f$, varianza residual \f$\sigma_r^2\f$.
+     *  \return Retorna el coeficiente de determinación entre A e Y. En caso de que la matriz sea vacía
+     *  se retorna Pds::Ra::Nan.
+     *  \ingroup MatrixGroup
+     */
+    double R2(const Pds::Matrix &Y) const;
 
+    /** 
+     *  \brief Calcula o \f$RF\f$.
+     *
+     *  \f[ Rf\equiv A.Rf(Y)\quad =\quad \frac{\sigma_r^2}{\sigma^2}\quad =\quad \frac{\frac{1}{L}|| \mathbf{A}_{ij}-\mathbf{Y}_{ij}||^2}{Var(\mathbf{A})}\f]
+     *  \f[0 < Rf < \infty\f]
+     *  Varianza \f$\sigma^2\f$, varianza residual \f$\sigma_r^2\f$.
+     *  \return RetornaRF entre A e Y. En caso de que la matriz sea vacía
+     *  se retorna Pds::Ra::Nan.
+     *  \ingroup MatrixGroup
+     */
+    double Rf(const Pds::Matrix &Y) const;
+    
+    /** 
+     *  \brief Calcula el error absoluto medio porcentual (Mean Absolute Percentage Error) de una matriz.
+     *
+     *  \f[ A.Mape()=\frac{100}{N_{total}}\sum \limits_{i} \sum \limits_{j} \left|\frac{a_{ij}-b_{ij}}{a_{ij}}\right| \f]
+     *  \f$N_{total}\f$ es el número de elementos no cero en \f$\mathbf{A}\f$.
+     *  Solo son sumados elementos no cero en \f$\mathbf{A}\f$.
+     *  \return Retorna el error absoluto medio porcentual. En caso de que la matriz sea vacía
+     *  se retorna Pds::Ra::Nan.
+     *  \ingroup MatrixGroup
+     */
+    double Mape(const Pds::Matrix &B) const;
     
     /** 
      *  \brief Calcula la correlación de Pearson con la matriz.
@@ -1323,18 +1358,7 @@ public:
      *  \ingroup MatrixGroup
      */
     double Rms(void) const;
-    
-    /** 
-     *  \brief Calcula el error absoluto medio porcentual (Mean Absolute Percentage Error) de una matriz.
-     *
-     *  \f[ A.Mape()=\frac{100}{N_{total}}\sum \limits_{i} \sum \limits_{j} \left|\frac{a_{ij}-b_{ij}}{a_{ij}}\right| \f]
-     *  \f$N_{total}\f$ es el número de elementos no cero en \f$\mathbf{A}\f$.
-     *  Solo son sumados elementos no cero en \f$\mathbf{A}\f$.
-     *  \return Retorna el error absoluto medio porcentual. En caso de que la matriz sea vacía
-     *  se retorna Pds::Ra::Nan.
-     *  \ingroup MatrixGroup
-     */
-    double Mape(const Pds::Matrix &B) const;
+
 
     /** 
      *  \brief Calcula valor absoluto medio de una matriz.
