@@ -188,6 +188,11 @@ double Pds::SumSquare(const Pds::Matrix &A)
     return A.SumSquare();
 }
 
+double Pds::MeanAbsolute(const Pds::Matrix &A)
+{
+    return A.MeanAbsolute();
+}
+
 double Pds::MeanSquare(const Pds::Matrix &A)
 {
     return A.MeanSquare();

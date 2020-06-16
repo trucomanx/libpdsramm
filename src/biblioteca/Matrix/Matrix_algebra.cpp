@@ -4,6 +4,28 @@
 ////////////////////////////////////////////////////////////////////////
 #include <cmath>
 
+double Pds::Matrix::Mape(const Pds::Matrix &B) const
+{
+    if(B.IsEmpty())             return Pds::Ra::Nan;
+    if(this->IsEmpty())         return Pds::Ra::Nan;
+    if(this->IsNotSimilarTo(B)) return Pds::Ra::Nan;
+
+    unsigned int lin,col;
+    double S=0;
+    unsigned int count=0;
+    
+    
+    for(lin=0;lin<this->nlin;lin++)
+    for(col=0;col<this->ncol;col++)
+    {
+        if(this->array[lin][col]!=0.0)
+            S=S+fabs((this->array[lin][col]-this->array[lin][col])/this->array[lin][col]);
+        else
+            count++;
+    }
+    return 100.0*S/((this->ncol)*(this->nlin)-count);
+}
+
 
 double Pds::Matrix::Rms(void) const
 {
@@ -20,6 +42,21 @@ double Pds::Matrix::Rms(void) const
     return sqrt(S/((this->ncol)*(this->nlin)));
 }
 
+double Pds::Matrix::MeanAbsolute(void) const
+{
+    unsigned int lin,col;
+    double S=0;
+    
+    if((this->nlin==0)||(this->ncol==0)||(this->array==NULL))
+    return Pds::Ra::Nan;
+    
+    for(lin=0;lin<this->nlin;lin++)
+    for(col=0;col<this->ncol;col++)
+    S=S+fabs(this->array[lin][col]);
+
+    return S/((this->ncol)*(this->nlin));
+}
+ 
 double Pds::Matrix::MeanSquare(void) const
 {
     unsigned int lin,col;
@@ -34,6 +71,7 @@ double Pds::Matrix::MeanSquare(void) const
 
     return S/((this->ncol)*(this->nlin));
 }
+
 
 double Pds::Matrix::SumSquare(void) const
 {

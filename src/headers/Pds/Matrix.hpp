@@ -1313,6 +1313,28 @@ public:
      *  \ingroup MatrixGroup
      */
     double Rms(void) const;
+    
+    /** 
+     *  \brief Calcula el error absoluto medio porcentual (Mean Absolute Percentage Error) de una matriz.
+     *
+     *  \f[ A.Mape()=\frac{100}{N_{total}}\sum \limits_{i} \sum \limits_{j} \left|\frac{a_{ij}-b_{ij}}{a_{ij}}\right| \f]
+     *  \f$N_{total}\f$ es el número de elementos no cero en \f$\mathbf{A}\f$.
+     *  Solo son sumados elementos no cero en \f$\mathbf{A}\f$.
+     *  \return Retorna el error absoluto medio porcentual. En caso de que la matriz sea vacía
+     *  se retorna Pds::Ra::Nan.
+     *  \ingroup MatrixGroup
+     */
+    double Mape(const Pds::Matrix &B) const;
+
+    /** 
+     *  \brief Calcula valor absoluto medio de una matriz.
+     *
+     *  \f[ A.MeanAbsolute()=\frac{1}{Nlin~Ncol}\sum \limits_{i}^{Nlin} \sum \limits_{j}^{Ncol} {|a_{ij}|} \f]
+     *  \return Retorna el valor absoluto medio. En caso de que la matriz sea vacía
+     *  se retorna Pds::Ra::Nan.
+     *  \ingroup MatrixGroup
+     */
+    double MeanAbsolute(void) const;
  
     /** 
      *  \brief Calcula valor quadrático medio de una matriz.
