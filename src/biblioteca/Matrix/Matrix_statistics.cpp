@@ -164,7 +164,7 @@ double Pds::Matrix::Rf(const Pds::Matrix &Y) const
     MSE=MSE+(this->array[lin][col]-Y.array[lin][col])*(this->array[lin][col]-Y.array[lin][col]);
     MSE=MSE/(this->nlin*this->ncol);
     
-    return MSE/MST;
+    return sqrt(MSE/MST);
 }
 ////////////////////////////////////////////////////////////////////////
 

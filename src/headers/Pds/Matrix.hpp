@@ -1266,7 +1266,8 @@ public:
     /** 
      *  \brief Calcula o \f$RF\f$.
      *
-     *  \f[ Rf\equiv A.Rf(Y)\quad =\quad \frac{\sigma_r^2}{\sigma^2}\quad =\quad \frac{\frac{1}{L}|| \mathbf{A}_{ij}-\mathbf{Y}_{ij}||^2}{Var(\mathbf{A})}\f]
+     *  \f[ Rf\equiv A.Rf(Y)\quad =\quad \frac{\sigma_r}{\sigma}\f]
+     *  \f[ Rf\equiv A.Rf(Y)\quad =\quad \frac{\sqrt{\frac{1}{L}|| \mathbf{A}_{ij}-\mathbf{Y}_{ij}||^2}}{Std(\mathbf{A})}\f]
      *  \f[0 < Rf < \infty\f]
      *  Varianza \f$\sigma^2\f$, varianza residual \f$\sigma_r^2\f$.
      *  \return RetornaRF entre A e Y. En caso de que la matriz sea vacía
