@@ -63,5 +63,9 @@ int main(void)
     
     A.Print("\nA:\n");
     std::cout<<"Pds::Find(A): "<<Pds::Ra::IndicesToString(Pds::Find(A),", ")<<std::endl;
+
+    Pds::CountingTable(2,3).Print("\nPds::CountingTable(2,3):\n");
+
+    Pds::CountingTable(3,-1,1,14).Print("\nPds::CountingTable(3,-1,1,14):\n");
     return 0;
 }

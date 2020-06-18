@@ -178,6 +178,58 @@ Pds::Matrix Pds::Zeros(unsigned int N)
 }
 
 ////////////////////////////////////////////////////////////////////////
+Pds::Matrix Pds::CountingTable(unsigned int N,unsigned int M)
+{
+    if(N==0)    return Pds::Matrix();
+    if(M==0)    return Pds::Matrix();
+    if(M==1)    return Pds::Matrix(N,1);
+
+    unsigned int L=(int)pow(1.0*M,1.0*N);
+    unsigned int q,r;
+    
+    Pds::Matrix Ans(L,N);
+    
+    for(unsigned int lin=0;lin<L;lin++)
+    {
+        q=lin;
+        for(unsigned int col=0;col<N;col++)    
+        {
+            r=q%M;
+            Ans.Set(lin,col,r);
+            q=q/M;
+        }
+    }
+
+    return Ans;
+}
+
+Pds::Matrix Pds::CountingTable(unsigned int N, int min, int max, unsigned int from_id)
+{
+    if(min>max)return Pds::Matrix();
+    unsigned int M=max+1-min;
+    
+    if(N==0)    return Pds::Matrix();
+    if(M==1)    return Pds::Matrix(N,1);
+
+    unsigned int L=(int)pow(1.0*M,1.0*N);
+    if(from_id>=L)  return Pds::Matrix();
+    unsigned int q,r;
+
+    Pds::Matrix Ans(L-from_id,N);
+    
+    for(unsigned int lin=from_id;lin<L;lin++)
+    {
+        q=lin;
+        for(unsigned int col=0;col<N;col++)    
+        {
+            r=q%M;
+            Ans.Set(lin-from_id,col,1.0*r+min);
+            q=q/M;
+        }
+    }
+
+    return Ans;
+}
 Pds::Matrix Pds::MultisetIndexSum(unsigned int N,unsigned int M)
 {
     unsigned int Nlin=0;

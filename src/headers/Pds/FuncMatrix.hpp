@@ -301,6 +301,71 @@ a_{10} & a_{11}
  * @{
  */
 
+
+     /** 
+     *  \brief Retorna una matriz \f$\mathbf{S}_{N}(M)\f$ de \f$N\f$ columnas y \f$M^N\f$ lineas.
+     *  La lineas de \f$\mathbf{S}_{N}(M)\f$ representan un conteo con \f$N\f$ 
+     *  numeros enteros que que van de \f$0\f$ a \f$M-1\f$.
+     *
+\f[
+\mathbf{S}_{2}(3)=\left(\begin{matrix}
+0 & 0 \\
+1 & 0 \\
+2 & 0 \\
+0 & 1 \\
+1 & 1 \\
+2 & 1 \\
+0 & 2 \\
+1 & 2 \\
+2 & 2 \\
+\end{matrix}\right)
+\f]
+     *  \param[in] N Cantidad de numeros usados en el conteo (número de columnas en la matriz).
+     *  \param[in] M Cantidad de posibles digitos.
+     *  \return Retorna la matriz con los indices.
+     *  \ingroup FuncMatrixGroup
+     */
+    Pds::Matrix CountingTable(unsigned int N,unsigned int M);
+    
+     /** 
+     *  \brief Retorna una matriz \f$\mathbf{S}_{N}(M)\f$ de \f$N\f$ columnas y \f$M^N-from\_id\f$ lineas.
+     *  Las lineas de \f$\mathbf{S}_{N}(M)\f$ representan un conteo con \f$N\f$ 
+     *  numeros enteros que que van de \f$min\f$ a \f$max\f$ donde \f$M=max+1-min\f$.
+     *
+\f[
+\mathbf{S}_{2}(-1:1)=\left(\begin{matrix}
+-1 & -1 \\
+0 & -1 \\
+1 & -1 \\
+-1 & 0 \\
+0 & 0 \\
+1 & 0 \\
+-1 & 1 \\
+0 & 1 \\
+1 & 1 \\
+\end{matrix}\right)
+\f]
+\code{.c}
+Pds::Matrix A=Pds::CountingTable(2,-1,1,5);
+//N=2 M=3 from_id=5
+A.Print(":");
+\endcode
+Obtendo
+\verbatim
+1   0 
+-1  1
+0   1 
+1   1 
+\endverbatim
+     *  \param[in] N Cantidad de numeros usados en el conteo (número de columnas en la matriz).
+     *  \param[in] min Mínimo valor del conteo.
+     *  \param[in] max Máximo valor del conteo.
+     *  \param[in] from_id Indice incial del conteo.
+     *  \return Retorna la matriz con los indices.
+     *  \ingroup FuncMatrixGroup
+     */
+    Pds::Matrix CountingTable(unsigned int N, int min, int max, unsigned int from_id);
+
      /** 
      *  \brief Retorna una matriz \f$\mathbf{S}_{N}(M)\f$ de \f$N\f$ columnas y \f${{N+M-1} \choose M}\f$ lineas.
      *  La lineas de \f$\mathbf{S}_{N}(M)\f$ tienen todas las combinaciones de \f$N\f$ numeros enteros que sumen \f$M\f$.
@@ -322,8 +387,8 @@ Donde se sabe que
 \f[
 \mathbf{S}_{1}(M) =M, \qquad \mathbf{S}_{N}(0)=[ 0\quad 0\quad ... \quad 0] 
 \f]
-     *  \param[in] N Número de numeros usados en la suma.
-     *  \param[in] M Suma que tien que tener los N números.
+     *  \param[in] N Cantidad de numeros usados en la suma (número de columnas en la matriz).
+     *  \param[in] M Valor de la suma de todos los numeros en una linea.
      *  \return Retorna la matriz con los indices.
      *  \ingroup FuncMatrixGroup
      */
@@ -347,14 +412,16 @@ Donde se sabe que
 \f]
 
 Donde el indice \f$\mathbf{d}_l\f$ genera el monomio 
-\f$\mathbf{\overline{X}}^{\mathbf{d}_l}\equiv \mathbf{x}_1^{d_{l1}} \mathbf{x}_2^{d_{l2}} \mathbf{x}_3^{d_{l3}} ... \mathbf{x}_N^{d_{lN}}\f$
+\f$\mathbf{\overline{X}}^{\mathbf{d}_l}\equiv \mathbf{x}_{n}^{d_{l1}} \mathbf{x}_{n+1}^{d_{l2}} \mathbf{x}_{n+2}^{d_{l3}} ... \mathbf{x}_{n+N-1}^{d_{lN}}\f$
+se \f$n=1\f$ entonces 
+\f$\mathbf{\overline{X}}^{\mathbf{d}_l}\equiv \mathbf{x}_{1}^{d_{l1}} \mathbf{x}_{2}^{d_{l2}} \mathbf{x}_{3}^{d_{l3}} ... \mathbf{x}_{N}^{d_{lN}}\f$
      *  \param[in] ID Una matriz con indices en las lineas.
      *  \param[in] Separator El texto separador entre monomios.
-     *  \param[in] xinit Valor inicial de x, si xinit=0 inicia en x_{0}
+     *  \param[in] n Valor inicial de n en \f$x_n\f$, si n=0 inicia en \f$x_{0}\f$
      *  \return Una cadena con los indices.
      *  \ingroup FuncMatrixGroup
      */
-    std::string MultisetIndexSumToString(const Pds::Matrix &ID,std::string Separator=", ",unsigned int xinit=1);
+    std::string MultisetIndexSumToString(const Pds::Matrix &ID,std::string Separator=", ",unsigned int n=1);
 
      /** 
      *  \brief Dada uma matriz \f$\mathbf{X}=\left[\mathbf{x}_1,\quad \mathbf{x}_2,\quad ...,\quad \mathbf{x}_n,\quad ...,\quad \mathbf{x}_N\right]\f$,
