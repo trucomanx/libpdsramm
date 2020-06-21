@@ -134,7 +134,7 @@ Pds::Matrix::Matrix(const Matrix &A)
     return;
 }
 
-Pds::Matrix::Matrix(double (*func)(double),const Matrix &A)
+Pds::Matrix::Matrix(double (*func)(double),const Pds::Matrix &A)
 {
     this->nlin=0;
     this->ncol=0;
@@ -152,24 +152,43 @@ Pds::Matrix::Matrix(double (*func)(double),const Matrix &A)
     return;
 }
 
-Pds::Matrix::Matrix(double (*func)(double,double),const Matrix &A,double var)
+Pds::Matrix::Matrix(double (*func)(double,double),const Pds::Matrix &B,double var)
 {
     this->nlin=0;
     this->ncol=0;
     this->array=NULL;
         
-    if(A.IsEmpty())  return;
+    if(B.IsEmpty())  return;
 
 
-    this->array= Pds::Matrix::ArrayAllocate(func,A,var);
+    this->array= Pds::Matrix::ArrayAllocate(func,B,var);
     if(this->array==NULL)  return;
     
-    this->nlin=A.nlin;
-    this->ncol=A.ncol;
+    this->nlin=B.nlin;
+    this->ncol=B.ncol;
     
     return;
 }
 
+
+Pds::Matrix::Matrix(double (*func)(double,double),const Pds::Matrix &B,const Pds::Matrix &C)
+{
+    this->nlin=0;
+    this->ncol=0;
+    this->array=NULL;
+        
+    if(B.IsEmpty())  return;
+    if(C.IsEmpty())  return;
+    if(B.IsNotSimilarTo(C)) return;
+
+    this->array= Pds::Matrix::ArrayAllocate(func,B,C);
+    if(this->array==NULL)  return;
+    
+    this->nlin=B.nlin;
+    this->ncol=B.ncol;
+    
+    return;
+}
 
 Pds::Matrix::Matrix(Pds::Ra::FormatType Type,std::string filepath)
 {

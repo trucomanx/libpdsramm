@@ -88,7 +88,7 @@ protected:
     
 public:
 
-/** @name Varios tipos de constructores
+/** @name Constructores
  *  Crean una objeto Pds::Matrix
  * @{
  */
@@ -312,6 +312,37 @@ B\equiv [b_{i,j}]
      *  \ingroup MatrixGroup
      */
     Matrix(double (*func)(double,double),const Pds::Matrix &B , double var);
+
+    
+    /** 
+     *  \brief Crea un objeto de tipo Pds::Matrix, evaluando mediante una función, 
+     *  los datos de otra matriz.
+     * 
+   \f[
+B\equiv [b_{ij}], \qquad C\equiv [c_{ij}] 
+   \f]
+   \f[
+\mathbf{A} \leftarrow func(\mathbf{B},\mathbf{C})
+   \f]
+   \f[
+\mathbf{a}_{ij} \leftarrow func(\mathbf{b}_{ij},\mathbf{c}_{ij})
+   \f]
+   Para crear una matriz A , copia de pow(B,C):
+\code{.cpp}
+    Pds::Matrix B(2,3,2.0);
+    Pds::Matrix C(2,3,3.0);
+    Pds::Matrix A(pow,B,C);
+    
+    if(A.IsEmpty()) std::cout<<"Yes,possible memory allocation problem\n";
+    else            std::cout<<"No,all fine\n";
+\endcode
+     *  \param[in] func Función a aplicar elemento a elemento en las matrices, 
+     *  esta debe tener a forma double func(double,double).
+     *  \param[in] B Matriz a evaluar para copiar los resultados.
+     *  \param[in] C Matriz a evaluar para copiar los resultados.
+     *  \ingroup MatrixGroup
+     */
+    Matrix(double (*func)(double,double),const Pds::Matrix &B ,const Pds::Matrix &C);
 
     /** 
      *  \brief Crea un objeto de tipo Pds::Matrix copiando datos desde 
@@ -1681,6 +1712,18 @@ public:
      */
     static double** ArrayAllocate(double (*func)(double,double),const Pds::Matrix &A,double var);
 
+    /** 
+     *  \brief crea dinámicamente un arreglo de A.Nlin() lineas y A.Ncol() columnas,
+     *  con los datos copiados de aplicar func(A,B).
+     *  Los tamaño de A y B son similares.
+     *  \param[in] func Función a aplicar, esta debe tener a forma double func(double).
+     *  \param[in] A Matriz de donde se copiaran datos.
+     *  \param[in] B Matriz de donde se copiaran datos.
+     *  \return Retorna un puntero al arreglo, o NULL si no consiguió reservar
+     * la memoria. Esta memoria debe ser liberada siempre com ArrayRelease
+     *  \ingroup MatrixGroup
+     */
+    static double** ArrayAllocate(double (*func)(double,double),const Pds::Matrix &A,const Pds::Matrix &B);
     
     /** 
      *  \brief crea dinámicamente un arreglo de A.Nlin() lineas y A.Ncol() columnas,
