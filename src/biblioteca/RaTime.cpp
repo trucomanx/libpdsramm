@@ -1,5 +1,5 @@
 /*
- * Ra.hpp
+ * RaTime.cpp
  * 
  * Copyright 2018 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
  * 
@@ -20,47 +20,46 @@
  * 
  */
 
-/** \file Ra.hpp
- * \brief Archivo de definición de cabeceras.
- *
- *  Puedes habilitar todos los módulos de la biblioteca  
- *  usando este archivo, haciendo:
-   @verbatim
-	#include <Pds/Ra>
-   @endverbatim
- * O puedes habilitarlas una por una usando lo siguiente:
-   @verbatim
-    #include <Pds/RaDefines>
-    #include <Pds/Matrix>
-   @endverbatim
- * 
- */
-    
-    
-#ifndef __PDS_RA_HPP__
-#define __PDS_RA_HPP__
-    
-    
 #include <Pds/RaDefines>
-#include <Pds/RaTools>
-#include <Pds/RaString>
-#include <Pds/RaFile>
-#include <Pds/RaIndices>
 #include <Pds/RaTime>
-        
-#include <Pds/Size>
-    
-#include <Pds/Matrix>
-#include <Pds/MathMatrix>
-#include <Pds/FuncMatrix>
-#include <Pds/FuncMatrixRotation>
-    
-    
-#include <Pds/Vector>
-#include <Pds/FuncVector>
-#include <Pds/FuncVectorPoly>
-    
-    
-#endif /* __PDS_RA_HPP__ */
+
+#include <iostream>
 
 
+namespace Pds{
+namespace Ra{
+    clock_t StartTime =0;
+}
+}
+
+clock_t Pds::Ra::Tic(void)
+{
+    return Pds::Ra::StartTime = clock();
+}
+
+double Pds::Ra::Toc(void)
+{
+    double T=(clock() - Pds::Ra::StartTime) / (double)CLOCKS_PER_SEC;
+    
+    std::cout<< "Elapsed time: ";
+    if(T>60.0)      std::cout<< T/60.0 << " min";
+    else if(T>1.0)  std::cout<< T << " s";
+    else            std::cout<< T*1000 << " ms";
+    std::cout<< std::endl;
+    
+    return T;
+}
+
+
+double Pds::Ra::Toc(clock_t start_time)
+{
+    double T=(clock() - start_time) / (double)CLOCKS_PER_SEC;
+    
+    std::cout<< "Elapsed time: ";
+    if(T>60.0)      std::cout<< T/60.0 << " min";
+    else if(T>1.0)  std::cout<< T << " s";
+    else            std::cout<< T*1000 << " ms";
+    std::cout<< std::endl;
+    
+    return T;
+}

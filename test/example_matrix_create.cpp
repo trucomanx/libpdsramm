@@ -48,6 +48,8 @@ G:
     
 int main(void)
 {
+    Pds::Ra::Tic();
+        
     Pds::Matrix A;
     Pds::Matrix B(2,2);
     Pds::Matrix C(2,3,0.523598776);
@@ -68,6 +70,8 @@ int main(void)
     
     Pds::Matrix H(pow,F,F);
     H.Print("\nH:\n");
+    
+    Pds::Ra::Toc();
     
     return 0;
 }

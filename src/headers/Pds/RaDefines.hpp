@@ -40,6 +40,7 @@
 #include <iostream>
 #include <cstring>
 #include <cmath>
+#include <ctime>
 
 #ifndef __CURRENT_FILENAME__
 #define __CURRENT_FILENAME__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : strrchr(__FILE__, '\\') ? strrchr(__FILE__, '\\') + 1 : __FILE__)
@@ -84,7 +85,8 @@
 namespace Pds{
 namespace Ra{
     
-    
+
+
     /*!
      * Número PI.
      * \ingroup DefinesGroup
