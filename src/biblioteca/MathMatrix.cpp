@@ -267,6 +267,27 @@ Pds::Matrix Pds::HbInv(const Pds::Matrix &A)
 }
 
 ////////////////////////////////////////////////////////////////////////
+double Pds::UnitStep(double x)
+{   
+    return (x >= 0);
+}
+
+Pds::Matrix Pds::UnitStep(const Pds::Matrix &A)
+{
+    return A.Geq(0);
+}
+
+double Pds::UnitRamp(double x)
+{   
+    if(x>=0)    return x;
+    else        return 0.0;
+}
+
+Pds::Matrix Pds::UnitRamp(const Pds::Matrix &A)
+{
+    return Pds::Matrix(Pds::UnitRamp,A);
+}
+
 double Pds::Sign(double x)
 {   
     return ((x > 0) - (x < 0));
@@ -274,8 +295,7 @@ double Pds::Sign(double x)
 
 Pds::Matrix Pds::Sign(const Pds::Matrix &A)
 {
-    Pds::Matrix B(Pds::Sign,A);
-    return B;
+    return Pds::Matrix(Pds::Sign,A);
 }
 
 

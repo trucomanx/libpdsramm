@@ -305,7 +305,7 @@ a_{10} & a_{11}
      /** 
      *  \brief Retorna una matriz \f$\mathbf{S}_{N}(M)\f$ de \f$N\f$ columnas y \f$M^N\f$ lineas.
      *  La lineas de \f$\mathbf{S}_{N}(M)\f$ representan un conteo con \f$N\f$ 
-     *  numeros enteros que que van de \f$0\f$ a \f$M-1\f$.
+     *  numeros enteros que van de \f$0\f$ a \f$M-1\f$.
      *
 \f[
 \mathbf{S}_{2}(3)=\left(\begin{matrix}
@@ -328,9 +328,9 @@ a_{10} & a_{11}
     Pds::Matrix CountingTable(unsigned int N,unsigned int M);
     
      /** 
-     *  \brief Retorna una matriz \f$\mathbf{S}_{N}(M)\f$ de \f$N\f$ columnas y \f$M^N-from\_id\f$ lineas.
+     *  \brief Calcula la matriz \f$\mathbf{S}_{N}(M)\f$ de \f$N\f$ columnas y \f$M^N\f$ lineas.
      *  Las lineas de \f$\mathbf{S}_{N}(M)\f$ representan un conteo con \f$N\f$ 
-     *  numeros enteros que que van de \f$min\f$ a \f$max\f$ donde \f$M=max+1-min\f$.
+     *  numeros enteros que van de \f$min\f$ a \f$max\f$ donde \f$M=max+1-min\f$.
      *
 \f[
 \mathbf{S}_{2}(-1:1)=\left(\begin{matrix}
@@ -345,6 +345,7 @@ a_{10} & a_{11}
 1 & 1 \\
 \end{matrix}\right)
 \f]
+Despues retorna una sub matriz extraida desde la linea \f$from\_id\f$.
 \code{.c}
 Pds::Matrix A=Pds::CountingTable(2,-1,1,5);
 //N=2 M=3 from_id=5

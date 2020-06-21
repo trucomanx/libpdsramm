@@ -358,6 +358,53 @@ namespace Pds{
  * @{
  */
      /** 
+     *  \brief Retorna el resultado de evaluar la funcion UnitStep().
+     *
+     *  \f[ if(x\geq 0)\quad return\quad 1 \f]
+     *  \f[ else \quad return\quad 0 \f]
+     *  \param[in] x La varaible a evaluar
+     *  \return Retorna la varaible evaluada.
+     *  \ingroup MathMatrixGroup
+     */
+    double UnitStep(double x);
+
+     /** 
+     *  \brief Retorna el resultado de evaluar la funcion UnitStep().
+     *
+     *  \f[ if(x\geq 0)\quad return\quad 1 \f]
+     *  \f[ else \quad return\quad 0 \f]
+     *  \f[ UnitStep(A) \f]
+     *  \param[in] A La matriz a evaluar
+     *  \return Retorna la matriz evaluada.
+     *  \ingroup MathMatrixGroup
+     */
+    Matrix UnitStep(const Matrix &A);
+
+     /** 
+     *  \brief Retorna el resultado de evaluar la funcion UnitRamp().
+     *
+     *  \f[ if(x\geq 0)\quad return\quad x \f]
+     *  \f[ else \quad return\quad 0 \f]
+     *  \param[in] x La varaible a evaluar
+     *  \return Retorna la varaible evaluada.
+     *  \ingroup MathMatrixGroup
+     */
+    double UnitRamp(double x);
+
+     /** 
+     *  \brief Retorna el resultado de evaluar la funcion UnitRamp().
+     *
+     *  \f[ if(x\geq 0)\quad return\quad x \f]
+     *  \f[ else \quad return\quad 0 \f]
+     *  \f[ UnitRamp(A) \f]
+     *  \param[in] A La matriz a evaluar
+     *  \return Retorna la matriz evaluada.
+     *  \ingroup MathMatrixGroup
+     */
+    Matrix UnitRamp(const Matrix &A);
+
+    
+     /** 
      *  \brief Retorna el resultado de evaluar la funcion Sign.
      *
      *  \f[ if(x>0)\quad return\quad+1 \f]

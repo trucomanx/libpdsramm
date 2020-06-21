@@ -2499,7 +2499,7 @@ public:
     
     A.FillId();
     
-    C=A.Geq(8);
+    C=A.Geq(4);
     
     std::cout<<C;
 \endcode
@@ -2509,6 +2509,28 @@ public:
      *  \ingroup MatrixGroup
      */
     Pds::Matrix Geq(double b) const;
+    
+    /** 
+     *  \brief Calcula con sigo mismo (A), si (A) es mayor que un valor (B) y el resultado es
+     * cargado en C. Este método  es similar al operador >= 
+     *
+     *  \f[ C \leftarrow A>=B \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix C;
+    
+    A.FillId();
+    
+    C=A.Geq(B);
+    
+    std::cout<<C;
+\endcode
+     *  \param[in] B Matriz a comparar
+     *  \return Retorna C con el
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix Geq(Pds::Matrix B) const;
     
     /** 
      *  \brief Calcula con sigo mismo (A), si (A) es menor que un valor b y el resultado es
@@ -2521,7 +2543,7 @@ public:
     
     A.FillId();
     
-    C=A.Leq(8);
+    C=A.Leq(4);
     
     std::cout<<C;
 \endcode
@@ -2531,6 +2553,28 @@ public:
      *  \ingroup MatrixGroup
      */
     Pds::Matrix Leq(double b) const;
+    
+    /** 
+     *  \brief Calcula con sigo mismo (A), si (A) es menor que un valor B y el resultado es
+     * cargado en C. Este método  es similar al operador <= 
+     *
+     *  \f[ C \leftarrow A<=B \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix C;
+    
+    A.FillId();
+    
+    C=A.Leq(B);
+    
+    std::cout<<C;
+\endcode
+     *  \param[in] B Matriz a comparar
+     *  \return Retorna C con el
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix Leq(Pds::Matrix B) const;
     
 /**
  * @}
