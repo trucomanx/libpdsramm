@@ -43,7 +43,7 @@ int main(void)
     A.Print("\nA:\n");
     B.Print("\nB:\n");
     
-    A.AddAssigAt(B,1,1);
+    A.AddAssigAt(1,1,B);
     A.Print("\nA:\n");
     
     return 0;

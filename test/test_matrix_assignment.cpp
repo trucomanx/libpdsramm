@@ -23,7 +23,7 @@ int main(void)
     A.Fill(1.0);
     B.Fill(1.0);
 
-    A.AddAssigAt(B,2,2);
+    A.AddAssigAt(2,2,B);
     A.Print("A:\n");
     
     return 0;

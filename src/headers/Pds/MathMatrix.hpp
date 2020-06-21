@@ -79,7 +79,7 @@ namespace Pds{
      *  \see Pds::Matrix::Apply()
      *  \ingroup MathMatrixGroup
      */
-    Matrix Sin(const Matrix &A);
+    Pds::Matrix Sin(const Pds::Matrix &A);
     
     /** 
      *  \brief Retorna el resultado de evaluar elemento a elemento la funcion coseno.  
@@ -90,7 +90,7 @@ namespace Pds{
      *  \see Pds::Matrix::Apply()
      *  \ingroup MathMatrixGroup
      */
-    Matrix Cos(const Matrix &A);
+    Pds::Matrix Cos(const Pds::Matrix &A);
     
     /** 
      *  \brief Retorna el resultado de evaluar elemento a elemento la funcion tangente.  
@@ -101,7 +101,7 @@ namespace Pds{
      *  \see Pds::Matrix::Apply()
      *  \ingroup MathMatrixGroup
      */
-    Matrix Tan(const Matrix &A);
+    Pds::Matrix Tan(const Pds::Matrix &A);
 /**
  * @}
  */
@@ -120,7 +120,7 @@ namespace Pds{
      *  \see Pds::Matrix::Apply()
      *  \ingroup MathMatrixGroup
      */
-    Matrix Exp(const Matrix &A);
+    Pds::Matrix Exp(const Pds::Matrix &A);
     
     /** 
      *  \brief Retorna el resultado de evaluar elemento a elemento la funcion exponente de 2.  
@@ -131,7 +131,7 @@ namespace Pds{
      *  \see Pds::Matrix::Apply()
      *  \ingroup MathMatrixGroup
      */
-    Matrix TwoExp(const Matrix &A);
+    Pds::Matrix TwoExp(const Pds::Matrix &A);
     
     /** 
      *  \brief Retorna el resultado de evaluar elemento a elemento la funcion logaritmo natural.
@@ -143,7 +143,7 @@ namespace Pds{
      *  \see Pds::Ln()
      *  \ingroup MathMatrixGroup
      */
-    Matrix Log(const Matrix &A);
+    Pds::Matrix Log(const Pds::Matrix &A);
 
     /** 
      *  \brief Retorna el resultado de evaluar elemento a elemento la funcion logaritmo natural.
@@ -155,7 +155,7 @@ namespace Pds{
      *  \see Pds::Log()
      *  \ingroup MathMatrixGroup
      */
-    Matrix Ln(const Matrix &A);
+    Pds::Matrix Ln(const Pds::Matrix &A);
     
     /** 
      *  \brief Retorna el resultado de evaluar elemento a elemento la funcion logaritmo de base 2.
@@ -166,7 +166,7 @@ namespace Pds{
      *  \see Pds::Matrix::Apply()
      *  \ingroup MathMatrixGroup
      */
-    Matrix Log2(const Matrix &A);
+    Pds::Matrix Log2(const Pds::Matrix &A);
 
     /** 
      *  \brief Retorna el resultado de evaluar elemento a elemento la funcion logaritmo de base 10.
@@ -177,7 +177,7 @@ namespace Pds{
      *  \see Pds::Matrix::Apply()
      *  \ingroup MathMatrixGroup
      */
-    Matrix Log10(const Matrix &A);
+    Pds::Matrix Log10(const Pds::Matrix &A);
 
 /**
  * @}
@@ -198,7 +198,7 @@ namespace Pds{
      *  \see Pds::Matrix::Apply()
      *  \ingroup MathMatrixGroup
      */
-    Matrix Sqrt(const Matrix &A);
+    Pds::Matrix Sqrt(const Pds::Matrix &A);
  
     /** 
      *  \brief Retorna el resultado de evaluar elemento a elemento la funcion pow.
@@ -210,7 +210,19 @@ namespace Pds{
      *  \see Pds::Matrix::Apply()
      *  \ingroup MathMatrixGroup
      */
-    Matrix Pow(const Matrix &A,double var);
+    Pds::Matrix Pow(const Pds::Matrix &A,double var);
+ 
+    /** 
+     *  \brief Retorna el resultado de evaluar elemento a elemento la funcion pow.
+     *
+     *  \f[ A^{var} \equiv pow(A,var) \f]
+     *  \param[in] A La matriz a evaluar
+     *  \param[in] B La matriz a evaluar
+     *  \return Retorna la matriz evaluada.
+     *  \see Pds::Matrix::Apply()
+     *  \ingroup MathMatrixGroup
+     */
+    Pds::Matrix Pow(const Pds::Matrix &A,const Pds::Matrix &B);
 /**
  * @}
  */
@@ -248,7 +260,7 @@ namespace Pds{
      *  \see Pds::Matrix::Apply()
      *  \ingroup MathMatrixGroup
      */
-    Matrix SQNL(const Matrix &A);
+    Pds::Matrix SQNL(const Pds::Matrix &A);
     
 
     /** 
@@ -270,7 +282,7 @@ namespace Pds{
      *  \see Pds::Matrix::Apply()
      *  \ingroup MathMatrixGroup
      */
-    Matrix Gaussian(const Matrix &A);
+    Pds::Matrix Gaussian(const Pds::Matrix &A);
  
     /** 
      *  \brief Retorna el resultado de evaluar elemento a elemento la funcion tangente hiperbólico.
@@ -281,7 +293,7 @@ namespace Pds{
      *  \see Pds::Matrix::Apply()
      *  \ingroup MathMatrixGroup
      */
-    Matrix Tanh(const Matrix &A);
+    Pds::Matrix Tanh(const Pds::Matrix &A);
 
      /** 
      *  \brief Retorna el resultado de evaluar elemento a elemento la funcion sigmoid.
@@ -302,7 +314,7 @@ namespace Pds{
      *  \see Pds::Matrix::Apply()
      *  \ingroup MathMatrixGroup
      */
-    Matrix Sigmoid(const Matrix &A);
+    Pds::Matrix Sigmoid(const Pds::Matrix &A);
 
 /**
  * @}
@@ -378,7 +390,7 @@ namespace Pds{
      *  \return Retorna la matriz evaluada.
      *  \ingroup MathMatrixGroup
      */
-    Matrix UnitStep(const Matrix &A);
+    Pds::Matrix UnitStep(const Pds::Matrix &A);
 
      /** 
      *  \brief Retorna el resultado de evaluar la funcion UnitRamp().
@@ -401,7 +413,7 @@ namespace Pds{
      *  \return Retorna la matriz evaluada.
      *  \ingroup MathMatrixGroup
      */
-    Matrix UnitRamp(const Matrix &A);
+    Pds::Matrix UnitRamp(const Pds::Matrix &A);
 
     
      /** 
@@ -429,7 +441,7 @@ namespace Pds{
      *  \return Retorna la matriz evaluada.
      *  \ingroup MathMatrixGroup
      */
-    Matrix Sign(const Matrix &A);
+    Pds::Matrix Sign(const Pds::Matrix &A);
     
     /** 
      *  \brief Retorna el resultado de evaluar elemento a elemento la funcion round.  
@@ -440,7 +452,7 @@ namespace Pds{
      *  \see Pds::Matrix::Apply()
      *  \ingroup MathMatrixGroup
      */
-    Matrix Round(const Matrix &A);
+    Pds::Matrix Round(const Pds::Matrix &A);
 
 
 /**
@@ -472,7 +484,7 @@ namespace Pds{
      *  \see Pds::Matrix::Apply()
      *  \ingroup MathMatrixGroup
      */
-    Matrix Hb(const Matrix &A);
+    Pds::Matrix Hb(const Pds::Matrix &A);
 
     /** 
      *  \brief Retorna el valor \f$p\f$ de la función de entropía binaria para un
@@ -496,7 +508,7 @@ namespace Pds{
      *  \see Pds::Matrix::Apply()
      *  \ingroup MathMatrixGroup
      */
-    Matrix HbInv(const Matrix &A);
+    Pds::Matrix HbInv(const Pds::Matrix &A);
 
 /**
  * @}
@@ -518,7 +530,7 @@ namespace Pds{
      *  \see Pds::Matrix::Apply()
      *  \ingroup MathMatrixGroup
      */
-    Matrix Abs(const Matrix &A);
+    Pds::Matrix Abs(const Pds::Matrix &A);
      /** 
      *  \brief Retorna el resultado de evaluar la funcion logit.
      *
@@ -538,7 +550,7 @@ namespace Pds{
      *  \see Pds::Matrix::Apply()
      *  \ingroup MathMatrixGroup
      */
-    Matrix Logit(const Matrix &A);
+    Pds::Matrix Logit(const Pds::Matrix &A);
 
      /** 
      *  \brief Retorna el resultado de evaluar la funcion sinc.
@@ -560,7 +572,28 @@ namespace Pds{
      *  \see Pds::Matrix::Apply()
      *  \ingroup MathMatrixGroup
      */
-    Matrix Sinc(const Matrix &A);
+    Pds::Matrix Sinc(const Pds::Matrix &A);
+
+    /** 
+     *  \brief Calcula el valor de la varianza de la matriz A.
+     *
+     *  \param[in] A Matriz a procesar.
+     *  \param[in] mean Valor medio de los elelento de la Matriz A.
+     *  \return Retorna el valor de la varianza de la matriz. En caso de que la matriz sea vacía
+     *  se retorna Pds::Ra::Nan.
+     *  \ingroup MathMatrixGroup
+     */
+    double Var(const Pds::Matrix &A, double *mean);
+
+    /** 
+     *  \brief Calcula el valor de la varianza de la matriz A.
+     *
+     *  \param[in] A Matriz a procesar.
+     *  \return Retorna el valor de la varianza de la matriz. En caso de que la matriz sea vacía
+     *  se retorna Pds::Ra::Nan.
+     *  \ingroup MathMatrixGroup
+     */
+    double Var(const Pds::Matrix &A);
 
     /** 
      *  \brief Calcula el valor raiz quadrático medio de una matriz.
@@ -570,7 +603,7 @@ namespace Pds{
      *  se retorna Pds::Ra::Nan.
      *  \ingroup MatrixGroup
      */
-    double Rms(const Matrix &A);
+    double Rms(const Pds::Matrix &A);
 
     /** 
      *  \brief Calcula el valor absoluto medio de una matriz.
@@ -580,7 +613,7 @@ namespace Pds{
      *  se retorna Pds::Ra::Nan.
      *  \ingroup MatrixGroup
      */
-    double MeanAbsolute(const Matrix &A);
+    double MeanAbsolute(const Pds::Matrix &A);
 
     /** 
      *  \brief Calcula el valor quadrático medio de una matriz.
@@ -590,7 +623,7 @@ namespace Pds{
      *  se retorna Pds::Ra::Nan.
      *  \ingroup MatrixGroup
      */
-    double MeanSquare(const Matrix &A);
+    double MeanSquare(const Pds::Matrix &A);
 
 
     /** 
@@ -601,7 +634,7 @@ namespace Pds{
      *  se retorna Pds::Ra::Nan.
      *  \ingroup MatrixGroup
      */
-    double SumSquare(const Matrix &A);
+    double SumSquare(const Pds::Matrix &A);
 
     /** 
      *  \brief Calcula el valor dela norma (Frobenius) de una matriz.
@@ -611,7 +644,7 @@ namespace Pds{
      *  se retorna Pds::Ra::Nan.
      *  \ingroup MatrixGroup
      */
-    double Norm(const Matrix &A);
+    double Norm(const Pds::Matrix &A);
     
 /**
  * @}

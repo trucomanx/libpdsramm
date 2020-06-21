@@ -170,13 +170,13 @@ Pds::Vector Pds::PolyAdd(Pds::Vector &P,Pds::Vector &Q)
     if(P.Nlin()>Q.Nlin())
     {
         Pds::Vector V(P);
-        V.AddAssigAt(Q,0,0);
+        V.AddAssigAt(0,0,Q);
         return V;
     }
     else
     {
         Pds::Vector V(Q);
-        V.AddAssigAt(P,0,0);
+        V.AddAssigAt(0,0,P);
         return V;
     }
 }

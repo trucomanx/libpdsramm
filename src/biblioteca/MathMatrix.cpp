@@ -105,8 +105,12 @@ Pds::Matrix Pds::Sqrt(const Pds::Matrix &A)
 
 Pds::Matrix Pds::Pow(const Pds::Matrix &A,double var)
 {
-    Pds::Matrix B(pow,A,var);
-    return B;
+    return Pds::Matrix(pow,A,var);
+}
+
+Pds::Matrix Pds::Pow(const Pds::Matrix &A,const Pds::Matrix &B)
+{
+    return Pds::Matrix(pow,A,B);
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -178,6 +182,17 @@ Pds::Matrix Pds::Logit(const Pds::Matrix &A)
 }
 
 ////////////////////////////////////////////////////////////////////////
+double Pds::Var(const Pds::Matrix &A, double *mean)
+{
+    return A.Var(mean);
+}
+
+double Pds::Var(const Pds::Matrix &A)
+{
+    return A.Var();
+}
+
+
 double Pds::Rms(const Pds::Matrix &A)
 {
     return A.Rms();

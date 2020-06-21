@@ -2783,17 +2783,17 @@ public:
     Pds::Matrix A(4,4);
     Pds::Matrix B(3,3);
     B.Fill(1.0);
-    A.AddAssigAt(B,2,2);
+    A.AddAssigAt(2,2,B);
 \endcode
-     *  \param[in] B la matriz a acumular
      *  \param[in] lin Suma desde esta linea
      *  \param[in] col Suma desde esta columna
+     *  \param[in] B la matriz a acumular
      *  \return Retorna true si todo fue bien o false si no. Si se retorna false
      *  el acumulador no altera su contenido. Retorna false si la intersección
      *  no existe o si alguna de las matrices son nulas.
      *  \ingroup MatrixGroup
      */
-    bool AddAssigAt(const Pds::Matrix &B,unsigned int lin,unsigned int col);
+    bool AddAssigAt(unsigned int lin,unsigned int col,const Pds::Matrix &B);
     
     /** 
      *  \brief Multiplica y acumula en si mismo (A), un valor b. Este operador 

@@ -231,7 +231,7 @@ bool Pds::Matrix::AddAssig(const Pds::Matrix &B)
 }
 ////////////////////////////////////////////////////////////////////////
 
-bool Pds::Matrix::AddAssigAt(const Pds::Matrix &B,unsigned int l0,unsigned int c0)
+bool Pds::Matrix::AddAssigAt(unsigned int l0,unsigned int c0,const Pds::Matrix &B)
 {
     if( B.IsEmpty() )       return false;
     if( this->IsEmpty() )   return false;
