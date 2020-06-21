@@ -53,7 +53,7 @@ int main(void)
     Pds::Matrix C(2,3,0.523598776);
     Pds::Matrix D(C);
     Pds::Matrix E(sin,D);
-    Pds::Matrix F="1 2 3\n4 5 6";
+    Pds::Matrix F="1 2 \n 3 4";
     
     A.Print("\nA:\n");
     B.Print("\nB:\n");
@@ -65,6 +65,9 @@ int main(void)
     F.Save("filedat.txt");
     Pds::Matrix G(Pds::Ra::TextFormat,"filedat.txt");
     G.Print("\nG:\n");
+    
+    Pds::Matrix H(pow,F,F);
+    H.Print("\nH:\n");
     
     return 0;
 }
