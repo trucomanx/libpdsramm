@@ -228,6 +228,88 @@ namespace Pds{
  */
 
 
+/** @name Funciones Cuadraticas
+ *  Descripcion de algunas funciones matematicas que usan  Pds::Matrix.
+ * @{
+ */
+
+    /** 
+     *  \brief Calcula el valor de la varianza de la matriz A.
+     *
+     *  \param[in] A Matriz a procesar.
+     *  \param[in] mean Valor medio de los elelento de la Matriz A.
+     *  \return Retorna el valor de la varianza de la matriz. En caso de que la matriz sea vacía
+     *  se retorna Pds::Ra::Nan.
+     *  \ingroup MathMatrixGroup
+     */
+    double Var(const Pds::Matrix &A, double *mean);
+
+    /** 
+     *  \brief Calcula el valor de la varianza de la matriz A.
+     *
+     *  \param[in] A Matriz a procesar.
+     *  \return Retorna el valor de la varianza de la matriz. En caso de que la matriz sea vacía
+     *  se retorna Pds::Ra::Nan.
+     *  \ingroup MathMatrixGroup
+     */
+    double Var(const Pds::Matrix &A);
+
+    /** 
+     *  \brief Calcula el valor raiz quadrático medio de una matriz.
+     *
+     *  \f[ Pds::Rms(A)=\sqrt{\frac{1}{Nlin~Ncol}\sum \limits_{i}^{Nlin} \sum \limits_{j}^{Ncol} {|a_{ij}|}^2} \f]
+     *  \return Retorna el valor raiz cuadrático medio. En caso de que la matriz sea vacía
+     *  se retorna Pds::Ra::Nan.
+     *  \ingroup MathMatrixGroup
+     */
+    double Rms(const Pds::Matrix &A);
+
+    /** 
+     *  \brief Calcula el valor absoluto medio de una matriz.
+     *
+     *  \f[ Pds::MeanSquare(A)=\frac{1}{Nlin~Ncol}\sum \limits_{i}^{Nlin} \sum \limits_{j}^{Ncol} {|a_{ij}|} \f]
+     *  \return Retorna el valor absoluto medio. En caso de que la matriz sea vacía
+     *  se retorna Pds::Ra::Nan.
+     *  \ingroup MathMatrixGroup
+     */
+    double MeanAbsolute(const Pds::Matrix &A);
+
+    /** 
+     *  \brief Calcula el valor quadrático medio de una matriz.
+     *
+     *  \f[ Pds::MeanSquare(A)=\frac{1}{Nlin~Ncol}\sum \limits_{i}^{Nlin} \sum \limits_{j}^{Ncol} {|a_{ij}|}^2 \f]
+     *  \return Retorna el valor cuadrático medio. En caso de que la matriz sea vacía
+     *  se retorna Pds::Ra::Nan.
+     *  \ingroup MathMatrixGroup
+     */
+    double MeanSquare(const Pds::Matrix &A);
+
+
+    /** 
+     *  \brief Calcula el valor  de la suma quadrática de una matriz.
+     *
+     *  \f[ Pds::SumSquare(A)=\sum \limits_{i}^{Nlin} \sum \limits_{j}^{Ncol} {|a_{ij}|}^2 \f]
+     *  \return Retorna el valor de la suma cuadrática. En caso de que la matriz sea vacía
+     *  se retorna Pds::Ra::Nan.
+     *  \ingroup MathMatrixGroup
+     */
+    double SumSquare(const Pds::Matrix &A);
+
+    /** 
+     *  \brief Calcula el valor dela norma (Frobenius) de una matriz.
+     *
+     *  \f[ Pds::Norm(A)=\sqrt{\sum \limits_{i}^{Nlin} \sum \limits_{j}^{Ncol} {|a_{ij}|}^2} \f]
+     *  \return Retorna el valor de la norma de Frobenius. En caso de que la matriz sea vacía
+     *  se retorna Pds::Ra::Nan.
+     *  \ingroup MathMatrixGroup
+     */
+    double Norm(const Pds::Matrix &A);
+    
+/**
+ * @}
+ */
+
+
 /** @name Funciones de activación
  *  Descripcion de algunas funciones matematicas que usan  Pds::Matrix.
  * @{
@@ -573,82 +655,10 @@ namespace Pds{
      *  \ingroup MathMatrixGroup
      */
     Pds::Matrix Sinc(const Pds::Matrix &A);
-
-    /** 
-     *  \brief Calcula el valor de la varianza de la matriz A.
-     *
-     *  \param[in] A Matriz a procesar.
-     *  \param[in] mean Valor medio de los elelento de la Matriz A.
-     *  \return Retorna el valor de la varianza de la matriz. En caso de que la matriz sea vacía
-     *  se retorna Pds::Ra::Nan.
-     *  \ingroup MathMatrixGroup
-     */
-    double Var(const Pds::Matrix &A, double *mean);
-
-    /** 
-     *  \brief Calcula el valor de la varianza de la matriz A.
-     *
-     *  \param[in] A Matriz a procesar.
-     *  \return Retorna el valor de la varianza de la matriz. En caso de que la matriz sea vacía
-     *  se retorna Pds::Ra::Nan.
-     *  \ingroup MathMatrixGroup
-     */
-    double Var(const Pds::Matrix &A);
-
-    /** 
-     *  \brief Calcula el valor raiz quadrático medio de una matriz.
-     *
-     *  \f[ Pds::Rms(A)=\sqrt{\frac{1}{Nlin~Ncol}\sum \limits_{i}^{Nlin} \sum \limits_{j}^{Ncol} {|a_{ij}|}^2} \f]
-     *  \return Retorna el valor raiz cuadrático medio. En caso de que la matriz sea vacía
-     *  se retorna Pds::Ra::Nan.
-     *  \ingroup MatrixGroup
-     */
-    double Rms(const Pds::Matrix &A);
-
-    /** 
-     *  \brief Calcula el valor absoluto medio de una matriz.
-     *
-     *  \f[ Pds::MeanSquare(A)=\frac{1}{Nlin~Ncol}\sum \limits_{i}^{Nlin} \sum \limits_{j}^{Ncol} {|a_{ij}|} \f]
-     *  \return Retorna el valor absoluto medio. En caso de que la matriz sea vacía
-     *  se retorna Pds::Ra::Nan.
-     *  \ingroup MatrixGroup
-     */
-    double MeanAbsolute(const Pds::Matrix &A);
-
-    /** 
-     *  \brief Calcula el valor quadrático medio de una matriz.
-     *
-     *  \f[ Pds::MeanSquare(A)=\frac{1}{Nlin~Ncol}\sum \limits_{i}^{Nlin} \sum \limits_{j}^{Ncol} {|a_{ij}|}^2 \f]
-     *  \return Retorna el valor cuadrático medio. En caso de que la matriz sea vacía
-     *  se retorna Pds::Ra::Nan.
-     *  \ingroup MatrixGroup
-     */
-    double MeanSquare(const Pds::Matrix &A);
-
-
-    /** 
-     *  \brief Calcula el valor  de la suma quadrática de una matriz.
-     *
-     *  \f[ Pds::SumSquare(A)=\sum \limits_{i}^{Nlin} \sum \limits_{j}^{Ncol} {|a_{ij}|}^2 \f]
-     *  \return Retorna el valor de la suma cuadrática. En caso de que la matriz sea vacía
-     *  se retorna Pds::Ra::Nan.
-     *  \ingroup MatrixGroup
-     */
-    double SumSquare(const Pds::Matrix &A);
-
-    /** 
-     *  \brief Calcula el valor dela norma (Frobenius) de una matriz.
-     *
-     *  \f[ Pds::Norm(A)=\sqrt{\sum \limits_{i}^{Nlin} \sum \limits_{j}^{Ncol} {|a_{ij}|}^2} \f]
-     *  \return Retorna el valor de la norma de Frobenius. En caso de que la matriz sea vacía
-     *  se retorna Pds::Ra::Nan.
-     *  \ingroup MatrixGroup
-     */
-    double Norm(const Pds::Matrix &A);
-    
 /**
  * @}
  */
+
 
 
 /** @name Funciones de integración

@@ -846,7 +846,7 @@ public:
 
 public:
 
-/** @name Métodos get y set
+/** @name Métodos get y set de elementos
  *  Herramientas genéricas para lectura y escritura de datos.
  * @{
  */
@@ -939,7 +939,7 @@ public:
 
 public:
 
-/** @name Métodos get y set, extras
+/** @name Métodos get y set de matrices y vectores
  *  Herramientas genericas para lectura y escritura de datos.
  * @{
  */
@@ -1123,7 +1123,7 @@ public:
 
 public:
 
-/** @name Métodos que trabajan con las lineas de la matriz
+/** @name Métodos de opreaciones sobre las lineas de la matriz
  *  operaciones con lineas
  * @{
  */
@@ -2480,6 +2480,31 @@ public:
      *  \ingroup MatrixGroup
      */
     Pds::Matrix Product(const Pds::Matrix &B) const;
+
+
+    /** 
+     *  \brief Divide con sigo mismo (A), elemento a elemento, una matriz B y el resultado es
+     * cargado en C. Este método  es similar al operador  
+     *
+     *  \f[ C \leftarrow A / B \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix B(4,4);
+    Pds::Matrix C;
+    
+    A.Fill(1.0);
+    B.Fill(2.0);
+    
+    C=A.Division(B);
+    
+    std::cout<<C;
+\endcode
+     *  \param[in] B la matriz a dividir
+     *  \return Retorna C con el
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix Division(const Pds::Matrix &B) const;
 
     /** 
      *  \brief Suma con sigo mismo (A), una matriz B linea y el resultado es
