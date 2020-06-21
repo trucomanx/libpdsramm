@@ -554,6 +554,26 @@ La funcion calcula los exponentes en los monomios usando Pds::MultisetIndexSum(N
     Pds::Matrix  MergeVer(const std::initializer_list<Pds::Matrix> list);
 
     /** 
+     *  \brief Retorna una matriz concatenando verticalmente otras.  
+     *  Si las matrices no tienen el mismo número de columnas se considera um error.
+     *
+     *  \param[in] list La lista de matrices a concatenar.
+     *  \return Retorna la matriz concatenada o una matriz vacía en caso de error.
+     *  \ingroup FuncMatrixGroup
+     */
+    Pds::Matrix  MergeVer(const std::list<Pds::Matrix> list);
+
+    /** 
+     *  \brief Retorna una matriz concatenando horizontalmente otras.  
+     *  Si las matrices no tienen el mismo número de lineas se considera um error.
+     *
+     *  \param[in] list La lista de matrices a concatenar.
+     *  \return Retorna la matriz concatenada o una matriz vacía en caso de error.
+     *  \ingroup FuncMatrixGroup
+     */
+    Pds::Matrix  MergeHor(const std::list<Pds::Matrix> list);
+
+    /** 
      *  \brief Retorna una matriz concatenando horizontalmente otras.  
      *  Si las matrices no tienen el mismo número de lineas se considera um error.
      *
