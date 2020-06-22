@@ -182,6 +182,11 @@ Pds::Matrix Pds::Logit(const Pds::Matrix &A)
 }
 
 ////////////////////////////////////////////////////////////////////////
+double Pds::Sum(const Pds::Matrix &A)
+{
+    return A.Sum();
+}
+
 double Pds::Var(const Pds::Matrix &A, double *mean)
 {
     return A.Var(mean);
@@ -192,7 +197,7 @@ double Pds::Var(const Pds::Matrix &A)
     return A.Var();
 }
 
-
+////////////////////////////////////////////////////////////////////////
 double Pds::Rms(const Pds::Matrix &A)
 {
     return A.Rms();

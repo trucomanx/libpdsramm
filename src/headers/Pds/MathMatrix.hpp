@@ -228,7 +228,7 @@ namespace Pds{
  */
 
 
-/** @name Funciones Cuadraticas
+/** @name Funciones Estadisticas
  *  Descripcion de algunas funciones matematicas que usan  Pds::Matrix.
  * @{
  */
@@ -253,6 +253,26 @@ namespace Pds{
      *  \ingroup MathMatrixGroup
      */
     double Var(const Pds::Matrix &A);
+
+    /** 
+     *  \brief Calcula el valor de la suma de los elementos de la matriz A.
+     *
+     *  \param[in] A Matriz a procesar.
+     *  \return Retorna el valor de la sumo de los elementos de la matriz. En caso de que la matriz sea vacía
+     *  se retorna Pds::Ra::Nan.
+     *  \ingroup MathMatrixGroup
+     */
+    double Sum(const Pds::Matrix &A);
+
+/**
+ * @}
+ */
+
+
+/** @name Funciones Cuadraticas
+ *  Descripcion de algunas funciones matematicas que usan  Pds::Matrix.
+ * @{
+ */
 
     /** 
      *  \brief Calcula el valor raiz quadrático medio de una matriz.
