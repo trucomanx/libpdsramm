@@ -187,6 +187,11 @@ double Pds::Sum(const Pds::Matrix &A)
     return A.Sum();
 }
 
+double Pds::Mean(const Pds::Matrix &A)
+{
+    return A.Mean();
+}
+
 double Pds::Var(const Pds::Matrix &A, double *mean)
 {
     return A.Var(mean);

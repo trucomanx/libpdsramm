@@ -255,10 +255,20 @@ namespace Pds{
     double Var(const Pds::Matrix &A);
 
     /** 
+     *  \brief Calcula el valor medio de los elementos de la matriz A.
+     *
+     *  \param[in] A Matriz a procesar.
+     *  \return Retorna el valor medio de los elementos de la matriz. En caso de que la matriz sea vacía
+     *  se retorna Pds::Ra::Nan.
+     *  \ingroup MathMatrixGroup
+     */
+    double Mean(const Pds::Matrix &A);
+
+    /** 
      *  \brief Calcula el valor de la suma de los elementos de la matriz A.
      *
      *  \param[in] A Matriz a procesar.
-     *  \return Retorna el valor de la sumo de los elementos de la matriz. En caso de que la matriz sea vacía
+     *  \return Retorna el valor de la suma de los elementos de la matriz. En caso de que la matriz sea vacía
      *  se retorna Pds::Ra::Nan.
      *  \ingroup MathMatrixGroup
      */
