@@ -203,6 +203,12 @@ double Pds::Var(const Pds::Matrix &A)
 }
 
 ////////////////////////////////////////////////////////////////////////
+double Pds::Det(const Pds::Matrix &A)
+{
+    return A.Det();
+}
+
+
 double Pds::Rms(const Pds::Matrix &A)
 {
     return A.Rms();

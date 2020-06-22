@@ -279,10 +279,20 @@ namespace Pds{
  */
 
 
-/** @name Funciones Cuadraticas
+/** @name Funciones de álgebra lineal
  *  Descripcion de algunas funciones matematicas que usan  Pds::Matrix.
  * @{
  */
+
+    /** 
+     *  \brief Calcula el valor de la detrminante de una matriz.
+     *
+     *  \f[ Pds::Det(A)=|A| \f]
+     *  \return Retorna el valor de la determinante. En caso de que la matriz sea vacía
+     *  se retorna Pds::Ra::Nan.
+     *  \ingroup MathMatrixGroup
+     */
+    double Det(const Pds::Matrix &A);
 
     /** 
      *  \brief Calcula el valor raiz quadrático medio de una matriz.
@@ -643,6 +653,7 @@ namespace Pds{
      *  \ingroup MathMatrixGroup
      */
     Pds::Matrix Abs(const Pds::Matrix &A);
+    
      /** 
      *  \brief Retorna el resultado de evaluar la funcion logit.
      *

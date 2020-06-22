@@ -1371,11 +1371,21 @@ public:
  */
     
     /** 
+     *  \brief Calcula la determinante.
+     *
+     *  \f[ A.Det() = |A| \f]
+     *  \return Retorna la determinante de un vector. En caso de que la matriz sea vacía
+     *  se retorna Pds::Ra::Nan.
+     *  \ingroup MatrixGroup
+     */
+    double Det(void) const;
+    
+    /** 
      *  \brief Calcula el producto punto entre dos matrices.
      *
      *  \f[ A.Dot(B) = \sum \limits_{i,j} a_{i,j}b_{i,j} \f]
      *  \param[in] B Matriz a multiplicar.
-     *  \return Retorna la norma de un vector. En caso de que la matriz sea vacía
+     *  \return Retorna el producto punto. En caso de que la matriz sea vacía
      *  se retorna Pds::Ra::Nan.
      *  \ingroup MatrixGroup
      */
