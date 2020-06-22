@@ -143,17 +143,20 @@ Pds::Matrix Pds::Matrix::GetRowsRand(unsigned int N) const
 {
     if((this->ncol==0)||(this->nlin==0)||(this->array==NULL)) return Pds::Matrix();
     
-    if(N==0)            return Pds::Matrix();
-    if(N>this->nlin)    return Pds::Matrix();
+    unsigned int L=this->nlin;
+
+    if(N==0)    return Pds::Matrix();
+    if(N>L)     return Pds::Matrix();
      
     Pds::Matrix A(N,this->ncol);
+
     unsigned int id;
     std::set<unsigned int> SetId; 
 
     for(unsigned int lin=0;lin<N;lin++)
     {   
         do{
-            id=rand()%N;
+            id=rand()%L;
         }while(SetId.count(id)!=0); 
         SetId.insert(id);
 

@@ -25,8 +25,8 @@ int main(void)
     D.Print("\nD=A.GetDiagonal()=\n");
 
     A.Print("\nA=\n");
-    Pds::Matrix B=A.GetRowsRand(4);
-    B.Print("\nB=A.GetRowsRand(4)\n");    
+    Pds::Matrix B=A.GetRowsRand(2);
+    B.Print("\nB=A.GetRowsRand(2)\n");    
     Pds::Matrix F=A.GetRows(2,6);
     F.Print("\nF=A.GetRows(2,6)\n");    
 
