@@ -537,19 +537,102 @@ double** Pds::Matrix::ArrayColLoad(const char* filepath,unsigned int& Nlin,unsig
 
 /** 
  *  \brief Escribe los datos de una matriz en un archivo de en formato BMP.
- *
- *  <center>
- *  \image html pds_matrix_save_bmp_with_colormap_jet.bmp "grafico usando el colormap Pds::Colormap::Jet."
- *  </center>
- *  \param[in] array Arreglo donde se leerán los datos de escala de gris. \f$0\leq a_{ij} \leq 255\f$
- *  \param[in] Nlin Número de lineas del arreglo, equivalente a la altura de la imagen.
- *  \param[in] Ncol Número de columnas del arreglo, equivalente al ancho de la imagen.
+ *  \param[in] R Matriz donde se leerán los datos de color rojo. 0<= r<= 255
+ *  \param[in] G Matriz donde se leerán los datos de color verde. 0<= g<= 255
+ *  \param[in] B Matriz donde se leerán los datos de color azul. 0<= b<= 255
  *  \param[in] bmpfilename Nombre del archivo donde se escribirán los datos 
- *  \param[in] colormap Mapa de colores. Ejemplo: Pds::Colormap::Jet, Pds::Colormap::Bone,
- *  Pds::Colormap::Hot,Pds::Colormap::Jolly.
- *  \return true si todo fue bien o false si no. (ej. Mat,bmpfilename==NULL)
- *  \ingroup PdsMatrixGroup
+ *  de la matriz.
+ *  \return true si todo fue bien o false si no. (ej. R,G,B,bmpfilename==NULL)
+ *  \ingroup MatrixGroup
  */
+bool Pds::Matrix::ArrayWriteBmp(    double **arrayr,
+                                    double **arrayg,
+                                    double **arrayb,
+                                    unsigned int Nlin,
+                                    unsigned int Ncol,
+                                    const char *bmpfilename)
+{
+    FILE *bmpfd=NULL;
+
+    unsigned char *img = NULL;
+    double r,g,b;
+
+    if(arrayr==NULL)        return false;
+    if(arrayg==NULL)        return false;
+    if(arrayb==NULL)        return false;
+    if(bmpfilename==NULL)   return false;
+
+    int x,y,i,j;
+    int WIDTH  = Ncol;
+    int HEIGHT = Nlin;
+    int FILESIZE = 54 + 3*WIDTH*HEIGHT; 
+
+
+
+    img = (unsigned char *)calloc(3*WIDTH*HEIGHT,sizeof(unsigned char));
+    if(img==NULL)   return false;
+
+    for(j=0; j<HEIGHT; j++)
+    for(i=0; i<WIDTH ; i++)
+    {
+        x=i; 
+        y=j;
+
+        r = arrayr[j][i];    if (r > 255) r=255;   if (r < 0) r=0;
+        g = arrayg[j][i];    if (g > 255) g=255;   if (g < 0) g=0;
+        b = arrayb[j][i];    if (b > 255) b=255;   if (b < 0) b=0;
+        
+        img[(x+y*WIDTH)*3+2] = (unsigned char)(r);
+        img[(x+y*WIDTH)*3+1] = (unsigned char)(g);
+        img[(x+y*WIDTH)*3+0] = (unsigned char)(b);
+    }
+
+    ///////////////////////////////// Cabecera //////////////////////////////////
+    // [ 2, 6> tamaño total del archivo (calculalo luego)
+    // [ 6,10> puros cero
+    // [10,14> Tamanho total de la cabecera
+    unsigned char bmpfileheader[14] = {'B','M',   0,0,0,0,  0,0,0,0,  54,0,0,0};
+
+    bmpfileheader[ 2] = (unsigned char)(FILESIZE    );
+    bmpfileheader[ 3] = (unsigned char)(FILESIZE>> 8);
+    bmpfileheader[ 4] = (unsigned char)(FILESIZE>>16);
+    bmpfileheader[ 5] = (unsigned char)(FILESIZE>>24);
+
+    /////////////////////////// Cabecera informativa ////////////////////////////
+    // [ 0, 4> Tamanho total de informacion de la cabecera
+    // [ 4, 8> Ancho en pixels de la imagen
+    // [ 8,12> Alto en pixels de la imagen
+    unsigned char bmpinfoheader[40] = {40,0,0,0,  0,0,0,0,  0,0,0,0,  1,0, 24,0};
+
+    bmpinfoheader[ 4] = (unsigned char)(WIDTH    );
+    bmpinfoheader[ 5] = (unsigned char)(WIDTH>> 8);
+    bmpinfoheader[ 6] = (unsigned char)(WIDTH>>16);
+    bmpinfoheader[ 7] = (unsigned char)(WIDTH>>24);
+
+    bmpinfoheader[ 8] = (unsigned char)(HEIGHT    );
+    bmpinfoheader[ 9] = (unsigned char)(HEIGHT>> 8);
+    bmpinfoheader[10] = (unsigned char)(HEIGHT>>16);
+    bmpinfoheader[11] = (unsigned char)(HEIGHT>>24);
+
+    unsigned char bmppad[3] = {0,0,0};
+
+    bmpfd = fopen(bmpfilename,"wb");
+    if(bmpfd==NULL)
+    {
+        free(img);
+        return false;
+    }
+    fwrite(bmpfileheader,1,14,bmpfd);
+    fwrite(bmpinfoheader,1,40,bmpfd);
+    for(i=0; i<HEIGHT; i++)
+    {
+        fwrite(img+(WIDTH*i*3),3,WIDTH            ,bmpfd);
+        fwrite(bmppad         ,1,(4-(WIDTH*3)%4)%4,bmpfd);
+    }
+    fclose(bmpfd);
+    return true;
+}
+
 bool Pds::Matrix::ArrayWriteBmpWithColormap(double **array,
                                             unsigned int Nlin,
                                             unsigned int Ncol,
