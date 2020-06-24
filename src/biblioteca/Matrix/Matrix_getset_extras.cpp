@@ -62,115 +62,6 @@ bool Pds::Matrix::SetDiagonal(const Pds::Vector V)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-Pds::Matrix Pds::Matrix::GetRow(unsigned int lin) const
-{
-    if((this->ncol==0)||(this->nlin==0)||(this->array==NULL)) return Pds::Matrix();
-    
-    if(lin >= this->nlin)  return Pds::Matrix();
-    
-    Pds::Matrix Ans(1,this->ncol);
-    
-    for(unsigned int col=0;col<this->ncol;col++)
-    Ans.array[0][col]=this->array[lin][col];
-    
-    return Ans;
-}
-
-Pds::Matrix Pds::Matrix::GetCol(unsigned int col) const
-{
-    if((this->ncol==0)||(this->nlin==0)||(this->array==NULL)) return Pds::Matrix();
-    
-    if(col >= this->ncol)  return Pds::Matrix();
-    
-    Pds::Matrix Ans(this->nlin,1);
-    
-    for(unsigned int lin=0;lin<this->nlin;lin++)
-    Ans.array[lin][0]=this->array[lin][col];
-    
-    return Ans;
-}
-
-
-////////////////////////////////////////////////////////////////////////////////
-
-Pds::Matrix Pds::Matrix::GetRows(std::list<unsigned int> List) const
-{
-    if((this->ncol==0)||(this->nlin==0)||(this->array==NULL)) return Pds::Matrix();
-
-    for (auto pdat = List.begin(); pdat != List.end(); pdat++) 
-    {
-        if( (*pdat)>=this->nlin )   return Pds::Matrix();
-    }
-    
-
-    Pds::Matrix A(List.size(),this->ncol);
-    
-    unsigned int lin=0;
-    
-    for (auto pdat = List.begin(); pdat != List.end(); pdat++) 
-    {
-        for(unsigned int col=0;col<this->ncol;col++)
-        A.array[lin][col]=this->array[*pdat][col];
-
-        lin++;
-
-    }
-    return A;
-}
-
-Pds::Matrix Pds::Matrix::GetRows(unsigned int lin_init,unsigned int lin_end) const
-{
-    if((this->ncol==0)||(this->nlin==0)||(this->array==NULL)) return Pds::Matrix();
-    
-    if(lin_init >= lin_end)     return Pds::Matrix();
-    
-    if(lin_init >= this->nlin)  return Pds::Matrix();
-    
-    Pds::Matrix A(lin_end-lin_init+1,this->ncol);
-    
-    unsigned int Lend=std::min(this->nlin-1,lin_end);
-    unsigned int Cend=this->ncol-1;
-    
-    for(unsigned int lin=lin_init;lin<=Lend;lin++)
-    for(unsigned int col=0       ;col<=Cend;col++)
-    A.array[lin-lin_init][col]=this->array[lin][col];
-    
-    return A;
-}
-
-#include <set>
-Pds::Matrix Pds::Matrix::GetRowsRand(unsigned int N) const
-{
-    if((this->ncol==0)||(this->nlin==0)||(this->array==NULL)) return Pds::Matrix();
-    
-    unsigned int L=this->nlin;
-
-    if(N==0)    return Pds::Matrix();
-    if(N>L)     return Pds::Matrix();
-     
-    Pds::Matrix A(N,this->ncol);
-
-    unsigned int id;
-    std::set<unsigned int> SetId; 
-
-    for(unsigned int lin=0;lin<N;lin++)
-    {   
-        do{
-            id=rand()%L;
-        }while(SetId.count(id)!=0); 
-        SetId.insert(id);
-
-        for(unsigned int col=0;col<this->ncol;col++)
-        {
-            A.array[lin][col]=this->array[id][col];
-        }
-    }
-    return A;
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
-
 Pds::Matrix Pds::Matrix::GetMatrix(unsigned int lin_init,unsigned int col_init,unsigned int lin_end,unsigned int col_end) const
 {
     if((this->ncol==0)||(this->nlin==0)||(this->array==NULL)) return Pds::Matrix();
@@ -229,6 +120,221 @@ bool Pds::Matrix::SetMatrix(unsigned int lin,unsigned int col,const Pds::Matrix 
 }
 ////////////////////////////////////////////////////////////////////////////////
 
+Pds::Matrix Pds::Matrix::GetRow(unsigned int lin) const
+{
+    if((this->ncol==0)||(this->nlin==0)||(this->array==NULL)) return Pds::Matrix();
+    
+    if(lin >= this->nlin)  return Pds::Matrix();
+    
+    Pds::Matrix Ans(1,this->ncol);
+    
+    for(unsigned int col=0;col<this->ncol;col++)
+    Ans.array[0][col]=this->array[lin][col];
+    
+    return Ans;
+}
+
+Pds::Matrix Pds::Matrix::GetCol(unsigned int col) const
+{
+    if((this->ncol==0)||(this->nlin==0)||(this->array==NULL)) return Pds::Matrix();
+    
+    if(col >= this->ncol)  return Pds::Matrix();
+    
+    Pds::Matrix Ans(this->nlin,1);
+    
+    for(unsigned int lin=0;lin<this->nlin;lin++)
+    Ans.array[lin][0]=this->array[lin][col];
+    
+    return Ans;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+Pds::Matrix Pds::Matrix::GetRows(unsigned int lin_init,unsigned int lin_end) const
+{
+    if((this->ncol==0)||(this->nlin==0)||(this->array==NULL)) return Pds::Matrix();
+    
+    if(lin_init >= lin_end)     return Pds::Matrix();
+    
+    if(lin_init >= this->nlin)  return Pds::Matrix();
+    
+    Pds::Matrix A(lin_end-lin_init+1,this->ncol);
+    
+    unsigned int Lend=std::min(this->nlin-1,lin_end);
+    unsigned int Cend=this->ncol-1;
+    
+    for(unsigned int lin=lin_init;lin<=Lend;lin++)
+    for(unsigned int col=0       ;col<=Cend;col++)
+    A.array[lin-lin_init][col]=this->array[lin][col];
+    
+    return A;
+}
+
+Pds::Matrix Pds::Matrix::GetCols(unsigned int col_init,unsigned int col_end) const
+{
+    if((this->nlin==0)||(this->ncol==0)||(this->array==NULL)) return Pds::Matrix();
+    
+    if(col_init >= col_end)     return Pds::Matrix();
+    
+    if(col_init >= this->ncol)  return Pds::Matrix();
+    
+    Pds::Matrix A(this->nlin,col_end-col_init+1);
+    
+    unsigned int Cend=std::min(this->ncol-1,col_end);
+    unsigned int Lend=this->nlin-1;
+    
+    for(unsigned int lin=0       ;lin<=Lend;lin++)
+    for(unsigned int col=col_init;col<=Cend;col++)
+    A.array[lin][col-col_init]=this->array[lin][col];
+    
+    return A;
+}
+
+Pds::Matrix Pds::Matrix::GetRows(std::list<unsigned int> List) const
+{
+    if((this->ncol==0)||(this->nlin==0)||(this->array==NULL)) return Pds::Matrix();
+
+    // verifica si la lista de indices existe en la matriz
+    for (auto pdat = List.begin(); pdat != List.end(); pdat++) 
+    {
+        if( (*pdat)>=this->nlin )   return Pds::Matrix();
+    }
+    
+    Pds::Matrix A(List.size(),this->ncol);
+    
+    unsigned int lin=0;
+    
+    for (auto pdat = List.begin(); pdat != List.end(); pdat++) 
+    {
+        for(unsigned int col=0;col<this->ncol;col++)
+        A.array[lin][col]=this->array[*pdat][col];
+
+        lin++;
+
+    }
+    
+    return A;
+}
+
+Pds::Matrix Pds::Matrix::GetCols(std::list<unsigned int> List) const
+{
+    if((this->ncol==0)||(this->nlin==0)||(this->array==NULL)) return Pds::Matrix();
+
+    // verifica si la lista de indices existe en la matriz
+    for (auto pdat = List.begin(); pdat != List.end(); pdat++) 
+    {
+        if( (*pdat)>=this->ncol )   return Pds::Matrix();
+    }
+    
+    Pds::Matrix A(this->nlin,List.size());
+    
+    unsigned int col=0;
+    
+    for (auto pdat = List.begin(); pdat != List.end(); pdat++) 
+    {
+        for(unsigned int lin=0;lin<this->nlin;lin++)
+        A.array[lin][col]=this->array[lin][*pdat];
+
+        col++;
+    }
+    
+    return A;
+}
+
+
+#include <set>
+Pds::Matrix Pds::Matrix::GetRowsRand(unsigned int N) const
+{
+    if((this->ncol==0)||(this->nlin==0)||(this->array==NULL)) return Pds::Matrix();
+    
+    unsigned int L=this->nlin;
+
+    if(N==0)    return Pds::Matrix();
+    if(N>L)     return Pds::Matrix();
+     
+    Pds::Matrix A(N,this->ncol);
+    std::srand(std::time(0)+std::clock());
+
+    unsigned int id;
+    std::set<unsigned int> SetId; 
+
+    for(unsigned int lin=0;lin<N;lin++)
+    {   
+        do{
+            id=rand()%L;
+        }while(SetId.count(id)!=0); 
+        SetId.insert(id);
+
+        for(unsigned int col=0;col<this->ncol;col++)
+        {
+            A.array[lin][col]=this->array[id][col];
+        }
+    }
+    return A;
+}
+
+Pds::Matrix Pds::Matrix::GetColsRand(unsigned int N) const
+{
+    if((this->ncol==0)||(this->nlin==0)||(this->array==NULL)) return Pds::Matrix();
+    
+    unsigned int L=this->ncol;
+
+    if(N==0)    return Pds::Matrix();
+    if(N>L)     return Pds::Matrix();
+     
+    Pds::Matrix A(this->nlin,N);
+    std::srand(std::time(0)+std::clock());
+
+    unsigned int id;
+    std::set<unsigned int> SetId; 
+
+    for(unsigned int col=0;col<N;col++)
+    {   
+        do{
+            id=rand()%L;
+        }while(SetId.count(id)!=0); 
+        SetId.insert(id);
+
+        for(unsigned int lin=0;lin<this->nlin;lin++)
+        {
+            A.array[lin][col]=this->array[lin][id];
+        }
+    }
+    return A;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+bool Pds::Matrix::SetRowValue(unsigned int lin,double value)
+{   
+    if(lin>=this->nlin) return false;
+    
+    if(this->IsEmpty()) return false;
+    
+    for(unsigned int col=0;col<this->ncol;col++)
+    this->array[lin][col]=value;
+    
+    return true;
+}
+
+bool Pds::Matrix::SetColValue(unsigned int col,double value)
+{   
+    if(col>=this->ncol) return false;
+    
+    if(this->IsEmpty()) return false;
+    
+    for(unsigned int lin=0;lin<this->nlin;lin++)
+    this->array[lin][col]=value;
+    
+    return true;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+
 Pds::Vector Pds::Matrix::GetColVector(unsigned int col) const
 {   
     if(col>=this->ncol) return Pds::Vector();
@@ -247,17 +353,7 @@ Pds::Vector Pds::Matrix::GetColVector(unsigned int col) const
     return C;
 }
     
-bool Pds::Matrix::SetColValue(unsigned int col,double value)
-{   
-    if(col>=this->ncol) return false;
-    
-    if(this->IsEmpty()) return false;
-    
-    for(unsigned int lin=0;lin<this->nlin;lin++)
-    this->array[lin][col]=value;
-    
-    return true;
-}
+
     
 bool Pds::Matrix::SetColVector(unsigned int col,const Pds::Vector V)
 {   

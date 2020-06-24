@@ -24,5 +24,8 @@ int main(void)
     Pds::Matrix B=A.GetRows(List);
     B.Print("\nB:\n");
 
+    B=A.GetCols(List);
+    B.Print("\nB:\n");
+
     return 0;
 }

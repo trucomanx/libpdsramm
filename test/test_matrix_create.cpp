@@ -38,6 +38,11 @@ int main(void)
     Pds::Matrix *X= new Pds::Matrix(F);
     std::cout<<"X->Nlin():"<<X->Nlin()<<std::endl;
     std::cout<<"X->Ncol():"<<X->Ncol()<<std::endl;
+
+    
+    H=3;
+    H.Print("\nH=3:\n");
+    H.Size().Print("H.Size():\t");
     
     return 0;
 }

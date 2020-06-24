@@ -7,6 +7,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <algorithm>    // std::count
+#include <ctime>
 
 
 std::list<unsigned int> Pds::Ra::IndicesRand(unsigned int Init,unsigned int End, unsigned int N)
@@ -15,6 +16,8 @@ std::list<unsigned int> Pds::Ra::IndicesRand(unsigned int Init,unsigned int End,
     unsigned int M=End-Init+1;
     unsigned int dat;
     
+    std::srand(std::time(0)+std::clock());
+
     for(unsigned int id=0;id<N;id++)
     {   
         do{

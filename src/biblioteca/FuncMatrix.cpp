@@ -27,6 +27,89 @@
 #include <Pds/MathMatrix>
 #include <Pds/FuncMatrix>
 #include <list>
+#include <cmath>
+
+
+bool Pds::Meshgrid(const Pds::Vector &SpaceX,const Pds::Vector &SpaceY,Pds::Matrix &X,Pds::Matrix &Y)
+{
+    if(SpaceX.IsEmpty())    return false;
+    if(SpaceY.IsEmpty())    return false;
+    double var;
+    
+    unsigned int Nx=SpaceX.Nel();
+    unsigned int Ny=SpaceY.Nel();
+    X=Pds::Zeros(Nx,Ny);
+    Y=Pds::Zeros(Nx,Ny);
+
+    for(unsigned int col=0;col<Ny;col++)
+    X.SetColVector(col,SpaceX);
+
+    for(unsigned int col=0;col<Ny;col++)
+    {
+        var=SpaceY.Get(col);
+        Y.SetColValue(col,var);
+    }
+    return true;
+}
+
+Pds::Matrix Pds::Mountain(unsigned int N,double L)
+{
+    Pds::Matrix Z(N,N);
+    double x,y,z;
+    unsigned int i,j;
+
+    L=fabs(L);
+    
+    for(i=0;i<N;i++)
+    for(j=0;j<N;j++)
+    {
+        x=(L*2.0*i)/(N-1.0)-L;
+        y=(L*2.0*j)/(N-1.0)-L;
+
+        z=  x*exp(-x*x-y*y);
+
+        z=z*126.0+127.0;
+    
+        Z.At(i,j)=z;
+    }
+    return Z;
+}
+
+Pds::Matrix Pds::Peaks(unsigned int N,double L)
+{
+    Pds::Matrix Z(N,N);
+    double x,y,z;
+    unsigned int i,j;
+
+    L=fabs(L);
+    
+    for(i=0;i<N;i++)
+    for(j=0;j<N;j++)
+    {
+        x=(L*2.0*i)/(N-1.0)-L;
+        y=(L*2.0*j)/(N-1.0)-L;
+
+
+        z=  (3.0/8.0)*pow(1.0-x,2)*exp(-pow(x,2)-pow(1.0+y,2) ) 
+            -(10.0/8.0)*(x/5.0 - pow(x,3) - pow(y,5))*exp(-pow(x,2)-pow(y,2)) 
+            -(1.0/24.0)*exp(-pow(x+1.0,2) - pow(y,2)) ;
+
+        z=z*126.0+127.0;
+    
+        Z.At(i,j)=z;
+    }
+    return Z;
+}
+
+Pds::Matrix Pds::Operate(double (*func)(double x,double y),const Pds::Matrix &X,const Pds::Matrix &Y)
+{
+    return Pds::Matrix(func,X,Y);
+}
+
+Pds::Matrix Pds::Operate(double (*func)(double x,double y,double z),const Pds::Matrix &X,const Pds::Matrix &Y,const Pds::Matrix &Z)
+{
+    return Pds::Matrix(func,X,Y,Z);
+}
 
 Pds::Matrix Pds::MatrixId(unsigned int N)
 {

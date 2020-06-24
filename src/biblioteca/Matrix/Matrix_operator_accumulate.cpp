@@ -26,6 +26,34 @@
 #include <Pds/Matrix>
 
 ////////////////////////////////////////////////////////////////////////
+Pds::Matrix& Pds::Matrix::operator = (double val)
+{
+    if(false==this->Copy(val))
+        this->MakeEmpty();
+
+    //std::cout<<"used copy assignment\n";
+    return *this;
+}
+
+bool Pds::Matrix::Copy(double val)
+{
+    double **newarray=NULL;
+
+    newarray= Pds::Matrix::ArrayAllocate(1,1);
+    if(newarray==NULL) 
+    {
+        return false;
+    }
+
+    newarray[0][0]=val;
+
+    Pds::Matrix::ArrayRelease(this->array,this->nlin);
+    this->nlin=1;
+    this->ncol=1;
+    this->array=newarray;
+
+    return true;
+}
 
 Pds::Matrix& Pds::Matrix::operator = (const Pds::Matrix &A)
 {

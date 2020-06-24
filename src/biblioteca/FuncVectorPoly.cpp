@@ -110,6 +110,7 @@ Pds::Vector Pds::PolyVal(Pds::Vector P,Pds::Vector X)
     return B;
 }
 
+
 Pds::Matrix Pds::PolyVal(Pds::Vector P,Pds::Matrix X)
 {
     Pds::Matrix B=P.Get(0)*Pds::Ones(X.Size());

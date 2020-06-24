@@ -95,10 +95,6 @@ int main(void)
     
     std::cout   <<"ArrayColFromString(\"1 2 3\\n4 5 6\\n\",Nlin,Ncol):\n"
                 <<Pds::Matrix::ArrayToString(array,Nlin,Ncol);
-
-    bool ret=Pds::Matrix::ArrayWriteMatFile("filedat.mat",NULL,array,Nlin,Ncol);
-    if(ret) std::cout<<"filedat.mat saved.\n";
-    else    std::cout<<"filedat.mat NOT saved.\n";
     
     return 0;
 }

@@ -16,7 +16,7 @@ int main(void)
     Pds::Matrix C;
 
     
-    A.Fill(1.0);    std::cout<<"A:\n"<<A;
+    A.Fill(3.0);    std::cout<<"A:\n"<<A;
     B.Fill(2.0);    std::cout<<"B:\n"<<B;
     
     
@@ -66,5 +66,29 @@ int main(void)
 
     C=A.SubRowMatrix(B1);
     C.Print("A.SubRowMatrix(B1)\n");
+    
+    // (*) operator
+    std::cout<<std::endl;
+    
+    A.Print("\nA\n");
+    B.Print("B\n");
+    
+    C=B.Product(A.Product(B));
+    C.Print("B.Product(A.Product(B))\n");
+        
+    C=B&A&B;
+    C.Print("B&A&B\n");
+    
+    C=A.Division(B);
+    C.Print("A.Division(B)\n");
+        
+    C=A/B;
+    C.Print("A/B\n");
+   
+    C=A.Pow(B);
+    C.Print("A.Pow(B)\n");
+        
+    C=A^B;
+    C.Print("A^B\n");
     return 0;
 }

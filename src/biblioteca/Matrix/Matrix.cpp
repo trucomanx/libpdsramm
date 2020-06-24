@@ -190,6 +190,26 @@ Pds::Matrix::Matrix(double (*func)(double,double),const Pds::Matrix &B,const Pds
     return;
 }
 
+
+Pds::Matrix::Matrix(double (*func)(double,double,double),const Pds::Matrix &X,const Pds::Matrix &Y,const Pds::Matrix &Z)
+{
+    this->nlin=0;
+    this->ncol=0;
+    this->array=NULL;
+        
+    if(X.IsEmpty())  return;
+    if(X.IsNotSimilarTo(Y)) return;
+    if(X.IsNotSimilarTo(Z)) return;
+
+    this->array= Pds::Matrix::ArrayAllocate(func,X,Y,Z);
+    if(this->array==NULL)  return;
+    
+    this->nlin=X.nlin;
+    this->ncol=X.ncol;
+    
+    return;
+}
+
 Pds::Matrix::Matrix(Pds::Ra::FormatType Type,std::string filepath)
 {
     this->array=0;

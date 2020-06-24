@@ -64,6 +64,121 @@ A\equiv [a_{i,j}]
 
 namespace Pds{
 
+
+/** @name funciones generadoras de superficies
+ *  Descripción de algunas funciones que usan  Pds::Matrix.
+ * @{
+ */
+
+   /** 
+     *  \brief Crea una matriz de \f$N\times N\f$ con datos correspondientes a la función \f$f(x,y)\f$,
+     *  donde \f$-|L|\leq x \leq  |L|\f$ y \f$-|L|\leq y \leq |L|\f$.
+     *
+\f[
+f(x,y) =  \frac{3}{8} \left(1-x\right)^{2} e^{-x^{2}-\left(1.0+y\right)^{2}}
+            -\frac{5}{4} (\frac{x}{5} - x^{3} - y^5) e^{-x^2-y^2} 
+            -\frac{1}{24} e^{-(x+1.0)^2 - y^2 }
+\f]
+\f[
+        z\leftarrow 126 z+127;
+\f]
+     *  \param[in] N Número de lineas y columnas.
+     *  \param[in] L Valor de los extremos.
+     *  \return Retorna una matriz no vacía si todo fue bien o una matriz vacía en caso de error.
+     *  \ingroup FuncMatrixGroup
+     */
+    Pds::Matrix Peaks(unsigned int N,double L=3);
+
+/** @name funciones generadoras de superficies
+ *  Descripción de algunas funciones que usan  Pds::Matrix.
+ * @{
+ */
+
+   /** 
+     *  \brief Crea una matriz de \f$N\times N\f$ con datos correspondientes a la función \f$f(x,y)\f$,
+     *  donde \f$-|L|\leq x \leq  |L|\f$ y \f$-|L|\leq y \leq |L|\f$.
+     *
+\f[
+f(x,y) =  xe^{-x^2-y^2};
+\f]
+\f[
+        z\leftarrow 126 z+127;
+\f]
+     *  \param[in] N Número de lineas y columnas.
+     *  \param[in] L Valor de los extremos.
+     *  \return Retorna una matriz no vacía si todo fue bien o una matriz vacía en caso de error.
+     *  \ingroup FuncMatrixGroup
+     */
+    Pds::Matrix Mountain(unsigned int N,double L=2);
+
+
+   /** 
+     *  \brief Crea una matriz \f$\mathbf{X}\f$ e una \f$\mathbf{Y}\f$,
+     *  a partir de los datos en \f$\mathbf{SpaceX}\f$ y \f$\mathbf{SpaceY}\f$, respectivamente.
+     *
+\f[
+\mathbf{X}=
+\left(
+\begin{matrix}
+\mathbf{SpaceX} & \mathbf{SpaceX} & \dots & \mathbf{SpaceX}
+\end{matrix}
+\right)
+\f]
+\f[
+\mathbf{Y}=
+\left(
+\begin{matrix}
+\mathbf{SpaceY}^{T} \\ 
+\mathbf{SpaceY}^{T} \\ 
+\vdots \\
+\mathbf{SpaceY}
+\end{matrix}
+\right)
+\f]
+     *  \param[in] SpaceX Vector con los datos que seran repetidos en cada columna de X.
+     *  \param[in] SpaceY Vector con los datos que seran repetidos en cada linea de Y.
+     *  \param[out] X Matriz X.
+     *  \param[out] Y Matriz Y.
+     *  \return Retorna true si todo fue bien o false en caso de error.
+     *  \ingroup FuncMatrixGroup
+     */
+    bool Meshgrid(const Pds::Vector &SpaceX,const Pds::Vector &SpaceY,Pds::Matrix &X,Pds::Matrix &Y);
+    
+   /** 
+     *  \brief Crea una matriz aplicando la función \f$func(\mathbf{X},\mathbf{Y})\f$,
+     *  elemento a elemento sobre las matrices \f$\mathbf{X}\f$ y \f$\mathbf{Y}\f$.
+     *
+\f[
+\mathbf{Z}=func(\mathbf{X},\mathbf{Y})
+\f]
+     *  \param[in] func Función a aplicar, esta debe tener a forma double func(double, double).
+     *  \param[in] X Matriz X.
+     *  \param[in] Y Matriz Y.
+     *  \return Retorna la matriz \f$\mathbf{Z}\f$.
+     *  \ingroup FuncMatrixGroup
+     */
+    Pds::Matrix Operate(double (*func)(double x,double y),const Pds::Matrix &X,const Pds::Matrix &Y);
+   
+   /** 
+     *  \brief Crea una matriz aplicando la función \f$func(\mathbf{X},\mathbf{Y},\mathbf{Z})\f$,
+     *  elemento a elemento sobre las matrices \f$\mathbf{X}\f$, \f$\mathbf{Y}\f$ y \f$\mathbf{Z}\f$.
+     *
+\f[
+\mathbf{H}=func(\mathbf{X},\mathbf{Y},\mathbf{Z})
+\f]
+     *  \param[in] func Función a aplicar, esta debe tener a forma double func(double, double, double).
+     *  \param[in] X Matriz X.
+     *  \param[in] Y Matriz Y.
+     *  \param[in] Z Matriz Z.
+     *  \return Retorna la matriz \f$\mathbf{H}\f$.
+     *  \ingroup FuncMatrixGroup
+     */
+    Pds::Matrix Operate(double (*func)(double x,double y,double z),const Pds::Matrix &X,const Pds::Matrix &Y,const Pds::Matrix &Z);
+
+/**
+ * @}
+ */
+
 /** @name funciones con matrices especiales
  *  Descripción de algunas funciones que usan  Pds::Matrix.
  * @{

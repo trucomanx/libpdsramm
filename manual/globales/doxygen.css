@@ -1,8 +1,18 @@
 /* The standard CSS for doxygen */
 
+dl.warning, dl.attention, dl.memory
+{
+		background: #FDEF5F;
+		margin-left:-7px;
+		padding-left: 3px;
+		border-left:12px solid;
+		border-color: #990000;
+	    font-size: 20px;
+}
+
 body, table, div, p, dl {
 	font-family: Lucida Grande, Verdana, Geneva, Arial, sans-serif;
-	font-size: 14px;
+	font-size: 18px;
 }
 
 body {
@@ -465,7 +475,7 @@ hr.footer {
 .directory h3 {
 	margin: 0px;
 	margin-top: 1em;
-	font-size: 11pt;
+	font-size: 90%;
 }
 
 /*
@@ -514,7 +524,7 @@ proper pixel height of your image.
 .directory-alt h3 {
 	margin: 0px;
 	margin-top: 1em;
-	font-size: 11pt;
+	font-size: 90%;
 }
 
 .directory-alt > h3 {

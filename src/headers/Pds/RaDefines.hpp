@@ -26,12 +26,6 @@
  */
     
 
-/** \defgroup DefinesGroup Extras Pds::Ra -- Constantes y Defines
- *  \brief Constantes y macros: pds_print_error_message(), Pds::Ra::WarningRCond, etc
- *  <div class="fragment"> \#include <Pds/RaDefines> </div>
- *  
- * @{
- */
 
     
 #ifndef __PDS_RADEFINES_HPP__
@@ -42,6 +36,19 @@
 #include <cmath>
 #include <ctime>
 
+
+/** \defgroup DefinesGroup Extras Pds::Ra -- Constantes y Defines
+ *  \brief Constantes y macros: pds_print_error_message(), Pds::Ra::WarningRCond, etc
+ *  <div class="fragment"> \#include <Pds/RaDefines> </div>
+ *  
+ * @{
+ */
+
+
+/** @name Defines varios
+ *  Muchos tipos de defines
+ * @{
+ */
 #ifndef __CURRENT_FILENAME__
 #define __CURRENT_FILENAME__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : strrchr(__FILE__, '\\') ? strrchr(__FILE__, '\\') + 1 : __FILE__)
 #endif    
@@ -81,11 +88,18 @@
 #endif
     
     
+/*!
+ * @}
+ */
+    
     
 namespace Pds{
 namespace Ra{
     
-
+/** @name Variables Matemáticas
+ *  Muchos tipos de defines
+ * @{
+ */
 
     /*!
      * Número PI.
@@ -124,6 +138,16 @@ namespace Ra{
     const double Nan=nan("");
     
     
+/*!
+ * @}
+ */
+
+
+/** @name Enumeraciones
+ *  Muchos tipos de defines
+ * @{
+ */
+
     /*!
      * \brief Tipo de dato en la carga de información desde archivo.
      *
@@ -140,9 +164,17 @@ namespace Ra{
          */
         MatFileFormat, 
     } FormatType;
+
+    
+/*!
+ * @}
+ */
+
+
     
 }
 }
+
 /*!
  * @}
  */

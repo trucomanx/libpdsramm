@@ -32,5 +32,13 @@ int main(void)
 
     A.GetRow(1).Print("\nA.GetRow(1)\n");
     A.GetCol(1).T().Print("\nA.GetCol(1).T()\n");
+    
+    A.Print("\nA=\n");
+    F=A.GetCols(1,3);
+    F.Print("\nF=A.GetCols(1,3)\n"); 
+    
+    A.Print("\nA=\n");
+    B=A.GetColsRand(2);
+    B.Print("\nB=A.GetColsRand(2)\n");    
     return 0;
 }

@@ -291,6 +291,59 @@ Pds::Matrix Pds::Matrix::SubRowMatrix(const Pds::Matrix &B) const
     return Ans;
 }
 ////////////////////////////////////////////////////////////////////////
+
+Pds::Matrix Pds::Matrix::operator^(const Pds::Matrix &B) const
+{
+    return this->Pow(B);
+}
+
+Pds::Matrix Pds::Matrix::Pow(const Pds::Matrix &B) const
+{
+    if( this->IsNotSimilarTo(B) )    return Pds::Matrix();
+    
+    Pds::Matrix Ans(B.Size());
+    
+    unsigned int lin,col;
+   
+    for(lin=0;lin<B.nlin;lin++)
+    for(col=0;col<B.ncol;col++)
+    {       
+        Ans.array[lin][col]=pow(this->array[lin][col],B.array[lin][col]);
+    }
+
+    return Ans;
+}
+
+
+Pds::Matrix Pds::Matrix::operator^(double val) const
+{
+    return this->Pow(val);
+}
+
+
+Pds::Matrix Pds::Matrix::Pow(double val) const
+{
+    if( this->IsEmpty() )    return Pds::Matrix();
+    
+    Pds::Matrix Ans(this->Size());
+    
+    unsigned int lin,col;
+   
+    for(lin=0;lin<this->nlin;lin++)
+    for(col=0;col<this->ncol;col++)
+    {       
+        Ans.array[lin][col]=pow(this->array[lin][col],val);
+    }
+
+    return Ans;
+}
+////////////////////////////////////////////////////////////////////////
+
+Pds::Matrix Pds::Matrix::operator&(const Pds::Matrix &B) const
+{
+    return this->Product(B);
+}
+
 Pds::Matrix Pds::Matrix::Product(const Pds::Matrix &B) const
 {
     if( this->IsNotSimilarTo(B) )    return Pds::Matrix();
@@ -309,6 +362,12 @@ Pds::Matrix Pds::Matrix::Product(const Pds::Matrix &B) const
 }
 
 ////////////////////////////////////////////////////////////////////////
+
+Pds::Matrix Pds::Matrix::operator/(const Pds::Matrix &B) const
+{
+    return this->Division(B);
+}
+
 Pds::Matrix Pds::Matrix::Division(const Pds::Matrix &B) const
 {
     if( this->IsNotSimilarTo(B) )    return Pds::Matrix();

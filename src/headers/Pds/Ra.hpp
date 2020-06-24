@@ -48,8 +48,9 @@
 #include <Pds/RaIndices>
 #include <Pds/RaTime>
         
+#include <Pds/Colormap>
+
 #include <Pds/Size>
-    
 #include <Pds/Matrix>
 #include <Pds/MathMatrix>
 #include <Pds/FuncMatrix>

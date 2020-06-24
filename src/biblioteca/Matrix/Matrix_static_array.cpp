@@ -85,7 +85,37 @@ double** Pds::Matrix::ArrayAllocate(double (*func)(double,double),const Pds::Mat
     return array;
     
 }
+////////////////////////////////////////////////////////////////////////
 
+double** Pds::Matrix::ArrayAllocate(double (*func)(double,double,double),const Pds::Matrix &A,const Pds::Matrix &B,const Pds::Matrix &C)
+{
+    double **array=NULL;
+    unsigned int lin,col;
+    
+    if((A.nlin==0)||(A.ncol==0)||(A.array==NULL))   return NULL;
+    if((B.nlin==0)||(B.ncol==0)||(B.array==NULL))   return NULL;
+    if((C.nlin==0)||(C.ncol==0)||(C.array==NULL))   return NULL;
+    if((A.nlin!=B.nlin)||(A.ncol!=B.ncol))          return NULL;
+    if((A.nlin!=C.nlin)||(A.ncol!=C.ncol))          return NULL;
+
+    array= new double*[A.nlin];
+    if(array==NULL) return NULL;
+    
+    
+    for (lin = 0; lin < A.nlin; lin++)
+    {
+        array[lin] = new double[A.ncol];
+        if(array[lin]==NULL)
+        {
+            Pds::Matrix::ArrayRelease(array,lin);
+            return NULL;
+        }
+        for (col = 0; col < A.ncol; col++) 
+        array[lin][col]=(*func)(A.array[lin][col],B.array[lin][col],C.array[lin][col]);
+    }
+    return array;
+    
+}
 ////////////////////////////////////////////////////////////////////////
 
 double** Pds::Matrix::ArrayAllocate(const Pds::Matrix &A)
@@ -320,11 +350,11 @@ double *Pds::Matrix::ArrayToArray(double **array,unsigned int Nlin,unsigned int 
 #include <cstring>
 #include <cstdlib>
 typedef struct {
-    long type;  /* type */
-    long nlins; /* row dimension */
-    long ncols; /* column dimension */
-    long imag_flag; /* flag indicating imag part */
-    long name_length; /* name length (including NULL) */
+    int type;  /* type - 4 bytes */ 
+    int nlins; /* row dimension - 4 bytes */
+    int ncols; /* column dimension - 4 bytes */
+    int imag_flag; /* flag indicating imag part - 4 bytes */
+    int name_length; /* name length (including NULL) - 4 bytes */
 } Fmatrix;
  
 
@@ -343,7 +373,6 @@ bool Pds::Matrix::ArrayWriteMatFile(FILE *fp,const char *pname,double **array,un
     HEAD.type=0;
     if(Pds::Ra::IsBigEndian())  HEAD.type=HEAD.type+1000;
     if(sizeof(double)==4)       HEAD.type=HEAD.type+10;
-
     HEAD.nlins=Nlin;
     HEAD.ncols=Ncol;
     HEAD.imag_flag=0;
@@ -419,31 +448,6 @@ bool Pds::Matrix::ArrayWriteMatFile(FILE *fp,const char *pname,double **arrayr,d
     return true;
 }
    
-bool Pds::Matrix::ArrayWriteMatFile(const char* filepath,double **array,unsigned int Nlin,unsigned int Ncol)
-{
-    if(filepath==NULL)    return false;
-    
-    FILE *fd=fopen(filepath,"wb");
-    if(fd==NULL)    return false;
-    
-    bool ret=Pds::Matrix::ArrayWriteMatFile(fd,"MAT0",array,Nlin,Ncol);
-    fclose(fd);
-    
-    return ret;
-}
-   
-bool Pds::Matrix::ArrayWriteMatFile(const char* filepath,double **arrayr,double **arrayi,unsigned int Nlin,unsigned int Ncol)
-{
-    if(filepath==NULL)    return false;
-    
-    FILE *fd=fopen(filepath,"wb");
-    if(fd==NULL)    return false;
-    
-    bool ret=Pds::Matrix::ArrayWriteMatFile(fd,"MAT0",arrayr,arrayi,Nlin,Ncol);
-    fclose(fd);
-    
-    return ret;
-}
 
 ////////////////////////////////////////////////////////////////////////
 #include <cstdlib>
@@ -528,4 +532,133 @@ double** Pds::Matrix::ArrayColLoad(const char* filepath,unsigned int& Nlin,unsig
 }
 
 
+////////////////////////////////////////////////////////////////////////////////
 
+
+/** 
+ *  \brief Escribe los datos de una matriz en un archivo de en formato BMP.
+ *
+ *  <center>
+ *  \image html pds_matrix_save_bmp_with_colormap_jet.bmp "grafico usando el colormap Pds::Colormap::Jet."
+ *  </center>
+ *  \param[in] array Arreglo donde se leerán los datos de escala de gris. \f$0\leq a_{ij} \leq 255\f$
+ *  \param[in] Nlin Número de lineas del arreglo, equivalente a la altura de la imagen.
+ *  \param[in] Ncol Número de columnas del arreglo, equivalente al ancho de la imagen.
+ *  \param[in] bmpfilename Nombre del archivo donde se escribirán los datos 
+ *  \param[in] colormap Mapa de colores. Ejemplo: Pds::Colormap::Jet, Pds::Colormap::Bone,
+ *  Pds::Colormap::Hot,Pds::Colormap::Jolly.
+ *  \return true si todo fue bien o false si no. (ej. Mat,bmpfilename==NULL)
+ *  \ingroup PdsMatrixGroup
+ */
+bool Pds::Matrix::ArrayWriteBmpWithColormap(double **array,
+                                            unsigned int Nlin,
+                                            unsigned int Ncol,
+                                            const unsigned char colormap[256][3],
+                                            const char *bmpfilename)
+{
+    FILE * bmpfd=NULL;
+
+    unsigned char *img = NULL;
+    unsigned char UCHAR;
+
+    int i,j;
+
+    if(array==NULL)         return false;
+    if(bmpfilename==NULL)   return false;
+    
+    int WIDTH  = Ncol;
+    int HEIGHT = Nlin;
+
+    int FILESIZE=54+(int)WIDTH*HEIGHT+1024;
+    
+    img = (unsigned char *)calloc(WIDTH*HEIGHT,sizeof(unsigned char));
+    if(img==NULL)   return false;
+
+    for(j=0; j<HEIGHT; j++)
+    for(i=0; i<WIDTH ; i++)
+    {
+
+        if      (array[j][i] > 255) UCHAR = 255;
+        else if (array[j][i] <   0) UCHAR = 0;
+        else                        UCHAR = (unsigned char)array[j][i];
+        
+        img[i+j*WIDTH] = UCHAR;
+    }
+
+    ///////////////////////////////// Paleta ///////////////////////////////////
+    unsigned char paleta[1024];
+    for(i=0;i<256;i++)
+    {
+        paleta[i*4+0]=colormap[i][2];
+        paleta[i*4+1]=colormap[i][1];
+        paleta[i*4+2]=colormap[i][0];
+        paleta[i*4+3]=0;
+    }
+    ////////////////////////////////////////////////////////////////////////////
+
+
+    ///////////////////////////////// Cabecera //////////////////////////////////
+    // [ 2, 6> tamaño total del archivo (calculalo luego)
+    // [ 6,10> puros cero
+    // [10,14> Tamanho total de la cabecera (1024+54)
+    unsigned char bmpfileheader[14] = {'B','M',  0,0,0,0,  0,0,0,0,  54,4,0,0};
+   
+    bmpfileheader[ 2] = (unsigned char)(FILESIZE    );
+    bmpfileheader[ 3] = (unsigned char)(FILESIZE>> 8);
+    bmpfileheader[ 4] = (unsigned char)(FILESIZE>>16);
+    bmpfileheader[ 5] = (unsigned char)(FILESIZE>>24);
+    ////////////////////////////////////////////////////////////////////////////
+
+
+    /////////////////////////// Cabecera informativa ////////////////////////////
+    // [ 0, 4> Tamanho total de informacion de la cabecera
+    // [ 4, 8> Ancho en pixels de la imagen
+    // [ 8,12> Alto en pixels de la imagen
+    // [12,14> Numero de Planos ¿?
+    // [14,16> Numero de bits por pixel (1, 4, 8, 16, 24 o 32.)
+    // [16,20> Sin compresion
+    unsigned char bmpinfoheader[40] = {40,0,0,0,  0,0,0,0,  0,0,0,0,  1,0,  8,0,  0,0,0,0};
+    // [32,36> 100h=256 numero de colores
+    // [36,40> 100h=256 numero de colores
+    
+    bmpinfoheader[ 4] = (unsigned char)(WIDTH    );
+    bmpinfoheader[ 5] = (unsigned char)(WIDTH>> 8);
+    bmpinfoheader[ 6] = (unsigned char)(WIDTH>>16);
+    bmpinfoheader[ 7] = (unsigned char)(WIDTH>>24);
+
+    bmpinfoheader[ 8] = (unsigned char)(HEIGHT    );
+    bmpinfoheader[ 9] = (unsigned char)(HEIGHT>> 8);
+    bmpinfoheader[10] = (unsigned char)(HEIGHT>>16);
+    bmpinfoheader[11] = (unsigned char)(HEIGHT>>24);
+
+    bmpinfoheader[32] = (unsigned char)(0);
+    bmpinfoheader[33] = (unsigned char)(1);
+
+    bmpinfoheader[36] = (unsigned char)(0);
+    bmpinfoheader[37] = (unsigned char)(1);
+    ////////////////////////////////////////////////////////////////////////////
+
+    unsigned char bmppad[3] = {0,0,0};
+
+    bmpfd = fopen(bmpfilename, "wb");
+    if (bmpfd == NULL) 
+    {
+        free(img);
+        return false;
+    }
+    
+    fwrite(bmpfileheader, 1,  14, bmpfd);
+    fwrite(bmpinfoheader, 1,  40, bmpfd);
+    fwrite(paleta       , 1,1024, bmpfd);
+
+
+    for(i=0;i<HEIGHT;i++)
+    {
+        fwrite(img+(WIDTH*i),1,WIDTH          ,bmpfd);
+        fwrite(bmppad       ,1,(4-(WIDTH%4))%4,bmpfd);
+    }
+
+    fclose(bmpfd);
+
+    return true;
+}

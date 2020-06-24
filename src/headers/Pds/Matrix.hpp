@@ -344,6 +344,39 @@ B\equiv [b_{ij}], \qquad C\equiv [c_{ij}]
      */
     Matrix(double (*func)(double,double),const Pds::Matrix &B ,const Pds::Matrix &C);
 
+    
+    /** 
+     *  \brief Crea un objeto de tipo Pds::Matrix, evaluando mediante una función, 
+     *  los datos de otra matriz.
+     * 
+   \f[
+X\equiv [x_{ij}], \qquad Y\equiv [y_{ij}], \qquad Z\equiv [z_{ij}] 
+   \f]
+   \f[
+\mathbf{A} \leftarrow func(\mathbf{X},\mathbf{Y},\mathbf{Z})
+   \f]
+   \f[
+\mathbf{a}_{ij} \leftarrow func(\mathbf{x}_{ij},\mathbf{y}_{ij},\mathbf{z}_{ij})
+   \f]
+   Para crear una matriz A , copia de func(X,Y,Z):
+\code{.cpp}
+    Pds::Matrix X(2,3,2.0);
+    Pds::Matrix Y(2,3,3.0);
+    Pds::Matrix Z(2,3,1.0);
+    Pds::Matrix A(func,X,Y,Z);
+    
+    if(A.IsEmpty()) std::cout<<"Yes,possible memory allocation problem\n";
+    else            std::cout<<"No,all fine\n";
+\endcode
+     *  \param[in] func Función a aplicar elemento a elemento en las matrices, 
+     *  esta debe tener a forma double func(double,double,double).
+     *  \param[in] X Matriz a evaluar para copiar los resultados.
+     *  \param[in] Y Matriz a evaluar para copiar los resultados.
+     *  \param[in] Z Matriz a evaluar para copiar los resultados.
+     *  \ingroup MatrixGroup
+     */
+    Matrix(double (*func)(double,double,double),const Pds::Matrix &X, const Pds::Matrix &Y, const Pds::Matrix &Z);
+
     /** 
      *  \brief Crea un objeto de tipo Pds::Matrix copiando datos desde 
      *  un archivo.
@@ -962,43 +995,7 @@ public:
      *  \ingroup MatrixGroup
      */
     bool SetDiagonal(const Pds::Vector V);
-    
-    /** 
-     *  \brief Retorna una matriz linea escojida en la linea lin. 
-     *  Hace una verificación si la linea existe, si no existe devuelve una matriz vacia. 
-     *  \param[in] lin La linea en consulta.
-     *  \return Retorna una matriz linea. Si no existe la linea, entonces se retorna una matriz vacia.
-     *  \ingroup MatrixGroup
-     */
-    Pds::Matrix GetRow(unsigned int lin) const;
-    
-    /** 
-     *  \brief Retorna una sub matriz escojida desde la linea lin_init hasta lin_end, inclusive. 
-     *  Hace una verificación si la linea existe, si no existe llena esta con ceros. 
-     *  \param[in] lin_init La linea inicial en consulta.
-     *  \param[in] lin_end  La linea final en consulta.
-     *  \return Retorna una sub matriz. Si no existe interseccion entre 
-     *  la matriz y las lineas pedidas, entonces se retorna una matriz vacia.
-     *  \ingroup MatrixGroup
-     */
-    Pds::Matrix GetRows(unsigned int lin_init,unsigned int lin_end) const;
-    
-    /** 
-     *  \brief Retorna una sub matriz escojida desde una lista de indices. 
-     *  Hace una verificación si los indices existen, si no existe devuelve una matriz vacia. 
-     *  \param[in] List La liista de indices.
-     *  \return Retorna una sub matriz. Si no existe algun elemento en la lista se devuelve una matriz vacia.
-     *  \ingroup MatrixGroup
-     */
-    Pds::Matrix GetRows(std::list<unsigned int> List) const;
-    
-    /** 
-     *  \brief Retorna una sub matriz escojiendo N lineas aleatoriamente (sin repetición). 
-     *  \param[in] N El número de lineas a escojer.
-     *  \return Retorna una sub matriz. Si N=0 o N>Ncol entonces se retorna una matriz vacia.
-     *  \ingroup MatrixGroup
-     */
-    Pds::Matrix GetRowsRand(unsigned int N) const;
+
 
     /** 
      *  \brief Retorna una sub matriz desde la posición (lin_init,col_init) hasta (lin_end,col_end), inclusive. 
@@ -1038,7 +1035,16 @@ public:
      */
     bool SetMatrix(unsigned int lin,unsigned int col,const Pds::Matrix &B);
 
-
+    
+    /** 
+     *  \brief Retorna una matriz linea escojida en la linea lin. 
+     *  Hace una verificación si la linea existe, si no existe devuelve una matriz vacia. 
+     *  \param[in] lin La linea en consulta.
+     *  \return Retorna una matriz linea. Si no existe la linea, entonces se retorna una matriz vacia.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix GetRow(unsigned int lin) const;
+    
     /** 
      *  \brief Retorna una matriz columna escojida en la columna col. 
      *  Hace una verificación si la columna existe, si no existe devuelve una matriz vacia. 
@@ -1049,13 +1055,70 @@ public:
     Pds::Matrix GetCol(unsigned int col) const;
     
     /** 
-     *  \brief Retorna un vector columna copia de una columna de la matriz. 
-     *  \param[in] col La columna en consulta.
-     *  \return Retorna el vector columna en la posición (col) o un vector vacío si la 
-     *  posición no existe.
+     *  \brief Retorna una sub matriz escojida desde la linea lin_init hasta lin_end, inclusive. 
+     *  Hace una verificación si la linea existe, si no existe llena esta con ceros. 
+     *  \param[in] lin_init La linea inicial en consulta.
+     *  \param[in] lin_end  La linea final en consulta.
+     *  \return Retorna una sub matriz. Si no existe interseccion entre 
+     *  la matriz y las lineas pedidas, entonces se retorna una matriz vacia.
      *  \ingroup MatrixGroup
      */
-    Pds::Vector GetColVector(unsigned int col) const;
+    Pds::Matrix GetRows(unsigned int lin_init,unsigned int lin_end) const;
+    
+    /** 
+     *  \brief Retorna una sub matriz escojida desde la columna col_init hasta col_end, inclusive. 
+     *  Hace una verificación si la columna existe, si no existe llena esta con ceros. 
+     *  \param[in] col_init La columna inicial en consulta.
+     *  \param[in] col_end  La columna final en consulta.
+     *  \return Retorna una sub matriz. Si no existe interseccion entre 
+     *  la matriz y las columnas pedidas, entonces se retorna una matriz vacia.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix GetCols(unsigned int col_init,unsigned int col_end) const;
+    
+    /** 
+     *  \brief Retorna una sub matriz escojida desde una lista de indices de lineas. 
+     *  Hace una verificación si los indices existen, si alguno no existe devuelve una matriz vacia. 
+     *  \param[in] List La lista de indices de lineas.
+     *  \return Retorna una sub matriz. Si no existe algun elemento en la lista se devuelve una matriz vacia.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix GetRows(std::list<unsigned int> List) const;
+    
+    /** 
+     *  \brief Retorna una sub matriz escojida desde una lista de indices de columnas. 
+     *  Hace una verificación si los indices existen, si alguno no existe devuelve una matriz vacia. 
+     *  \param[in] List La lista de indices de columnas.
+     *  \return Retorna una sub matriz. Si no existe algun elemento en la lista se devuelve una matriz vacia.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix GetCols(std::list<unsigned int> List) const;
+    
+    /** 
+     *  \brief Retorna una sub matriz escojiendo N lineas aleatoriamente (sin repetición). 
+     *  \param[in] N El número de lineas a escojer.
+     *  \return Retorna una sub matriz. Si N=0 o N>Nlin entonces se retorna una matriz vacia.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix GetRowsRand(unsigned int N) const;
+    
+    /** 
+     *  \brief Retorna una sub matriz escojiendo N columnas aleatoriamente (sin repetición). 
+     *  \param[in] N El número de columnas a escojer.
+     *  \return Retorna una sub matriz. Si N=0 o N>Ncol entonces se retorna una matriz vacia.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix GetColsRand(unsigned int N) const;
+    
+    /** 
+     *  \brief Copia un valor en una linea de la matriz.
+     *  \param[in] value El valor a copiar.
+     *  \param[in] lin La linea en consulta.
+     *  \return Retorna true si la copia fue hecha y la posición (lin) existe
+     *  o false si hubo algún problema. En caso de retornar false no se modifica la matriz.
+     *  \ingroup MatrixGroup
+     */
+    bool SetRowValue(unsigned int lin,double value);
     
     /** 
      *  \brief Copia un valor en una columna de la matriz.
@@ -1066,6 +1129,25 @@ public:
      *  \ingroup MatrixGroup
      */
     bool SetColValue(unsigned int col,double value);
+    
+    /** 
+     *  \brief Retorna un vector columna copia de una linea de la matriz. 
+     *  \param[in] lin La linea en consulta.
+     *  \return Retorna un vector columna correspondiente a la linea (lin) o un vector vacío si la 
+     *  posición no existe.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Vector GetRowAsColVector(unsigned int lin) const;
+
+    
+    /** 
+     *  \brief Retorna un vector columna copia de una columna de la matriz. 
+     *  \param[in] col La columna en consulta.
+     *  \return Retorna el vector columna en la posición (col) o un vector vacío si la 
+     *  posición no existe.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Vector GetColVector(unsigned int col) const;
     
     /** 
      *  \brief Copia un vector columna en una columna de la matriz. Si los 
@@ -1107,15 +1189,7 @@ public:
      *  \ingroup MatrixGroup
      */
     bool SetColVector(unsigned int col,double (*func)(double,double),const Pds::Vector V,double var);
-    
-    /** 
-     *  \brief Retorna un vector columna copia de una linea de la matriz. 
-     *  \param[in] lin La linea en consulta.
-     *  \return Retorna un vector columna correspondiente a la linea (lin) o un vector vacío si la 
-     *  posición no existe.
-     *  \ingroup MatrixGroup
-     */
-    Pds::Vector GetRowAsColVector(unsigned int lin) const;
+
 /**
  * @}
  */
@@ -1562,6 +1636,7 @@ public:
      *  \ingroup MatrixGroup
      */
     Pds::Matrix OperateCols(double (*func)(const Pds::Matrix &Col)) const;
+
 /**
  * @}
  */
@@ -1604,6 +1679,19 @@ public:
      *  \ingroup MatrixGroup
      */
     void Print(void) const;
+
+
+/**
+ * @}
+ */
+
+
+public:
+
+/** @name Métodos para exportar datos
+ *  Herramientas genéricas que pueden ser usadas desde Pds::Matrix
+ * @{
+ */
     
     
    /** 
@@ -1613,21 +1701,39 @@ public:
      *  \ingroup MatrixGroup
      */
     bool Save(const char* filepath) const;
-
+    
    /** 
-     *  \brief Escribe en un archivo de cualquier tipo el contenido de la matriz.
-     *  \param[in] type El formato del archivo. Los tipos aceptados son:
-     *  <table>
-     *  <tr><td> Pds::Ra::TextFormat    <td> Escribe en formato de texto.
-     *  <tr><td> Pds::Ra::MatFileFormat <td> Escribe en formato binario, MAT-File 1.0 de MATLAB.
-     *  </table>
+     *  \brief Escribe en un archivo binario en formato de octave la matriz.
+     *  Es necesario dar un nombre como identificador de matriz.
+     * 
+Para cargar los datos en OCTAVE se puede usar el siguiente código
+\verbatim
+% Load all the variables in "matfile.mat" in the workspace.
+load("-v4","matfile.mat");
+
+% Load the B variable in a STRUCTURE
+STRUCTURE=load("-v4","matfile.mat","B");
+\endverbatim
+     *  Version 4 MAT-File Format:[Documento externo](https://www.eiscat.se/wp-content/uploads/2016/03/Version-4-MAT-File-Format.pdf)
+     *  [Documento oficial](https://www.mathworks.com/help/pdf_doc/matlab/matfile_format.pdf)
+     *  \param[in] pname El nombre de la matriz.
      *  \param[in] filepath El archivo donde se escribirán los datos.
-     *  \return Retorna true si todo fue bien o false en caso de error.
+     *  \return Retorna true si todo fue bien o false si no.
      *  \ingroup MatrixGroup
      */
-    bool Write(Pds::Ra::FormatType type,const char* filepath) const;
-    
+    bool ExportMatFile(const char* pname,const char* filepath) const;
 
+   /** 
+     *  \brief Escribe en una matriz en un archivo binario en formato BMP.
+     *  Losdatos deben ir de 0 a 255, valores superiores o inferiores serán truncados.
+     * 
+     *  \param[in] colormap Mapa de colores. Ejemplo: Pds::Colormap::Jet, Pds::Colormap::Bone,
+     *  \param[in] filepath Nombre del archivo donde se escribirán los datos 
+     *  Pds::Colormap::Hot,Pds::Colormap::Jolly.
+     *  \return Retorna true si todo fue bien o false si no.
+     *  \ingroup MatrixGroup
+     */
+    bool ExportBmpFile(const unsigned char colormap[256][3],const char* filepath) const;
 /**
  * @}
  */
@@ -1640,29 +1746,7 @@ public:
  * @{
  */
     
-   /** 
-     *  \brief Crea una nueva martiz con el resultado de func(B).
-     *
-     *  \f[ A \leftarrow func(B) \f]
-     *  \param[in] func La función evaluadora.
-     *  \param[in] B La matriz a evaluar.
-     *  \return Retorna una matriz evaluada.
-     *  \ingroup MatrixGroup
-     */
-    static Pds::Matrix Apply(double (*func)(double),const Pds::Matrix &B);
 
-   /** 
-     *  \brief Crea una nueva martiz con el resultado de func(B,var).
-     *
-     *  \f[ A \leftarrow func(B,var) \f]
-     *  \param[in] func La función evaluadora.
-     *  \param[in] B La matriz a evaluar.
-     *  \param[in] var Variable a evaluar.
-     *  \return Retorna una matriz evaluada.
-     *  \ingroup MatrixGroup
-     */
-    static Pds::Matrix Apply(double (*func)(double,double),const Pds::Matrix &B,double var);
-    
    /** 
      *  \brief Lee de un archivo una matriz de Nlin lineas y Ncol columnas.
      *  \param[in] filepath El archivo donde se leerán los datos.
@@ -1726,7 +1810,7 @@ public:
      *  \brief crea dinámicamente un arreglo de A.Nlin() lineas y A.Ncol() columnas,
      *  con los datos copiados de aplicar func(A,B).
      *  Los tamaño de A y B son similares.
-     *  \param[in] func Función a aplicar, esta debe tener a forma double func(double).
+     *  \param[in] func Función a aplicar, esta debe tener a forma double func(double,double).
      *  \param[in] A Matriz de donde se copiaran datos.
      *  \param[in] B Matriz de donde se copiaran datos.
      *  \return Retorna un puntero al arreglo, o NULL si no consiguió reservar
@@ -1734,6 +1818,20 @@ public:
      *  \ingroup MatrixGroup
      */
     static double** ArrayAllocate(double (*func)(double,double),const Pds::Matrix &A,const Pds::Matrix &B);
+
+    /** 
+     *  \brief crea dinámicamente un arreglo de A.Nlin() lineas y A.Ncol() columnas,
+     *  con los datos copiados de aplicar func(A,B,C).
+     *  Los tamaño de A, B y C son similares.
+     *  \param[in] func Función a aplicar, esta debe tener a forma double func(double,double,double).
+     *  \param[in] A Matriz de donde se copiaran datos.
+     *  \param[in] B Matriz de donde se copiaran datos.
+     *  \param[in] C Matriz de donde se copiaran datos.
+     *  \return Retorna un puntero al arreglo, o NULL si no consiguió reservar
+     * la memoria. Esta memoria debe ser liberada siempre com ArrayRelease
+     *  \ingroup MatrixGroup
+     */
+    static double** ArrayAllocate(double (*func)(double,double,double),const Pds::Matrix &A,const Pds::Matrix &B,const Pds::Matrix &C);
     
     /** 
      *  \brief crea dinámicamente un arreglo de A.Nlin() lineas y A.Ncol() columnas,
@@ -1861,6 +1959,14 @@ public:
      *  arreglo de Nlin lineas y Ncol columnas (arreglo de arreglos).
      *  Es usado el nombre MAT0 como identificador de matriz.
      * 
+Para cargar los datos en OCTAVE se puede usar el siguiente código
+\verbatim
+% Load all the variables in "matfile.mat" in the workspace.
+load("-v4","matfile.mat");
+
+% Load the B variable in a STRUCTURE
+STRUCTURE=load("-v4","matfile.mat","B");
+\endverbatim
      *  Version 4 MAT-File Format:[Documento externo](https://www.eiscat.se/wp-content/uploads/2016/03/Version-4-MAT-File-Format.pdf)
      *  [Documento oficial](https://www.mathworks.com/help/pdf_doc/matlab/matfile_format.pdf)
      *  \param[in] fp El descriptor de fichero que apunta a donde se guardaran los datos.
@@ -1878,6 +1984,14 @@ public:
      *  arreglo de Nlin lineas y Ncol columnas (arreglo de arreglos).
      *  Es usado el nombre MAT0 como identificador de matriz.
      * 
+Para cargar los datos en OCTAVE se puede usar el siguiente código
+\verbatim
+% Load all the variables in "matfile.mat" in the workspace.
+load("-v4","matfile.mat");
+
+% Load the B variable in a STRUCTURE
+STRUCTURE=load("-v4","matfile.mat","B");
+\endverbatim
      *  Version 4 MAT-File Format:[Documento externo](https://www.eiscat.se/wp-content/uploads/2016/03/Version-4-MAT-File-Format.pdf)
      *  [Documento oficial](https://www.mathworks.com/help/pdf_doc/matlab/matfile_format.pdf)
      *  \param[in] fp El descriptor de fichero que apunta a donde se guardaran los datos.
@@ -1891,38 +2005,27 @@ public:
      */
     static bool ArrayWriteMatFile(FILE *fp,const char *pname,double **arrayr,double **arrayi,unsigned int Nlin,unsigned int Ncol);
 
-   /** 
-     *  \brief Escribe en un archivo binario en formato de octave un
-     *  arreglo de Nlin lineas y Ncol columnas (arreglo de arreglos).
-     *  Es usado el nombre MAT0 como nombre para de matriz.
-     *
-     *  Version 4 MAT-File Format: https://www.eiscat.se/wp-content/uploads/2016/03/Version-4-MAT-File-Format.pdf
-     *  https://www.mathworks.com/help/pdf_doc/matlab/matfile_format.pdf
-     *  \param[in] filepath El archivo donde se guardaran los datos.
-     *  \param[in] array El arreglo de arreglos de de Nlin lineas y Ncol columnas.
-     *  \param[in] Nlin El numero de lineas en el arreglo.
-     *  \param[in] Ncol El numero de columnas en el arreglo.
-     *  \return Retorna true si todo fue bien o false si no.
-     *  \ingroup MatrixGroup
-     */
-    static bool ArrayWriteMatFile(const char* filepath,double **array,unsigned int Nlin,unsigned int Ncol);
-   /** 
-     *  \brief Escribe en un archivo binario en formato de octave un
-     *  arreglo de Nlin lineas y Ncol columnas (arreglo de arreglos).
-     *  Es usado el nombre MAT0 como nombre para de matriz.
-     *
-     *  Version 4 MAT-File Format: https://www.eiscat.se/wp-content/uploads/2016/03/Version-4-MAT-File-Format.pdf
-     *  https://www.mathworks.com/help/pdf_doc/matlab/matfile_format.pdf
-     *  \param[in] filepath El archivo donde se guardaran los datos.
-     *  \param[in] arrayr El arreglo real de arreglos de de Nlin lineas y Ncol columnas.
-     *  \param[in] arrayi El arreglo imag de arreglos de de Nlin lineas y Ncol columnas.
-     *  \param[in] Nlin El numero de lineas en el arreglo.
-     *  \param[in] Ncol El numero de columnas en el arreglo.
-     *  \return Retorna true si todo fue bien o false si no.
-     *  \ingroup MatrixGroup
-     */
-    static bool ArrayWriteMatFile(const char* filepath,double **arrayr,double **arrayi,unsigned int Nlin,unsigned int Ncol);
 
+    /** 
+     *  \brief Escribe los datos de una matriz en un archivo de en formato BMP.
+     *
+     *  <center>
+     *  \image html pds_matrix_save_bmp_with_colormap_jet.bmp "grafico usando el colormap Pds::Colormap::Jet."
+     *  </center>
+     *  \param[in] array Arreglo donde se leerán los datos de escala de gris. \f$0\leq a_{ij} \leq 255\f$
+     *  \param[in] Nlin Número de lineas del arreglo, equivalente a la altura de la imagen.
+     *  \param[in] Ncol Número de columnas del arreglo, equivalente al ancho de la imagen.
+     *  \param[in] colormap Mapa de colores. Ejemplo: Pds::Colormap::Jet, Pds::Colormap::Bone,
+     *  \param[in] bmpfilename Nombre del archivo donde se escribirán los datos 
+     *  Pds::Colormap::Hot,Pds::Colormap::Jolly.
+     *  \return true si todo fue bien o false si no. (ej. array,bmpfilename==NULL)
+     *  \ingroup MatrixGroup
+     */
+    static bool ArrayWriteBmpWithColormap(  double **array,
+                                            unsigned int Nlin,
+                                            unsigned int Ncol,
+                                            const unsigned char colormap[256][3],
+                                            const char *bmpfilename);
 
 /**
  * @}
@@ -2469,9 +2572,9 @@ public:
 
     /** 
      *  \brief Multiplica con sigo mismo (A), elemento a elemento, una matriz B y el resultado es
-     * cargado en C. Este método  es similar al operador  
+     * cargado en C. Este método  es similar al operador &
      *
-     *  \f[ C \leftarrow A B \f]
+     *  \f[ C \leftarrow A\&B \f]
 \code{.cpp}
     Pds::Matrix A(4,4);
     Pds::Matrix B(4,4);
@@ -2493,8 +2596,44 @@ public:
 
 
     /** 
+     *  \brief Multiplica con sigo mismo (A), elemento a elemento, una matriz B y el resultado es
+     * cargado en C. Este método  es similar al método .Product()
+     *
+     *  \f[ C \leftarrow A \& B \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix B(4,4);
+    Pds::Matrix C;
+    
+    A.Fill(2.0);
+    B.Fill(1.0);
+    
+    C=A&B;
+    
+    std::cout<<C;
+\endcode
+     *  \warning El operador & tiene baja precedencia, por lo que recomendamos usar parentesis (A&B).
+<table>
+<caption id="multi_row">Operator Precedence</caption>
+    <tr><td>Precedence <td>Operator
+    <tr><td>5<td> a*b   a/b   a%b
+    <tr><td>6<td> a+b   a-b
+    <tr><td>7<td> <<   >>
+    <tr><td>9<td> > < >= <=
+    <tr><td>10<td> ==   !=
+    <tr><td>11<td> &
+    <tr><td>12<td> ^
+</table> 
+     *  \param[in] B la matriz a multiplicar
+     *  \return Retorna C con el
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix operator&(const Pds::Matrix &B) const;
+
+    /** 
      *  \brief Divide con sigo mismo (A), elemento a elemento, una matriz B y el resultado es
-     * cargado en C. Este método  es similar al operador  
+     * cargado en C. Este método  es similar al operador /
      *
      *  \f[ C \leftarrow A / B \f]
 \code{.cpp}
@@ -2515,6 +2654,149 @@ public:
      *  \ingroup MatrixGroup
      */
     Pds::Matrix Division(const Pds::Matrix &B) const;
+
+    /** 
+     *  \brief Divide con sigo mismo (A), elemento a elemento, una matriz B y el resultado es
+     * cargado en C. Este método  es similar al método .Division()
+     *
+     *  \f[ C \leftarrow A / B \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix B(4,4);
+    Pds::Matrix C;
+    
+    A.Fill(1.0);
+    B.Fill(2.0);
+    
+    C=A/B;
+    
+    std::cout<<C;
+\endcode
+     *  \param[in] B la matriz a dividir
+     *  \return Retorna C con el
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix operator/(const Pds::Matrix &B) const;
+
+
+    /** 
+     *  \brief Potencia asi mismo (A), elemento a elemento, con una matriz B y el resultado es
+     * cargado en C. Este método  es similar al operador ^
+     *
+     *  \f[ C \leftarrow A^B \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix B(4,4);
+    Pds::Matrix C;
+    
+    A.Fill(2.0);
+    B.Fill(1.0);
+    
+    C=A.Pow(B);
+    
+    std::cout<<C;
+\endcode
+     *  \param[in] B La matriz a exponenciar
+     *  \return Retorna C con el
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix Pow(const Pds::Matrix &B) const;
+
+    /** 
+     *  \brief Potencia asi mismo (A), elemento a elemento, con una matriz B y el resultado es
+     * cargado en C. Este método  es similar al método .Pow()
+     *
+     *  \f[ C \leftarrow A^B \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix B(4,4);
+    Pds::Matrix C;
+    
+    A.Fill(2.0);
+    B.Fill(1.0);
+    
+    C=A^B;
+    
+    std::cout<<C;
+\endcode
+     *  \warning El operador ^ tiene baja precedencia, por lo que recomendamos usar parentesis (A^B).
+<table>
+<caption id="multi_row">Operator Precedence</caption>
+    <tr><td>Precedence <td>Operator
+    <tr><td>5<td> a*b   a/b   a%b
+    <tr><td>6<td> a+b   a-b
+    <tr><td>7<td> <<   >>
+    <tr><td>9<td> > < >= <=
+    <tr><td>10<td> ==   !=
+    <tr><td>11<td> &
+    <tr><td>12<td> ^
+</table> 
+     *  \param[in] B La matriz a exponenciar
+     *  \return Retorna C con el
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix operator^(const Pds::Matrix &B) const;
+
+    /** 
+     *  \brief Potencia asi mismo (A), elemento a elemento, con un valor val y el resultado es
+     * cargado en C. Este método  es similar al operador ^
+     *
+     *  \f[ C \leftarrow A^val \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix val=2;
+    Pds::Matrix C;
+    
+    A.Fill(2.0);
+    
+    C=A.Pow(val);
+    
+    std::cout<<C;
+\endcode
+     *  \param[in] val Valor a exponenciar
+     *  \return Retorna C con el
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix Pow(double val) const;
+
+    /** 
+     *  \brief Potencia asi mismo (A), elemento a elemento, con un valor val y el resultado es
+     * cargado en C. Este método  es similar al método .Pow()
+     *
+     *  \f[ C \leftarrow A^B \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix val=2;
+    Pds::Matrix C;
+    
+    A.Fill(2.0);
+    
+    C=A^val;
+    
+    std::cout<<C;
+\endcode
+     *  \warning El operador ^ tiene baja precedencia, por lo que recomendamos usar parentesis (A^B).
+<table>
+<caption id="multi_row">Operator Precedence</caption>
+    <tr><td>Precedence <td>Operator
+    <tr><td>5<td> a*b   a/b   a%b
+    <tr><td>6<td> a+b   a-b
+    <tr><td>7<td> <<   >>
+    <tr><td>9<td> > < >= <=
+    <tr><td>10<td> ==   !=
+    <tr><td>11<td> &
+    <tr><td>12<td> ^
+</table> 
+     *  \param[in] val Valor a exponenciar
+     *  \return Retorna C con el
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix operator^(double val) const;
 
     /** 
      *  \brief Suma con sigo mismo (A), una matriz B linea y el resultado es
@@ -2939,7 +3221,47 @@ public:
      *  \ingroup MatrixGroup
      */
     bool Copy(const Pds::Matrix &B);
-
+    
+    
+    
+    /** 
+     *  \brief Copia en si mismo (A), el valor val. Este operador es 
+     *  similar al método Copy().
+     *  No importa  el tamaño de A, sus datos son liberados y un nuevo
+     *  arreglo de datos de 1x1 es reservado.
+     *
+     *  \f[ A \leftarrow val \f]
+     * Cuando acontece:
+\code{.cpp}
+    Pds::Matrix B(nlin,ncol);
+    A=val;
+\endcode
+     * Cuando NO acontece:
+\code{.cpp}
+    Pds::Matrix A=Pds::Matrix(nlin,ncol);
+\endcode
+     *  \param[in] val El valor a copiar
+     *  \return Retorna el operador de la izquierda (acumulador) con el
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \see Copy
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix& operator = (double val);
+    
+    /** 
+     *  \brief Copia en si mismo (A), el valor val. Este 
+     *  método es similar a usar el operador = .
+     *  No importa  el tamaño de A, sus datos son liberados y un nuevo
+     *  arreglo de datos de 1x1 es reservado.
+     *
+     *  \f[ A \leftarrow val \f]
+     *  \param[in] val El valor a copiar
+     *  \return Retorna true si todo fue bien o false si no. Si se retorna false
+     *  el receptor no altera su contenido.
+     *  \see Copy
+     *  \ingroup MatrixGroup
+     */
+    bool Copy(double val);
 /**
  * @}
  */

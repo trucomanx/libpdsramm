@@ -67,5 +67,11 @@ int main(void)
     Pds::CountingTable(2,3).Print("\nPds::CountingTable(2,3):\n");
 
     Pds::CountingTable(3,-1,1,14).Print("\nPds::CountingTable(3,-1,1,14):\n");
+
+    Pds::Matrix X;
+    Pds::Matrix Y;
+    Pds::Meshgrid(Pds::LinSpace(-3,3,7),Pds::LinSpace(-2,2,5),X,Y);
+    X.Print("\nX:\n");
+    Y.Print("\nY:\n");
     return 0;
 }
