@@ -1772,6 +1772,22 @@ public:
      *  \ingroup MatrixGroup
      */
     static Pds::Matrix FromString(const std::string &str);
+
+   /** 
+     *  \brief Escribe en una matriz en un archivo binario en formato BMP.
+     *  Losdatos deben ir de 0 a 255, valores superiores o inferiores serán truncados.
+     * 
+     *  \param[in] R Matriz con colores red 0<=r<=255.
+     *  \param[in] G Matriz con colores green 0<=r<=255.
+     *  \param[in] B Matriz con colores blue 0<=r<=255.
+     *  \param[in] bmpfilename Nombre del archivo donde se escribirán los datos.
+     *  \return Retorna true si todo fue bien o false si no.
+     *  \ingroup MatrixGroup
+     */
+    static bool ExportBmpFile(  const Pds::Matrix &R,
+                                const Pds::Matrix &G,
+                                const Pds::Matrix &B,
+                                const char* bmpfilename);
 /**
  * @}
  */
@@ -2027,6 +2043,24 @@ STRUCTURE=load("-v4","matfile.mat","B");
                                             const unsigned char colormap[256][3],
                                             const char *bmpfilename);
 
+    /** 
+     *  \brief Escribe los datos de una matriz en un archivo de en formato BMP.
+     *
+     *  \param[in] arrayr Arreglo donde se leerán los datos de escala de gris. \f$0\leq r_{ij} \leq 255\f$
+     *  \param[in] arrayg Arreglo donde se leerán los datos de escala de gris. \f$0\leq g_{ij} \leq 255\f$
+     *  \param[in] arrayb Arreglo donde se leerán los datos de escala de gris. \f$0\leq b_{ij} \leq 255\f$
+     *  \param[in] Nlin Número de lineas del arreglo, equivalente a la altura de la imagen.
+     *  \param[in] Ncol Número de columnas del arreglo, equivalente al ancho de la imagen.
+     *  \param[in] bmpfilename Nombre del archivo donde se escribirán los datos.
+     *  \return true si todo fue bien o false si no. (ej. array,bmpfilename==NULL)
+     *  \ingroup MatrixGroup
+     */
+    static bool ArrayWriteBmp(  double **arrayr,
+                                double **arrayg,
+                                double **arrayb,
+                                unsigned int Nlin,
+                                unsigned int Ncol,
+                                const char *bmpfilename);
 /**
  * @}
  */
@@ -2614,7 +2648,7 @@ public:
 \endcode
      *  \warning El operador & tiene baja precedencia, por lo que recomendamos usar parentesis (A&B).
 <table>
-<caption id="multi_row">Operator Precedence</caption>
+<caption id="multi_row0">Operator Precedence</caption>
     <tr><td>Precedence <td>Operator
     <tr><td>5<td> a*b   a/b   a%b
     <tr><td>6<td> a+b   a-b
@@ -2723,7 +2757,7 @@ public:
 \endcode
      *  \warning El operador ^ tiene baja precedencia, por lo que recomendamos usar parentesis (A^B).
 <table>
-<caption id="multi_row">Operator Precedence</caption>
+<caption id="multi_row1">Operator Precedence</caption>
     <tr><td>Precedence <td>Operator
     <tr><td>5<td> a*b   a/b   a%b
     <tr><td>6<td> a+b   a-b
@@ -2781,7 +2815,7 @@ public:
 \endcode
      *  \warning El operador ^ tiene baja precedencia, por lo que recomendamos usar parentesis (A^B).
 <table>
-<caption id="multi_row">Operator Precedence</caption>
+<caption id="multi_row2">Operator Precedence</caption>
     <tr><td>Precedence <td>Operator
     <tr><td>5<td> a*b   a/b   a%b
     <tr><td>6<td> a+b   a-b

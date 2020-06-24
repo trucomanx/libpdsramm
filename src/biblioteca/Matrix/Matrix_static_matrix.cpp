@@ -28,3 +28,18 @@ Pds::Matrix Pds::Matrix::FromString(const std::string &str)
     
     return A;
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+bool Pds::Matrix::ExportBmpFile(const Pds::Matrix &R,const Pds::Matrix &G,const Pds::Matrix &B,const char* bmpfilename)
+{
+    if(R.IsEmpty())         return false;
+    if(R.IsNotSimilarTo(G)) return false;
+    if(R.IsNotSimilarTo(B)) return false;
+    if(bmpfilename==NULL)   return false;
+
+    
+    bool ret=Pds::Matrix::ArrayWriteBmp(R.array,G.array,B.array,R.nlin,R.ncol,bmpfilename);
+    
+    return ret;
+}

@@ -37,12 +37,13 @@ int main(void)
     
     //Z=126*(X & Pds::Exp(-(X^2.0)-(Y^2.0)))+127.0;
     
-    auto func = [](double x,double y)->double {return 126.0*x*exp(-x*x-y*y)+127.0;};
+    auto func = [](double x,double y)->double 
+    {double z=2*x*exp(-x*x-y*y); return 126.0*z+127.0;};
     Z=Pds::Operate(func,X,Y);
     
     Z.ExportBmpFile(Pds::Colormap::Jet,"ColormapJet.bmp");
 
-    Pds::Matrix C,D;
+    Pds::Matrix::ExportBmpFile(Z,Z,Z,"ColormapRGB.bmp");
     
     return 0;
 }
