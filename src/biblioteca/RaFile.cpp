@@ -34,6 +34,62 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
+char *Pds::Ra::Fgets(FILE *fd)
+{
+    char *line=NULL;
+    int i;
+    fpos_t init;
+    int count,N;
+    char c;
+
+    if(fd==NULL)    return NULL;
+
+    // init tiene la posicion actual.
+    fgetpos(fd,&init);
+
+    // Cuento en count el numero de caracteres incluyendo el salto de linea
+    count=0;    c=0;
+    while( (c!=10)&&(c!=EOF) )  /* \n */
+    {
+        c=fgetc(fd);
+        if(c!=EOF) count++;
+    }
+
+    // cuento 1 retorno de carro si este existe despues del salto de linea.
+    if(c!=EOF)
+    {
+        c=fgetc(fd);
+        /* \r */
+        if(c==13) count++;
+    }
+
+    // reinicio el descriptor
+    fsetpos(fd,&init);
+
+    // Numero total de caracteres incluyendo el salto de linea y 1 retorno de 
+    // carro posterior si existe.
+    N=count;
+
+    // copio N caracteres desde el archivo
+    line=(char*)calloc(N+1,sizeof(char));
+    if (line==NULL) return NULL;
+    for(i=0;i<N;i++)
+    {    
+        line[i]=fgetc(fd);
+    }
+
+    // N entiendo porque funciona, mas funciona.
+    if(c==EOF)  
+    {
+        fseek( fd, 0, SEEK_END );
+        fgetc(fd);
+    }
+
+    return line;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 long Pds::Ra::SignificativeLinesInFile(const char*filepath)
 {
     long count;

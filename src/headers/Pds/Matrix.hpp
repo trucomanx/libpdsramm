@@ -64,6 +64,7 @@ A\equiv [a_{i,j}]
 #include <list>
 #include <Pds/Size>
 #include <Pds/RaDefines>
+#include <Pds/RegionRect>
 
 namespace Pds{
 
@@ -1392,7 +1393,17 @@ public:
      *  \ingroup MatrixGroup
      */
     double Mape(const Pds::Matrix &B) const;
-    
+/**
+ * @}
+ */
+
+
+public:
+
+/** @name Métodos Digital Signal Processing
+ *  Herramientas genéricas
+ * @{
+ */
     /** 
      *  \brief Calcula la correlación de Pearson con la matriz.
      *
@@ -1641,6 +1652,142 @@ public:
  * @}
  */
 
+public:
+
+/** @name Métodos con regiones
+ *  Herramientas genéricas
+ * @{
+ */
+
+    /** 
+     *  \brief Copia la región Rin de la matriz a la región Rout de la matriz Mout.
+     *  
+     *  Ambas regiones deben estar dentro de las matrices y tener el mismo tamaño
+     *  para que la copia sea realizada. 
+     *
+     *  \param[in] Rin Región en donde se leerán los datos.
+     *  \param[in] Rout Región en donde se escribirá.
+     *  \param[out] Mout La matriz donde se escribirá.
+     *  \return true si las matrices existen y son copiables o false si no.
+     *  \ingroup MatrixGroup
+     */
+    bool CopyRegion(const Pds::RegionRect &Rin,const Pds::RegionRect &Rout,Pds::Matrix &Mout) const;
+
+    /** 
+     *  \brief Inicializa la región R de la matriz con el valor val. 
+     *  \param[in] R La region a inicializar.
+     *  \param[in] val valor a ser usado en la inicialización.
+     *  \return true si todo fue bien o false si no.
+     *  \ingroup MatrixGroup
+     */
+    bool InitRegion(Pds::RegionRect R,double val);
+
+    /** 
+     *  \brief Retorna una variable Pds::RegionRect desde la posicion (0,0), con ancho y alto (Mat.Nlin(),Mat.Ncol()).
+     *  \return La region si todo fue bien, sino se retorna una region donde IsEmpty() == true.
+     *  \ingroup MatrixGroup
+     */
+    Pds::RegionRect GetRegion(void) const;
+
+    /** 
+     *  \brief Calcula la media de los elementos de la intersecion de la region con la matriz.
+     *
+\f[ 
+R=Rin\cap R_{A}
+\f] 
+\f[  
+mean=\mu_{R}=
+\frac{\sum \limits_{i\in R} Mat\{i\}}{card(R)}
+\f]
+     *  \param[in] Rin La region a calcular.
+     *  \param[out] mean Media.
+     *  \return true si todo fue bien o false si no (ej: mean==NULL). 
+     *  \ingroup MatrixGroup
+     */
+    bool MeanOfRegion(const Pds::RegionRect &Rin, double *mean) const;
+
+    /** 
+     *  \brief Calcula la media de los elementos de la intersecion de la region con la matriz.
+     *
+\f[ 
+R=Rin\cap R_{A}
+\f] 
+\f[  
+mean=\mu_{R}=
+\frac{\sum \limits_{i\in R} Mat\{i\}}{card(R)}
+\f]
+     *  \param[in] Rin La region a calcular.
+     *  \return la media o Pds::Ra::Nan si hubo un error (ej: IsEmpty()==true). 
+     *  \ingroup MatrixGroup
+     */
+    double MeanOfRegion(const Pds::RegionRect &Rin) const;
+
+    /** 
+     *  \brief Calcula el desvío padrón y la media de los elementos de la intersección de la región con la matriz.
+     *
+\f[ 
+R=Rin\cap R_{A}
+\f] 
+\f[  
+mean=\mu_{R}=
+\frac{\sum \limits_{i\in R} Mat\{i\}}{card(R)}, \quad 
+std=\sigma_{R}=
+\sqrt{\frac{\sum \limits_{i\in R} \left(Mat\{i\}-\mu_{R}\right)^2}{card(R)}}
+\f]
+     *  \param[in] Rin La región a calcular.
+     *  \param[out] std Desvío padrón.
+     *  \param[out] mean Media.
+     *  \return true si todo fue bien o false si no (ej: IsEmpty()==true). 
+     *  \ingroup MatrixGroup
+     */
+    bool StdAndMeanOfRegion(const Pds::RegionRect &Rin, double *std, double *mean) const;
+
+
+    /** 
+     *  \brief Calcula el coeficiente de correlación de Pearson (PCC) entre los
+     *  elementos de la intersección de la regiones con sus matrices. 
+     *
+     *  \f[ Size(R_0)==Size(R_1)\f]
+     *
+     *  \f[ \hat{R}_0= M_0 \cap R_0, \qquad \hat{R}_1= M_1 \cap R_1\f]
+     *
+\f[ 
+width\{\hat{R}_0\} = width\{\hat{R}_1\} \leftarrow  min\_width\{\hat{R}_0,\hat{R}_1\}, 
+\f]
+\f[
+height\{\hat{R}_0\} = height\{\hat{R}_1\} \leftarrow  min\_height\{\hat{R}_0,\hat{R}_1\} 
+\f]
+\f[
+S_0 \equiv {M_0}_{\hat{R}_0}, \qquad S_1 \equiv {M_1}_{\hat{R}_1}
+\f]
+\f[  PCC=\frac{E[(S_0-\mu_{S_0})(S_1-\mu_{S_1})]}{\sigma_{S_0}\sigma_{S_1}} \f]
+     *  Si solo un desvío padrón es cero entonces la correlación se considera 0.0.
+     *  Si ambos desvío padrón son cero entonces la correlación se considera 
+     *  1.0 si los signos de las medias son iguales y son diferentes de cero, 
+     *  -1.0 si los signos de las medias son diferentes y son diferentes de cero, 
+     *  0.0 se alguna media es cero y
+     *  1.0 se ambas medias son cero.
+     *  \param[in] M1 Una matriz de la correlación.
+     *  \param[in] R0 La región a analizar en la matriz M0, el tamaño de R0 debe ser igual al tamaño de R1.
+     *  \param[in] R1 La región a analizar en la matriz M1, el tamaño de R0 debe ser igual al tamaño de R1.
+     *  \param[out] pcc Coeficiente de correlación de Pearson.
+     *  \return true si todo fue bien o false si no (ej: pcc==NULL).
+     *  Retorna false cuando algún lado de las regiones a analizar son cero.
+     *  \ingroup MatrixGroup
+     */
+    bool CorrRegions(   const Pds::Matrix &M1,
+                        const Pds::RegionRect &R0,
+                        const Pds::RegionRect &R1, 
+                        double *pcc) const;
+
+    Pds::RegionRect FindRegion(    const Pds::Matrix &Mdest,
+                                            const Pds::RegionRect &Rsrc,
+                                            double Threshold,
+                                            unsigned int Step) const;
+
+/**
+ * @}
+ */
 
 public:
 

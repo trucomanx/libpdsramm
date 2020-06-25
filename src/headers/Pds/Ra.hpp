@@ -50,6 +50,7 @@
         
 #include <Pds/Colormap>
 
+#include <Pds/RegionRect>
 #include <Pds/Size>
 #include <Pds/Matrix>
 #include <Pds/MathMatrix>
