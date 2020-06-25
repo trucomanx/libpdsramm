@@ -189,12 +189,8 @@ bool Pds::Matrix::CorrRegions(  const Pds::Matrix &M1,
     if(R0.Nlin!=R1.Nlin)    return false; // si los tamaños son distintos
     if(R0.Ncol!=R1.Ncol)    return false; // si los tamaños son distintos
 
-    // intersecto las regiones con sus respectivas matrices
-    Pds::RegionRect Rout0 = R0.Intersection(this->GetRegion());
-	if(Rout0.IsEmpty())     return false;
-  
-    Pds::RegionRect Rout1 = R1.Intersection(M1.GetRegion());
-	if(Rout1.IsEmpty())     return false;
+    if(R0.IsInside(this->GetRegion())==false) return false;
+    if(R1.IsInside(M1.GetRegion())==false)    return false;
 
     //////////////////////////////////////////////////////////
 
@@ -204,33 +200,25 @@ bool Pds::Matrix::CorrRegions(  const Pds::Matrix &M1,
     double mean0,mean1;
     double std0,std1; 
 
-
-    // utilizo el menor tamaño de region
-    if(Rout0.Nlin<Rout1.Nlin)   Rout1.Nlin=Rout0.Nlin;
-    else                        Rout0.Nlin=Rout1.Nlin;
-
-    if(Rout0.Ncol<Rout1.Ncol)   Rout1.Ncol=Rout0.Ncol;
-    else                        Rout0.Ncol=Rout1.Ncol;
-
     // calculo de la media y el desvio padron
-    this->StdAndMeanOfRegion(Rout0,&std0,&mean0);
-    M1.StdAndMeanOfRegion(Rout1,&std1,&mean1);
+    this->StdAndMeanOfRegion(R0,&std0,&mean0);
+    M1.StdAndMeanOfRegion(R1,&std1,&mean1);
 
     // casos especiales de la correlacion quando std0 o std1 son cero.
     if(pcc_special_cases(std0,mean0,std1,mean1,pcc)==true)  return true;
 
     // calculo do pcc
-	for(i=0;i<Rout0.Nlin;i++)
-	for(j=0;j<Rout0.Ncol;j++)
+	for(i=0;i<R0.Nlin;i++)
+	for(j=0;j<R0.Ncol;j++)
     {
-        S=S+(this->array[Rout0.L0+i][Rout0.C0+j]-mean0)*(M1.array[Rout1.L0+i][Rout1.C0+j]-mean1);
+        S=S+(this->array[R0.L0+i][R0.C0+j]-mean0)*(M1.array[R1.L0+i][R1.C0+j]-mean1);
     }
 
-    *pcc=S/(Rout0.Nlin*Rout0.Ncol*std0*std1);
+    *pcc=S/(R0.Nlin*R0.Ncol*std0*std1);
 
     return true;
 }
-
+/*
 
 Pds::RegionRect Pds::Matrix::FindRegion(    const Pds::Matrix &Mdest,
                                             const Pds::RegionRect &Rsrc,
@@ -254,6 +242,7 @@ Pds::RegionRect Pds::Matrix::FindRegion(    const Pds::Matrix &Mdest,
         {
             R.L0=lin;
             R.C0=col;
+            pcc=0.0;
             
             this->CorrRegions(Mdest,Rsrc,R,&pcc);
             if(pcc>=Threshold)
@@ -276,4 +265,4 @@ Pds::RegionRect Pds::Matrix::FindRegion(    const Pds::Matrix &Mdest,
     
     return Rmax;
 }
-
+*/

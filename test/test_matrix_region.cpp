@@ -57,8 +57,9 @@ int main(void)
     Mat1.StdAndMeanOfRegion(R1,&std,&mean);
     std::cout<<"Mat1.StdAndMeanOfRegion(R1,&std,&mean):\t"<<std<<"\t"<<mean<<std::endl;
     
+    /*
     Pds::RegionRect Rout;
-    N=600;
+    N=1000;
     L=64;
     Mat1=Pds::Round(9*Pds::RandU(N,N));
     Mat2=Pds::Round(9*Pds::RandU(N,N));
@@ -69,6 +70,6 @@ int main(void)
     Rout=Mat1.FindRegion(Mat2,R1,0.6,1);
     Pds::Ra::Toc();
     Rout.Print("Rout:\n");
-        
+    */    
     return 0;
 }

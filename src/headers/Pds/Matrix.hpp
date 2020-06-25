@@ -1747,26 +1747,27 @@ std=\sigma_{R}=
      *  \brief Calcula el coeficiente de correlación de Pearson (PCC) entre los
      *  elementos de la intersección de la regiones con sus matrices. 
      *
-     *  \f[ Size(R_0)==Size(R_1)\f]
-     *
-     *  \f[ \hat{R}_0= M_0 \cap R_0, \qquad \hat{R}_1= M_1 \cap R_1\f]
-     *
-\f[ 
-width\{\hat{R}_0\} = width\{\hat{R}_1\} \leftarrow  min\_width\{\hat{R}_0,\hat{R}_1\}, 
-\f]
+     *  Para que la correlacion sea ejecutada se debe cumplir que \f$ Size(R_0)==Size(R_1)\f$
+     *  ademas que \f$ R_0 \subset M_0 \f$ y \f$R_1 \subset M_1\f$. Con estas 
+     *  condiciones obtenemos las submatrices \f$S_0\f$ y \f$S_1\f$.
 \f[
-height\{\hat{R}_0\} = height\{\hat{R}_1\} \leftarrow  min\_height\{\hat{R}_0,\hat{R}_1\} 
-\f]
-\f[
-S_0 \equiv {M_0}_{\hat{R}_0}, \qquad S_1 \equiv {M_1}_{\hat{R}_1}
+S_0 \equiv {M_0}_{R_0}, \qquad S_1 \equiv {M_1}_{R_1}
 \f]
 \f[  PCC=\frac{E[(S_0-\mu_{S_0})(S_1-\mu_{S_1})]}{\sigma_{S_0}\sigma_{S_1}} \f]
-     *  Si solo un desvío padrón es cero entonces la correlación se considera 0.0.
-     *  Si ambos desvío padrón son cero entonces la correlación se considera 
-     *  1.0 si los signos de las medias son iguales y son diferentes de cero, 
-     *  -1.0 si los signos de las medias son diferentes y son diferentes de cero, 
-     *  0.0 se alguna media es cero y
-     *  1.0 se ambas medias son cero.
+     *  Si algun desvío padrón es cero entonces existen casos especiales para el valor de PCC.
+<table>
+<caption id="multi_row_region1">Casos especiales para PCC</caption>
+    <tr><td>PCC <td>sigma0 <td>sigma1 <td>mean0 <td>mean1
+    <tr><td>0.0 <td>Zero   <td>NonZero<td>?     <td>?
+    <tr><td>0.0 <td>NonZero<td>Zero   <td>?     <td>?
+    <tr><td>1.0 <td>Zero   <td>Zero   <td>Positive<td>Positive
+    <tr><td>1.0 <td>Zero   <td>Zero   <td>Negative<td>Negative
+    <tr><td>-1.0<td>Zero   <td>Zero   <td>Positive<td>Negative
+    <tr><td>-1.0<td>Zero   <td>Zero   <td>Negative<td>Positive
+    <tr><td>0.0 <td>Zero   <td>Zero   <td>Zero    <td>NonZero
+    <tr><td>0.0 <td>Zero   <td>Zero   <td>NonZero <td>Zero
+    <tr><td>1.0 <td>Zero   <td>Zero   <td>Zero    <td>Zero
+</table> 
      *  \param[in] M1 Una matriz de la correlación.
      *  \param[in] R0 La región a analizar en la matriz M0, el tamaño de R0 debe ser igual al tamaño de R1.
      *  \param[in] R1 La región a analizar en la matriz M1, el tamaño de R0 debe ser igual al tamaño de R1.
@@ -1780,10 +1781,6 @@ S_0 \equiv {M_0}_{\hat{R}_0}, \qquad S_1 \equiv {M_1}_{\hat{R}_1}
                         const Pds::RegionRect &R1, 
                         double *pcc) const;
 
-    Pds::RegionRect FindRegion(    const Pds::Matrix &Mdest,
-                                            const Pds::RegionRect &Rsrc,
-                                            double Threshold,
-                                            unsigned int Step) const;
 
 /**
  * @}
