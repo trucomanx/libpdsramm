@@ -254,7 +254,6 @@ Pds::Matrix Pds::Matrix::GetRowsRand(unsigned int N) const
     if(N>L)     return Pds::Matrix();
      
     Pds::Matrix A(N,this->ncol);
-    std::srand(std::time(0)+std::clock());
 
     unsigned int id;
     std::set<unsigned int> SetId; 
@@ -284,7 +283,6 @@ Pds::Matrix Pds::Matrix::GetColsRand(unsigned int N) const
     if(N>L)     return Pds::Matrix();
      
     Pds::Matrix A(this->nlin,N);
-    std::srand(std::time(0)+std::clock());
 
     unsigned int id;
     std::set<unsigned int> SetId; 

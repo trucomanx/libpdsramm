@@ -102,6 +102,12 @@ void PrintPackage(std::string str);
  *  Funciones interesantes
  * @{
  */
+/**
+ *  \brief Inicializa las funcion rand y las funciones que la usan.
+ *  
+ *  \ingroup PdsRaToolsGroup
+ */
+void Randomize(void);
 
 /**
  *  \brief Indica si es big endian

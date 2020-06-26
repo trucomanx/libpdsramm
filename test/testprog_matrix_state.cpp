@@ -69,11 +69,11 @@ int main(void)
     else                            std::cout<<"(1.5,0.1) is not in size range of B"<<std::endl;
     
     
-    B.IsInf().Print("\nB.IsInf()\n");
+    B.EqualToInf().Print("\nB.EqualToInf()\n");
     
-    B.IsNan().Print("\nB.IsNan()\n");
+    B.EqualToNan().Print("\nB.EqualToNan()\n");
     
-    B.IsFinite().Print("\nB.IsFinite()\n");
+    B.EqualToFinite().Print("\nB.EqualToFinite()\n");
     
     C.Print("\nC:\n");
     std::cout<<"C.HasInf()      :\t"<<C.HasInf()<<std::endl;

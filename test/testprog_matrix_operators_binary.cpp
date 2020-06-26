@@ -79,7 +79,7 @@ int main(void)
     C=B&A&B;
     C.Print("B&A&B\n");
     
-    C=A.Division(B);
+    C=A.Div(B);
     C.Print("A.Division(B)\n");
         
     C=A/B;
@@ -88,7 +88,5 @@ int main(void)
     C=A.Pow(B);
     C.Print("A.Pow(B)\n");
         
-    C=A^B;
-    C.Print("A^B\n");
     return 0;
 }

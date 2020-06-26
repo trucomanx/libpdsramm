@@ -144,56 +144,98 @@ bool Pds::Matrix::IsRowMatrix(void) const
     return false;
 }
 
+////////////////////////////////////////////////////////////////////////////////
 
-Pds::Matrix Pds::Matrix::IsInf(void) const
+bool Pds::Matrix::IsLeq(double val) const
 {
-    Pds::Matrix A(this->nlin,this->ncol);
-    
-    if(A.IsEmpty())      return A;
-    if(this->IsEmpty())  return A;
+    if(this->IsEmpty())  return false;
     
     unsigned int lin,col;
     
     for(lin=0;lin<this->nlin;lin++)
     for(col=0;col<this->ncol;col++)
-    A.array[lin][col]=std::isinf(this->array[lin][col]);
+    if(this->array[lin][col]>val)
+    return false;
     
-    return A;
+    return true;
 }
 
-
-Pds::Matrix Pds::Matrix::IsNan(void) const
+bool Pds::Matrix::IsLeq(const Pds::Matrix &B) const
 {
-    Pds::Matrix A(this->nlin,this->ncol);
-    
-    if(A.IsEmpty())      return A;
-    if(this->IsEmpty())  return A;
+    if(this->IsEmpty())         return false;
+    if(this->IsNotSimilarTo(B)) return false;
     
     unsigned int lin,col;
     
     for(lin=0;lin<this->nlin;lin++)
     for(col=0;col<this->ncol;col++)
-    A.array[lin][col]=std::isnan(this->array[lin][col]);
+    if(this->array[lin][col]>B.array[lin][col])
+    return false;
     
-    return A;
+    return true;
 }
 
-
-Pds::Matrix Pds::Matrix::IsFinite(void) const
+bool Pds::Matrix::IsGeq(double val) const
 {
-    Pds::Matrix A(this->nlin,this->ncol);
-    
-    if(A.IsEmpty())      return A;
-    if(this->IsEmpty())  return A;
+    if(this->IsEmpty())  return false;
     
     unsigned int lin,col;
     
     for(lin=0;lin<this->nlin;lin++)
     for(col=0;col<this->ncol;col++)
-    A.array[lin][col]=std::isfinite(this->array[lin][col]);
+    if(this->array[lin][col]<val)
+    return false;
     
-    return A;
+    return true;
 }
+
+bool Pds::Matrix::IsGeq(const Pds::Matrix &B) const
+{
+    if(this->IsEmpty())         return false;
+    if(this->IsNotSimilarTo(B)) return false;
+    
+    unsigned int lin,col;
+    
+    for(lin=0;lin<this->nlin;lin++)
+    for(col=0;col<this->ncol;col++)
+    if(this->array[lin][col]<B.array[lin][col])
+    return false;
+    
+    return true;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+bool Pds::Matrix::IsEqualTo(double val) const
+{
+    if(this->IsEmpty())  return false;
+    
+    unsigned int lin,col;
+    
+    for(lin=0;lin<this->nlin;lin++)
+    for(col=0;col<this->ncol;col++)
+    if(this->array[lin][col]!=val)
+    return false;
+    
+    return true;
+}
+
+bool Pds::Matrix::IsEqualTo(const Pds::Matrix &B) const
+{
+    if(this->IsEmpty())         return false;
+    if(this->IsNotSimilarTo(B)) return false;
+    
+    unsigned int lin,col;
+    
+    for(lin=0;lin<this->nlin;lin++)
+    for(col=0;col<this->ncol;col++)
+    if(this->array[lin][col]!=B.array[lin][col])
+    return false;
+    
+    return true;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 bool Pds::Matrix::HasNan(void) const
 {

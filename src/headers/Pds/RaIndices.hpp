@@ -55,26 +55,29 @@ namespace Ra{
  * @{
  */
 
-/**
- *  \brief Retorna una lista aleatoria de indices
- *  
- *  \param[in] Init Menor posible valor de los indices en la lista.
- *  \param[in] End Maior posible valor de los indices en la lista.
- *  \param[in] N Numero de elementos de la lista
- *  \return Retorna una std::list con datos aleatorios con indices.
- *  Si N>(End-Init+1) los elementos en la lista no se repetiran, caso contrario si.
- *  \ingroup PdsRaIndicesGroup
- */
-std::list<unsigned int> IndicesRand(unsigned int Init,unsigned int End, unsigned int N);
+    /**
+     *  \brief Retorna una lista aleatoria de indices
+     *  
+     *  \warning La función usa internamente la función rand(), 
+     *  si se desea esta puede ser aleatoriamente inicializada usando la funcíón Pds::Ra::Randomize(),
+     *  de lo contrario los números pseudo aleatórios siempre seguirán la misma secuencia.
+     *  \param[in] Init Menor posible valor de los indices en la lista.
+     *  \param[in] End Maior posible valor de los indices en la lista.
+     *  \param[in] N Numero de elementos de la lista
+     *  \return Retorna una std::list con datos aleatórios con indices.
+     *  Si N>(End-Init+1) los elementos en la lista no se repetiran, caso contrario si.
+     *  \ingroup PdsRaIndicesGroup
+     */
+    std::list<unsigned int> IndicesRand(unsigned int Init,unsigned int End, unsigned int N);
 
-/**
- *  \brief Convierte una lista de indices a un std::string.
- *  
- *  \param[in] IDs Lista de indices.
- *  \param[in] separator Separador de elementos.
- *  \ingroup PdsRaIndicesGroup
- */
-std::string IndicesToString(std::list<unsigned int> IDs, std::string separator="");
+    /**
+     *  \brief Convierte una lista de indices a un std::string.
+     *  
+     *  \param[in] IDs Lista de indices.
+     *  \param[in] separator Separador de elementos.
+     *  \ingroup PdsRaIndicesGroup
+     */
+    std::string IndicesToString(std::list<unsigned int> IDs, std::string separator="");
 
 /**
  * @}

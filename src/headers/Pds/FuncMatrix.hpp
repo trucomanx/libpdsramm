@@ -209,8 +209,11 @@ f(x,y) =  xe^{-x^2-y^2};
     Pds::Matrix MatrixId(unsigned int Nlin,unsigned int Ncol);
     
    /** 
-     *  \brief Crea una matriz con datos aleatorios con distribución Normal
+     *  \brief Crea una matriz con datos aleatórios con distribución Normal
      *  de media cero 0.0 y desvío padrón 1.0.
+     *  \warning La función usa internamente la función rand(), 
+     *  si se desea esta puede ser aleatoriamente inicializada usando la funcíón Pds::Ra::Randomize(),
+     *  de lo contrario los números pseudo aleatórios siempre seguirán la misma secuencia.
      *  \param[in] N Número de lineas y columnas.
      *  \return Retorna una matriz no vacía si todo fue bien o una matriz vacía en caso de error.
      *  \ingroup FuncMatrixGroup
@@ -218,8 +221,11 @@ f(x,y) =  xe^{-x^2-y^2};
     Pds::Matrix RandN(unsigned int N);
    
    /** 
-     *  \brief Crea una matriz con datos aleatorios con distribución Normal
+     *  \brief Crea una matriz con datos aleatórios con distribución Normal
      *  de media cero 0.0 y desvío padrón 1.0.
+     *  \warning La función usa internamente la función rand(), 
+     *  si se desea esta puede ser aleatoriamente inicializada usando la funcíón Pds::Ra::Randomize(),
+     *  de lo contrario los números pseudo aleatórios siempre seguirán la misma secuencia.
      *  \param[in] S Tamaño de la matriz.
      *  \return Retorna una matriz no vacía si todo fue bien o una matriz vacía en caso de error.
      *  \ingroup FuncMatrixGroup
@@ -227,8 +233,11 @@ f(x,y) =  xe^{-x^2-y^2};
     Pds::Matrix RandN(const Pds::Size &S);
    
    /** 
-     *  \brief Crea una matriz con datos aleatorios con distribución Normal
+     *  \brief Crea una matriz con datos aleatórios con distribución Normal
      *  de media cero 0.0 y desvío padrón 1.0.
+     *  \warning La función usa internamente la función rand(), 
+     *  si se desea esta puede ser aleatoriamente inicializada usando la funcíón Pds::Ra::Randomize(),
+     *  de lo contrario los números pseudo aleatórios siempre seguirán la misma secuencia.
      *  \param[in] Nlin Número de lineas.
      *  \param[in] Ncol Número de columnas.
      *  \return Retorna una matriz no vacía si todo fue bien o una matriz vacía en caso de error.
@@ -237,7 +246,10 @@ f(x,y) =  xe^{-x^2-y^2};
     Pds::Matrix RandN(unsigned int Nlin,unsigned int Ncol);
     
    /** 
-     *  \brief Crea una matriz con datos aleatorios uniformemente distribuidos entre 0.0 y 1.0.
+     *  \brief Crea una matriz con datos aleatórios uniformemente distribuidos entre 0.0 y 1.0.
+     *  \warning La función usa internamente la función rand(), 
+     *  si se desea esta puede ser aleatoriamente inicializada usando la funcíón Pds::Ra::Randomize(),
+     *  de lo contrario los números pseudo aleatórios siempre seguirán la misma secuencia.
      *  \param[in] N Número de lineas y columnas.
      *  \return Retorna una matriz no vacía si todo fue bien o una matriz vacía en caso de error.
      *  \ingroup FuncMatrixGroup
@@ -245,7 +257,10 @@ f(x,y) =  xe^{-x^2-y^2};
     Pds::Matrix RandU(unsigned int N);
     
    /** 
-     *  \brief Crea una matriz con datos aleatorios uniformemente distribuidos entre 0.0 y 1.0.
+     *  \brief Crea una matriz con datos aleatórios uniformemente distribuidos entre 0.0 y 1.0.
+     *  \warning La función usa internamente la función rand(), 
+     *  si se desea esta puede ser aleatoriamente inicializada usando la funcíón Pds::Ra::Randomize(),
+     *  de lo contrario los números pseudo aleatórios siempre seguirán la misma secuencia.
      *  \param[in] S Tamaño de la matriz.
      *  \return Retorna una matriz no vacía si todo fue bien o una matriz vacía en caso de error.
      *  \ingroup FuncMatrixGroup
@@ -253,7 +268,10 @@ f(x,y) =  xe^{-x^2-y^2};
     Pds::Matrix RandU(const Pds::Size &S);
     
    /** 
-     *  \brief Crea una matriz con datos aleatorios uniformemente distribuidos entre 0.0 y 1.0.
+     *  \brief Crea una matriz con datos aleatórios uniformemente distribuidos entre 0.0 y 1.0.
+     *  \warning La función usa internamente la función rand(), 
+     *  si se desea esta puede ser aleatoriamente inicializada usando la funcíón Pds::Ra::Randomize(),
+     *  de lo contrario los números pseudo aleatórios siempre seguirán la misma secuencia.
      *  \param[in] Nlin Número de lineas.
      *  \param[in] Ncol Número de columnas.
      *  \return Retorna una matriz no vacía si todo fue bien o una matriz vacía en caso de error.

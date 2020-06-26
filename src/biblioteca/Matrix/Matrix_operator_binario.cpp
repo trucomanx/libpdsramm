@@ -173,6 +173,32 @@ Pds::Matrix Pds::Matrix::Mul(double b) const
 }
 
 ////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+
+Pds::Matrix operator/(double b,const Pds::Matrix &mat)
+{
+    return mat.DivSelf(b);
+}
+
+Pds::Matrix Pds::Matrix::DivSelf(double b) const
+{
+    if( this->IsEmpty() )   return Pds::Matrix();
+
+    Pds::Matrix Ans(this->nlin,this->ncol);
+
+    //this->Print("(+)this\n");
+
+    unsigned int lin,col;
+   
+    for(lin=0;lin<this->nlin;lin++)
+    for(col=0;col<this->ncol;col++)
+    {
+        Ans.array[lin][col]=b/this->array[lin][col];
+    }
+
+    return Ans;
+}
+////////////////////////////////////////////////////////////////////////
 Pds::Matrix Pds::Matrix::operator /(double b) const
 {
     return this->Div(b);
@@ -197,6 +223,28 @@ Pds::Matrix Pds::Matrix::Div(double b) const
     return Ans;
 }
 
+
+Pds::Matrix Pds::Matrix::operator/(const Pds::Matrix &B) const
+{
+    return this->Div(B);
+}
+
+Pds::Matrix Pds::Matrix::Div(const Pds::Matrix &B) const
+{
+    if( this->IsNotSimilarTo(B) )    return Pds::Matrix();
+    
+    Pds::Matrix Ans(B.Size());
+    
+    unsigned int lin,col;
+   
+    for(lin=0;lin<B.nlin;lin++)
+    for(col=0;col<B.ncol;col++)
+    {       
+        Ans.array[lin][col]=(this->array[lin][col])/B.array[lin][col];
+    }
+
+    return Ans;
+}
 
 ////////////////////////////////////////////////////////////////////////
 Pds::Matrix Pds::Matrix::operator *(const Pds::Matrix &B) const
@@ -292,11 +340,12 @@ Pds::Matrix Pds::Matrix::SubRowMatrix(const Pds::Matrix &B) const
 }
 ////////////////////////////////////////////////////////////////////////
 
+/* problemas de baja precedencia
 Pds::Matrix Pds::Matrix::operator^(const Pds::Matrix &B) const
 {
     return this->Pow(B);
 }
-
+*/
 Pds::Matrix Pds::Matrix::Pow(const Pds::Matrix &B) const
 {
     if( this->IsNotSimilarTo(B) )    return Pds::Matrix();
@@ -314,12 +363,12 @@ Pds::Matrix Pds::Matrix::Pow(const Pds::Matrix &B) const
     return Ans;
 }
 
-
+/* problemas de baja precedencia
 Pds::Matrix Pds::Matrix::operator^(double val) const
 {
     return this->Pow(val);
 }
-
+*/
 
 Pds::Matrix Pds::Matrix::Pow(double val) const
 {
@@ -363,28 +412,6 @@ Pds::Matrix Pds::Matrix::Product(const Pds::Matrix &B) const
 
 ////////////////////////////////////////////////////////////////////////
 
-Pds::Matrix Pds::Matrix::operator/(const Pds::Matrix &B) const
-{
-    return this->Division(B);
-}
-
-Pds::Matrix Pds::Matrix::Division(const Pds::Matrix &B) const
-{
-    if( this->IsNotSimilarTo(B) )    return Pds::Matrix();
-    
-    Pds::Matrix Ans(B.Size());
-    
-    unsigned int lin,col;
-   
-    for(lin=0;lin<B.nlin;lin++)
-    for(col=0;col<B.ncol;col++)
-    {       
-        Ans.array[lin][col]=(this->array[lin][col])/B.array[lin][col];
-    }
-
-    return Ans;
-}
-
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -424,8 +451,9 @@ Pds::Matrix Pds::Matrix::Geq(double b) const
     return Ans;
 }
 
+////////////////////////////////////////////////////////////////////////////////
 
-Pds::Matrix Pds::Matrix::Leq(Pds::Matrix B) const
+Pds::Matrix Pds::Matrix::Leq(const Pds::Matrix &B) const
 {
     if( this->IsEmpty() )           return Pds::Matrix();
     if( B.IsEmpty() )               return Pds::Matrix();
@@ -459,5 +487,132 @@ Pds::Matrix Pds::Matrix::Leq(double b) const
     }
 
     return Ans;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+Pds::Matrix Pds::Matrix::EqualTo(const Pds::Matrix &B) const
+{
+    if( this->IsEmpty() )           return Pds::Matrix();
+    if( this->IsNotSimilarTo(B) )   return Pds::Matrix();
+
+    Pds::Matrix Ans(this->nlin,this->ncol);
+
+    unsigned int lin,col;
+   
+    for(lin=0;lin<this->nlin;lin++)
+    for(col=0;col<this->ncol;col++)
+    {
+        Ans.array[lin][col]=( this->array[lin][col] == B.array[lin][col] );
+    }
+
+    return Ans;
+}
+
+Pds::Matrix Pds::Matrix::EqualTo(double b) const
+{
+    if( this->IsEmpty() )                return Pds::Matrix();
+
+    Pds::Matrix Ans(this->nlin,this->ncol);
+
+    unsigned int lin,col;
+   
+    for(lin=0;lin<this->nlin;lin++)
+    for(col=0;col<this->ncol;col++)
+    {
+        Ans.array[lin][col]=(this->array[lin][col]==b);
+    }
+
+    return Ans;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+Pds::Matrix Pds::Matrix::NotEqualTo(const Pds::Matrix &B) const
+{
+    if( this->IsEmpty() )           return Pds::Matrix();
+    if( this->IsNotSimilarTo(B) )   return Pds::Matrix();
+
+    Pds::Matrix Ans(this->nlin,this->ncol);
+
+    unsigned int lin,col;
+   
+    for(lin=0;lin<this->nlin;lin++)
+    for(col=0;col<this->ncol;col++)
+    {
+        Ans.array[lin][col]=( this->array[lin][col] != B.array[lin][col] );
+    }
+
+    return Ans;
+}
+
+Pds::Matrix Pds::Matrix::NotEqualTo(double b) const
+{
+    if( this->IsEmpty() )                return Pds::Matrix();
+
+    Pds::Matrix Ans(this->nlin,this->ncol);
+
+    unsigned int lin,col;
+   
+    for(lin=0;lin<this->nlin;lin++)
+    for(col=0;col<this->ncol;col++)
+    {
+        Ans.array[lin][col]=(this->array[lin][col]!=b);
+    }
+
+    return Ans;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+Pds::Matrix Pds::Matrix::EqualToInf(void) const
+{
+    Pds::Matrix A(this->nlin,this->ncol);
+    
+    if(A.IsEmpty())      return A;
+    if(this->IsEmpty())  return A;
+    
+    unsigned int lin,col;
+    
+    for(lin=0;lin<this->nlin;lin++)
+    for(col=0;col<this->ncol;col++)
+    A.array[lin][col]=std::isinf(this->array[lin][col]);
+    
+    return A;
+}
+
+
+Pds::Matrix Pds::Matrix::EqualToNan(void) const
+{
+    Pds::Matrix A(this->nlin,this->ncol);
+    
+    if(A.IsEmpty())      return A;
+    if(this->IsEmpty())  return A;
+    
+    unsigned int lin,col;
+    
+    for(lin=0;lin<this->nlin;lin++)
+    for(col=0;col<this->ncol;col++)
+    A.array[lin][col]=std::isnan(this->array[lin][col]);
+    
+    return A;
+}
+
+
+Pds::Matrix Pds::Matrix::EqualToFinite(void) const
+{
+    Pds::Matrix A(this->nlin,this->ncol);
+    
+    if(A.IsEmpty())      return A;
+    if(this->IsEmpty())  return A;
+    
+    unsigned int lin,col;
+    
+    for(lin=0;lin<this->nlin;lin++)
+    for(col=0;col<this->ncol;col++)
+    A.array[lin][col]=std::isfinite(this->array[lin][col]);
+    
+    return A;
 }
 

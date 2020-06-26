@@ -81,14 +81,14 @@ bool Pds::Matrix::FillRandU(int begin, int end)
     
     int min=std::min(begin,end);
     int max=std::max(begin,end);
-    int n=max-min+1;
+    double alpha=((double)max-(double)min)/RAND_MAX;
     
     unsigned int lin,col;
 
     for(lin=0;lin<this->nlin;lin++)
     for(col=0;col<this->ncol;col++)
     {
-        this->array[lin][col]=rand()%n+min;
+        this->array[lin][col]=rand()*alpha+min;
     }
 
     return true;

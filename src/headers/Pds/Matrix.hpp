@@ -547,85 +547,84 @@ true \overleftarrow{IsZero}
 0 & 0 & \hdots & 0\\
 \end{matrix}\right)
    \f]
-     *  
      *  \return Retorna true si la matriz está llena de zeros o false si no.
      *  Si la matriz está vacia se retorna false.
      *  \ingroup MatrixGroup
      */
     bool IsZero(void) const;
-    
+
     /** 
-     *  \brief Verifica si la matriz tiene elementos con valores infinitos.
-     * 
-     * Los valores infinitos pueden producirse con \f$+\frac{1}{0},-\frac{1}{0} y \frac{1}{0}\f$.
-   \f[
-\left(\begin{matrix}
-0 & 0 & \hdots & 0\\ 
-0 & 0 & \hdots & 1\\
-\vdots & \vdots & \vdots & \vdots \\
-1 & 0 & \hdots & 0\\ 
-0 & 1 & \hdots & 0\\
-\end{matrix}\right) \overleftarrow{IsInf} \left(\begin{matrix}
-1 & NaN & \hdots & NaN\\ 
-0 & 2 & \hdots & -\infty\\
-\vdots & \vdots & \vdots & \vdots \\
-\infty & 0 & \hdots & 0\\ 
-3 & -\infty & \hdots & NaN\\
-\end{matrix}\right)
-   \f]
-     *  \return Retorna una nueva matriz con 1 donde es infinito y 0 donde no lo es.
-     *  \ingroup MatrixGroup
-     */
-    Pds::Matrix IsInf(void) const;
-    
-    /** 
-     *  \brief Verifica si la matriz tiene elementos con valores NAN (Not A Number).
-     * 
-     *  Los valores NAN pueden producirse con \f$\frac{0}{0}\f$.
-   \f[
-\left(\begin{matrix}
-0 & 1 & \hdots & 1\\ 
-0 & 0 & \hdots & 0\\
-\vdots & \vdots & \vdots & \vdots \\
-0 & 0 & \hdots & 0\\ 
-0 & 0 & \hdots & 1\\
-\end{matrix}\right) \overleftarrow{IsNan} \left(\begin{matrix}
-1 & NaN & \hdots & NaN\\ 
-0 & 2 & \hdots & -\infty\\
-\vdots & \vdots & \vdots & \vdots \\
-\infty & 0 & \hdots & 0\\ 
-3 & -\infty & \hdots & NaN\\
-\end{matrix}\right)
-   \f]
-     *  \return Retorna una nueva matriz con 1 donde es NAN y 0 donde no lo es.
-     *  \ingroup MatrixGroup
-     */
-    Pds::Matrix IsNan(void) const;
-    
-    /** 
-     *  \brief Verifica si la matriz tiene elementos con valores finitos (no +inf, no -inf y no NAN).
+     *  \brief Verifica si cada elemento de la matriz es menor a el valor val.
      * 
    \f[
-\left(\begin{matrix}
-1 & 0 & \hdots & 0\\ 
-1 & 1 & \hdots & 0\\
-\vdots & \vdots & \vdots & \vdots \\
-0 & 1 & \hdots & 1\\ 
-1 & 0 & \hdots & 0\\
-\end{matrix}\right) \overleftarrow{IsFinite} \left(\begin{matrix}
-1 & NaN & \hdots & NaN\\ 
-0 & 2 & \hdots & -\infty\\
-\vdots & \vdots & \vdots & \vdots \\
-\infty & 0 & \hdots & 0\\ 
-3 & -\infty & \hdots & NaN\\
-\end{matrix}\right)
+\mathbf{A}~<=~val
    \f]
-     *  \return Retorna una nueva matriz con 1 donde es finito y 0 donde no lo es.
+     *  \param[in] val El valor a comparar.
+     *  \return Retorna true si todos los elementos son menores que val y false si no.
      *  \ingroup MatrixGroup
      */
-    Pds::Matrix IsFinite(void) const;
+    bool IsLeq(double val) const;
+
+    /** 
+     *  \brief Verifica si cada elemento de la matriz es menor igual a cada elemento de la matriz B.
+     * 
+   \f[
+\mathbf{A}~<=~\mathbf{B}
+   \f]
+     *  \param[in] B Matriz a comparar.
+     *  \return Retorna true si todos los elementos son menores y false si no.
+     *  \ingroup MatrixGroup
+     */
+    bool IsLeq(const Pds::Matrix &B) const;
+
+    /** 
+     *  \brief Verifica si cada elemento de la matriz es mayor a el valor val.
+     * 
+   \f[
+\mathbf{A}~>=~val
+   \f]
+     *  \param[in] val El valor a comparar.
+     *  \return Retorna true si todos los elementos son mayores que val y false si no.
+     *  \ingroup MatrixGroup
+     */
+    bool IsGeq(double val) const;
     
+    /** 
+     *  \brief Verifica si cada elemento de la matriz es mayor igual a cada elemento de la matriz B.
+     * 
+   \f[
+\mathbf{A}~>=~\mathbf{B}
+   \f]
+     *  \param[in] B Matriz a comparar.
+     *  \return Retorna true si todos los elementos son mayores y false si no.
+     *  \ingroup MatrixGroup
+     */
+    bool IsGeq(const Pds::Matrix &B) const;
+
+    /** 
+     *  \brief Verifica si cada elemento de la matriz es igual a el valor val.
+     * 
+   \f[
+\mathbf{A}~==~val
+   \f]
+     *  \param[in] val El valor a comparar.
+     *  \return Retorna true si todos los elementos son iguale a val y false si no.
+     *  \ingroup MatrixGroup
+     */
+    bool IsEqualTo(double val) const;
     
+    /** 
+     *  \brief Verifica si cada elemento de la matriz es igual a cada elemento de la matriz B.
+     * 
+   \f[
+\mathbf{A}~==~\mathbf{B}
+   \f]
+     *  \param[in] B Matriz a comparar.
+     *  \return Retorna true si todos los elementos son iguales y false si no.
+     *  \ingroup MatrixGroup
+     */
+    bool IsEqualTo(const Pds::Matrix &B) const;
+
     /** 
      *  \brief Verifica si la matriz tiene algun valor infinito.
      * 
@@ -648,7 +647,7 @@ true\qquad \overleftarrow{HasInf()}\qquad \left(\begin{matrix}
      * 
      *  Los valores NAN pueden producirse con \f$\frac{0}{0}\f$.
    \f[
-true\qquad \overleftarrow{IsNan()}\qquad \left(\begin{matrix}
+true\qquad \overleftarrow{EqualToNan()}\qquad \left(\begin{matrix}
 1 & NaN & NaN\\ 
 0 & 2 &  -\infty\\
 \infty & 0 & 0\\ 
@@ -665,7 +664,7 @@ true\qquad \overleftarrow{IsNan()}\qquad \left(\begin{matrix}
      *  \brief Verifica si la matriz tiene elementos no finitos (+inf, -inf y  NAN).
      * 
    \f[
-true\qquad \overleftarrow{IsFinite()}\qquad \left(\begin{matrix}
+true\qquad \overleftarrow{EqualToFinite()}\qquad \left(\begin{matrix}
 1 & NaN & NaN\\ 
 0 & 2 & -\infty\\
 \infty & 0 & 0\\ 
@@ -676,6 +675,8 @@ true\qquad \overleftarrow{IsFinite()}\qquad \left(\begin{matrix}
      *  \ingroup MatrixGroup
      */
     bool HasNotFinite(void) const;
+
+
 /**
  * @}
  */
@@ -687,14 +688,11 @@ public:
  * @{
  */
     /** 
-     *  \brief Inicializa la matriz con números aleatorios, distribuidos usando una distribución
+     *  \brief Inicializa la matriz con números aleatórios, distribuidos usando una distribución
      * Gaussiana normalizada con media 0 y desvío padrón 1.0.
-     *  Usa internamente la función rand(), para incializar usar
-     *  void srand(unsigned int seed).
-\code{.cpp}
-#include <time.h>       // clock_t, clock, CLOCKS_PER_SEC 
-srand (clock());
-\endcode
+     *  \warning La función usa internamente la función rand(), 
+     *  si se desea esta puede ser aleatoriamente inicializada usando la funcíón Pds::Ra::Randomize(),
+     *  de lo contrario los números pseudo aleatórios siempre seguirán la misma secuencia.
      * 
    \f[ f_{X}(x)=\frac {1}{\sqrt {2\pi }} e^{-{\frac {1}{2}}x^{2}},~~x \in R \f]
    \f[ \mathbf{A}\equiv [a_{i,j}]_{M,N} \f]
@@ -705,14 +703,11 @@ srand (clock());
     bool FillRandN(void);
     
     /** 
-     *  \brief Inicializa la matriz con números aleatorios, distribuidos uniformemente,
+     *  \brief Inicializa la matriz con números aleatórios, distribuidos uniformemente,
      *  desde 0 a 1.0, incluyendo 0 y excluyendo 1.0.
-     *  Usa internamente la función rand(), para incializar usar
-     *  void srand(unsigned int seed).
-\code{.cpp}
-#include <time.h>       // clock_t, clock, CLOCKS_PER_SEC 
-srand (clock());
-\endcode
+     *  \warning La función usa internamente la función rand(), 
+     *  si se desea esta puede ser aleatoriamente inicializada usando la funcíón Pds::Ra::Randomize(),
+     *  de lo contrario los números pseudo aleatórios siempre seguirán la misma secuencia.
      * 
    \f[ f_{X}(x)= 1,~~0\leq x<1, x \in R \f]
    \f[ \mathbf{A}\equiv [a_{i,j}]_{M,N} \f]
@@ -723,14 +718,11 @@ srand (clock());
     bool FillRandU(void);
     
     /** 
-     *  \brief Inicializa la matriz con números aleatorios, distribuidos uniformemente,
-     *  desde 0 a 1.0, incluyendo 0 y excluyendo 1.0.
-     *  Usa internamente la función rand(), para incializar usar
-     *  void srand(unsigned int seed).
-\code{.cpp}
-#include <time.h>       // clock_t, clock, CLOCKS_PER_SEC 
-srand (clock());
-\endcode
+     *  \brief Inicializa la matriz con números aleatórios, distribuidos uniformemente,
+     *  desde a a b, incluyendo a y b.
+     *  \warning La función usa internamente la función rand(), 
+     *  si se desea esta puede ser aleatoriamente inicializada usando la funcíón Pds::Ra::Randomize(),
+     *  de lo contrario los números pseudo aleatórios siempre seguirán la misma secuencia.
      * 
    \f[ f_{X}(x)= 1,~~min(a,b)\leq x\leq max(a,b), x \in R \f]
    \f[ \mathbf{A}\equiv [a_{i,j}]_{M,N} \f]
@@ -741,14 +733,11 @@ srand (clock());
     bool FillRandU(int a, int b);
     
     /** 
-     *  \brief Inicializa la matriz con números aleatorios, distribuidos uniformemente,
-     *  desde 0 a 1.0, incluyendo 0 y excluyendo 1.0.
-     *  Usa internamente la función rand(), para incializar usar
-     *  void srand(unsigned int seed).
-\code{.cpp}
-#include <time.h>       // clock_t, clock, CLOCKS_PER_SEC 
-srand (clock());
-\endcode
+     *  \brief Inicializa la matriz con números aleatórios, distribuidos uniformemente,
+     *  desde a a b, incluyendo a y b.
+     *  \warning La función usa internamente la función rand(), 
+     *  si se desea esta puede ser aleatoriamente inicializada usando la funcíón Pds::Ra::Randomize(),
+     *  de lo contrario los números pseudo aleatórios siempre seguirán la misma secuencia.
      * 
    \f[ f_{X}(x)= 1,~~min(a,b)\leq x\leq max(a,b), x \in R \f]
    \f[ \mathbf{A}\equiv [a_{i,j}]_{M,N} \f]
@@ -1097,6 +1086,9 @@ public:
     
     /** 
      *  \brief Retorna una sub matriz escojiendo N lineas aleatoriamente (sin repetición). 
+     *  \warning La función usa internamente la función rand(), 
+     *  si se desea esta puede ser aleatoriamente inicializada usando la funcíón Pds::Ra::Randomize(),
+     *  de lo contrario los números pseudo aleatórios siempre seguirán la misma secuencia.
      *  \param[in] N El número de lineas a escojer.
      *  \return Retorna una sub matriz. Si N=0 o N>Nlin entonces se retorna una matriz vacia.
      *  \ingroup MatrixGroup
@@ -1104,7 +1096,10 @@ public:
     Pds::Matrix GetRowsRand(unsigned int N) const;
     
     /** 
-     *  \brief Retorna una sub matriz escojiendo N columnas aleatoriamente (sin repetición). 
+     *  \brief Retorna una sub matriz escojiendo N columnas aleatoriamente (sin repetición).
+     *  \warning La función usa internamente la función rand(), 
+     *  si se desea esta puede ser aleatoriamente inicializada usando la funcíón Pds::Ra::Randomize(),
+     *  de lo contrario los números pseudo aleatórios siempre seguirán la misma secuencia. 
      *  \param[in] N El número de columnas a escojer.
      *  \return Retorna una sub matriz. Si N=0 o N>Ncol entonces se retorna una matriz vacia.
      *  \ingroup MatrixGroup
@@ -1781,7 +1776,51 @@ S_0 \equiv {M_0}_{R_0}, \qquad S_1 \equiv {M_1}_{R_1}
                         const Pds::RegionRect &R1, 
                         double *pcc) const;
 
-
+    /** 
+     *  \brief Calcula el coeficiente de correlación de Pearson (PCC) entre los
+     *  elementos de la intersección de la regiones con sus matrices. 
+     *
+     *  Para que la correlacion sea ejecutada se debe cumplir que \f$ Size(R_0)==Size(R_1)\f$
+     *  ademas que \f$ R_0 \subset M_0 \f$ y \f$R_1 \subset M_1\f$. Con estas 
+     *  condiciones obtenemos las submatrices \f$S_0\f$ y \f$S_1\f$.
+\f[
+S_0 \equiv {M_0}_{R_0}, \qquad S_1 \equiv {M_1}_{R_1}
+\f]
+\f[  PCC=\frac{E[(S_0-\mu_{S_0})(S_1-\mu_{S_1})]}{\sigma_{S_0}\sigma_{S_1}} \f]
+     *  Si algun desvío padrón es cero entonces existen casos especiales para el valor de PCC.
+<table>
+<caption id="multi_row_region1b">Casos especiales para PCC</caption>
+    <tr><td>PCC <td>sigma0 <td>sigma1 <td>mean0 <td>mean1
+    <tr><td>0.0 <td>Zero   <td>NonZero<td>?     <td>?
+    <tr><td>0.0 <td>NonZero<td>Zero   <td>?     <td>?
+    <tr><td>1.0 <td>Zero   <td>Zero   <td>Positive<td>Positive
+    <tr><td>1.0 <td>Zero   <td>Zero   <td>Negative<td>Negative
+    <tr><td>-1.0<td>Zero   <td>Zero   <td>Positive<td>Negative
+    <tr><td>-1.0<td>Zero   <td>Zero   <td>Negative<td>Positive
+    <tr><td>0.0 <td>Zero   <td>Zero   <td>Zero    <td>NonZero
+    <tr><td>0.0 <td>Zero   <td>Zero   <td>NonZero <td>Zero
+    <tr><td>1.0 <td>Zero   <td>Zero   <td>Zero    <td>Zero
+</table> 
+     *  \param[in] M1 Una matriz de la correlación.
+     *  \param[in] R0 La región a analizar en la matriz M0, el tamaño de R0 debe ser igual al tamaño de R1.
+     *  \param[in] R1 La región a analizar en la matriz M1, el tamaño de R0 debe ser igual al tamaño de R1.
+     *  \param[in] mean0 La media de la region R0.
+     *  \param[in] mean1 La media de la region R1.
+     *  \param[in] std0 El desvio padron de la region R0.
+     *  \param[in] std1 El desvio padron de la region R1.
+     *  \param[out] pcc Coeficiente de correlación de Pearson.
+     *  \return true si todo fue bien o false si no (ej: pcc==NULL).
+     *  Retorna false cuando algún lado de las regiones a analizar son cero.
+     *  \ingroup MatrixGroup
+     */
+    bool CorrRegions(   const Pds::Matrix &M1,
+                        const Pds::RegionRect &R0,
+                        const Pds::RegionRect &R1,
+                        double mean0,
+                        double mean1,
+                        double std0,
+                        double std1,
+                        double *pcc) const;
 /**
  * @}
  */
@@ -2389,245 +2428,6 @@ public:
  * @{
  */
     
-    /** 
-     *  \brief Suma con sigo mismo (A), un valor b y el resultado es
-     * cargado en C. Este operador 
-     *  es similar al método Add() 
-     *
-     *  \f[ C \leftarrow A+b \f]
-\code{.cpp}
-    Pds::Matrix A(4,4);
-    Pds::Matrix C;
-    
-    A.Fill(2.0);
-    
-    C=A+2.0;
-    
-    std::cout<<C;
-\endcode
-     *  \param[in] b El valor a sumar
-     *  \return Retorna un nuevo objeto con el
-     *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
-     *  \see Add
-     *  \ingroup MatrixGroup
-     */
-    Pds::Matrix operator + (double b) const;
-    
-    /** 
-     *  \brief Suma con sigo mismo (A), una matriz B y el resultado es
-     * cargado en C. Este operador 
-     *  es similar al método Add() 
-     *
-     *  \f[ C \leftarrow A+B \f]
-\code{.cpp}
-    Pds::Matrix A(4,4);
-    Pds::Matrix B(4,4);
-    Pds::Matrix C;
-    
-    A.Fill(2.0);
-    B.Fill(1.0);
-    
-    C=A+B;
-    
-    std::cout<<C;
-\endcode
-     *  \param[in] B la matriz a sumar
-     *  \return Retorna un nuevo objeto con el
-     *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
-     *  \see Add
-     *  \ingroup MatrixGroup
-     */
-    Pds::Matrix operator + (const Pds::Matrix &B) const;
-    
-    /** 
-     *  \brief Suma con sigo mismo (A), una valor b y el resultado es
-     * cargado en C. Este método 
-     *  es similar al operador + 
-     *
-     *  \f[ C \leftarrow A+b \f]
-\code{.cpp}
-    Pds::Matrix A(4,4);
-    Pds::Matrix C;
-    
-    A.Fill(2.0);
-    
-    C=A.Add(2.0);
-    
-    std::cout<<C;
-\endcode
-     *  \param[in] b El valor a sumar
-     *  \return Retorna un nuevo objeto con el
-     *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
-     *  \ingroup MatrixGroup
-     */
-    Pds::Matrix Add(double b) const;
-    
-    /** 
-     *  \brief Suma con sigo mismo (A), una matriz B y el resultado es
-     * cargado en C. Este metodo 
-     *  es similar al operador + 
-     *
-     *  \f[ C \leftarrow A+B \f]
-\code{.cpp}
-    Pds::Matrix A(4,4);
-    Pds::Matrix B(4,4);
-    Pds::Matrix C;
-    
-    A.Fill(2.0);
-    B.Fill(1.0);
-    
-    C=A.Add(B);
-    
-    std::cout<<C;
-\endcode
-     *  \param[in] B la matriz a sumar
-     *  \return Retorna un nuevo objeto con el
-     *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
-     *  \ingroup MatrixGroup
-     */
-    Pds::Matrix Add(const Pds::Matrix &B) const;
-    
-    
-    /** 
-     *  \brief Resta con sigo mismo (A), un valor b y el resultado es
-     * cargado en C. Este operador 
-     *  es similar al método Sub() 
-     *
-     *  \f[ C \leftarrow A-b \f]
-\code{.cpp}
-    Pds::Matrix A(4,4);
-    Pds::Matrix C;
-    
-    A.Fill(2.0);
-    
-    C=A-2.0;
-    
-    std::cout<<C;
-\endcode
-     *  \param[in] b El valor a restar
-     *  \return Retorna un nuevo objeto con el
-     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
-     *  \see Add
-     *  \ingroup MatrixGroup
-     */
-    Pds::Matrix operator - (double b) const;
-    
-    /** 
-     *  \brief Resta con sigo mismo (A), una matriz B y el resultado es
-     * cargado en C. Este operador es similar al método Sub
-     *
-     *  \f[ C \leftarrow A-B \f]
-\code{.cpp}
-    Pds::Matrix A(4,4);
-    Pds::Matrix B(4,4);
-    Pds::Matrix C;
-    
-    A.Fill(2.0);
-    B.Fill(1.0);
-    
-    C=A-B;
-    
-    std::cout<<C;
-\endcode
-     *  \param[in] B la matriz que resta
-     *  \return Retorna un nuevo objeto con el
-     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
-     *  \ingroup MatrixGroup
-     */
-    Pds::Matrix operator -(const Pds::Matrix &B) const;
-    
-    /** 
-     *  \brief Resta con sigo mismo (A), una valor b y el resultado es
-     * cargado en C. Este método 
-     *  es similar al operador - 
-     *
-     *  \f[ C \leftarrow A-b \f]
-\code{.cpp}
-    Pds::Matrix A(4,4);
-    Pds::Matrix C;
-    
-    A.Fill(2.0);
-    
-    C=A.Sub(2.0);
-    
-    std::cout<<C;
-\endcode
-     *  \param[in] b El valor a restar
-     *  \return Retorna un nuevo objeto con el
-     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
-     *  \ingroup MatrixGroup
-     */
-    Pds::Matrix Sub(double b) const;
-    
-    /** 
-     *  \brief Resta con sigo mismo (A), una matriz B y el resultado es
-     * cargado en C. Este método es similar al operador - 
-     *
-     *  \f[ C \leftarrow A-B \f]
-\code{.cpp}
-    Pds::Matrix A(4,4);
-    Pds::Matrix B(4,4);
-    Pds::Matrix C;
-    
-    A.Fill(2.0);
-    B.Fill(1.0);
-    
-    C=A.Sub(B);
-    
-    std::cout<<C;
-\endcode
-     *  \param[in] B la matriz que resta
-     *  \return Retorna un nuevo objeto con el
-     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
-     *  \ingroup MatrixGroup
-     */
-    Pds::Matrix Sub(const Pds::Matrix &B) const;
-    
-
-    /** 
-     *  \brief Divide con sigo mismo (A), un valor b y el resultado es
-     * cargado en C. Este operador es similar al método Div() 
-     *
-     *  \f[ C \leftarrow A/b \f]
-\code{.cpp}
-    Pds::Matrix A(4,4);
-    Pds::Matrix C;
-    
-    A.Fill(2.0);
-    
-    C=A/2.0;
-    
-    std::cout<<C;
-\endcode
-     *  \param[in] b el valor a dividir
-     *  \return Retorna C con el
-     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
-     *  \see Mul
-     *  \ingroup MatrixGroup
-     */
-    Pds::Matrix operator / (double b) const;
-
-    /** 
-     *  \brief Divide con sigo mismo (A), un valor b y el resultado es
-     * cargado en C. Este método  es similar al operador / 
-     *
-     *  \f[ C \leftarrow A/b \f]
-\code{.cpp}
-    Pds::Matrix A(4,4);
-    Pds::Matrix C;
-    
-    A.Fill(2.0);
-    
-    C=A.Div(2.0);
-    
-    std::cout<<C;
-\endcode
-     *  \param[in] b el valor a dividir
-     *  \return Retorna C con el
-     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
-     *  \ingroup MatrixGroup
-     */
-    Pds::Matrix Div(double b) const;
 
     /** 
      *  \brief Multiplica con sigo mismo (A), un valor b y el resultado es
@@ -2747,12 +2547,36 @@ public:
      */
     Pds::Matrix MulT(const Pds::Matrix &B) const;
 
-
     /** 
-     *  \brief Multiplica con sigo mismo (A), elemento a elemento, una matriz B y el resultado es
-     * cargado en C. Este método  es similar al operador &
+     *  \brief <b>[Elemento a elemento]</b> Suma con sigo mismo (A), un valor b y el resultado es
+     * cargado en C. Este operador 
+     *  es similar al método Add() 
      *
-     *  \f[ C \leftarrow A\&B \f]
+     *  \f[ C \leftarrow A+b \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix C;
+    
+    A.Fill(2.0);
+    
+    C=A+2.0;
+    
+    std::cout<<C;
+\endcode
+     *  \param[in] b El valor a sumar
+     *  \return Retorna un nuevo objeto con el
+     *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
+     *  \see Add
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix operator + (double b) const;
+    
+    /** 
+     *  \brief <b>[Elemento a elemento]</b> Suma con sigo mismo (A), una matriz B y el resultado es
+     * cargado en C. Este operador 
+     *  es similar al método Add() 
+     *
+     *  \f[ C \leftarrow A+B \f]
 \code{.cpp}
     Pds::Matrix A(4,4);
     Pds::Matrix B(4,4);
@@ -2761,23 +2585,47 @@ public:
     A.Fill(2.0);
     B.Fill(1.0);
     
-    C=A.Product(B);
+    C=A+B;
     
     std::cout<<C;
 \endcode
-     *  \param[in] B la matriz a multiplicar
-     *  \return Retorna C con el
-     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \param[in] B la matriz a sumar
+     *  \return Retorna un nuevo objeto con el
+     *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
+     *  \see Add
      *  \ingroup MatrixGroup
      */
-    Pds::Matrix Product(const Pds::Matrix &B) const;
-
-
+    Pds::Matrix operator + (const Pds::Matrix &B) const;
+    
     /** 
-     *  \brief Multiplica con sigo mismo (A), elemento a elemento, una matriz B y el resultado es
-     * cargado en C. Este método  es similar al método .Product()
+     *  \brief <b>[Elemento a elemento]</b> Suma con sigo mismo (A), una valor b y el resultado es
+     * cargado en C. Este método 
+     *  es similar al operador + 
      *
-     *  \f[ C \leftarrow A \& B \f]
+     *  \f[ C \leftarrow A+b \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix C;
+    
+    A.Fill(2.0);
+    
+    C=A.Add(2.0);
+    
+    std::cout<<C;
+\endcode
+     *  \param[in] b El valor a sumar
+     *  \return Retorna un nuevo objeto con el
+     *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix Add(double b) const;
+    
+    /** 
+     *  \brief <b>[Elemento a elemento]</b> Suma con sigo mismo (A), una matriz B y el resultado es
+     * cargado en C. Este metodo 
+     *  es similar al operador + 
+     *
+     *  \f[ C \leftarrow A+B \f]
 \code{.cpp}
     Pds::Matrix A(4,4);
     Pds::Matrix B(4,4);
@@ -2786,83 +2634,47 @@ public:
     A.Fill(2.0);
     B.Fill(1.0);
     
-    C=A&B;
+    C=A.Add(B);
     
     std::cout<<C;
 \endcode
-     *  \warning El operador & tiene baja precedencia, por lo que recomendamos usar parentesis (A&B).
-<table>
-<caption id="multi_row0">Operator Precedence</caption>
-    <tr><td>Precedence <td>Operator
-    <tr><td>5<td> a*b   a/b   a%b
-    <tr><td>6<td> a+b   a-b
-    <tr><td>7<td> <<   >>
-    <tr><td>9<td> > < >= <=
-    <tr><td>10<td> ==   !=
-    <tr><td>11<td> &
-    <tr><td>12<td> ^
-</table> 
-     *  \param[in] B la matriz a multiplicar
-     *  \return Retorna C con el
-     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \param[in] B la matriz a sumar
+     *  \return Retorna un nuevo objeto con el
+     *  resultado, o una matriz vazia (this->IsEmpty() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
-    Pds::Matrix operator&(const Pds::Matrix &B) const;
-
+    Pds::Matrix Add(const Pds::Matrix &B) const;
+    
+    
     /** 
-     *  \brief Divide con sigo mismo (A), elemento a elemento, una matriz B y el resultado es
-     * cargado en C. Este método  es similar al operador /
+     *  \brief <b>[Elemento a elemento]</b> Resta con sigo mismo (A), un valor b y el resultado es
+     * cargado en C. Este operador 
+     *  es similar al método Sub() 
      *
-     *  \f[ C \leftarrow A / B \f]
+     *  \f[ C \leftarrow A-b \f]
 \code{.cpp}
     Pds::Matrix A(4,4);
-    Pds::Matrix B(4,4);
     Pds::Matrix C;
     
-    A.Fill(1.0);
-    B.Fill(2.0);
+    A.Fill(2.0);
     
-    C=A.Division(B);
+    C=A-2.0;
     
     std::cout<<C;
 \endcode
-     *  \param[in] B la matriz a dividir
-     *  \return Retorna C con el
+     *  \param[in] b El valor a restar
+     *  \return Retorna un nuevo objeto con el
      *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \see Add
      *  \ingroup MatrixGroup
      */
-    Pds::Matrix Division(const Pds::Matrix &B) const;
-
+    Pds::Matrix operator - (double b) const;
+    
     /** 
-     *  \brief Divide con sigo mismo (A), elemento a elemento, una matriz B y el resultado es
-     * cargado en C. Este método  es similar al método .Division()
+     *  \brief <b>[Elemento a elemento]</b> Resta con sigo mismo (A), una matriz B y el resultado es
+     * cargado en C. Este operador es similar al método Sub
      *
-     *  \f[ C \leftarrow A / B \f]
-\code{.cpp}
-    Pds::Matrix A(4,4);
-    Pds::Matrix B(4,4);
-    Pds::Matrix C;
-    
-    A.Fill(1.0);
-    B.Fill(2.0);
-    
-    C=A/B;
-    
-    std::cout<<C;
-\endcode
-     *  \param[in] B la matriz a dividir
-     *  \return Retorna C con el
-     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
-     *  \ingroup MatrixGroup
-     */
-    Pds::Matrix operator/(const Pds::Matrix &B) const;
-
-
-    /** 
-     *  \brief Potencia asi mismo (A), elemento a elemento, con una matriz B y el resultado es
-     * cargado en C. Este método  es similar al operador ^
-     *
-     *  \f[ C \leftarrow A^B \f]
+     *  \f[ C \leftarrow A-B \f]
 \code{.cpp}
     Pds::Matrix A(4,4);
     Pds::Matrix B(4,4);
@@ -2871,22 +2683,45 @@ public:
     A.Fill(2.0);
     B.Fill(1.0);
     
-    C=A.Pow(B);
+    C=A-B;
     
     std::cout<<C;
 \endcode
-     *  \param[in] B La matriz a exponenciar
-     *  \return Retorna C con el
+     *  \param[in] B la matriz que resta
+     *  \return Retorna un nuevo objeto con el
      *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
-    Pds::Matrix Pow(const Pds::Matrix &B) const;
-
+    Pds::Matrix operator -(const Pds::Matrix &B) const;
+    
     /** 
-     *  \brief Potencia asi mismo (A), elemento a elemento, con una matriz B y el resultado es
-     * cargado en C. Este método  es similar al método .Pow()
+     *  \brief <b>[Elemento a elemento]</b> Resta con sigo mismo (A), una valor b y el resultado es
+     * cargado en C. Este método 
+     *  es similar al operador - 
      *
-     *  \f[ C \leftarrow A^B \f]
+     *  \f[ C \leftarrow A-b \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix C;
+    
+    A.Fill(2.0);
+    
+    C=A.Sub(2.0);
+    
+    std::cout<<C;
+\endcode
+     *  \param[in] b El valor a restar
+     *  \return Retorna un nuevo objeto con el
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix Sub(double b) const;
+    
+    /** 
+     *  \brief <b>[Elemento a elemento]</b> Resta con sigo mismo (A), una matriz B y el resultado es
+     * cargado en C. Este método es similar al operador - 
+     *
+     *  \f[ C \leftarrow A-B \f]
 \code{.cpp}
     Pds::Matrix A(4,4);
     Pds::Matrix B(4,4);
@@ -2895,86 +2730,17 @@ public:
     A.Fill(2.0);
     B.Fill(1.0);
     
-    C=A^B;
+    C=A.Sub(B);
     
     std::cout<<C;
 \endcode
-     *  \warning El operador ^ tiene baja precedencia, por lo que recomendamos usar parentesis (A^B).
-<table>
-<caption id="multi_row1">Operator Precedence</caption>
-    <tr><td>Precedence <td>Operator
-    <tr><td>5<td> a*b   a/b   a%b
-    <tr><td>6<td> a+b   a-b
-    <tr><td>7<td> <<   >>
-    <tr><td>9<td> > < >= <=
-    <tr><td>10<td> ==   !=
-    <tr><td>11<td> &
-    <tr><td>12<td> ^
-</table> 
-     *  \param[in] B La matriz a exponenciar
-     *  \return Retorna C con el
+     *  \param[in] B la matriz que resta
+     *  \return Retorna un nuevo objeto con el
      *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
-    Pds::Matrix operator^(const Pds::Matrix &B) const;
-
-    /** 
-     *  \brief Potencia asi mismo (A), elemento a elemento, con un valor val y el resultado es
-     * cargado en C. Este método  es similar al operador ^
-     *
-     *  \f[ C \leftarrow A^val \f]
-\code{.cpp}
-    Pds::Matrix A(4,4);
-    Pds::Matrix val=2;
-    Pds::Matrix C;
+    Pds::Matrix Sub(const Pds::Matrix &B) const;
     
-    A.Fill(2.0);
-    
-    C=A.Pow(val);
-    
-    std::cout<<C;
-\endcode
-     *  \param[in] val Valor a exponenciar
-     *  \return Retorna C con el
-     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
-     *  \ingroup MatrixGroup
-     */
-    Pds::Matrix Pow(double val) const;
-
-    /** 
-     *  \brief Potencia asi mismo (A), elemento a elemento, con un valor val y el resultado es
-     * cargado en C. Este método  es similar al método .Pow()
-     *
-     *  \f[ C \leftarrow A^B \f]
-\code{.cpp}
-    Pds::Matrix A(4,4);
-    Pds::Matrix val=2;
-    Pds::Matrix C;
-    
-    A.Fill(2.0);
-    
-    C=A^val;
-    
-    std::cout<<C;
-\endcode
-     *  \warning El operador ^ tiene baja precedencia, por lo que recomendamos usar parentesis (A^B).
-<table>
-<caption id="multi_row2">Operator Precedence</caption>
-    <tr><td>Precedence <td>Operator
-    <tr><td>5<td> a*b   a/b   a%b
-    <tr><td>6<td> a+b   a-b
-    <tr><td>7<td> <<   >>
-    <tr><td>9<td> > < >= <=
-    <tr><td>10<td> ==   !=
-    <tr><td>11<td> &
-    <tr><td>12<td> ^
-</table> 
-     *  \param[in] val Valor a exponenciar
-     *  \return Retorna C con el
-     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
-     *  \ingroup MatrixGroup
-     */
-    Pds::Matrix operator^(double val) const;
 
     /** 
      *  \brief Suma con sigo mismo (A), una matriz B linea y el resultado es
@@ -3025,9 +2791,236 @@ public:
      *  \ingroup MatrixGroup
      */
     Pds::Matrix SubRowMatrix(const Pds::Matrix &B) const;
-    
+
     /** 
-     *  \brief Calcula con sigo mismo (A), si (A) es mayor que un valor b y el resultado es
+     *  \brief <b>[Elemento a elemento]</b> Divide con sigo mismo (A), un valor b y el resultado es
+     * cargado en C. Este operador es similar al método Div() 
+     *
+     *  \f[ C \leftarrow A/b \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix C;
+    
+    A.Fill(2.0);
+    
+    C=A/2.0;
+    
+    std::cout<<C;
+\endcode
+     *  \param[in] b el valor a dividir
+     *  \return Retorna C con el
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \see Mul
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix operator / (double b) const;
+
+
+    /** 
+     *  \brief <b>[Elemento a elemento]</b> Divide con sigo mismo (A), elemento a elemento, una matriz B y el resultado es
+     * cargado en C. Este método  es similar al método .Div()
+     *
+     *  \f[ C \leftarrow A / B \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix B(4,4);
+    Pds::Matrix C;
+    
+    A.Fill(1.0);
+    B.Fill(2.0);
+    
+    C=A/B;
+    
+    std::cout<<C;
+\endcode
+     *  \param[in] B la matriz a dividir
+     *  \return Retorna C con el
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix operator/(const Pds::Matrix &B) const;
+
+    /** 
+     *  \brief <b>[Elemento a elemento]</b> Divide con sigo mismo (A), un valor b y el resultado es
+     * cargado en C. Este método  es similar al operador / 
+     *
+     *  \f[ C \leftarrow A/b \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix C;
+    
+    A.Fill(2.0);
+    
+    C=A.Div(2.0);
+    
+    std::cout<<C;
+\endcode
+     *  \param[in] b el valor a dividir
+     *  \return Retorna C con el
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix Div(double b) const;
+
+    /** 
+     *  \brief <b>[Elemento a elemento]</b> Divide con sigo mismo (A), elemento a elemento, una matriz B y el resultado es
+     * cargado en C. Este método  es similar al operador /
+     *
+     *  \f[ C \leftarrow A / B \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix B(4,4);
+    Pds::Matrix C;
+    
+    A.Fill(1.0);
+    B.Fill(2.0);
+    
+    C=A.Div(B);
+    
+    std::cout<<C;
+\endcode
+     *  \param[in] B la matriz a dividir
+     *  \return Retorna C con el
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix Div(const Pds::Matrix &B) const;  
+
+
+    /** 
+     *  \brief <b>[Elemento a elemento]</b> Divide con sigo mismo (A), un valor b y el resultado es
+     * cargado en C. Este método  es similar al operador / 
+     *
+     *  \f[ C \leftarrow b/A \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix C;
+    
+    A.Fill(2.0);
+    
+    C=A.DivSelf(1.0);
+    
+    std::cout<<C;
+\endcode
+     *  \param[in] b El valor del numerador en la division
+     *  \return Retorna C con el
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix DivSelf(double b) const;
+
+    /** 
+     *  \brief <b>[Elemento a elemento]</b> Multiplica con sigo mismo (A), elemento a elemento, una matriz B y el resultado es
+     * cargado en C. Este método  es similar al método .Product()
+     *
+     *  \f[ C \leftarrow A \& B \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix B(4,4);
+    Pds::Matrix C;
+    
+    A.Fill(2.0);
+    B.Fill(1.0);
+    
+    C=A&B;
+    
+    std::cout<<C;
+\endcode
+     *  \warning El operador & tiene baja precedencia, por lo que recomendamos usar parentesis (A&B).
+<table>
+<caption id="multi_row0">Operator Precedence</caption>
+    <tr><td>Precedence <td>Operator
+    <tr><td>5<td> a*b   a/b   a%b
+    <tr><td>6<td> a+b   a-b
+    <tr><td>7<td> <<   >>
+    <tr><td>9<td> > < >= <=
+    <tr><td>10<td> ==   !=
+    <tr><td>11<td> &
+    <tr><td>12<td> ^
+</table> 
+     *  \param[in] B la matriz a multiplicar
+     *  \return Retorna C con el
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix operator&(const Pds::Matrix &B) const;
+
+    /** 
+     *  \brief <b>[Elemento a elemento]</b> Multiplica con sigo mismo (A), elemento a elemento, una matriz B y el resultado es
+     * cargado en C. Este método  es similar al operador &
+     *
+     *  \f[ C \leftarrow A\&B \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix B(4,4);
+    Pds::Matrix C;
+    
+    A.Fill(2.0);
+    B.Fill(1.0);
+    
+    C=A.Product(B);
+    
+    std::cout<<C;
+\endcode
+     *  \param[in] B la matriz a multiplicar
+     *  \return Retorna C con el
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix Product(const Pds::Matrix &B) const;
+
+
+
+    /** 
+     *  \brief <b>[Elemento a elemento]</b>Potencia asi mismo (A), elemento a elemento, con una matriz B y el resultado es
+     * cargado en C. Este método  es similar al operador
+     *
+     *  \f[ C \leftarrow A^B \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix B(4,4);
+    Pds::Matrix C;
+    
+    A.Fill(2.0);
+    B.Fill(1.0);
+    
+    C=A.Pow(B);
+    
+    std::cout<<C;
+\endcode
+     *  \param[in] B La matriz a exponenciar
+     *  \return Retorna C con el
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix Pow(const Pds::Matrix &B) const;
+
+
+    /** 
+     *  \brief <b>[Elemento a elemento]</b> Potencia asi mismo (A), elemento a elemento, con un valor val y el resultado es
+     * cargado en C. Este método  es similar al operador 
+     *
+     *  \f[ C \leftarrow A^{val} \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix val=2;
+    Pds::Matrix C;
+    
+    A.Fill(2.0);
+    
+    C=A.Pow(val);
+    
+    std::cout<<C;
+\endcode
+     *  \param[in] val Valor a exponenciar
+     *  \return Retorna C con el
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix Pow(double val) const;
+
+    /** 
+     *  \brief <b>[Elemento a elemento]</b> Calcula con sigo mismo (A), si (A) es mayor que un valor b y el resultado es
      * cargado en C. Este método  es similar al operador >= 
      *
      *  \f[ C \leftarrow A>=b \f]
@@ -3049,7 +3042,7 @@ public:
     Pds::Matrix Geq(double b) const;
     
     /** 
-     *  \brief Calcula con sigo mismo (A), si (A) es mayor que un valor (B) y el resultado es
+     *  \brief <b>[Elemento a elemento]</b> Calcula con sigo mismo (A), si (A) es mayor que un valor (B) y el resultado es
      * cargado en C. Este método  es similar al operador >= 
      *
      *  \f[ C \leftarrow A>=B \f]
@@ -3071,7 +3064,7 @@ public:
     Pds::Matrix Geq(Pds::Matrix B) const;
     
     /** 
-     *  \brief Calcula con sigo mismo (A), si (A) es menor que un valor b y el resultado es
+     *  \brief <b>[Elemento a elemento]</b> Calcula con sigo mismo (A), si (A) es menor que un valor b y el resultado es
      * cargado en C. Este método  es similar al operador <= 
      *
      *  \f[ C \leftarrow A<=b \f]
@@ -3093,7 +3086,7 @@ public:
     Pds::Matrix Leq(double b) const;
     
     /** 
-     *  \brief Calcula con sigo mismo (A), si (A) es menor que un valor B y el resultado es
+     *  \brief <b>[Elemento a elemento]</b> Calcula con sigo mismo (A), si (A) es menor que un valor B y el resultado es
      * cargado en C. Este método  es similar al operador <= 
      *
      *  \f[ C \leftarrow A<=B \f]
@@ -3112,8 +3105,169 @@ public:
      *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
      *  \ingroup MatrixGroup
      */
-    Pds::Matrix Leq(Pds::Matrix B) const;
+    Pds::Matrix Leq(const Pds::Matrix &B) const;
     
+
+    /** 
+     *  \brief <b>[Elemento a elemento]</b> Calcula con sigo mismo (A), si (A) es identico a un valor b y el resultado es
+     * cargado en C. Este método  es similar al operador == 
+     *
+     *  \f[ C \leftarrow A==b \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix C;
+    
+    A.FillId();
+    
+    C=A.EqualTo(4);
+    
+    std::cout<<C;
+\endcode
+     *  \param[in] b el valor a comparar
+     *  \return Retorna C con el
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix EqualTo(double b) const;
+    
+    /** 
+     *  \brief <b>[Elemento a elemento]</b> Calcula con sigo mismo (A), si (A) es identico a un valor B y el resultado es
+     * cargado en C. Este método  es similar al operador == 
+     *
+     *  \f[ C \leftarrow A==B \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix C;
+    
+    A.FillId();
+    
+    C=A.EqualTo(B);
+    
+    std::cout<<C;
+\endcode
+     *  \param[in] B Matriz a comparar
+     *  \return Retorna C con el
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix EqualTo(const Pds::Matrix &B) const;
+
+    /** 
+     *  \brief <b>[Elemento a elemento]</b> Calcula con sigo mismo (A), si (A) no es identico a un valor b y el resultado es
+     * cargado en C. Este método  es similar al operador != 
+     *
+     *  \f[ C \leftarrow A!=b \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix C;
+    
+    A.FillId();
+    
+    C=A.NotEqualTo(4);
+    
+    std::cout<<C;
+\endcode
+     *  \param[in] b el valor a comparar
+     *  \return Retorna C con el
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix NotEqualTo(double b) const;
+    
+    /** 
+     *  \brief <b>[Elemento a elemento]</b> Calcula con sigo mismo (A), si (A) no es identico a un valor B y el resultado es
+     * cargado en C. Este método  es similar al operador != 
+     *
+     *  \f[ C \leftarrow A!=B \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix C;
+    
+    A.FillId();
+    
+    C=A.NotEqualTo(B);
+    
+    std::cout<<C;
+\endcode
+     *  \param[in] B Matriz a comparar
+     *  \return Retorna C con el
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix NotEqualTo(const Pds::Matrix &B) const;
+
+    
+    /** 
+     *  \brief Verifica si la matriz tiene elementos con valores infinitos.
+     * 
+     * Los valores infinitos pueden producirse con \f$+\frac{1}{0},-\frac{1}{0} y \frac{1}{0}\f$.
+   \f[
+\left(\begin{matrix}
+0 & 0 & \hdots & 0\\ 
+0 & 0 & \hdots & 1\\
+\vdots & \vdots & \vdots & \vdots \\
+1 & 0 & \hdots & 0\\ 
+0 & 1 & \hdots & 0\\
+\end{matrix}\right) \overleftarrow{EqualToInf} \left(\begin{matrix}
+1 & NaN & \hdots & NaN\\ 
+0 & 2 & \hdots & -\infty\\
+\vdots & \vdots & \vdots & \vdots \\
+\infty & 0 & \hdots & 0\\ 
+3 & -\infty & \hdots & NaN\\
+\end{matrix}\right)
+   \f]
+     *  \return Retorna una nueva matriz con 1 donde es infinito y 0 donde no lo es.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix EqualToInf(void) const;
+    
+    /** 
+     *  \brief Verifica si la matriz tiene elementos con valores NAN (Not A Number).
+     * 
+     *  Los valores NAN pueden producirse con \f$\frac{0}{0}\f$.
+   \f[
+\left(\begin{matrix}
+0 & 1 & \hdots & 1\\ 
+0 & 0 & \hdots & 0\\
+\vdots & \vdots & \vdots & \vdots \\
+0 & 0 & \hdots & 0\\ 
+0 & 0 & \hdots & 1\\
+\end{matrix}\right) \overleftarrow{EqualToNan} \left(\begin{matrix}
+1 & NaN & \hdots & NaN\\ 
+0 & 2 & \hdots & -\infty\\
+\vdots & \vdots & \vdots & \vdots \\
+\infty & 0 & \hdots & 0\\ 
+3 & -\infty & \hdots & NaN\\
+\end{matrix}\right)
+   \f]
+     *  \return Retorna una nueva matriz con 1 donde es NAN y 0 donde no lo es.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix EqualToNan(void) const;
+    
+    /** 
+     *  \brief Verifica si la matriz tiene elementos con valores finitos (no +inf, no -inf y no NAN).
+     * 
+   \f[
+\left(\begin{matrix}
+1 & 0 & \hdots & 0\\ 
+1 & 1 & \hdots & 0\\
+\vdots & \vdots & \vdots & \vdots \\
+0 & 1 & \hdots & 1\\ 
+1 & 0 & \hdots & 0\\
+\end{matrix}\right) \overleftarrow{EqualToFinite} \left(\begin{matrix}
+1 & NaN & \hdots & NaN\\ 
+0 & 2 & \hdots & -\infty\\
+\vdots & \vdots & \vdots & \vdots \\
+\infty & 0 & \hdots & 0\\ 
+3 & -\infty & \hdots & NaN\\
+\end{matrix}\right)
+   \f]
+     *  \return Retorna una nueva matriz con 1 donde es finito y 0 donde no lo es.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix EqualToFinite(void) const;
+
 /**
  * @}
  */
@@ -3475,7 +3629,7 @@ public:
 std::ostream& operator<<(std::ostream &out,const Pds::Matrix &mat);
 
     /** 
-     *  \brief Suma con sigo mismo (A), un valor b y el resultado es
+     *  \brief Suma b con (A), el resultado es
      * cargado en C. Este operador 
      *  es similar al método Add() 
      *
@@ -3491,16 +3645,16 @@ std::ostream& operator<<(std::ostream &out,const Pds::Matrix &mat);
     std::cout<<C;
 \endcode
      *  \param[in] b El valor a sumar
-     *  \param[in] mat matriz a sumar
+     *  \param[in] A matriz a sumar
      *  \return Retorna un nuevo objeto con el
      *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
      *  \see Add
      *  \ingroup MatrixGroup
      */
-Pds::Matrix operator+(double b,const Pds::Matrix &mat);
+Pds::Matrix operator+(double b,const Pds::Matrix &A);
 
     /** 
-     *  \brief Resta con sigo mismo (A), un valor b y el resultado es
+     *  \brief Resta b con (A), el resultado es
      * cargado en C. Este operador 
      *  es similar al método Add() 
      *
@@ -3516,16 +3670,16 @@ Pds::Matrix operator+(double b,const Pds::Matrix &mat);
     std::cout<<C;
 \endcode
      *  \param[in] b El valor a operar
-     *  \param[in] mat matriz a restar
+     *  \param[in] A matriz a restar
      *  \return Retorna un nuevo objeto con el
      *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
      *  \see Sub
      *  \ingroup MatrixGroup
      */
-Pds::Matrix operator-(double b,const Pds::Matrix &mat);
+Pds::Matrix operator-(double b,const Pds::Matrix &A);
 
     /** 
-     *  \brief Multiplica con sigo mismo (A), un valor b y el resultado es
+     *  \brief Multiplica b con (A), el resultado es
      * cargado en C. Este operador 
      *  es similar al método Mul() 
      *
@@ -3541,13 +3695,38 @@ Pds::Matrix operator-(double b,const Pds::Matrix &mat);
     std::cout<<C;
 \endcode
      *  \param[in] b El valor a operar
-     *  \param[in] mat matriz a multiplicar
+     *  \param[in] A matriz a multiplicar
      *  \return Retorna un nuevo objeto con el
      *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
      *  \see Mul
      *  \ingroup MatrixGroup
      */
-Pds::Matrix operator*(double b,const Pds::Matrix &mat);
+Pds::Matrix operator*(double b,const Pds::Matrix &A);
+
+    /** 
+     *  \brief Divide b con (A), elemento a elemento y el resultado es
+     * cargado en C. Este operador 
+     *  es similar al método DivSelf() 
+     *
+     *  \f[ C \leftarrow b/A \f]
+\code{.cpp}
+    Pds::Matrix A(4,4);
+    Pds::Matrix C;
+    
+    A.Fill(2.0);
+    
+    C=2.0/A;
+    
+    std::cout<<C;
+\endcode
+     *  \param[in] b El valor a operar
+     *  \param[in] A matriz a dividir
+     *  \return Retorna un nuevo objeto con el
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \see Mul
+     *  \ingroup MatrixGroup
+     */
+Pds::Matrix operator/(double b,const Pds::Matrix &A);
 
 /**
  * @}

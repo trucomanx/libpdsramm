@@ -22,6 +22,7 @@
 
 
 #include <Pds/RegionRect>
+#include <Pds/Matrix>
 
 bool Pds::RegionRect::IsEmpty(void) const
 {
@@ -37,6 +38,18 @@ bool Pds::RegionRect::IsInside(const Pds::RegionRect &R) const
 
     if( (this->L0+this->Nlin)>(R.L0+R.Nlin) ) return false;
     if( (this->C0+this->Ncol)>(R.C0+R.Ncol) ) return false;
+
+    return true;
+}
+
+bool Pds::RegionRect::IsInside(const Pds::Matrix &A) const
+{
+    if(A.IsEmpty()) return false;
+    if(this->L0<0)  return false;
+    if(this->C0<0)  return false;
+
+    if( (this->L0+this->Nlin)>A.Nlin() ) return false;
+    if( (this->C0+this->Ncol)>A.Ncol() ) return false;
 
     return true;
 }

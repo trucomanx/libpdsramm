@@ -1,4 +1,4 @@
-/** \example test_matrix_region.cpp 
+/** \file test_matrix_region.cpp 
  *  \brief Programa para el testeo de las funciones.
  *
     

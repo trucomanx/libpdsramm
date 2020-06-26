@@ -23,6 +23,7 @@ Retornando por consola:
     
 int main(void)
 {
+    Pds::Matrix A(12);
     Pds::RegionRect R0;
     Pds::RegionRect R1(3,3,8,8);
     Pds::RegionRect R2(5,5,8,8);
@@ -38,6 +39,13 @@ int main(void)
 
     if(R.IsInside(R2))  std::cout<<"R is inside R2"<<std::endl;
     else                std::cout<<"R is not inside R2"<<std::endl;
+
+
+    if(R1.IsInside(A))  std::cout<<"R1 is inside A"<<std::endl;
+    else                std::cout<<"R1 is not inside A"<<std::endl;
+
+    if(R2.IsInside(A))  std::cout<<"R2 is inside A"<<std::endl;
+    else                std::cout<<"R2 is not inside A"<<std::endl;
     
     std::cout<<std::endl;
     

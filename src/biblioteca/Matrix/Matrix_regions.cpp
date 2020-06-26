@@ -20,31 +20,22 @@
  * 
  */
 
-
-#include <Pds/Matrix>
 #include <Pds/RegionRect>
+#include <Pds/Matrix>
+
 
 bool Pds::Matrix::CopyRegion(const Pds::RegionRect &Rin,const Pds::RegionRect &Rout,Pds::Matrix &Mout) const
 {
-    if(this->IsEmpty()) return false;
-    if(Mout.IsEmpty())  return false;
-
     if(Rin.Nlin!=Rout.Nlin)    return false;
     if(Rin.Ncol!=Rout.Ncol)    return false;
 
-    unsigned int Nlin=Rin.Nlin;
-    unsigned int Ncol=Rin.Ncol;
-
-    Pds::RegionRect Rm0(0,0,this->Nlin(),this->Ncol());
-    Pds::RegionRect Rm1(0,0,Mout.nlin,Mout.ncol);
-
-    if(Rin.IsInside(Rm0)==false)   return  false;
-    if(Rout.IsInside(Rm1)==false)  return  false;
-
+    if(Rin.IsInside(*this)==false)  return  false;
+    if(Rout.IsInside(Mout)==false)  return  false;
+    
     unsigned int lin,col;
 
-    for(lin=0;lin<Nlin;lin++)
-    for(col=0;col<Ncol;col++)
+    for(lin=0;lin<Rin.Nlin;lin++)
+    for(col=0;col<Rin.Ncol;col++)
     {
         Mout.array[lin+Rout.L0][col+Rout.C0]=this->array[lin+Rin.L0][col+Rin.C0];
     }
@@ -57,10 +48,7 @@ bool Pds::Matrix::InitRegion(Pds::RegionRect R,double val)
 {
 	unsigned int i,j;
 
-	if(this->IsEmpty())	return false;
-
-    Pds::RegionRect Rm(0,0,this->nlin,this->ncol);
-    if(R.IsInside(Rm)==false)   return false;
+    if(R.IsInside(*this)==false)   return false;
 
 	for(i=0;i<R.Nlin;i++)
 	for(j=0;j<R.Ncol;j++)
@@ -189,8 +177,8 @@ bool Pds::Matrix::CorrRegions(  const Pds::Matrix &M1,
     if(R0.Nlin!=R1.Nlin)    return false; // si los tamaños son distintos
     if(R0.Ncol!=R1.Ncol)    return false; // si los tamaños son distintos
 
-    if(R0.IsInside(this->GetRegion())==false) return false;
-    if(R1.IsInside(M1.GetRegion())==false)    return false;
+    if(R0.IsInside(*this)==false) return false;
+    if(R1.IsInside(M1)==false)    return false;
 
     //////////////////////////////////////////////////////////
 
@@ -218,6 +206,48 @@ bool Pds::Matrix::CorrRegions(  const Pds::Matrix &M1,
 
     return true;
 }
+
+
+bool Pds::Matrix::CorrRegions(  const Pds::Matrix &M1,
+                                const Pds::RegionRect &R0,
+                                const Pds::RegionRect &R1,
+                                double mean0,
+                                double mean1,
+                                double std0,
+                                double std1,
+                                double *pcc) const
+{
+    /////////////////////////////////////////////////////////
+    // verificación de datos
+
+	if(pcc==NULL)	        return false;
+    
+    if(R0.Nlin!=R1.Nlin)    return false; // si los tamaños son distintos
+    if(R0.Ncol!=R1.Ncol)    return false; // si los tamaños son distintos
+
+    if(R0.IsInside(*this)==false) return false;
+    if(R1.IsInside(M1)==false)    return false;
+
+    //////////////////////////////////////////////////////////
+
+	unsigned int i,j;
+	double S=0;
+    
+    // casos especiales de la correlacion quando std0 o std1 son cero.
+    if(pcc_special_cases(std0,mean0,std1,mean1,pcc)==true)  return true;
+
+    // calculo do pcc
+	for(i=0;i<R0.Nlin;i++)
+	for(j=0;j<R0.Ncol;j++)
+    {
+        S=S+(this->array[R0.L0+i][R0.C0+j]-mean0)*(M1.array[R1.L0+i][R1.C0+j]-mean1);
+    }
+
+    *pcc=S/(R0.Nlin*R0.Ncol*std0*std1);
+
+    return true;
+}
+
 /*
 
 Pds::RegionRect Pds::Matrix::FindRegion(    const Pds::Matrix &Mdest,
