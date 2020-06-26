@@ -11,8 +11,27 @@ bool Pds::Matrix::Save(const char* filepath) const
     return Pds::Matrix::ArraySave(filepath,this->array,this->nlin,this->ncol);
 }
 
-////////////////////////////////////////////////////////////////////////
+bool Pds::Matrix::Load(const char* filepath)
+{
+    double **array=NULL;
+    unsigned int Nlin,Ncol;
+    this->MakeEmpty();
 
+    array=Pds::Matrix::ArrayLoad(filepath,Nlin,Ncol);
+    if(array==NULL) return false;
+    this->array=array;
+    this->nlin=Nlin;
+    this->ncol=Ncol;
+    return true;
+}
+////////////////////////////////////////////////////////////////////////////////
+
+bool Pds::Matrix::ExportCsvFile(const char* filepath,char delimitador) const
+{
+    return Pds::Matrix::ArrayWriteCsvFile(filepath,this->array,this->nlin,this->ncol,delimitador);
+}
+
+////////////////////////////////////////////////////////////////////////////////
 bool Pds::Matrix::ExportMatFile(const char* pname,const char* filepath) const
 {
     if(this->IsEmpty()) return false;

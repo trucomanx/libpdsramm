@@ -1871,7 +1871,7 @@ public:
 
 public:
 
-/** @name Métodos para exportar datos
+/** @name Métodos para exportar e importar datos
  *  Herramientas genéricas que pueden ser usadas desde Pds::Matrix
  * @{
  */
@@ -1884,6 +1884,27 @@ public:
      *  \ingroup MatrixGroup
      */
     bool Save(const char* filepath) const;
+
+   /** 
+     *  \brief Lee de un archivo una matriz de Nlin lineas y Ncol columnas.
+     *  Si la lectura es satisfactoria el contenido actual de la matriz es liberado,
+     *  en caso de error la matriz queda vacia, esdecir .IsEmpty() retorna true.
+     *  \param[in] filepath El archivo donde se leerán los datos.
+     *  \return Retorna true si todo fue bien o false en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    bool Load(const char* filepath);
+    
+   /** 
+     *  \brief Escribe en un archivo de texto el contenido de la matriz usando
+     *  un formato Csv (Comma Separated Values).
+     *  \param[in] filepath El archivo donde se escribirán los datos.
+     *  \param[in] delimitador Delimitador separador de elementos, ',' por defecto.
+     *  \return Retorna true si todo fue bien o false en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    bool ExportCsvFile(const char* filepath,char delimitador=',') const;
+    
     
    /** 
      *  \brief Escribe en un archivo binario en formato de octave la matriz.
@@ -1928,24 +1949,6 @@ public:
  *  Herramientas genéricas que pueden ser usadas desde Pds::Matrix
  * @{
  */
-    
-
-   /** 
-     *  \brief Lee de un archivo una matriz de Nlin lineas y Ncol columnas.
-     *  \param[in] filepath El archivo donde se leerán los datos.
-     *  \return Retorna una matriz no vacia si todo fue bien o una matriz vacia en caso de error.
-     *  \ingroup MatrixGroup
-     */
-    static Pds::Matrix Load(const char* filepath);
-
-   /** 
-     *  \brief Escribe en un archivo una matriz de Nlin lineas y Ncol columnas.
-     *  \param[in] filepath El archivo donde se escribirán los datos.
-     *  \param[in] A matriz a escribir.
-     *  \return Retorna true si todo fue bien o false en caso de error.
-     *  \ingroup MatrixGroup
-     */
-    static bool Save(const char* filepath,const Pds::Matrix &A);
     
 
     /** 
@@ -2204,6 +2207,19 @@ STRUCTURE=load("-v4","matfile.mat","B");
      */
     static bool ArrayWriteMatFile(FILE *fp,const char *pname,double **arrayr,double **arrayi,unsigned int Nlin,unsigned int Ncol);
 
+    
+   /** 
+     *  \brief Salva en un archivo de texto un arreglo de Nlin lineas y Ncol columnas, 
+     *  usando el formato Csv (Comma Separated Values).
+     *  \param[in] filepath El archivo donde se guardaran los datos.
+     *  \param[in] array El arreglo de arreglos de de Nlin lineas y Ncol columnas
+     *  \param[in] Nlin El numero de lineas en el arreglo.
+     *  \param[in] Ncol El numero de columnas en el arreglo.
+     *  \param[in] delimitador delimitador de elementos por defecto es ','.
+     *  \return Retorna true si todo fue bien o false si no.
+     *  \ingroup MatrixGroup
+     */
+    static bool ArrayWriteCsvFile(const char* filepath,double **array,unsigned int Nlin,unsigned int Ncol,char delimitador=',');
 
     /** 
      *  \brief Escribe los datos de una matriz en un archivo de en formato BMP.

@@ -13,10 +13,11 @@ int main(void)
     
     Pds::Matrix A=Pds::Ones(5); 
     
-    bool state=Pds::Matrix::Save(filepath,A);
+    bool state=A.Save(filepath);
     if(state==true) A.Print("A:\n");
     
-    Pds::Matrix B=Pds::Matrix::Load(filepath);
+    Pds::Matrix B;
+    B.Load(filepath);
     B.Print("B:\n");
     
     

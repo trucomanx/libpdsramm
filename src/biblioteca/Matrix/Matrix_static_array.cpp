@@ -448,7 +448,35 @@ bool Pds::Matrix::ArrayWriteMatFile(FILE *fp,const char *pname,double **arrayr,d
     return true;
 }
    
+////////////////////////////////////////////////////////////////////////////////
 
+
+bool Pds::Matrix::ArrayWriteCsvFile(const char* filepath,double **array,unsigned int Nlin,unsigned int Ncol, char delimitador)
+{
+    std::ofstream myfile;
+    unsigned int lin,col;
+
+    if(filepath==NULL)  return false;
+    if(array==NULL)     return false;
+
+    myfile.open(filepath);
+    if(myfile.is_open()==false)    return false;
+
+    myfile<<std::setprecision(Pds::Ra::StringPrecision);
+    for(lin=0;lin<Nlin;lin++)
+    {
+        if(array[lin]!=NULL)
+        for(col=0;col<Ncol;col++)
+        {
+            myfile <<array[lin][col];
+            if(col!=(Ncol-1))   myfile<<delimitador;
+            else                myfile<<"\n";
+        }
+    }
+
+    myfile.close();
+    return true;
+}
 ////////////////////////////////////////////////////////////////////////
 #include <cstdlib>
 double** Pds::Matrix::ArrayLoad(const char* filepath,unsigned int& Nlin,unsigned int& Ncol)
