@@ -610,9 +610,9 @@ bool Pds::Matrix::ArrayWriteBmp(    double **arrayr,
         g = arrayg[j][i];    if (g > 255) g=255;   if (g < 0) g=0;
         b = arrayb[j][i];    if (b > 255) b=255;   if (b < 0) b=0;
         
-        img[(x+y*WIDTH)*3+2] = (unsigned char)(r);
-        img[(x+y*WIDTH)*3+1] = (unsigned char)(g);
-        img[(x+y*WIDTH)*3+0] = (unsigned char)(b);
+        img[(x+(HEIGHT-1-y)*WIDTH)*3+2] = (unsigned char)(r);
+        img[(x+(HEIGHT-1-y)*WIDTH)*3+1] = (unsigned char)(g);
+        img[(x+(HEIGHT-1-y)*WIDTH)*3+0] = (unsigned char)(b);
     }
 
     ///////////////////////////////// Cabecera //////////////////////////////////
@@ -672,7 +672,8 @@ bool Pds::Matrix::ArrayWriteBmpWithColormap(double **array,
     unsigned char *img = NULL;
     unsigned char UCHAR;
 
-    int i,j;
+    int i;
+    unsigned int lin,col;
 
     if(array==NULL)         return false;
     if(bmpfilename==NULL)   return false;
@@ -685,15 +686,16 @@ bool Pds::Matrix::ArrayWriteBmpWithColormap(double **array,
     img = (unsigned char *)calloc(WIDTH*HEIGHT,sizeof(unsigned char));
     if(img==NULL)   return false;
 
-    for(j=0; j<HEIGHT; j++)
-    for(i=0; i<WIDTH ; i++)
+    for(lin=0; lin<(unsigned int)HEIGHT; lin++)
+    for(col=0; col<(unsigned int)WIDTH ; col++)
     {
 
-        if      (array[j][i] > 255) UCHAR = 255;
-        else if (array[j][i] <   0) UCHAR = 0;
-        else                        UCHAR = (unsigned char)array[j][i];
+        if      (array[lin][col] > 255) UCHAR = 255;
+        else if (array[lin][col] <   0) UCHAR = 0;
+        else                        UCHAR = (unsigned char)array[lin][col];
         
-        img[i+j*WIDTH] = UCHAR;
+        //img[col+lin*WIDTH] = UCHAR;
+        img[col+(HEIGHT-1-lin)*WIDTH] = UCHAR;
     }
 
     ///////////////////////////////// Paleta ///////////////////////////////////
