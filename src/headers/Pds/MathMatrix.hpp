@@ -215,7 +215,7 @@ namespace Pds{
     /** 
      *  \brief Retorna el resultado de evaluar elemento a elemento la funcion pow.
      *
-     *  \f[ A^{var} \equiv pow(A,var) \f]
+     *  \f[ A^B \equiv pow(A,B) \f]
      *  \param[in] A La matriz a evaluar
      *  \param[in] B La matriz a evaluar
      *  \return Retorna la matriz evaluada.
@@ -223,6 +223,18 @@ namespace Pds{
      *  \ingroup MathMatrixGroup
      */
     Pds::Matrix Pow(const Pds::Matrix &A,const Pds::Matrix &B);
+ 
+    /** 
+     *  \brief Retorna el resultado de evaluar elemento a elemento la funcion atan2.
+     *
+     *  \f[ atan2(A,B) \f]
+     *  \param[in] A La matriz a evaluar
+     *  \param[in] B La matriz a evaluar
+     *  \return Retorna la matriz evaluada.
+     *  \see Pds::Matrix::Apply()
+     *  \ingroup MathMatrixGroup
+     */
+    Pds::Matrix Atan2(const Pds::Matrix &A,const Pds::Matrix &B);
 /**
  * @}
  */

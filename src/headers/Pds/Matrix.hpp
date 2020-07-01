@@ -87,6 +87,7 @@ protected:
     /*! Número de columnas. */
     unsigned int ncol;
     
+    friend class CMatrix; 
 public:
 
 /** @name Constructores
@@ -351,6 +352,38 @@ B\equiv [b_{ij}], \qquad C\equiv [c_{ij}]
      *  los datos de otra matriz.
      * 
    \f[
+B\equiv [b_{ij}], \qquad C\equiv [c_{ij}] 
+   \f]
+   \f[
+\mathbf{A} \leftarrow func(\mathbf{B},\mathbf{C},var)
+   \f]
+   \f[
+\mathbf{a}_{ij} \leftarrow func(\mathbf{b}_{ij},\mathbf{c}_{ij},var)
+   \f]
+   Para crear una matriz A , copia de func(B,C,var):
+\code{.cpp}
+    Pds::Matrix B(2,3,2.0);
+    Pds::Matrix C(2,3,3.0);
+    double var=2;
+    Pds::Matrix A(func,B,C,var);
+    
+    if(A.IsEmpty()) std::cout<<"Yes,possible memory allocation problem\n";
+    else            std::cout<<"No,all fine\n";
+\endcode
+     *  \param[in] func Función a aplicar elemento a elemento en las matrices, 
+     *  esta debe tener a forma double func(double,double,double).
+     *  \param[in] B Matriz a evaluar para copiar los resultados.
+     *  \param[in] C Matriz a evaluar para copiar los resultados.
+     *  \param[in] var Tercera variable de la función.
+     *  \ingroup MatrixGroup
+     */
+    Matrix(double (*func)(double,double,double),const Pds::Matrix &B ,const Pds::Matrix &C, double var);
+    
+    /** 
+     *  \brief Crea un objeto de tipo Pds::Matrix, evaluando mediante una función, 
+     *  los datos de otra matriz.
+     * 
+   \f[
 X\equiv [x_{ij}], \qquad Y\equiv [y_{ij}], \qquad Z\equiv [z_{ij}] 
    \f]
    \f[
@@ -376,7 +409,86 @@ X\equiv [x_{ij}], \qquad Y\equiv [y_{ij}], \qquad Z\equiv [z_{ij}]
      *  \param[in] Z Matriz a evaluar para copiar los resultados.
      *  \ingroup MatrixGroup
      */
-    Matrix(double (*func)(double,double,double),const Pds::Matrix &X, const Pds::Matrix &Y, const Pds::Matrix &Z);
+    Matrix(double (*func)(double,double,double),
+            const Pds::Matrix &X, 
+            const Pds::Matrix &Y, 
+            const Pds::Matrix &Z);
+
+    /** 
+     *  \brief Crea un objeto de tipo Pds::Matrix, evaluando mediante una función, 
+     *  los datos de otra matriz.
+     * 
+   \f[
+X\equiv [x_{ij}], \qquad Y\equiv [y_{ij}], \qquad Z\equiv [z_{ij}] 
+   \f]
+   \f[
+\mathbf{A} \leftarrow func(\mathbf{X},\mathbf{Y},\mathbf{Z},var)
+   \f]
+   \f[
+\mathbf{a}_{ij} \leftarrow func(\mathbf{x}_{ij},\mathbf{y}_{ij},\mathbf{z}_{ij},var)
+   \f]
+   Para crear una matriz A , copia de func(X,Y,Z,var):
+\code{.cpp}
+    Pds::Matrix X(2,3,2.0);
+    Pds::Matrix Y(2,3,3.0);
+    Pds::Matrix Z(2,3,1.0);
+    double var=2;
+    Pds::Matrix A(func,X,Y,Z,var);
+    
+    if(A.IsEmpty()) std::cout<<"Yes,possible memory allocation problem\n";
+    else            std::cout<<"No,all fine\n";
+\endcode
+     *  \param[in] func Función a aplicar elemento a elemento en las matrices, 
+     *  esta debe tener a forma double func(double,double,double,double).
+     *  \param[in] X Matriz a evaluar para copiar los resultados.
+     *  \param[in] Y Matriz a evaluar para copiar los resultados.
+     *  \param[in] Z Matriz a evaluar para copiar los resultados.
+     *  \param[in] var Cuarto valor a evaluar.
+     *  \ingroup MatrixGroup
+     */
+    Matrix(double (*func)(double,double,double,double),
+            const Pds::Matrix &X, 
+            const Pds::Matrix &Y, 
+            const Pds::Matrix &Z,
+            double var);
+
+    /** 
+     *  \brief Crea un objeto de tipo Pds::Matrix, evaluando mediante una función, 
+     *  los datos de otra matriz.
+     * 
+   \f[
+X\equiv [x_{ij}], \qquad Y\equiv [y_{ij}], \qquad Z\equiv [z_{ij}], \qquad W\equiv [w_{ij}] 
+   \f]
+   \f[
+\mathbf{A} \leftarrow func(\mathbf{X},\mathbf{Y},\mathbf{Z},\mathbf{W})
+   \f]
+   \f[
+\mathbf{a}_{ij} \leftarrow func(\mathbf{x}_{ij},\mathbf{y}_{ij},\mathbf{z}_{ij},\mathbf{w}_{ij})
+   \f]
+   Para crear una matriz A , copia de func(X,Y,Z,W):
+\code{.cpp}
+    Pds::Matrix X(2,3,2.0);
+    Pds::Matrix Y(2,3,3.0);
+    Pds::Matrix Z(2,3,1.0);
+    Pds::Matrix W(2,3,1.0);
+    Pds::Matrix A(func,X,Y,Z,W);
+    
+    if(A.IsEmpty()) std::cout<<"Yes,possible memory allocation problem\n";
+    else            std::cout<<"No,all fine\n";
+\endcode
+     *  \param[in] func Función a aplicar elemento a elemento en las matrices, 
+     *  esta debe tener a forma double func(double,double,double,double).
+     *  \param[in] X Matriz a evaluar para copiar los resultados.
+     *  \param[in] Y Matriz a evaluar para copiar los resultados.
+     *  \param[in] Z Matriz a evaluar para copiar los resultados.
+     *  \param[in] W Matriz a evaluar para copiar los resultados.
+     *  \ingroup MatrixGroup
+     */
+    Matrix(double (*func)(double,double,double,double),
+            const Pds::Matrix &X, 
+            const Pds::Matrix &Y, 
+            const Pds::Matrix &Z,
+            const Pds::Matrix &W);
 
     /** 
      *  \brief Crea un objeto de tipo Pds::Matrix copiando datos desde 
@@ -1685,7 +1797,9 @@ public:
     Pds::RegionRect GetRegion(void) const;
 
     /** 
-     *  \brief Calcula la media de los elementos de la intersecion de la region con la matriz.
+     *  \brief Calcula la media de los elementos en la region, pero para que sea
+     *  calculado debe existir una interseccion diferente de zero con la matriz.
+     *  Los valores fuera de la matriz son considerados cero.
      *
 \f[ 
 R=Rin\cap R_{A}
@@ -1702,7 +1816,9 @@ mean=\mu_{R}=
     bool MeanOfRegion(const Pds::RegionRect &Rin, double *mean) const;
 
     /** 
-     *  \brief Calcula la media de los elementos de la intersecion de la region con la matriz.
+     *  \brief Calcula la media de los elementos en la region, pero para que sea
+     *  calculado debe existir una interseccion diferente de zero con la matriz.
+     *  Los valores fuera de la matriz son considerados cero.
      *
 \f[ 
 R=Rin\cap R_{A}
@@ -1716,6 +1832,43 @@ mean=\mu_{R}=
      *  \ingroup MatrixGroup
      */
     double MeanOfRegion(const Pds::RegionRect &Rin) const;
+
+    /** 
+     *  \brief Calcula la media del cuadrado de los elementos en la region, pero para que sea
+     *  calculado debe existir una interseccion diferente de zero con la matriz.
+     *  Los valores fuera de la matriz son considerados cero.
+     *
+\f[ 
+R=Rin\cap R_{A}
+\f] 
+\f[  
+mean=\mu_{R}=
+\frac{\sum \limits_{i\in R} Mat\{i\}^2}{card(R)}
+\f]
+     *  \param[in] Rin La region a calcular.
+     *  \param[out] mean Media.
+     *  \return true si todo fue bien o false si no (ej: mean==NULL). 
+     *  \ingroup MatrixGroup
+     */
+    bool MeanSquareOfRegion(const Pds::RegionRect &Rin, double *mean) const;
+
+    /** 
+     *  \brief Calcula la media del cuadrado de los elementos en la region, pero para que sea
+     *  calculado debe existir una interseccion diferente de zero con la matriz.
+     *  Los valores fuera de la matriz son considerados cero.
+     *
+\f[ 
+R=Rin\cap R_{A}
+\f] 
+\f[  
+mean=\mu_{R}=
+\frac{\sum \limits_{i\in R} Mat\{i\}^2}{card(R)}
+\f]
+     *  \param[in] Rin La region a calcular.
+     *  \return la media o Pds::Ra::Nan si hubo un error (ej: IsEmpty()==true). 
+     *  \ingroup MatrixGroup
+     */
+    double MeanSquareOfRegion(const Pds::RegionRect &Rin) const;
 
     /** 
      *  \brief Calcula el desvío padrón y la media de los elementos de la intersección de la región con la matriz.
@@ -1737,6 +1890,58 @@ std=\sigma_{R}=
      */
     bool StdAndMeanOfRegion(const Pds::RegionRect &Rin, double *std, double *mean) const;
 
+
+    /** 
+     *  \brief Calcula correlación normalizada entre los
+     *  elementos de la intersección de la regiones con sus matrices. 
+     *
+     *  Para que la correlacion sea ejecutada se debe cumplir que \f$ Size(R_0)==Size(R_1)\f$
+     *  ademas que \f$ R_0 \subset M_0 \f$ y \f$R_1 \subset M_1\f$. Con estas 
+     *  condiciones obtenemos las submatrices \f$S_0\f$ y \f$S_1\f$.
+\f[
+S_0 \equiv {M_0}_{R_0}, \qquad S_1 \equiv {M_1}_{R_1}
+\f]
+\f[  CORR=\frac{E[S_0~S_1]}{\sqrt{MS\{S_0\}~MS\{S_1\}}} \f]
+     *  \param[in] M1 Una matriz de la correlación.
+     *  \param[in] R0 La región a analizar en la matriz M0, el tamaño de R0 debe ser igual al tamaño de R1.
+     *  \param[in] R1 La región a analizar en la matriz M1, el tamaño de R0 debe ser igual al tamaño de R1.
+     *  \param[out] corrn Correlación normalizada.
+     *  \return true si todo fue bien o false si no (ej: pcc==NULL).
+     *  Retorna false cuando algún lado de las regiones a analizar son cero.
+     *  \ingroup MatrixGroup
+     */
+    bool CorrNormRegions(   const Pds::Matrix &M1,
+                            const Pds::RegionRect &R0,
+                            const Pds::RegionRect &R1, 
+                            double *corrn) const;
+
+    /** 
+     *  \brief Calcula correlación normalizada entre los
+     *  elementos de la intersección de la regiones con sus matrices. 
+     *
+     *  Para que la correlacion sea ejecutada se debe cumplir que \f$ Size(R_0)==Size(R_1)\f$
+     *  ademas que \f$ R_0 \subset M_0 \f$ y \f$R_1 \subset M_1\f$. Con estas 
+     *  condiciones obtenemos las submatrices \f$S_0\f$ y \f$S_1\f$.
+\f[
+S_0 \equiv {M_0}_{R_0}, \qquad S_1 \equiv {M_1}_{R_1}
+\f]
+\f[  CORR=\frac{E[S_0~S_1]}{\sqrt{MS\{S_0\}~MS\{S_1\}}} \f]
+     *  \param[in] M1 Una matriz de la correlación.
+     *  \param[in] R0 La región a analizar en la matriz M0, el tamaño de R0 debe ser igual al tamaño de R1.
+     *  \param[in] R1 La región a analizar en la matriz M1, el tamaño de R0 debe ser igual al tamaño de R1.
+     *  \param[in] means0 Valor cuadrático medio de la region R0, \f$MS\{S_0\}\f$.
+     *  \param[in] means1 Valor cuadrático medio de la region R1, \f$MS\{S_1\}\f$.
+     *  \param[out] corrn Correlación normalizada.
+     *  \return true si todo fue bien o false si no (ej: pcc==NULL).
+     *  Retorna false cuando algún lado de las regiones a analizar son cero.
+     *  \ingroup MatrixGroup
+     */
+    bool CorrNormRegions(   const Pds::Matrix &M1,
+                            const Pds::RegionRect &R0,
+                            const Pds::RegionRect &R1, 
+                            double means0,
+                            double means1,
+                            double *corrn) const;
 
     /** 
      *  \brief Calcula el coeficiente de correlación de Pearson (PCC) entre los
@@ -1771,10 +1976,10 @@ S_0 \equiv {M_0}_{R_0}, \qquad S_1 \equiv {M_1}_{R_1}
      *  Retorna false cuando algún lado de las regiones a analizar son cero.
      *  \ingroup MatrixGroup
      */
-    bool CorrRegions(   const Pds::Matrix &M1,
-                        const Pds::RegionRect &R0,
-                        const Pds::RegionRect &R1, 
-                        double *pcc) const;
+    bool CorrPearsonRegions(const Pds::Matrix &M1,
+                            const Pds::RegionRect &R0,
+                            const Pds::RegionRect &R1, 
+                            double *pcc) const;
 
     /** 
      *  \brief Calcula el coeficiente de correlación de Pearson (PCC) entre los
@@ -1813,7 +2018,7 @@ S_0 \equiv {M_0}_{R_0}, \qquad S_1 \equiv {M_1}_{R_1}
      *  Retorna false cuando algún lado de las regiones a analizar son cero.
      *  \ingroup MatrixGroup
      */
-    bool CorrRegions(   const Pds::Matrix &M1,
+    bool CorrPearsonRegions(   const Pds::Matrix &M1,
                         const Pds::RegionRect &R0,
                         const Pds::RegionRect &R1,
                         double mean0,
@@ -2023,6 +2228,20 @@ public:
 
     /** 
      *  \brief crea dinámicamente un arreglo de A.Nlin() lineas y A.Ncol() columnas,
+     *  con los datos copiados de aplicar func(A,B,var).
+     *  Los tamaño de A y B son similares.
+     *  \param[in] func Función a aplicar, esta debe tener a forma double func(double,double,double).
+     *  \param[in] A Matriz de donde se copiaran datos.
+     *  \param[in] B Matriz de donde se copiaran datos.
+     *  \param[in] var Tercer valor a evaluar.
+     *  \return Retorna un puntero al arreglo, o NULL si no consiguió reservar
+     * la memoria. Esta memoria debe ser liberada siempre com ArrayRelease
+     *  \ingroup MatrixGroup
+     */
+    static double** ArrayAllocate(double (*func)(double,double,double),const Pds::Matrix &A,const Pds::Matrix &B,double var);
+    
+    /** 
+     *  \brief crea dinámicamente un arreglo de A.Nlin() lineas y A.Ncol() columnas,
      *  con los datos copiados de aplicar func(A,B,C).
      *  Los tamaño de A, B y C son similares.
      *  \param[in] func Función a aplicar, esta debe tener a forma double func(double,double,double).
@@ -2033,7 +2252,48 @@ public:
      * la memoria. Esta memoria debe ser liberada siempre com ArrayRelease
      *  \ingroup MatrixGroup
      */
-    static double** ArrayAllocate(double (*func)(double,double,double),const Pds::Matrix &A,const Pds::Matrix &B,const Pds::Matrix &C);
+    static double** ArrayAllocate(double (*func)(double,double,double),
+                                    const Pds::Matrix &A,
+                                    const Pds::Matrix &B,
+                                    const Pds::Matrix &C);
+    
+    /** 
+     *  \brief crea dinámicamente un arreglo de A.Nlin() lineas y A.Ncol() columnas,
+     *  con los datos copiados de aplicar func(A,B,C,var).
+     *  Los tamaño de A, B y C son similares.
+     *  \param[in] func Función a aplicar, esta debe tener a forma double func(double,double,double,double).
+     *  \param[in] A Matriz de donde se copiaran datos.
+     *  \param[in] B Matriz de donde se copiaran datos.
+     *  \param[in] C Matriz de donde se copiaran datos.
+     *  \param[in] var Cuarto valor a evaluar.
+     *  \return Retorna un puntero al arreglo, o NULL si no consiguió reservar
+     * la memoria. Esta memoria debe ser liberada siempre com ArrayRelease
+     *  \ingroup MatrixGroup
+     */
+    static double** ArrayAllocate(double (*func)(double,double,double,double),
+                                    const Pds::Matrix &A,
+                                    const Pds::Matrix &B,
+                                    const Pds::Matrix &C,
+                                    double var);
+    
+    /** 
+     *  \brief crea dinámicamente un arreglo de A.Nlin() lineas y A.Ncol() columnas,
+     *  con los datos copiados de aplicar func(A,B,C,D).
+     *  Los tamaño de A, B, C y D son similares.
+     *  \param[in] func Función a aplicar, esta debe tener a forma double func(double,double,double,double).
+     *  \param[in] A Matriz de donde se copiaran datos.
+     *  \param[in] B Matriz de donde se copiaran datos.
+     *  \param[in] C Matriz de donde se copiaran datos.
+     *  \param[in] D Matriz de donde se copiaran datos.
+     *  \return Retorna un puntero al arreglo, o NULL si no consiguió reservar
+     * la memoria. Esta memoria debe ser liberada siempre com ArrayRelease
+     *  \ingroup MatrixGroup
+     */
+    static double** ArrayAllocate(double (*func)(double,double,double,double),
+                                    const Pds::Matrix &A,
+                                    const Pds::Matrix &B,
+                                    const Pds::Matrix &C,
+                                    const Pds::Matrix &D);
     
     /** 
      *  \brief crea dinámicamente un arreglo de A.Nlin() lineas y A.Ncol() columnas,

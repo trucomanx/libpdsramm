@@ -23,7 +23,7 @@ Retornando por consola:
     
 int main(void)
 {
-    unsigned int L,N=7;
+    unsigned int N=7;
     Pds::Matrix Mat1=Pds::Round(9*Pds::RandU(N,N));
     Pds::Matrix Mat2(N,N);
 
@@ -58,6 +58,7 @@ int main(void)
     std::cout<<"Mat1.StdAndMeanOfRegion(R1,&std,&mean):\t"<<std<<"\t"<<mean<<std::endl;
     
     /*
+    unsigned int L;
     Pds::RegionRect Rout;
     N=1000;
     L=64;

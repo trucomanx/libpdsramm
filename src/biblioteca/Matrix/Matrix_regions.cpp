@@ -67,8 +67,51 @@ Pds::RegionRect Pds::Matrix::GetRegion(void) const
 
     return Pds::RegionRect(0,0,this->nlin,this->ncol);
 }
+////////////////////////////////////////////////////////////////////////////////
+bool Pds::Matrix::MeanSquareOfRegion(const Pds::RegionRect &Rin, double *means) const
+{
+	unsigned int i,j;
+	double S=0;
 
+	if(this->IsEmpty()) return false;
+	if(means==NULL)	    return false;
 
+    Pds::RegionRect Rmat(0,0,this->nlin,this->ncol);
+    Pds::RegionRect R=Rmat.Intersection(Rin);
+    if(R.IsEmpty())     return false;
+
+	for(i=0;i<R.Nlin;i++)
+	for(j=0;j<R.Ncol;j++)
+    {
+        S=S+(this->array[R.L0+i][R.C0+j])*(this->array[R.L0+i][R.C0+j]);
+    }
+
+    *means=S/(R.Nlin*R.Ncol);
+
+    return true;
+}
+
+double Pds::Matrix::MeanSquareOfRegion(const Pds::RegionRect &Rin) const
+{
+	unsigned int i,j;
+	double S=0;
+
+	if(this->IsEmpty()) return Pds::Ra::Nan;
+
+    Pds::RegionRect Rmat(0,0,this->nlin,this->ncol);
+    Pds::RegionRect R=Rmat.Intersection(Rin);
+    if(R.IsEmpty())     return Pds::Ra::Nan;
+
+	for(i=0;i<R.Nlin;i++)
+	for(j=0;j<R.Ncol;j++)
+    {
+        S=S+(this->array[R.L0+i][R.C0+j])*(this->array[R.L0+i][R.C0+j]);
+    }
+
+    return S/(R.Nlin*R.Ncol);
+}
+
+////////////////////////////////////////////////////////////////////////////////
 bool Pds::Matrix::MeanOfRegion(const Pds::RegionRect &Rin, double *mean) const
 {
 	unsigned int i,j;
@@ -139,6 +182,83 @@ bool Pds::Matrix::StdAndMeanOfRegion(const Pds::RegionRect &Rin, double *std, do
     return true;
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+
+bool Pds::Matrix::CorrNormRegions(  const Pds::Matrix &M1,
+                                    const Pds::RegionRect &R0,
+                                    const Pds::RegionRect &R1, 
+                                    double *corrn) const
+{
+    /////////////////////////////////////////////////////////
+    // verificación de datos
+
+	if(corrn==NULL)	        return false;
+    
+    if(R0.Nlin!=R1.Nlin)    return false; // si los tamaños son distintos
+    if(R0.Ncol!=R1.Ncol)    return false; // si los tamaños son distintos
+
+    if(R0.IsInside(*this)==false) return false;
+    if(R1.IsInside(M1)==false)    return false;
+
+    //////////////////////////////////////////////////////////
+
+	unsigned int i,j;
+	double S=0;
+
+    // calculo do desvio padrão
+    double means0,means1;
+    this->MeanSquareOfRegion(R0,&means0);
+    M1.MeanSquareOfRegion(R1,&means1);
+
+    // calculo do corrn
+	for(i=0;i<R0.Nlin;i++)
+	for(j=0;j<R0.Ncol;j++)
+    {
+        S=S+(this->array[R0.L0+i][R0.C0+j])*(M1.array[R1.L0+i][R1.C0+j]);
+    }
+    
+    *corrn=S/(R0.Nlin*R0.Ncol*sqrt(means0*means1));
+    
+    return true;
+}
+
+bool Pds::Matrix::CorrNormRegions(  const Pds::Matrix &M1,
+                                    const Pds::RegionRect &R0,
+                                    const Pds::RegionRect &R1, 
+                                    double means0,
+                                    double means1,
+                                    double *corrn) const
+{
+    /////////////////////////////////////////////////////////
+    // verificación de datos
+
+	if(corrn==NULL)	        return false;
+    
+    if(R0.Nlin!=R1.Nlin)    return false; // si los tamaños son distintos
+    if(R0.Ncol!=R1.Ncol)    return false; // si los tamaños son distintos
+
+    if(R0.IsInside(*this)==false) return false;
+    if(R1.IsInside(M1)==false)    return false;
+
+    //////////////////////////////////////////////////////////
+
+	unsigned int i,j;
+	double S=0;
+
+    // calculo do corrn
+	for(i=0;i<R0.Nlin;i++)
+	for(j=0;j<R0.Ncol;j++)
+    {
+        S=S+(this->array[R0.L0+i][R0.C0+j])*(M1.array[R1.L0+i][R1.C0+j]);
+    }
+    
+    *corrn=S/(R0.Nlin*R0.Ncol*sqrt(means0*means1));
+    
+    return true;
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////
 bool pcc_special_cases(double std0,double mean0,double std1,double mean1,double *pcc)
@@ -164,7 +284,7 @@ bool pcc_special_cases(double std0,double mean0,double std1,double mean1,double 
     return false;
 }
 
-bool Pds::Matrix::CorrRegions(  const Pds::Matrix &M1,
+bool Pds::Matrix::CorrPearsonRegions(  const Pds::Matrix &M1,
                                 const Pds::RegionRect &R0,
                                 const Pds::RegionRect &R1, 
                                 double *pcc) const
@@ -208,7 +328,7 @@ bool Pds::Matrix::CorrRegions(  const Pds::Matrix &M1,
 }
 
 
-bool Pds::Matrix::CorrRegions(  const Pds::Matrix &M1,
+bool Pds::Matrix::CorrPearsonRegions(  const Pds::Matrix &M1,
                                 const Pds::RegionRect &R0,
                                 const Pds::RegionRect &R1,
                                 double mean0,

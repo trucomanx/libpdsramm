@@ -190,6 +190,24 @@ Pds::Matrix::Matrix(double (*func)(double,double),const Pds::Matrix &B,const Pds
     return;
 }
 
+Pds::Matrix::Matrix(double (*func)(double,double,double),const Pds::Matrix &B,const Pds::Matrix &C,double var)
+{
+    this->nlin=0;
+    this->ncol=0;
+    this->array=NULL;
+        
+    if(B.IsEmpty())  return;
+    if(C.IsEmpty())  return;
+    if(B.IsNotSimilarTo(C)) return;
+
+    this->array= Pds::Matrix::ArrayAllocate(func,B,C,var);
+    if(this->array==NULL)  return;
+    
+    this->nlin=B.nlin;
+    this->ncol=B.ncol;
+    
+    return;
+}
 
 Pds::Matrix::Matrix(double (*func)(double,double,double),const Pds::Matrix &X,const Pds::Matrix &Y,const Pds::Matrix &Z)
 {
@@ -202,6 +220,53 @@ Pds::Matrix::Matrix(double (*func)(double,double,double),const Pds::Matrix &X,co
     if(X.IsNotSimilarTo(Z)) return;
 
     this->array= Pds::Matrix::ArrayAllocate(func,X,Y,Z);
+    if(this->array==NULL)  return;
+    
+    this->nlin=X.nlin;
+    this->ncol=X.ncol;
+    
+    return;
+}
+
+Pds::Matrix::Matrix(double (*func)(double,double,double,double),
+                    const Pds::Matrix &X,
+                    const Pds::Matrix &Y,
+                    const Pds::Matrix &Z,
+                    double var)
+{
+    this->nlin=0;
+    this->ncol=0;
+    this->array=NULL;
+        
+    if(X.IsEmpty())  return;
+    if(X.IsNotSimilarTo(Y)) return;
+    if(X.IsNotSimilarTo(Z)) return;
+
+    this->array= Pds::Matrix::ArrayAllocate(func,X,Y,Z,var);
+    if(this->array==NULL)  return;
+    
+    this->nlin=X.nlin;
+    this->ncol=X.ncol;
+    
+    return;
+}
+
+Pds::Matrix::Matrix(double (*func)(double,double,double,double),
+                    const Pds::Matrix &X,
+                    const Pds::Matrix &Y,
+                    const Pds::Matrix &Z,
+                    const Pds::Matrix &W)
+{
+    this->nlin=0;
+    this->ncol=0;
+    this->array=NULL;
+        
+    if(X.IsEmpty())  return;
+    if(X.IsNotSimilarTo(Y)) return;
+    if(X.IsNotSimilarTo(Z)) return;
+    if(X.IsNotSimilarTo(W)) return;
+
+    this->array= Pds::Matrix::ArrayAllocate(func,X,Y,Z,W);
     if(this->array==NULL)  return;
     
     this->nlin=X.nlin;
