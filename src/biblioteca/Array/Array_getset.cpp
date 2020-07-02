@@ -56,6 +56,16 @@ Pds::Size Pds::Array<Datum>::Size(void) const
 }
 
 template <class Datum>
+Datum Pds::Array<Datum>::Get(unsigned int lin,unsigned int col)
+{
+    if(lin>=this->nlin) return 0;
+    if(col>=this->ncol) return 0;
+    
+    return this->array[lin][col];
+}
+
+
+template <class Datum>
 Datum &Pds::Array<Datum>::At(unsigned int lin,unsigned int col)
 {
     lin=lin%(this->nlin);

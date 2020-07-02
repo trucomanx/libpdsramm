@@ -216,7 +216,17 @@ public:
  *  Herramientas genéricas para lectura y escritura de datos.
  * @{
  */
-    
+    /** 
+     *  \brief Retorna una variable Datum en la posición (lin,col) de la array. 
+     *  Hace una verificación para evitar leer o escribir fuera de la memoria, 
+     *  si no está retorna zero 
+     *  \param[in] lin La linea en consulta.
+     *  \param[in] col La columna en consulta.
+     *  \return Retorna una variable Datum en la posición (lin,col). 
+     *  \ingroup ArrayGroup
+     */
+    Datum Get(unsigned int lin,unsigned int col);
+
     /** 
      *  \brief Retorna una variable Datum en la posición (lin,col) de la array. 
      *  Hace una verificación para evitar leer o escribir fuera de la memoria, 
