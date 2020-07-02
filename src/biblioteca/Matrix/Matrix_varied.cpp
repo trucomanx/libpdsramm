@@ -7,12 +7,15 @@
 
 ////////////////////////////////////////////////////////////////////////
 
-bool Pds::Matrix::Scale(double minval,double maxval)
+Pds::Matrix Pds::Matrix::Scale(double minval,double maxval) const
 {
     unsigned int lin,col;
-    if(minval==maxval)  return false;
-    if(this->IsEmpty()) return false;
+    if(minval==maxval)  return Pds::Matrix();
+    if(this->IsEmpty()) return Pds::Matrix();
 
+    Pds::Matrix Ans(this->Size());
+    if(Ans.IsEmpty())  return Pds::Matrix();
+    
     double a=minval>maxval?maxval:minval;
     double b=maxval>minval?maxval:minval;
     minval=a;
@@ -24,10 +27,10 @@ bool Pds::Matrix::Scale(double minval,double maxval)
     for(lin=0;lin<this->nlin;lin++)
     for(col=0;col<this->ncol;col++)
     {
-        this->array[lin][col]=minval+(maxval-minval)*(this->array[lin][col]-mindat)/(maxdat-mindat);
+        Ans.array[lin][col]=minval+(maxval-minval)*(this->array[lin][col]-mindat)/(maxdat-mindat);
     }
 
-    return true;
+    return Ans;
 }
 
 ////////////////////////////////////////////////////////////////////////

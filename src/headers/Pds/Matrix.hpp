@@ -2076,10 +2076,10 @@ public:
      * 
      *  \param[in] minval Valor menor de la escala.
      *  \param[in] maxval Valor maior de la escala.
-     *  \return Retorna true si todo fue bien y false si no.
+     *  \return Retorna la matriz escalada si todo fue bien o una vacia si no.
      *  \ingroup MatrixGroup
      */
-    bool Scale(double minval,double maxval);
+    Pds::Matrix Scale(double minval,double maxval) const;
 
     /** 
      *  \brief libera los datos internos de la matriz y la convierte en una matriz nula.
