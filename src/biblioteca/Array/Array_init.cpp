@@ -1,6 +1,5 @@
-
 /*
- * Array_getset.cpp
+ * Array_init.cpp
  * 
  * Copyright 2018 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
  * 
@@ -21,10 +20,9 @@
  * 
  */
 
-
+#include <cstdlib>
+#include <cmath>
 #include <Pds/Array>
-
-
 
 // Instantiate Pds::Array for the supported template type parameters
 template class Pds::Array<double>;
@@ -32,52 +30,21 @@ template class Pds::Array<unsigned char>;
 template class Pds::Array<unsigned int >;
 
 template <class Datum>
-unsigned int Pds::Array<Datum>::Nlin(void) const
+bool Pds::Array<Datum>::FillRandC(double p1)
 {
-    return this->nlin;
-}
-
-template <class Datum>
-unsigned int Pds::Array<Datum>::Ncol(void) const
-{
-    return this->ncol;
-}
-
-template <class Datum>
-unsigned int Pds::Array<Datum>::Nel(void) const
-{
-    return this->ncol*this->nlin;
-}
-
-template <class Datum>
-Pds::Size Pds::Array<Datum>::Size(void) const
-{
-    return Pds::Size(this->nlin,this->ncol);
-}
-
-template <class Datum>
-Datum Pds::Array<Datum>::Get(unsigned int lin,unsigned int col) const
-{
-    if(lin>=this->nlin) return 0;
-    if(col>=this->ncol) return 0;
+    if(this->IsEmpty()) return false;
+    if((p1>1)||(p1<0))  return false;
     
-    return this->array[lin][col];
-}
+    unsigned int lin,col;
 
+    for(lin=0;lin<this->nlin;lin++)
+    for(col=0;col<this->ncol;col++)
+    {
+        if(rand()>(RAND_MAX*p1))
+        this->array[lin][col]=0;
+        else
+        this->array[lin][col]=1;
+    }
 
-template <class Datum>
-Datum &Pds::Array<Datum>::At(unsigned int lin,unsigned int col)
-{
-    lin=lin%(this->nlin);
-    col=col%(this->ncol);
-    
-    return this->array[lin][col];
-}
-
-template <class Datum>
-Datum &Pds::Array<Datum>::At(unsigned int id)
-{
-    id=id%((this->nlin)*(this->ncol));
-   
-    return this->array[id%this->nlin][id/this->nlin];
+    return true;
 }

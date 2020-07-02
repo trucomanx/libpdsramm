@@ -56,6 +56,21 @@ bool Pds::Matrix::FillRandU(void)
     return true;
 }
 
+bool Pds::Matrix::FillRandC(double p1)
+{
+    if(this->IsEmpty())   return false;
+    
+    unsigned int lin,col;
+
+    for(lin=0;lin<this->nlin;lin++)
+    for(col=0;col<this->ncol;col++)
+    {
+        this->array[lin][col]=rand()<(RAND_MAX*p1);
+    }
+
+    return true;
+}
+
 bool Pds::Matrix::FillRandU(double begin, double end)
 {
     if(this->IsEmpty())   return false;

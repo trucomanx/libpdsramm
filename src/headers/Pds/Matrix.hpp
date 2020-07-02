@@ -65,6 +65,7 @@ A\equiv [a_{i,j}]
 #include <Pds/Size>
 #include <Pds/RaDefines>
 #include <Pds/RegionRect>
+#include <Pds/Array>
 
 namespace Pds{
 
@@ -191,6 +192,22 @@ B\equiv [b_{i,j}]
     Matrix(const Pds::Matrix &B);
     
 
+    /** 
+     *  \brief Crea un objeto de tipo Pds::Matrix copiando datos desde 
+     *  un arreglo
+     * 
+   \f[
+B\equiv [b_{i,j}]
+   \f]
+   \f[
+\mathbf{A} \leftarrow \mathbf{B}
+   \f]
+     *  \param[in] B Array a copiar.
+     *  \ingroup MatrixGroup
+     */
+    Matrix(const Pds::Array<unsigned int> &B);
+    Matrix(const Pds::Array<unsigned char> &B);
+    Matrix(const Pds::Array<double> &B);
 
     /** 
      *  \brief Crea un objeto de tipo Pds::Matrix copiando datos desde 
@@ -828,6 +845,20 @@ public:
      *  \ingroup MatrixGroup
      */
     bool FillRandU(void);
+
+    
+    /** 
+     *  \brief Inicializa la matriz con números aleatórios unos y ceros,
+     *  la probabilidad de 1 es p1.
+     *  \warning La función usa internamente la función rand(), 
+     *  si se desea esta puede ser aleatoriamente inicializada usando la funcíón Pds::Ra::Randomize(),
+     *  de lo contrario los números pseudo aleatórios siempre seguirán la misma secuencia.
+     * 
+     *  \param[in] p1 Probabilidad de acontecer un 1.
+     *  \return Retorna true si todo fue bien o false si no.
+     *  \ingroup MatrixGroup
+     */
+    bool FillRandC(double p1);
     
     /** 
      *  \brief Inicializa la matriz con números aleatórios, distribuidos uniformemente,
@@ -839,6 +870,8 @@ public:
    \f[ f_{X}(x)= 1,~~min(a,b)\leq x\leq max(a,b), x \in R \f]
    \f[ \mathbf{A}\equiv [a_{i,j}]_{M,N} \f]
    \f[ a_{i,j}\leftarrow X_{l} \in X \f]
+     *  \param[in] a Valor mínimo posible.
+     *  \param[in] b Valor máximo posible.
      *  \return Retorna true si todo fue bien o false si no.
      *  \ingroup MatrixGroup
      */
@@ -854,6 +887,8 @@ public:
    \f[ f_{X}(x)= 1,~~min(a,b)\leq x\leq max(a,b), x \in R \f]
    \f[ \mathbf{A}\equiv [a_{i,j}]_{M,N} \f]
    \f[ a_{i,j}\leftarrow X_{l} \in X \f]
+     *  \param[in] a Valor mínimo posible.
+     *  \param[in] b Valor máximo posible.
      *  \return Retorna true si todo fue bien o false si no.
      *  \ingroup MatrixGroup
      */
@@ -2036,6 +2071,15 @@ public:
  *  Herramientas genéricas
  * @{
  */
+    /** 
+     *  \brief Rescala linearmente los datos desde minval a maxval.
+     * 
+     *  \param[in] minval Valor menor de la escala.
+     *  \param[in] maxval Valor maior de la escala.
+     *  \return Retorna true si todo fue bien y false si no.
+     *  \ingroup MatrixGroup
+     */
+    bool Scale(double minval,double maxval);
 
     /** 
      *  \brief libera los datos internos de la matriz y la convierte en una matriz nula.

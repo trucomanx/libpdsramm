@@ -52,7 +52,7 @@ void Pds::Array<Datum>::Print(std::string str) const
     for(lin=0;lin<this->nlin;lin++)
     for(col=0;col<this->ncol;col++)
     {
-        std::cout<<0+(this->array[lin][col]);
+        std::cout<<(0+(this->array[lin][col]));
 
         if(col!=(this->ncol-1)) std::cout<<"\t";
         else                    std::cout<<"\n";

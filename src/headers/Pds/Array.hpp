@@ -135,6 +135,56 @@ public:
     Array(const Pds::Array<Datum> &B);
 
     ~Array(); 
+
+/**
+ * @}
+ */
+
+public:
+
+/** @name Métodos de asignacion Pds::Array
+ *  Indican o establecen el estado de una array.
+ * @{
+ */
+
+    /** 
+     *  \brief Copia en si mismo (A), una array B. Este operador es 
+     *  similar al método Copy().
+     *  No importa  el tamaño de A, sus datos son liberados y un nuevo
+     *  arreglo de datos es reservado.
+     *
+     *  \f[ A \leftarrow B \f]
+     * Cuando acontece:
+\code{.cpp}
+    Pds::Array B(nlin,ncol);
+    A=B;
+\endcode
+     * Cuando NO acontece:
+\code{.cpp}
+    Pds::Array A=Pds::Array(nlin,ncol);
+\endcode
+     *  \param[in] B la array a copiar
+     *  \return Retorna el operador de la izquierda (acumulador) con el
+     *  resultado, o una array vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \see Copy
+     *  \ingroup ArrayGroup
+     */
+    Pds::Array<Datum>& operator = (const Pds::Array<Datum> &B);
+    
+    /** 
+     *  \brief Copia en si mismo (A), el contenido de una array B. Este 
+     *  método es similar a usar el operador = .
+     *  No importa  el tamaño de A, sus datos son liberados y un nuevo
+     *  arreglo de datos es reservado.
+     *
+     *  \f[ A \leftarrow B \f]
+     *  \param[in] B la array a copiar
+     *  \return Retorna true si todo fue bien o false si no. Si se retorna false
+     *  el receptor no altera su contenido.
+     *  \see Copy
+     *  \ingroup ArrayGroup
+     */
+    bool Copy(const Pds::Array<Datum> &B);
     
 /**
  * @}
@@ -166,6 +216,30 @@ public:
      *  \ingroup ArrayGroup
      */
     bool IsNotSimilarTo(const Pds::Array<Datum> &B) const;
+
+
+/**
+ * @}
+ */
+
+public:
+
+/** @name Métodos de fill  Pds::Array
+ *  Herramientas genéricas para lectura y escritura de datos.
+ * @{
+ */
+    /** 
+     *  \brief Inicializa la array con números con unos y ceros con una probabilidad de 1 igual a p1.
+     *
+     *  \warning La función usa internamente la función rand(), 
+     *  si se desea esta puede ser aleatoriamente inicializada usando la funcíón Pds::Ra::Randomize(),
+     *  de lo contrario los números pseudo aleatórios siempre seguirán la misma secuencia.
+     * 
+     *  \param[in] p1 Probabilidad de encontrar un 1.
+     *  \return Retorna true si todo fue bien o false si no.
+     *  \ingroup ArrayGroup
+     */
+    bool FillRandC(double p1);
 /**
  * @}
  */
@@ -225,7 +299,7 @@ public:
      *  \return Retorna una variable Datum en la posición (lin,col). 
      *  \ingroup ArrayGroup
      */
-    Datum Get(unsigned int lin,unsigned int col);
+    Datum Get(unsigned int lin,unsigned int col) const;
 
     /** 
      *  \brief Retorna una variable Datum en la posición (lin,col) de la array. 

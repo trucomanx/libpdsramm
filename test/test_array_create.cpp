@@ -14,10 +14,17 @@ int main(void)
     Pds::Array<unsigned char> B(2,2);
     B.At(2)=9;
     Pds::Array<double> C(3,2,0.5);
+
+    Pds::Matrix M(B);
         
     A.Print("\nA:\n");
     B.Print("\nB:\n");
     C.Print("\nC:\n");
+
+    std::cout<<"B.Get(0,1):"<<0+B.Get(0,1)<<std::endl;
+
+
+    M.Print("\nM(B):\n");
     
     return 0;
 }

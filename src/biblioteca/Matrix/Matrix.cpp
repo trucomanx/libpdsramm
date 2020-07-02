@@ -297,3 +297,122 @@ Pds::Matrix::~Matrix(void)
     this->ncol=0;
 }
 
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+// Instantiate Pds::Array for the supported template type parameters
+
+
+template <typename Datum>
+void MyArrayRelease(Datum** &array,unsigned int Nlin)
+{
+    if(array!=NULL)
+    {
+        for (unsigned int j = 0; j < Nlin; j++)
+        { 
+            delete [] array[j];
+            array[j]=NULL;
+        }
+        delete [] array;
+        array=NULL;
+    }
+}
+
+
+Pds::Matrix::Matrix(const Pds::Array<unsigned char> &A)
+{
+    unsigned int lin,col;
+
+    this->array=NULL;
+    this->nlin=0;
+    this->ncol=0;
+    
+    if((A.nlin==0)||(A.ncol==0)||(A.array==NULL))    return;
+
+    this->array= new double*[A.nlin];
+    if(this->array==NULL) return;
+    
+    
+    for (lin = 0; lin < A.nlin; lin++)
+    {
+        this->array[lin] = new double[A.ncol];
+        if(this->array[lin]==NULL)
+        {
+            MyArrayRelease(this->array,lin);
+            this->array=NULL;
+            return;
+        }
+        for (col = 0; col < A.ncol; col++) this->array[lin][col]=(double)A.array[lin][col];
+    }
+
+    this->nlin=A.nlin;
+    this->ncol=A.ncol;
+
+}
+
+Pds::Matrix::Matrix(const Pds::Array<unsigned int> &A)
+{
+    unsigned int lin,col;
+
+    this->array=NULL;
+    this->nlin=0;
+    this->ncol=0;
+    
+    if((A.nlin==0)||(A.ncol==0)||(A.array==NULL))    return;
+
+    this->array= new double*[A.nlin];
+    if(this->array==NULL) return;
+    
+    
+    for (lin = 0; lin < A.nlin; lin++)
+    {
+        this->array[lin] = new double[A.ncol];
+        if(this->array[lin]==NULL)
+        {
+            MyArrayRelease(this->array,lin);
+            this->array=NULL;
+            return;
+        }
+        for (col = 0; col < A.ncol; col++) this->array[lin][col]=(double)A.array[lin][col];
+    }
+
+    this->nlin=A.nlin;
+    this->ncol=A.ncol;
+
+}
+
+
+Pds::Matrix::Matrix(const Pds::Array<double> &A)
+{
+    unsigned int lin,col;
+
+    this->array=NULL;
+    this->nlin=0;
+    this->ncol=0;
+    
+    if((A.nlin==0)||(A.ncol==0)||(A.array==NULL))    return;
+
+    this->array= new double*[A.nlin];
+    if(this->array==NULL) return;
+    
+    
+    for (lin = 0; lin < A.nlin; lin++)
+    {
+        this->array[lin] = new double[A.ncol];
+        if(this->array[lin]==NULL)
+        {
+            MyArrayRelease(this->array,lin);
+            this->array=NULL;
+            return;
+        }
+        for (col = 0; col < A.ncol; col++) this->array[lin][col]=(double)A.array[lin][col];
+    }
+
+    this->nlin=A.nlin;
+    this->ncol=A.ncol;
+
+}
+

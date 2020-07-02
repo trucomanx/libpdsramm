@@ -22,7 +22,7 @@
 
 
 #include <Pds/Array>
-
+#include <iostream>
 
 
 // Instantiate Pds::Array for the supported template type parameters
@@ -161,32 +161,39 @@ Pds::Array<Datum>::Array(const Pds::Size &S)
 template <class Datum>
 Pds::Array<Datum>::Array(const Pds::Array<Datum> &A)
 {
-    unsigned int lin,col;
-
-    this->array=NULL;
-    this->nlin=0;
-    this->ncol=0;
-    
-    if((A.nlin==0)||(A.ncol==0)||(A.array==NULL))    return;
-
-    this->array= new Datum*[A.nlin];
-    if(this->array==NULL) return;
-    
-    
-    for (lin = 0; lin < A.nlin; lin++)
+    if(this!=&A) //Comprueba que no se esté intentando igualar un objeto a sí mismo
     {
-        this->array[lin] = new Datum[A.ncol];
-        if(this->array[lin]==NULL)
-        {
-            MyArrayRelease(this->array,lin);
-            this->array=NULL;
-            return;
-        }
-        for (col = 0; col < A.ncol; col++) this->array[lin][col]=A.array[lin][col];
-    }
+        unsigned int lin,col;
 
-    this->nlin=A.nlin;
-    this->ncol=A.ncol;
+        this->array=NULL;
+        this->nlin=0;
+        this->ncol=0;
+        
+        if((A.nlin==0)||(A.ncol==0)||(A.array==NULL))    return;
+
+        this->array= new Datum*[A.nlin];
+        if(this->array==NULL) return;
+        
+        
+        for (lin = 0; lin < A.nlin; lin++)
+        {
+            this->array[lin] = new Datum[A.ncol];
+            if(this->array[lin]==NULL)
+            {
+                MyArrayRelease(this->array,lin);
+                this->array=NULL;
+                return;
+            }
+            for (col = 0; col < A.ncol; col++) this->array[lin][col]=A.array[lin][col];
+        }
+
+        this->nlin=A.nlin;
+        this->ncol=A.ncol;
+
+        //this->Print("testeo\n");
+        //std::cout<<"A.nlin:"<<this->nlin<<std::endl;
+        //std::cout<<"A.ncol:"<<this->ncol<<std::endl;
+    }
 }
 
 
@@ -198,5 +205,54 @@ Pds::Array<Datum>::~Array(void)
     this->nlin=0;
     this->ncol=0;
     
+}
+
+
+template <class Datum>
+Pds::Array<Datum>& Pds::Array<Datum>::operator = (const Pds::Array<Datum> &A)
+{
+    if(false==this->Copy(A))
+        this->MakeEmpty();
+
+    //std::cout<<"used copy assignment\n";
+    return *this;
+}
+
+template <class Datum>
+bool Pds::Array<Datum>::Copy(const Pds::Array<Datum> &A)
+{
+   
+    if(this!=&A) //Comprueba que no se esté intentando igualar un objeto a sí mismo
+    {
+        unsigned int lin,col;
+
+
+        
+        Datum **tmparray=NULL;
+
+        if((A.nlin==0)||(A.ncol==0)||(A.array==NULL))    return false;
+
+        tmparray= new Datum*[A.nlin];
+        if(tmparray==NULL) return false;
+        
+        
+        for (lin = 0; lin < A.nlin; lin++)
+        {
+            tmparray[lin] = new Datum[A.ncol];
+            if(tmparray[lin]==NULL)
+            {
+                MyArrayRelease(tmparray,lin);
+                tmparray=NULL;
+                return false;
+            }
+            for (col = 0; col < A.ncol; col++) tmparray[lin][col]=A.array[lin][col];
+        }
+
+        MyArrayRelease(this->array,A.nlin);
+        this->array=tmparray;
+        this->nlin=A.nlin;
+        this->ncol=A.ncol;
+    }
+    return true;
 }
 

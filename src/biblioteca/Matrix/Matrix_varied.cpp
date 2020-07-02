@@ -5,6 +5,30 @@
 #include <Pds/RaTools>
 #include <Pds/RaString>
 
+////////////////////////////////////////////////////////////////////////
+
+bool Pds::Matrix::Scale(double minval,double maxval)
+{
+    unsigned int lin,col;
+    if(minval==maxval)  return false;
+    if(this->IsEmpty()) return false;
+
+    double a=minval>maxval?maxval:minval;
+    double b=maxval>minval?maxval:minval;
+    minval=a;
+    maxval=b;
+    
+    double mindat=this->Min();
+    double maxdat=this->Max();
+
+    for(lin=0;lin<this->nlin;lin++)
+    for(col=0;col<this->ncol;col++)
+    {
+        this->array[lin][col]=minval+(maxval-minval)*(this->array[lin][col]-mindat)/(maxdat-mindat);
+    }
+
+    return true;
+}
 
 ////////////////////////////////////////////////////////////////////////
 
