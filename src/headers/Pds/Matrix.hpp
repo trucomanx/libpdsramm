@@ -206,7 +206,34 @@ B\equiv [b_{i,j}]
      *  \ingroup MatrixGroup
      */
     Matrix(const Pds::Array<unsigned int> &B);
+
+    /** 
+     *  \brief Crea un objeto de tipo Pds::Matrix copiando datos desde 
+     *  un arreglo
+     * 
+   \f[
+B\equiv [b_{i,j}]
+   \f]
+   \f[
+\mathbf{A} \leftarrow \mathbf{B}
+   \f]
+     *  \param[in] B Array a copiar.
+     *  \ingroup MatrixGroup
+     */
     Matrix(const Pds::Array<unsigned char> &B);
+    /** 
+     *  \brief Crea un objeto de tipo Pds::Matrix copiando datos desde 
+     *  un arreglo
+     * 
+   \f[
+B\equiv [b_{i,j}]
+   \f]
+   \f[
+\mathbf{A} \leftarrow \mathbf{B}
+   \f]
+     *  \param[in] B Array a copiar.
+     *  \ingroup MatrixGroup
+     */
     Matrix(const Pds::Array<double> &B);
 
     /** 
