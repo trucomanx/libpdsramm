@@ -31,6 +31,14 @@
 #include <cctype>
 #include <fstream>      // std::ifstream
 
+
+#ifndef PDS_LIBRARY_VERSION
+#define PDS_LIBRARY_VERSION ""
+#endif
+
+#ifndef PDS_LIBRARY_PACKAGE
+#define PDS_LIBRARY_PACKAGE ""
+#endif
 ////////////////////////////////////////////////////////////////////////////////
 
 std::string Pds::Ra::Version(void)
