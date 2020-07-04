@@ -61,9 +61,9 @@ class Matrix;
 class Position
 {
 public:
-	unsigned int Lin;
+	int Lin;
 	/*! Numero de Columnas */
-	unsigned int Col;
+	int Col;
 public:
 
 /** @name Varios tipos de constructores
@@ -86,7 +86,7 @@ public:
      *  \return La variable Pds::Position.
      *  \ingroup PositionGroup
      */
-    Position(unsigned int Lin,unsigned int Col);
+    Position(int Lin,int Col);
     
     ~Position();
 

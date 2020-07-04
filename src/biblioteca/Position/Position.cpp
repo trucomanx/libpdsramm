@@ -32,7 +32,7 @@ Pds::Position::Position(void)
     return;
 }
 
-Pds::Position::Position(unsigned int Lin,unsigned int Col)
+Pds::Position::Position(int Lin,int Col)
 {
     this->Lin=Lin;
     this->Col=Col;
