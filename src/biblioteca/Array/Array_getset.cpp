@@ -64,6 +64,16 @@ Datum Pds::Array<Datum>::Get(unsigned int lin,unsigned int col) const
     return this->array[lin][col];
 }
 
+template <class Datum>
+bool Pds::Array<Datum>::Set(unsigned int lin,unsigned int col,Datum val)
+{
+    if(lin>=this->nlin) return false;
+    if(col>=this->ncol) return false;
+    
+    this->array[lin][col]=val;
+    return true;
+}
+
 
 template <class Datum>
 Datum &Pds::Array<Datum>::At(unsigned int lin,unsigned int col)

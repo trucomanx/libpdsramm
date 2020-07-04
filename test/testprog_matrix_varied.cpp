@@ -23,12 +23,16 @@ int main(void)
     B.ExportMatFile("B","matfile.mat");
     
     Pds::Matrix Z;
+
+    unsigned int N=480;    
+
+    Z=Pds::Peaks(N);
+    Z.Scale(0,255).ExportBmpFile(Pds::Colormap::Jet,"PeaksColormapJet.bmp");
+    Z.Scale(0,255).ExportBmpFile(Pds::Colormap::Steps,"PeaksColormapSteps.bmp");
     
-    Z=Pds::Peaks(256);
-    Z.ExportBmpFile(Pds::Colormap::Jet,"PeaksColormapJet.bmp");
-    
-    Z=Pds::Mountain(256);
-    Z.ExportBmpFile(Pds::Colormap::Jet,"MountainColormapJet.bmp");
+    Z=Pds::Mountain(N);
+    Z.Scale(0,255).ExportBmpFile(Pds::Colormap::Jet,"MountainColormapJet.bmp");
+    Z.Scale(0,255).ExportBmpFile(Pds::Colormap::Steps,"MountainColormapSteps.bmp");
     
     Pds::Matrix X,Y;
     
@@ -41,7 +45,8 @@ int main(void)
     {double z=2*x*exp(-x*x-y*y); return 126.0*z+127.0;};
     Z=Pds::Operate(func,X,Y);
     
-    Z.ExportBmpFile(Pds::Colormap::Jet,"ColormapJet.bmp");
+    Z.Scale(0,255).ExportBmpFile(Pds::Colormap::Jet,"ColormapJet.bmp");
+    Z.Scale(0,255).ExportBmpFile(Pds::Colormap::Steps,"ColormapSteps.bmp");
 
     Pds::Matrix::ExportBmpFile(Z,Z,Z,"ColormapRGB.bmp");
     

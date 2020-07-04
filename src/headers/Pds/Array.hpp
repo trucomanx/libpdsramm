@@ -302,6 +302,18 @@ public:
     Datum Get(unsigned int lin,unsigned int col) const;
 
     /** 
+     *  \brief Establece una variable Datum en la posición (lin,col) de la array. 
+     *  Hace una verificación para evitar escribir fuera de la memoria, 
+     *  si no está retorna false y no escribe nada. 
+     *  \param[in] lin La linea en consulta.
+     *  \param[in] col La columna en consulta.
+     *  \param[in] val valor a escribir.
+     *  \return Retorna true si todo fue bien o false si no. 
+     *  \ingroup ArrayGroup
+     */
+    bool Set(unsigned int lin,unsigned int col,Datum val);
+
+    /** 
      *  \brief Retorna una variable Datum en la posición (lin,col) de la array. 
      *  Hace una verificación para evitar leer o escribir fuera de la memoria, 
      *  con este fin hace lin=lin%Nlin y col=col%Ncol. 
