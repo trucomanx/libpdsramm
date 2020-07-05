@@ -22,6 +22,7 @@
 
 
 #include <Pds/Vector>
+#include <Pds/Array>
 #include <iostream>
 
 Pds::Vector::Vector(void)
@@ -68,7 +69,7 @@ Pds::Vector::Vector(const Matrix &A)
         unsigned int N=A.Nlin()*A.Ncol();
         unsigned int id;
         
-        this->array= Pds::Matrix::ArrayAllocate(N,1);
+        this->array= Pds::Array<double>::ArrayAllocate(N,1);
         if(this->array==NULL)  return;
         
         this->nlin=N;
@@ -96,7 +97,7 @@ Pds::Vector::Vector(const Matrix &A, unsigned int col)
         
     unsigned int lin;
         
-    this->array= Pds::Matrix::ArrayAllocate(A.Nlin(),1);
+    this->array= Pds::Array<double>::ArrayAllocate(A.Nlin(),1);
     if(this->array==NULL)  return;
     
     this->nlin=A.Nlin();
@@ -143,7 +144,7 @@ Pds::Vector::Vector(Pds::Ra::FormatType Type,std::string filepath)
     
     if(Type==Pds::Ra::TextFormat)
     {
-        this->array=Pds::Matrix::ArrayColLoad(filepath.c_str(),this->nlin,this->ncol);
+        this->array=Pds::Array<double>::ArrayColLoad(filepath.c_str(),this->nlin,this->ncol);
     }
         
     return;
@@ -151,7 +152,7 @@ Pds::Vector::Vector(Pds::Ra::FormatType Type,std::string filepath)
 
 Pds::Vector::~Vector(void)
 {
-    Pds::Matrix::ArrayRelease(this->array,this->nlin);
+    Pds::Array<double>::ArrayRelease(this->array,this->nlin);
 
     this->nlin=0;
     this->ncol=0;

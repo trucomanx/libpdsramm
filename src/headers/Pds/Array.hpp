@@ -45,7 +45,8 @@
 
 #include <string>
 #include <Pds/Size>
-//#include <iostream>
+#include <vector>
+
 
 
 namespace Pds{
@@ -333,6 +334,236 @@ public:
      *  \ingroup ArrayGroup
      */
     Datum &At(unsigned int id);
+/**
+ * @}
+ */
+
+
+public:
+
+/** @name Métodos Static con Array
+ *  Herramientas genéricas que pueden ser usadas desde Pds::Matrix
+ * @{
+ */
+
+   /** 
+     *  \brief Lee matrices de un archivo binario en formato BMP.
+     * 
+     *  \warning Solo lee matrices con :
+<table>
+<caption id="multi_row_inport_array">Suported bmp files</caption>
+    <tr><td>Without compression
+    <tr><td>Number of planes equal to 1
+    <tr><td>8,16,24 o 32 bits by pixel.
+</table> 
+     *  \param[in] bmpfilename Nombre del archivo donde se leeran los datos.
+     *  \return Retorna un vector de matrices, una matriz por cada byte en un pixel.
+     *  \ingroup ArrayGroup
+     */
+    static std::vector<Pds::Array<Datum>>  ImportBmpFile(const char* bmpfilename);
+
+/**
+ * @}
+ */
+
+
+public:
+
+/** @name Métodos Static con standard c arrays
+ *  Herramientas genéricas que pueden ser usadas desde Pds::Array
+ * @{
+ */
+    
+    
+    /** 
+     *  \brief crea dinámicamente un arreglo de Nlin lineas y Ncol columnas,
+     *  con elementos inicializado con un valor.
+     *  \param[in] Nlin El numero de lineas en el arreglo.
+     *  \param[in] Ncol El numero de columnas en el arreglo.
+     *  \param[in] val El valor a usar.
+     *  \return Retorna un puntero al arreglo, o NULL si no consiguió reservar
+     * la memoria. Esta memoria debe ser liberada siempre com ArrayRelease
+     *  \ingroup ArrayGroup
+     */
+    static Datum** ArrayAllocate(unsigned int Nlin,unsigned int Ncol,Datum val);
+    
+    /** 
+     *  \brief crea dinámicamente un arreglo de Nlin lineas y Ncol columnas
+     *  \param[in] Nlin El numero de lineas en el arreglo.
+     *  \param[in] Ncol El numero de columnas en el arreglo.
+     *  \return Retorna un puntero al arreglo, o NULL si no consiguió reservar
+     * la memoria. Esta memoria debe ser liberada siempre com ArrayRelease
+     *  \ingroup ArrayGroup
+     */
+    static Datum** ArrayAllocate(unsigned int Nlin,unsigned int Ncol);
+
+   /** 
+     *  \brief Libera un arreglo de Nlin lineas y Ncol columnas (arreglo de arreglos)
+     * Adicionalmente carga con NULL al arreglo a liberar.
+     *  \param[in] array El arreglo de arreglos de de Nlin lineas y Ncol columnas
+     *  \param[in] Nlin El numero de lineas en el arreglo.
+     *  \ingroup ArrayGroup
+     */
+    static void ArrayRelease(Datum** &array,unsigned int Nlin);
+
+/**
+ * @}
+ */
+
+
+public:
+
+/** @name Métodos Static con standard c arrays para export
+ *  Herramientas genéricas que pueden ser usadas desde Pds::Array
+ * @{
+ */
+   
+    /** 
+     *  \brief Escribe los datos de una matriz en un archivo de en formato BMP.
+     *
+     *  <center>
+     *  \image html pds_matrix_save_bmp_with_colormap_jet.bmp "grafico usando el colormap Pds::Colormap::Jet."
+     *  </center>
+     *  \param[in] array Arreglo donde se leerán los datos de escala de gris. \f$0\leq a_{ij} \leq 255\f$
+     *  \param[in] Nlin Número de lineas del arreglo, equivalente a la altura de la imagen.
+     *  \param[in] Ncol Número de columnas del arreglo, equivalente al ancho de la imagen.
+     *  \param[in] colormap Mapa de colores. Ejemplo: Pds::Colormap::Jet, Pds::Colormap::Bone,
+     *  \param[in] bmpfilename Nombre del archivo donde se escribirán los datos 
+     *  Pds::Colormap::Hot,Pds::Colormap::Jolly.
+     *  \return true si todo fue bien o false si no. (ej. array,bmpfilename==NULL)
+     *  \ingroup ArrayGroup
+     */
+    static bool ArrayWriteBmpWithColormap(  Datum **array,
+                                            unsigned int Nlin,
+                                            unsigned int Ncol,
+                                            const unsigned char colormap[256][3],
+                                            const char *bmpfilename);
+
+    /** 
+     *  \brief Escribe los datos de una matriz en un archivo de en formato BMP.
+     *
+     *  \param[in] arrayr Arreglo donde se leerán los datos de escala de gris. \f$0\leq r_{ij} \leq 255\f$
+     *  \param[in] arrayg Arreglo donde se leerán los datos de escala de gris. \f$0\leq g_{ij} \leq 255\f$
+     *  \param[in] arrayb Arreglo donde se leerán los datos de escala de gris. \f$0\leq b_{ij} \leq 255\f$
+     *  \param[in] Nlin Número de lineas del arreglo, equivalente a la altura de la imagen.
+     *  \param[in] Ncol Número de columnas del arreglo, equivalente al ancho de la imagen.
+     *  \param[in] bmpfilename Nombre del archivo donde se escribirán los datos.
+     *  \return true si todo fue bien o false si no. (ej. array,bmpfilename==NULL)
+     *  \ingroup ArrayGroup
+     */
+    static bool ArrayWriteBmp(  Datum **arrayr,
+                                Datum **arrayg,
+                                Datum **arrayb,
+                                unsigned int Nlin,
+                                unsigned int Ncol,
+                                const char *bmpfilename);
+
+    
+   /** 
+     *  \brief Salva en un archivo de texto un arreglo de Nlin lineas y Ncol columnas, 
+     *  usando el formato Csv (Comma Separated Values).
+     *  \param[in] filepath El archivo donde se guardaran los datos.
+     *  \param[in] array El arreglo de arreglos de de Nlin lineas y Ncol columnas
+     *  \param[in] Nlin El numero de lineas en el arreglo.
+     *  \param[in] Ncol El numero de columnas en el arreglo.
+     *  \param[in] delimitador delimitador de elementos por defecto es ','.
+     *  \return Retorna true si todo fue bien o false si no.
+     *  \ingroup ArrayGroup
+     */
+    static bool ArrayWriteCsvFile(const char* filepath,Datum **array,unsigned int Nlin,unsigned int Ncol,char delimitador=',');
+
+   /** 
+     *  \brief Escribe en un archivo binario en formato de octave un
+     *  arreglo de Nlin lineas y Ncol columnas (arreglo de arreglos).
+     *  Es usado el nombre MAT0 como identificador de matriz.
+     * 
+Para cargar los datos en OCTAVE se puede usar el siguiente código
+\verbatim
+% Load all the variables in "matfile.mat" in the workspace.
+load("-v4","matfile.mat");
+
+% Load the B variable in a STRUCTURE
+STRUCTURE=load("-v4","matfile.mat","B");
+\endverbatim
+     *  Version 4 MAT-File Format:[Documento externo](https://www.eiscat.se/wp-content/uploads/2016/03/Version-4-MAT-File-Format.pdf)
+     *  [Documento oficial](https://www.mathworks.com/help/pdf_doc/matlab/matfile_format.pdf)
+     *  \param[in] fp El descriptor de fichero que apunta a donde se guardaran los datos.
+     *  \param[in] array El arreglo de arreglos de de Nlin lineas y Ncol columnas
+     *  \param[in] pname El nombre de la matriz.
+     *  \param[in] Nlin El numero de lineas en el arreglo.
+     *  \param[in] Ncol El numero de columnas en el arreglo.
+     *  \return Retorna true si todo fue bien o false si no.
+     *  \ingroup ArrayGroup
+     */
+    static bool ArrayWriteMatFile(FILE *fp,const char *pname,Datum **array,unsigned int Nlin,unsigned int Ncol);
+
+   /** 
+     *  \brief Escribe en un archivo binario en formato de octave un
+     *  arreglo de Nlin lineas y Ncol columnas (arreglo de arreglos).
+     *  Es usado el nombre MAT0 como identificador de matriz.
+     * 
+Para cargar los datos en OCTAVE se puede usar el siguiente código
+\verbatim
+% Load all the variables in "matfile.mat" in the workspace.
+load("-v4","matfile.mat");
+
+% Load the B variable in a STRUCTURE
+STRUCTURE=load("-v4","matfile.mat","B");
+\endverbatim
+     *  Version 4 MAT-File Format:[Documento externo](https://www.eiscat.se/wp-content/uploads/2016/03/Version-4-MAT-File-Format.pdf)
+     *  [Documento oficial](https://www.mathworks.com/help/pdf_doc/matlab/matfile_format.pdf)
+     *  \param[in] fp El descriptor de fichero que apunta a donde se guardaran los datos.
+     *  \param[in] arrayr El arreglo real de arreglos de de Nlin lineas y Ncol columnas.
+     *  \param[in] arrayi El arreglo imag de arreglos de de Nlin lineas y Ncol columnas.
+     *  \param[in] pname El nombre de la matriz.
+     *  \param[in] Nlin El numero de lineas en el arreglo.
+     *  \param[in] Ncol El numero de columnas en el arreglo.
+     *  \return Retorna true si todo fue bien o false si no.
+     *  \ingroup ArrayGroup
+     */
+    static bool ArrayWriteMatFile(FILE *fp,const char *pname,Datum **arrayr,Datum **arrayi,unsigned int Nlin,unsigned int Ncol);
+
+    
+   /** 
+     *  \brief Salva en un archivo un arreglo de Nlin lineas y Ncol columnas (arreglo de arreglos).
+     *  \param[in] filepath El archivo donde se guardaran los datos.
+     *  \param[in] array El arreglo de arreglos de de Nlin lineas y Ncol columnas
+     *  \param[in] Nlin El numero de lineas en el arreglo.
+     *  \param[in] Ncol El numero de columnas en el arreglo.
+     *  \return Retorna true si todo fue bien o false si no.
+     *  \ingroup ArrayGroup
+     */
+    static bool ArraySave(const char* filepath,Datum **array,unsigned int Nlin,unsigned int Ncol);
+
+   /** 
+     *  \brief Lee de un archivo un arreglo de Nlin lineas y Ncol columnas (arreglo de arreglos).
+     *  \param[in] filepath El archivo donde se leerán los datos.
+     *  \param[out] Nlin Donde se escribirá el numero de lineas en el arreglo.
+     *  \param[out] Ncol Donde se escribirá el numero de columnas en el arreglo.
+     *  \return El arreglo de arreglos de de Nlin lineas y Ncol columnas. Si el numero de columnas 
+     *  no es constante se retorna NULL. Si la función retorna NULL entonces los valores
+     *  de entrada Nlin e Ncol no son alterados.
+     *  \ingroup ArrayGroup
+     */
+    static Datum** ArrayLoad(const char* filepath,unsigned int& Nlin,unsigned int& Ncol);
+
+   /** 
+     *  \brief Lee de un archivo un arreglo de Nlin lineas y Ncol=1 columna (arreglo de arreglos).
+     *  \param[in] filepath El archivo donde se leerán los datos.
+     *  \param[out] Nlin Donde se escribirá el numero de lineas en el arreglo.
+     *  \param[out] Ncol Donde se escribirá el numero de columnas en el arreglo.
+     *  \return El arreglo de arreglos de de Nlin lineas y Ncol=1 columnas.
+     *  No importa si el numero de columnas en el archivo no es constante,
+     *  la funcion so se interesa por la cantidad de elementos no vacios. 
+     *  Si la función retorna NULL entonces los valores
+     *  de entrada Nlin e Ncol no son alterados. En caso de acierto Ncol 
+     *  siempre es cargado con 1.
+     *  \ingroup ArrayGroup
+     */
+    static Datum** ArrayColLoad(const char* filepath,unsigned int& Nlin,unsigned int& Ncol);
+
+
+
 /**
  * @}
  */

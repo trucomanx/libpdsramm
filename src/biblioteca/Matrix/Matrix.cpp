@@ -22,6 +22,7 @@
 
 
 #include <Pds/Matrix>
+#include <Pds/Array>
 
 Pds::Matrix::Matrix(void)
 {
@@ -41,7 +42,7 @@ Pds::Matrix::Matrix(unsigned int N)
     if(N==0)    return;
 
     
-    this->array= Pds::Matrix::ArrayAllocate(N,N);
+    this->array= Pds::Array<double>::ArrayAllocate(N,N);
     if(this->array==NULL) 
     {
         this->nlin=0;
@@ -60,7 +61,7 @@ Pds::Matrix::Matrix(const Pds::Size &A)
     
     if((A.nlin==0)||(A.ncol==0))    return;
     
-    this->array= Pds::Matrix::ArrayAllocate(A.nlin,A.ncol);
+    this->array= Pds::Array<double>::ArrayAllocate(A.nlin,A.ncol);
     if(this->array==NULL)       return;
     
     this->nlin=A.nlin;
@@ -86,7 +87,7 @@ Pds::Matrix::Matrix(unsigned int nlin,unsigned int ncol)
     
     if((nlin==0)||(ncol==0))    return;
     
-    this->array= Pds::Matrix::ArrayAllocate(nlin,ncol);
+    this->array= Pds::Array<double>::ArrayAllocate(nlin,ncol);
     if(this->array==NULL)       return;
     
     this->nlin=nlin;
@@ -103,7 +104,7 @@ Pds::Matrix::Matrix(unsigned int nlin,unsigned int ncol,double val)
     
     if((nlin==0)||(ncol==0))    return;
     
-    this->array= Pds::Matrix::ArrayAllocate(nlin,ncol,val);
+    this->array= Pds::Array<double>::ArrayAllocate(nlin,ncol,val);
     if(this->array==NULL)       return;
     
     this->nlin=nlin;
@@ -283,7 +284,7 @@ Pds::Matrix::Matrix(Pds::Ra::FormatType Type,std::string filepath)
         
     if(Type==Pds::Ra::TextFormat)
     {
-        this->array=Pds::Matrix::ArrayLoad(filepath.c_str(),this->nlin,this->ncol);
+        this->array=Pds::Array<double>::ArrayLoad(filepath.c_str(),this->nlin,this->ncol);
     }
         
     return;
@@ -291,7 +292,7 @@ Pds::Matrix::Matrix(Pds::Ra::FormatType Type,std::string filepath)
 
 Pds::Matrix::~Matrix(void)
 {
-    Pds::Matrix::ArrayRelease(this->array,this->nlin);
+    Pds::Array<double>::ArrayRelease(this->array,this->nlin);
     //std::cout<<"matrix destructr\n";
     this->nlin=0;
     this->ncol=0;
@@ -322,6 +323,44 @@ void MyArrayRelease(Datum** &array,unsigned int Nlin)
 }
 
 
+template <class Datum>
+Pds::Matrix::Matrix(const Pds::Array<Datum> &A)
+{
+    unsigned int lin,col;
+
+    this->array=NULL;
+    this->nlin=0;
+    this->ncol=0;
+    
+    if((A.nlin==0)||(A.ncol==0)||(A.array==NULL))    return;
+
+    this->array= new double*[A.nlin];
+    if(this->array==NULL) return;
+    
+    
+    for (lin = 0; lin < A.nlin; lin++)
+    {
+        this->array[lin] = new double[A.ncol];
+        if(this->array[lin]==NULL)
+        {
+            MyArrayRelease(this->array,lin);
+            this->array=NULL;
+            return;
+        }
+        for (col = 0; col < A.ncol; col++) this->array[lin][col]=(double)A.array[lin][col];
+    }
+
+    this->nlin=A.nlin;
+    this->ncol=A.ncol;
+
+}
+
+
+template Pds::Matrix::Matrix<unsigned int>(const Pds::Array<unsigned int> &A);
+template Pds::Matrix::Matrix<unsigned char>(const Pds::Array<unsigned char> &A);
+template Pds::Matrix::Matrix<double>(const Pds::Array<double> &A);
+
+/*
 Pds::Matrix::Matrix(const Pds::Array<unsigned char> &A)
 {
     unsigned int lin,col;
@@ -415,4 +454,4 @@ Pds::Matrix::Matrix(const Pds::Array<double> &A)
     this->ncol=A.ncol;
 
 }
-
+*/

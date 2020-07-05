@@ -1,4 +1,5 @@
 #include <Pds/Matrix>
+#include <Pds/Array>
 #include <Pds/RaDefines>
 #include <Pds/RaTools>
 
@@ -8,7 +9,7 @@
 
 bool Pds::Matrix::Save(const char* filepath) const
 {
-    return Pds::Matrix::ArraySave(filepath,this->array,this->nlin,this->ncol);
+    return Pds::Array<double>::ArraySave(filepath,this->array,this->nlin,this->ncol);
 }
 
 bool Pds::Matrix::Load(const char* filepath)
@@ -17,7 +18,7 @@ bool Pds::Matrix::Load(const char* filepath)
     unsigned int Nlin,Ncol;
     this->MakeEmpty();
 
-    array=Pds::Matrix::ArrayLoad(filepath,Nlin,Ncol);
+    array=Pds::Array<double>::ArrayLoad(filepath,Nlin,Ncol);
     if(array==NULL) return false;
     this->array=array;
     this->nlin=Nlin;
@@ -28,7 +29,7 @@ bool Pds::Matrix::Load(const char* filepath)
 
 bool Pds::Matrix::ExportCsvFile(const char* filepath,char delimitador) const
 {
-    return Pds::Matrix::ArrayWriteCsvFile(filepath,this->array,this->nlin,this->ncol,delimitador);
+    return Pds::Array<double>::ArrayWriteCsvFile(filepath,this->array,this->nlin,this->ncol,delimitador);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -41,7 +42,7 @@ bool Pds::Matrix::ExportMatFile(const char* pname,const char* filepath) const
     FILE *fd=fopen(filepath,"wb");
     if(fd==NULL)    return false;
     
-    bool ret=Pds::Matrix::ArrayWriteMatFile(fd,pname,this->array,this->nlin,this->ncol);
+    bool ret=Pds::Array<double>::ArrayWriteMatFile(fd,pname,this->array,this->nlin,this->ncol);
     fclose(fd);
     
     return ret;
@@ -55,8 +56,7 @@ bool Pds::Matrix::ExportBmpFile(const unsigned char colormap[256][3],const char*
     if(filepath==NULL)  return false;
     if(colormap==NULL)  return false;
     
-    bool ret=Pds::Matrix::ArrayWriteBmpWithColormap(this->array,this->nlin,this->ncol,colormap,filepath);
-    
+    bool ret=Pds::Array<double>::ArrayWriteBmpWithColormap(this->array,this->nlin,this->ncol,colormap,filepath);
     return ret;
 }
 

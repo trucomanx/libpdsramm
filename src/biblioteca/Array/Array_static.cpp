@@ -1,59 +1,20 @@
-#include <Pds/Matrix>
+#include <string>
+#include <iostream>
+#include <Pds/Array>
 #include <Pds/RaBmp>
+#include <iostream>
+
+// Instantiate Pds::Array for the supported template type parameters
+template class Pds::Array<double>;
+template class Pds::Array<unsigned char>;
+template class Pds::Array<unsigned int >;
 
 
-Pds::Matrix Pds::Matrix::FromString(const std::string &str)
-{
-    Pds::Matrix A;
-    unsigned int Nlin;
-    unsigned int Ncol;
-    static double **array=Pds::Matrix::ArrayFromString(str,Nlin,Ncol);
-    if(array==NULL) return A;
-    
-    A.array=array;
-    A.ncol=Ncol;
-    A.nlin=Nlin;
-    
-    return A;
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
-bool Pds::Matrix::ExportBmpFile(const Pds::Matrix &R,const Pds::Matrix &G,const Pds::Matrix &B,const char* bmpfilename)
-{
-    if(R.IsEmpty())         return false;
-    if(R.IsNotSimilarTo(G)) return false;
-    if(R.IsNotSimilarTo(B)) return false;
-    if(bmpfilename==NULL)   return false;
-
-    
-    bool ret=Pds::Array<double>::ArrayWriteBmp(R.array,G.array,B.array,R.nlin,R.ncol,bmpfilename);
-    
-    return ret;
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
-std::vector<Pds::Matrix>  Pds::Matrix::ImportBmpFile( const char* filename)
-{
-    std::vector<Pds::Array<double>> Block;
-    std::vector<Pds::Matrix> Tmp;
-    
-    Block=Pds::Array<double>::ImportBmpFile(filename);
-    if(Block.size()==0) return Tmp;
-
-    std::vector<Pds::Matrix> Out(Block.size());
-    
-    for(unsigned int i=0;i<Block.size();i++)
-    Out[i].Copy(Block[i]);
-
-    return Out;
-}
-/*
-std::vector<Pds::Matrix>  Pds::Matrix::ImportBmpFile( const char* filename)
+template <class Datum>
+std::vector<Pds::Array<Datum>>  Pds::Array<Datum>::ImportBmpFile( const char* filename)
 {
     // Limpiando las matrices
-    std::vector<Pds::Matrix> Tmp;
+    std::vector<Pds::Array<Datum>> Tmp;
     
     // Abriendo archivos
     FILE* f = fopen(filename, "rb");
@@ -85,6 +46,7 @@ std::vector<Pds::Matrix>  Pds::Matrix::ImportBmpFile( const char* filename)
         return Tmp;
     }
 
+   
     // Cargando datos en data
     unsigned int bytes_by_pixel=Header.bits_per_pixel/8;
     unsigned int N=Header.width_px * Header.height_px;
@@ -97,17 +59,16 @@ std::vector<Pds::Matrix>  Pds::Matrix::ImportBmpFile( const char* filename)
     fclose(f);
     
     // Copiando los datos dentro de las matrices de colores
-    std::vector<Pds::Matrix> Block(bytes_by_pixel);
+    std::vector<Pds::Array<Datum>> Block(bytes_by_pixel);
 
     for(unsigned int j=0; j < bytes_by_pixel; j++)
-    Block[j]=Pds::Matrix(Header.height_px,Header.width_px);
+    Block[j]=Pds::Array<Datum>(Header.height_px,Header.width_px);
 
     for(unsigned int lin=0; lin < (unsigned int)Header.height_px; lin++)
     for(unsigned int col=0; col < (unsigned int)Header.width_px; col++)
     for(unsigned int j=0; j < bytes_by_pixel; j++)
-    Block[j].At(lin,col)=(double)data[(col+(Header.height_px-1-lin)*Header.width_px)*bytes_by_pixel+j];
+    Block[bytes_by_pixel-1-j].At(lin,col)=(Datum)data[(col+(Header.height_px-1-lin)*Header.width_px)*bytes_by_pixel+j];
     
     free(data);
     return Block;
 }
-*/

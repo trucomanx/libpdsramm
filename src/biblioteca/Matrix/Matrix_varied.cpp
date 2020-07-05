@@ -37,7 +37,7 @@ Pds::Matrix Pds::Matrix::Scale(double minval,double maxval) const
 
 void Pds::Matrix::MakeEmpty(void)
 {
-    Pds::Matrix::ArrayRelease(this->array,this->nlin);
+    Pds::Array<double>::ArrayRelease(this->array,this->nlin);
     this->nlin=0;
     this->ncol=0;
 }

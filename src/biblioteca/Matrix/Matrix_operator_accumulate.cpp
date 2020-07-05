@@ -39,7 +39,7 @@ bool Pds::Matrix::Copy(double val)
 {
     double **newarray=NULL;
 
-    newarray= Pds::Matrix::ArrayAllocate(1,1);
+    newarray= Pds::Array<double>::ArrayAllocate(1,1);
     if(newarray==NULL) 
     {
         return false;
@@ -47,7 +47,7 @@ bool Pds::Matrix::Copy(double val)
 
     newarray[0][0]=val;
 
-    Pds::Matrix::ArrayRelease(this->array,this->nlin);
+    Pds::Array<double>::ArrayRelease(this->array,this->nlin);
     this->nlin=1;
     this->ncol=1;
     this->array=newarray;
@@ -78,7 +78,7 @@ bool Pds::Matrix::Copy(const Pds::Matrix &A)
             return true;
         }
 
-        newarray= Pds::Matrix::ArrayAllocate(A.nlin,A.ncol);
+        newarray= Pds::Array<double>::ArrayAllocate(A.nlin,A.ncol);
         if(newarray==NULL) 
         {
             return false;
@@ -90,7 +90,7 @@ bool Pds::Matrix::Copy(const Pds::Matrix &A)
                 newarray[lin][col]=A.array[lin][col];
         }
 
-        Pds::Matrix::ArrayRelease(this->array,this->nlin);
+        Pds::Array<double>::ArrayRelease(this->array,this->nlin);
         this->nlin=A.nlin;
         this->ncol=A.ncol;
         this->array=newarray;
@@ -98,6 +98,63 @@ bool Pds::Matrix::Copy(const Pds::Matrix &A)
     }
     return true;
 }
+
+///////////////////////////////////////////////////////////////////////////////
+template <class Datum>
+Pds::Matrix& Pds::Matrix::operator = (const Pds::Array<Datum> &A)
+{
+    if(false==this->Copy(A))
+        this->MakeEmpty();
+
+    //std::cout<<"used copy assignment\n";
+    return *this;
+}
+// Instantiate Pds::Array for the supported template type parameters
+template Pds::Matrix& Pds::Matrix::operator =<unsigned int>(const Pds::Array<unsigned int> &A);
+template Pds::Matrix& Pds::Matrix::operator =<unsigned char>(const Pds::Array<unsigned char> &A);
+template Pds::Matrix& Pds::Matrix::operator =<double>(const Pds::Array<double> &A);
+
+
+template <class Datum>
+bool Pds::Matrix::Copy(const Pds::Array<Datum> &A)
+{
+    unsigned int lin,col;
+    double **newarray=NULL;
+    
+
+
+    if(A.IsEmpty())
+    {
+        this->MakeEmpty();
+        return true;
+    }
+
+    newarray= Pds::Array<double>::ArrayAllocate(A.nlin,A.ncol);
+    if(newarray==NULL) 
+    {
+        return false;
+    }
+
+    for (lin = 0; lin < A.nlin; lin++)
+    for (col = 0; col < A.ncol; col++)
+    {
+            newarray[lin][col]=(double)A.array[lin][col];
+    }
+
+    Pds::Array<double>::ArrayRelease(this->array,this->nlin);
+    this->nlin=A.nlin;
+    this->ncol=A.ncol;
+    this->array=newarray;
+        
+
+    return true;
+}
+
+// Instantiate Pds::Array for the supported template type parameters
+template bool Pds::Matrix::Copy<unsigned int>(const Pds::Array<unsigned int> &A);
+template bool Pds::Matrix::Copy<unsigned char>(const Pds::Array<unsigned char> &A);
+template bool Pds::Matrix::Copy<double>(const Pds::Array<double> &A);
+
 ////////////////////////////////////////////////////////////////////////
 Pds::Matrix& Pds::Matrix::operator *=(double b)
 {
@@ -141,7 +198,7 @@ bool Pds::Matrix::MulAssig(const Pds::Matrix &B)
     unsigned int Ncol=B.ncol;
     double S;
     
-    double **arr=Pds::Matrix::ArrayAllocate(Nlin,Ncol);
+    double **arr=Pds::Array<double>::ArrayAllocate(Nlin,Ncol);
     if( arr==NULL )             return false;
     
     for(lin=0;lin<Nlin;lin++)
@@ -154,7 +211,7 @@ bool Pds::Matrix::MulAssig(const Pds::Matrix &B)
         arr[lin][col]=S;
     }
     
-    Pds::Matrix::ArrayRelease(this->array,this->nlin);
+    Pds::Array<double>::ArrayRelease(this->array,this->nlin);
     
     this->nlin=Nlin;
     this->ncol=Ncol;

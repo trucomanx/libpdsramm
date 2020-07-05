@@ -47,6 +47,7 @@
 #include <Pds/RaFile>
 #include <Pds/RaIndices>
 #include <Pds/RaTime>
+#include <Pds/RaBmp>
         
 #include <Pds/Colormap>
 

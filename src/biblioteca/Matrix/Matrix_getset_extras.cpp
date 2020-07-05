@@ -32,7 +32,7 @@ Pds::Vector Pds::Matrix::GetDiagonal(void) const
     
     unsigned int N=std::min(this->nlin,this->ncol);
     
-    double** array=Pds::Matrix::ArrayAllocate(N,1);
+    double** array=Pds::Array<double>::ArrayAllocate(N,1);
     if(array==NULL)     return Pds::Vector();
     
     Pds::Vector C;
@@ -337,7 +337,7 @@ Pds::Vector Pds::Matrix::GetColVector(unsigned int col) const
 {   
     if(col>=this->ncol) return Pds::Vector();
     
-    double** array=Pds::Matrix::ArrayAllocate(this->nlin,1);
+    double** array=Pds::Array<double>::ArrayAllocate(this->nlin,1);
     if(array==NULL)     return Pds::Vector();
     
     Pds::Vector C;
@@ -406,7 +406,7 @@ Pds::Vector Pds::Matrix::GetRowAsColVector(unsigned int lin) const
 {   
     if(lin>=this->nlin) return Pds::Vector();
     
-    double** array=Pds::Matrix::ArrayAllocate(this->ncol,1);
+    double** array=Pds::Array<double>::ArrayAllocate(this->ncol,1);
     if(array==NULL)     return Pds::Vector();
     
     Pds::Vector C;

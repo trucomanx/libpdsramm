@@ -62,6 +62,7 @@ A\equiv [a_{i,j}]
 
 #include <string>
 #include <list>
+#include <vector>
 #include <Pds/Size>
 #include <Pds/RaDefines>
 #include <Pds/RegionRect>
@@ -205,36 +206,9 @@ B\equiv [b_{i,j}]
      *  \param[in] B Array a copiar.
      *  \ingroup MatrixGroup
      */
-    Matrix(const Pds::Array<unsigned int> &B);
+    template <class Datum>
+    Matrix(const Pds::Array<Datum> &B);
 
-    /** 
-     *  \brief Crea un objeto de tipo Pds::Matrix copiando datos desde 
-     *  un arreglo
-     * 
-   \f[
-B\equiv [b_{i,j}]
-   \f]
-   \f[
-\mathbf{A} \leftarrow \mathbf{B}
-   \f]
-     *  \param[in] B Array a copiar.
-     *  \ingroup MatrixGroup
-     */
-    Matrix(const Pds::Array<unsigned char> &B);
-    /** 
-     *  \brief Crea un objeto de tipo Pds::Matrix copiando datos desde 
-     *  un arreglo
-     * 
-   \f[
-B\equiv [b_{i,j}]
-   \f]
-   \f[
-\mathbf{A} \leftarrow \mathbf{B}
-   \f]
-     *  \param[in] B Array a copiar.
-     *  \ingroup MatrixGroup
-     */
-    Matrix(const Pds::Array<double> &B);
 
     /** 
      *  \brief Crea un objeto de tipo Pds::Matrix copiando datos desde 
@@ -2250,6 +2224,24 @@ public:
                                 const Pds::Matrix &G,
                                 const Pds::Matrix &B,
                                 const char* bmpfilename);
+
+   /** 
+     *  \brief Lee matrices de un archivo binario en formato BMP.
+     * 
+     *  \warning Solo lee matrices con :
+<table>
+<caption id="multi_row_inport_matrix">Suported bmp files</caption>
+    <tr><td>Without compression
+    <tr><td>Number of planes equal to 1
+    <tr><td>8,16,24 o 32 bits by pixel.
+</table> 
+     *  \param[in] bmpfilename Nombre del archivo donde se leeran los datos.
+     *  \return Retorna un vector de matrices, una matriz por cada byte en un pixel.
+     *  \ingroup MatrixGroup
+     */
+    static std::vector<Pds::Matrix>  ImportBmpFile( const char* bmpfilename);
+
+
 /**
  * @}
  */
@@ -2386,7 +2378,7 @@ public:
      * la memoria. Esta memoria debe ser liberada siempre com ArrayRelease
      *  \ingroup MatrixGroup
      */
-    static double** ArrayAllocate(unsigned int Nlin,unsigned int Ncol,double val);
+    //static double** ArrayAllocate(unsigned int Nlin,unsigned int Ncol,double val);
     
     /** 
      *  \brief crea dinámicamente un arreglo de Nlin lineas y Ncol columnas
@@ -2396,16 +2388,7 @@ public:
      * la memoria. Esta memoria debe ser liberada siempre com ArrayRelease
      *  \ingroup MatrixGroup
      */
-    static double** ArrayAllocate(unsigned int Nlin,unsigned int Ncol);
-
-   /** 
-     *  \brief Libera un arreglo de Nlin lineas y Ncol columnas (arreglo de arreglos)
-     * Adicionalmente carga con NULL al arreglo a liberar.
-     *  \param[in] array El arreglo de arreglos de de Nlin lineas y Ncol columnas
-     *  \param[in] Nlin El numero de lineas en el arreglo.
-     *  \ingroup MatrixGroup
-     */
-    static void ArrayRelease(double** &array,unsigned int Nlin);
+    //static double** ArrayAllocate(unsigned int Nlin,unsigned int Ncol);
 
    /** 
      *  \brief Convierte a un arreglo unidimensional un arreglo de Nlin
@@ -2448,149 +2431,7 @@ public:
      *  \ingroup MatrixGroup
      */
     static double **ArrayColFromString(const std::string &str,unsigned int &Nlin,unsigned int &Ncol);
-    
-   /** 
-     *  \brief Salva en un archivo un arreglo de Nlin lineas y Ncol columnas (arreglo de arreglos).
-     *  \param[in] filepath El archivo donde se guardaran los datos.
-     *  \param[in] array El arreglo de arreglos de de Nlin lineas y Ncol columnas
-     *  \param[in] Nlin El numero de lineas en el arreglo.
-     *  \param[in] Ncol El numero de columnas en el arreglo.
-     *  \return Retorna true si todo fue bien o false si no.
-     *  \ingroup MatrixGroup
-     */
-    static bool ArraySave(const char* filepath,double **array,unsigned int Nlin,unsigned int Ncol);
 
-   /** 
-     *  \brief Lee de un archivo un arreglo de Nlin lineas y Ncol columnas (arreglo de arreglos).
-     *  \param[in] filepath El archivo donde se leerán los datos.
-     *  \param[out] Nlin Donde se escribirá el numero de lineas en el arreglo.
-     *  \param[out] Ncol Donde se escribirá el numero de columnas en el arreglo.
-     *  \return El arreglo de arreglos de de Nlin lineas y Ncol columnas. Si el numero de columnas 
-     *  no es constante se retorna NULL. Si la función retorna NULL entonces los valores
-     *  de entrada Nlin e Ncol no son alterados.
-     *  \ingroup MatrixGroup
-     */
-    static double** ArrayLoad(const char* filepath,unsigned int& Nlin,unsigned int& Ncol);
-
-   /** 
-     *  \brief Lee de un archivo un arreglo de Nlin lineas y Ncol=1 columna (arreglo de arreglos).
-     *  \param[in] filepath El archivo donde se leerán los datos.
-     *  \param[out] Nlin Donde se escribirá el numero de lineas en el arreglo.
-     *  \param[out] Ncol Donde se escribirá el numero de columnas en el arreglo.
-     *  \return El arreglo de arreglos de de Nlin lineas y Ncol=1 columnas.
-     *  No importa si el numero de columnas en el archivo no es constante,
-     *  la funcion so se interesa por la cantidad de elementos no vacios. 
-     *  Si la función retorna NULL entonces los valores
-     *  de entrada Nlin e Ncol no son alterados. En caso de acierto Ncol 
-     *  siempre es cargado con 1.
-     *  \ingroup MatrixGroup
-     */
-    static double** ArrayColLoad(const char* filepath,unsigned int& Nlin,unsigned int& Ncol);
-
-   /** 
-     *  \brief Escribe en un archivo binario en formato de octave un
-     *  arreglo de Nlin lineas y Ncol columnas (arreglo de arreglos).
-     *  Es usado el nombre MAT0 como identificador de matriz.
-     * 
-Para cargar los datos en OCTAVE se puede usar el siguiente código
-\verbatim
-% Load all the variables in "matfile.mat" in the workspace.
-load("-v4","matfile.mat");
-
-% Load the B variable in a STRUCTURE
-STRUCTURE=load("-v4","matfile.mat","B");
-\endverbatim
-     *  Version 4 MAT-File Format:[Documento externo](https://www.eiscat.se/wp-content/uploads/2016/03/Version-4-MAT-File-Format.pdf)
-     *  [Documento oficial](https://www.mathworks.com/help/pdf_doc/matlab/matfile_format.pdf)
-     *  \param[in] fp El descriptor de fichero que apunta a donde se guardaran los datos.
-     *  \param[in] array El arreglo de arreglos de de Nlin lineas y Ncol columnas
-     *  \param[in] pname El nombre de la matriz.
-     *  \param[in] Nlin El numero de lineas en el arreglo.
-     *  \param[in] Ncol El numero de columnas en el arreglo.
-     *  \return Retorna true si todo fue bien o false si no.
-     *  \ingroup MatrixGroup
-     */
-    static bool ArrayWriteMatFile(FILE *fp,const char *pname,double **array,unsigned int Nlin,unsigned int Ncol);
-
-   /** 
-     *  \brief Escribe en un archivo binario en formato de octave un
-     *  arreglo de Nlin lineas y Ncol columnas (arreglo de arreglos).
-     *  Es usado el nombre MAT0 como identificador de matriz.
-     * 
-Para cargar los datos en OCTAVE se puede usar el siguiente código
-\verbatim
-% Load all the variables in "matfile.mat" in the workspace.
-load("-v4","matfile.mat");
-
-% Load the B variable in a STRUCTURE
-STRUCTURE=load("-v4","matfile.mat","B");
-\endverbatim
-     *  Version 4 MAT-File Format:[Documento externo](https://www.eiscat.se/wp-content/uploads/2016/03/Version-4-MAT-File-Format.pdf)
-     *  [Documento oficial](https://www.mathworks.com/help/pdf_doc/matlab/matfile_format.pdf)
-     *  \param[in] fp El descriptor de fichero que apunta a donde se guardaran los datos.
-     *  \param[in] arrayr El arreglo real de arreglos de de Nlin lineas y Ncol columnas.
-     *  \param[in] arrayi El arreglo imag de arreglos de de Nlin lineas y Ncol columnas.
-     *  \param[in] pname El nombre de la matriz.
-     *  \param[in] Nlin El numero de lineas en el arreglo.
-     *  \param[in] Ncol El numero de columnas en el arreglo.
-     *  \return Retorna true si todo fue bien o false si no.
-     *  \ingroup MatrixGroup
-     */
-    static bool ArrayWriteMatFile(FILE *fp,const char *pname,double **arrayr,double **arrayi,unsigned int Nlin,unsigned int Ncol);
-
-    
-   /** 
-     *  \brief Salva en un archivo de texto un arreglo de Nlin lineas y Ncol columnas, 
-     *  usando el formato Csv (Comma Separated Values).
-     *  \param[in] filepath El archivo donde se guardaran los datos.
-     *  \param[in] array El arreglo de arreglos de de Nlin lineas y Ncol columnas
-     *  \param[in] Nlin El numero de lineas en el arreglo.
-     *  \param[in] Ncol El numero de columnas en el arreglo.
-     *  \param[in] delimitador delimitador de elementos por defecto es ','.
-     *  \return Retorna true si todo fue bien o false si no.
-     *  \ingroup MatrixGroup
-     */
-    static bool ArrayWriteCsvFile(const char* filepath,double **array,unsigned int Nlin,unsigned int Ncol,char delimitador=',');
-
-    /** 
-     *  \brief Escribe los datos de una matriz en un archivo de en formato BMP.
-     *
-     *  <center>
-     *  \image html pds_matrix_save_bmp_with_colormap_jet.bmp "grafico usando el colormap Pds::Colormap::Jet."
-     *  </center>
-     *  \param[in] array Arreglo donde se leerán los datos de escala de gris. \f$0\leq a_{ij} \leq 255\f$
-     *  \param[in] Nlin Número de lineas del arreglo, equivalente a la altura de la imagen.
-     *  \param[in] Ncol Número de columnas del arreglo, equivalente al ancho de la imagen.
-     *  \param[in] colormap Mapa de colores. Ejemplo: Pds::Colormap::Jet, Pds::Colormap::Bone,
-     *  \param[in] bmpfilename Nombre del archivo donde se escribirán los datos 
-     *  Pds::Colormap::Hot,Pds::Colormap::Jolly.
-     *  \return true si todo fue bien o false si no. (ej. array,bmpfilename==NULL)
-     *  \ingroup MatrixGroup
-     */
-    static bool ArrayWriteBmpWithColormap(  double **array,
-                                            unsigned int Nlin,
-                                            unsigned int Ncol,
-                                            const unsigned char colormap[256][3],
-                                            const char *bmpfilename);
-
-    /** 
-     *  \brief Escribe los datos de una matriz en un archivo de en formato BMP.
-     *
-     *  \param[in] arrayr Arreglo donde se leerán los datos de escala de gris. \f$0\leq r_{ij} \leq 255\f$
-     *  \param[in] arrayg Arreglo donde se leerán los datos de escala de gris. \f$0\leq g_{ij} \leq 255\f$
-     *  \param[in] arrayb Arreglo donde se leerán los datos de escala de gris. \f$0\leq b_{ij} \leq 255\f$
-     *  \param[in] Nlin Número de lineas del arreglo, equivalente a la altura de la imagen.
-     *  \param[in] Ncol Número de columnas del arreglo, equivalente al ancho de la imagen.
-     *  \param[in] bmpfilename Nombre del archivo donde se escribirán los datos.
-     *  \return true si todo fue bien o false si no. (ej. array,bmpfilename==NULL)
-     *  \ingroup MatrixGroup
-     */
-    static bool ArrayWriteBmp(  double **arrayr,
-                                double **arrayg,
-                                double **arrayb,
-                                unsigned int Nlin,
-                                unsigned int Ncol,
-                                const char *bmpfilename);
 /**
  * @}
  */
@@ -3941,6 +3782,44 @@ public:
      *  \ingroup MatrixGroup
      */
     bool Copy(double val);
+
+    /** 
+     *  \brief Copia en si mismo (A), una array B. Este operador es 
+     *  similar al método Copy().
+     *  No importa  el tamaño de A, sus datos son liberados y un nuevo
+     *  arreglo de datos es reservado.
+     *
+     *  \f[ A \leftarrow B \f]
+     * Cuando acontece:
+\code{.cpp}
+    Pds::Matrix A;
+    Pds::Array<double> B(nlin,ncol);
+    A=B;
+\endcode
+     *  \param[in] B El array a copiar
+     *  \return Retorna el operador de la izquierda (acumulador) con el
+     *  resultado, o una matriz vacía (this->IsEmpty() igual a true) en caso de error.
+     *  \see Copy
+     *  \ingroup MatrixGroup
+     */
+    template <class Datum>
+    Pds::Matrix& operator = (const Pds::Array<Datum> &B);
+
+    /** 
+     *  \brief Copia en si mismo (A), el contenido de una Array B. Este 
+     *  método es similar a usar el operador = .
+     *  No importa  el tamaño de A, sus datos son liberados y un nuevo
+     *  arreglo de datos es reservado.
+     *
+     *  \f[ A \leftarrow B \f]
+     *  \param[in] B la matriz a copiar
+     *  \return Retorna true si todo fue bien o false si no. Si se retorna false
+     *  el receptor no altera su contenido.
+     *  \ingroup MatrixGroup
+     */
+    template <class Datum>
+    bool Copy(const Pds::Array<Datum> &B);
+
 /**
  * @}
  */
