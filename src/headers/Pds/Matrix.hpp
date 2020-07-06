@@ -2368,27 +2368,7 @@ public:
      */
     static double** ArrayAllocate(const Pds::Matrix &A);
     
-    /** 
-     *  \brief crea dinámicamente un arreglo de Nlin lineas y Ncol columnas,
-     *  con elementos inicializado con un valor.
-     *  \param[in] Nlin El numero de lineas en el arreglo.
-     *  \param[in] Ncol El numero de columnas en el arreglo.
-     *  \param[in] val El valor a usar.
-     *  \return Retorna un puntero al arreglo, o NULL si no consiguió reservar
-     * la memoria. Esta memoria debe ser liberada siempre com ArrayRelease
-     *  \ingroup MatrixGroup
-     */
-    //static double** ArrayAllocate(unsigned int Nlin,unsigned int Ncol,double val);
-    
-    /** 
-     *  \brief crea dinámicamente un arreglo de Nlin lineas y Ncol columnas
-     *  \param[in] Nlin El numero de lineas en el arreglo.
-     *  \param[in] Ncol El numero de columnas en el arreglo.
-     *  \return Retorna un puntero al arreglo, o NULL si no consiguió reservar
-     * la memoria. Esta memoria debe ser liberada siempre com ArrayRelease
-     *  \ingroup MatrixGroup
-     */
-    //static double** ArrayAllocate(unsigned int Nlin,unsigned int Ncol);
+
 
    /** 
      *  \brief Convierte a un arreglo unidimensional un arreglo de Nlin
@@ -2409,7 +2389,7 @@ public:
      *  \return Retorna un std::string. Si la matriz es nula retorna un string sin caracteres.
      *  \ingroup MatrixGroup
      */
-    static std::string ArrayToString(double **array,unsigned int Nlin,unsigned int Ncol);
+    //static std::string ArrayToString(double **array,unsigned int Nlin,unsigned int Ncol);
 
    /** 
      *  \brief Convierte un sdt::string con arreglo de Nlin lineas y Ncol columnas a un arreglo.
@@ -2419,7 +2399,7 @@ public:
      *  \return Retorna un arreglo. en caso de error se retorna NULL.
      *  \ingroup MatrixGroup
      */
-    static double **ArrayFromString(const std::string &str,unsigned int &Nlin,unsigned int &Ncol);
+    //static double **ArrayFromString(const std::string &str,unsigned int &Nlin,unsigned int &Ncol);
 
    /** 
      *  \brief Convierte un sdt::string con arreglo de Nlin lineas y 1 columna a un arreglo.
@@ -2430,7 +2410,7 @@ public:
      *  \return Retorna un arreglo. en caso de error se retorna NULL.
      *  \ingroup MatrixGroup
      */
-    static double **ArrayColFromString(const std::string &str,unsigned int &Nlin,unsigned int &Ncol);
+    //static double **ArrayColFromString(const std::string &str,unsigned int &Nlin,unsigned int &Ncol);
 
 /**
  * @}

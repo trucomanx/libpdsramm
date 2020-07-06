@@ -249,58 +249,6 @@ double** Pds::Matrix::ArrayAllocate(const Pds::Matrix &A)
 }
 ////////////////////////////////////////////////////////////////////////
 /*
-double** Pds::Matrix::ArrayAllocate(unsigned int Nlin,unsigned int Ncol, double val)
-{
-    double **array=NULL;
-    unsigned int lin,col;
-    
-    if((Nlin==0)||(Ncol==0))    return NULL;
-
-    array= new double*[Nlin];
-    if(array==NULL) return NULL;
-    
-    
-    for (lin = 0; lin < Nlin; lin++)
-    {
-        array[lin] = new double[Ncol];
-        if(array[lin]==NULL)
-        {
-            Pds::Array<double>::ArrayRelease(array,lin);
-            return NULL;
-        }
-        for (col = 0; col < Ncol; col++) array[lin][col]=val;
-    }
-    return array;
-    
-}
-////////////////////////////////////////////////////////////////////////
-
-double** Pds::Matrix::ArrayAllocate(unsigned int Nlin,unsigned int Ncol)
-{
-    double **array=NULL;
-    unsigned int lin,col;
-    
-    if((Nlin==0)||(Ncol==0))    return NULL;
-
-    array= new double*[Nlin];
-    if(array==NULL) return NULL;
-    
-    
-    for (lin = 0; lin < Nlin; lin++)
-    {
-        array[lin] = new double[Ncol];
-        if(array[lin]==NULL)
-        {
-            Pds::Array<double>::ArrayRelease(array,lin);
-            return NULL;
-        }
-        for (col = 0; col < Ncol; col++) array[lin][col]=0.0;
-    }
-    return array;
-    
-}
-*/
-
 ////////////////////////////////////////////////////////////////////////
 
 double **Pds::Matrix::ArrayFromString(const std::string &str,unsigned int &Nlin,unsigned int &Ncol)
@@ -388,7 +336,7 @@ std::string Pds::Matrix::ArrayToString(double **array,unsigned int Nlin,unsigned
 }
 
 ////////////////////////////////////////////////////////////////////////
-
+*/
 
 ////////////////////////////////////////////////////////////////////////
 double *Pds::Matrix::ArrayToArray(double **array,unsigned int Nlin,unsigned int Ncol)

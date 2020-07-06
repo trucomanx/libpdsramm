@@ -74,7 +74,7 @@ Pds::Matrix::Matrix(const char *str)
     this->array=NULL;
     this->nlin=0;
     this->ncol=0;
-    this->array=Pds::Matrix::ArrayFromString(str,this->nlin,this->ncol);
+    this->array=Pds::Array<double>::ArrayFromString(str,this->nlin,this->ncol);
     
     return;
 }

@@ -7,7 +7,7 @@ Pds::Matrix Pds::Matrix::FromString(const std::string &str)
     Pds::Matrix A;
     unsigned int Nlin;
     unsigned int Ncol;
-    static double **array=Pds::Matrix::ArrayFromString(str,Nlin,Ncol);
+    static double **array=Pds::Array<double>::ArrayFromString(str,Nlin,Ncol);
     if(array==NULL) return A;
     
     A.array=array;

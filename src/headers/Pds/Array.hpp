@@ -406,6 +406,38 @@ public:
      */
     static void ArrayRelease(Datum** &array,unsigned int Nlin);
 
+   /** 
+     *  \brief Convierte a un sdt::string un arreglo de Nlin lineas y Ncol columnas (arreglo de arreglos).
+     *  \param[in] array El arreglo de arreglos de de Nlin lineas y Ncol columnas
+     *  \param[in] Nlin El numero de lineas en el arreglo.
+     *  \param[in] Ncol El numero de columnas en el arreglo.
+     *  \return Retorna un std::string. Si la matriz es nula retorna un string sin caracteres.
+     *  \ingroup ArrayGroup
+     */
+    static std::string ArrayToString(Datum **array,unsigned int Nlin,unsigned int Ncol);
+
+   /** 
+     *  \brief Convierte un sdt::string con arreglo de Nlin lineas y Ncol columnas a un arreglo.
+     *  \param[in] str Cadena a leer.
+     *  \param[out] Nlin El numero de lineas en el arreglo.
+     *  \param[out] Ncol El numero de columnas en el arreglo.
+     *  \return Retorna un arreglo. en caso de error se retorna NULL.
+     *  \ingroup ArrayGroup
+     */
+    static Datum **ArrayFromString(const std::string &str,unsigned int &Nlin,unsigned int &Ncol);
+
+   /** 
+     *  \brief Convierte un sdt::string con arreglo de Nlin lineas y 1 columna a un arreglo.
+     *  \param[in] str Cadena a leer.
+     *  \param[out] Nlin El numero de lineas en el arreglo.
+     *  \param[out]  Ncol El numero de columnas en el arreglo. En caso de exito 
+     *  este valor sera 1 en otro caso el valor original no es alterado.
+     *  \return Retorna un arreglo. en caso de error se retorna NULL.
+     *  \ingroup ArrayGroup
+     */
+    static Datum **ArrayColFromString(const std::string &str,unsigned int &Nlin,unsigned int &Ncol);
+
+
 /**
  * @}
  */
