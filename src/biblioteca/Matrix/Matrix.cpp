@@ -124,7 +124,7 @@ Pds::Matrix::Matrix(const Matrix &A)
         if(A.IsEmpty())  return;
 
 
-        this->array= Pds::Matrix::ArrayAllocate(A);
+        this->array= Pds::Array<double>::ArrayAllocate(A);
         if(this->array==NULL)  return;
     
         this->nlin=A.nlin;

@@ -222,7 +222,7 @@ double** Pds::Matrix::ArrayAllocate(double (*func)(double,double,double,double),
 }
 
 ////////////////////////////////////////////////////////////////////////
-
+/*
 double** Pds::Matrix::ArrayAllocate(const Pds::Matrix &A)
 {
     double **array=NULL;
@@ -247,32 +247,8 @@ double** Pds::Matrix::ArrayAllocate(const Pds::Matrix &A)
     return array;
     
 }
+
+*/
 ////////////////////////////////////////////////////////////////////////
-
-
-////////////////////////////////////////////////////////////////////////
-double *Pds::Matrix::ArrayToArray(double **array,unsigned int Nlin,unsigned int Ncol)
-{
-    double *real_dat=NULL; /* pointer to real data */
-    unsigned int lin,col,id;
-        
-    if(array==NULL) return NULL;
-    for(lin=0;lin<Nlin;lin++)
-    if(array[lin]==NULL) return NULL;
-
-    real_dat=(double *)calloc(Nlin*Ncol,sizeof(double));
-    if(real_dat==NULL)  return NULL;
-    
-    id=0;
-    for(col=0;col<Ncol;col++)
-    for(lin=0;lin<Nlin;lin++,id++)
-    real_dat[id]=array[lin][col];
-    
-    return real_dat;
-}
-
-
-
-////////////////////////////////////////////////////////////////////////////////
 
 

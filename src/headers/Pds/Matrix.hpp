@@ -90,6 +90,9 @@ protected:
     unsigned int ncol;
     
     friend class CMatrix; 
+    friend class Array<double>;
+    friend class Array<unsigned int>;
+    friend class Array<unsigned char>;
 public:
 
 /** @name Constructores
@@ -2366,51 +2369,9 @@ public:
      * la memoria. Esta memoria debe ser liberada siempre com ArrayRelease
      *  \ingroup MatrixGroup
      */
-    static double** ArrayAllocate(const Pds::Matrix &A);
+    //static double** ArrayAllocate(const Pds::Matrix &A);
     
 
-
-   /** 
-     *  \brief Convierte a un arreglo unidimensional un arreglo de Nlin
-     *  lineas y Ncol columnas (arreglo de arreglos). Lee primero una columna entera.
-     *  \param[in] array El arreglo de arreglos de de Nlin lineas y Ncol columnas
-     *  \param[in] Nlin El numero de lineas en el arreglo.
-     *  \param[in] Ncol El numero de columnas en el arreglo.
-     *  \return Retorna un double *. Si la matriz es nula retorna NULL.
-     *  \ingroup MatrixGroup
-     */
-    static double *ArrayToArray(double **array,unsigned int Nlin,unsigned int Ncol);
-
-   /** 
-     *  \brief Convierte a un sdt::string un arreglo de Nlin lineas y Ncol columnas (arreglo de arreglos).
-     *  \param[in] array El arreglo de arreglos de de Nlin lineas y Ncol columnas
-     *  \param[in] Nlin El numero de lineas en el arreglo.
-     *  \param[in] Ncol El numero de columnas en el arreglo.
-     *  \return Retorna un std::string. Si la matriz es nula retorna un string sin caracteres.
-     *  \ingroup MatrixGroup
-     */
-    //static std::string ArrayToString(double **array,unsigned int Nlin,unsigned int Ncol);
-
-   /** 
-     *  \brief Convierte un sdt::string con arreglo de Nlin lineas y Ncol columnas a un arreglo.
-     *  \param[in] str Cadena a leer.
-     *  \param[out] Nlin El numero de lineas en el arreglo.
-     *  \param[out] Ncol El numero de columnas en el arreglo.
-     *  \return Retorna un arreglo. en caso de error se retorna NULL.
-     *  \ingroup MatrixGroup
-     */
-    //static double **ArrayFromString(const std::string &str,unsigned int &Nlin,unsigned int &Ncol);
-
-   /** 
-     *  \brief Convierte un sdt::string con arreglo de Nlin lineas y 1 columna a un arreglo.
-     *  \param[in] str Cadena a leer.
-     *  \param[out] Nlin El numero de lineas en el arreglo.
-     *  \param[out]  Ncol El numero de columnas en el arreglo. En caso de exito 
-     *  este valor sera 1 en otro caso el valor original no es alterado.
-     *  \return Retorna un arreglo. en caso de error se retorna NULL.
-     *  \ingroup MatrixGroup
-     */
-    //static double **ArrayColFromString(const std::string &str,unsigned int &Nlin,unsigned int &Ncol);
 
 /**
  * @}

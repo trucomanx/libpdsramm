@@ -51,6 +51,8 @@
 
 namespace Pds{
 
+class Matrix;
+
 /*! \class Array
  *  \brief La clase tipo  Array .
  *  Esta clase genera una agrupación de 2 datos.
@@ -373,7 +375,15 @@ public:
  *  Herramientas genéricas que pueden ser usadas desde Pds::Array
  * @{
  */
-    
+    /** 
+     *  \brief crea dinámicamente un arreglo de A.Nlin() lineas y A.Ncol() columnas,
+     *  con los datos copiados de una matriz A.
+     *  \param[in] A Matriz de donde se copiaran datos.
+     *  \return Retorna un puntero al arreglo, o NULL si no consiguió reservar
+     * la memoria. Esta memoria debe ser liberada siempre com ArrayRelease
+     *  \ingroup ArrayGroup
+     */
+    static Datum** ArrayAllocate(const Pds::Matrix &A);
     
     /** 
      *  \brief crea dinámicamente un arreglo de Nlin lineas y Ncol columnas,
@@ -405,6 +415,18 @@ public:
      *  \ingroup ArrayGroup
      */
     static void ArrayRelease(Datum** &array,unsigned int Nlin);
+
+
+   /** 
+     *  \brief Convierte a un arreglo unidimensional un arreglo de Nlin
+     *  lineas y Ncol columnas (arreglo de arreglos). Lee primero una columna entera.
+     *  \param[in] array El arreglo de arreglos de de Nlin lineas y Ncol columnas
+     *  \param[in] Nlin El numero de lineas en el arreglo.
+     *  \param[in] Ncol El numero de columnas en el arreglo.
+     *  \return Retorna un Datum*. Si la matriz es nula retorna NULL.
+     *  \ingroup ArrayGroup
+     */
+    static Datum *ArrayToLineArray(Datum **array,unsigned int Nlin,unsigned int Ncol);
 
    /** 
      *  \brief Convierte a un sdt::string un arreglo de Nlin lineas y Ncol columnas (arreglo de arreglos).

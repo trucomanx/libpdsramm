@@ -39,22 +39,6 @@ Pds::Array<Datum>::Array(void)
 }
 
 template <class Datum>
-void MyArrayRelease(Datum** &array,unsigned int Nlin)
-{
-    if(array!=NULL)
-    {
-        for (unsigned int j = 0; j < Nlin; j++)
-        { 
-            delete [] array[j];
-            array[j]=NULL;
-        }
-        delete [] array;
-        array=NULL;
-    }
-}
-
-
-template <class Datum>
 Pds::Array<Datum>::Array(unsigned int Nlin,unsigned int Ncol)
 {
     unsigned int lin,col;
@@ -74,7 +58,7 @@ Pds::Array<Datum>::Array(unsigned int Nlin,unsigned int Ncol)
         this->array[lin] = new Datum[Ncol];
         if(this->array[lin]==NULL)
         {
-            MyArrayRelease(this->array,lin);
+            Pds::Array<Datum>::ArrayRelease(this->array,lin);
             this->array=NULL;
             return;
         }
@@ -107,7 +91,7 @@ Pds::Array<Datum>::Array(unsigned int Nlin,unsigned int Ncol,Datum val)
         this->array[lin] = new Datum[Ncol];
         if(this->array[lin]==NULL)
         {
-            MyArrayRelease(this->array,lin);
+            Pds::Array<Datum>::ArrayRelease(this->array,lin);
             this->array=NULL;
             return;
         }
@@ -143,7 +127,7 @@ Pds::Array<Datum>::Array(const Pds::Size &S)
         this->array[lin] = new Datum[Ncol];
         if(this->array[lin]==NULL)
         {
-            MyArrayRelease(this->array,lin);
+            Pds::Array<Datum>::ArrayRelease(this->array,lin);
             this->array=NULL;
             return;
         }
@@ -180,7 +164,7 @@ Pds::Array<Datum>::Array(const Pds::Array<Datum> &A)
             this->array[lin] = new Datum[A.ncol];
             if(this->array[lin]==NULL)
             {
-                MyArrayRelease(this->array,lin);
+                Pds::Array<Datum>::ArrayRelease(this->array,lin);
                 this->array=NULL;
                 return;
             }
@@ -200,7 +184,7 @@ Pds::Array<Datum>::Array(const Pds::Array<Datum> &A)
 template <class Datum>
 Pds::Array<Datum>::~Array(void)
 {
-    MyArrayRelease(this->array,this->nlin);
+    Pds::Array<Datum>::ArrayRelease(this->array,this->nlin);
     this->array=NULL;
     this->nlin=0;
     this->ncol=0;
@@ -241,14 +225,14 @@ bool Pds::Array<Datum>::Copy(const Pds::Array<Datum> &A)
             tmparray[lin] = new Datum[A.ncol];
             if(tmparray[lin]==NULL)
             {
-                MyArrayRelease(tmparray,lin);
+                Pds::Array<Datum>::ArrayRelease(tmparray,lin);
                 tmparray=NULL;
                 return false;
             }
             for (col = 0; col < A.ncol; col++) tmparray[lin][col]=A.array[lin][col];
         }
 
-        MyArrayRelease(this->array,A.nlin);
+        Pds::Array<Datum>::ArrayRelease(this->array,A.nlin);
         this->array=tmparray;
         this->nlin=A.nlin;
         this->ncol=A.ncol;

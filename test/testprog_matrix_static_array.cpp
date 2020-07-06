@@ -39,9 +39,9 @@ int main(void)
     Pds::Array<double>::ArrayRelease(array,Nlin);
     if(array==NULL) std::cout<<"Array released.\n\n\n";
     
+    A.Print("A:\n");
     
-    
-    array=Pds::Matrix::ArrayAllocate(A);
+    array=Pds::Array<double>::ArrayAllocate(A);
     if(array==NULL)   {std::cout<<"Error Alocate.\n";return 0;}
     else              std::cout<<"New array allocated.\n";
     
