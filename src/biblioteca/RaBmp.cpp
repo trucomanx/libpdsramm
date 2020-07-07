@@ -35,6 +35,19 @@ Pds::Ra::BmpHeader Pds::Ra::ReadBmpHeader(FILE *fd)
     return Header;
 }
 
+Pds::Ra::BmpHeader Pds::Ra::ReadBmpHeader(const std::string &filename)
+{
+    Pds::Ra::BmpHeader Header;
+    FILE* fd = fopen(filename.c_str(), "rb");
+    if(fd==NULL) 
+    {return Header;}
+    
+    // extract image height and width from header
+    Header=Pds::Ra::ReadBmpHeader(fd);
+    fclose(fd);
+    
+    return Header;
+}
 
 void Pds::Ra::PrintBmpHeader(Pds::Ra::BmpHeader Header)
 {

@@ -39,105 +39,54 @@ Pds::Array<Datum>::Array(void)
 }
 
 template <class Datum>
-Pds::Array<Datum>::Array(unsigned int Nlin,unsigned int Ncol)
+Pds::Array<Datum>::Array(unsigned int nlin,unsigned int ncol)
 {
-    unsigned int lin,col;
-
-    this->array=NULL;
     this->nlin=0;
     this->ncol=0;
+    this->array=NULL;
     
-    if((Nlin==0)||(Ncol==0))    return;
-
-    this->array= new Datum*[Nlin];
-    if(this->array==NULL) return;
+    if((nlin==0)||(ncol==0))    return;
     
+    this->array= Pds::Array<Datum>::ArrayAllocate(nlin,ncol);
+    if(this->array==NULL)       return;
     
-    for (lin = 0; lin < Nlin; lin++)
-    {
-        this->array[lin] = new Datum[Ncol];
-        if(this->array[lin]==NULL)
-        {
-            Pds::Array<Datum>::ArrayRelease(this->array,lin);
-            this->array=NULL;
-            return;
-        }
-        for (col = 0; col < Ncol; col++) this->array[lin][col]=0;
-    }
-
-    this->nlin=Nlin;
-    this->ncol=Ncol;
-    
+    this->nlin=nlin;
+    this->ncol=ncol;
     return;
 }
 
 template <class Datum>
-Pds::Array<Datum>::Array(unsigned int Nlin,unsigned int Ncol,Datum val)
+Pds::Array<Datum>::Array(unsigned int nlin,unsigned int ncol,Datum val)
 {
-    unsigned int lin,col;
 
-    this->array=NULL;
     this->nlin=0;
     this->ncol=0;
+    this->array=NULL;
     
-    if((Nlin==0)||(Ncol==0))    return;
-
-    this->array= new Datum*[Nlin];
-    if(this->array==NULL) return;
+    if((nlin==0)||(ncol==0))    return;
     
+    this->array= Pds::Array<Datum>::ArrayAllocate(nlin,ncol,val);
+    if(this->array==NULL)       return;
     
-    for (lin = 0; lin < Nlin; lin++)
-    {
-        this->array[lin] = new Datum[Ncol];
-        if(this->array[lin]==NULL)
-        {
-            Pds::Array<Datum>::ArrayRelease(this->array,lin);
-            this->array=NULL;
-            return;
-        }
-        for (col = 0; col < Ncol; col++) this->array[lin][col]=val;
-    }
-
-    this->nlin=Nlin;
-    this->ncol=Ncol;
-    
+    this->nlin=nlin;
+    this->ncol=ncol;
     return;
 }
 
 template <class Datum>
-Pds::Array<Datum>::Array(const Pds::Size &S)
+Pds::Array<Datum>::Array(const Pds::Size &A)
 {
-    unsigned int lin,col;
-
-    this->array=NULL;
     this->nlin=0;
     this->ncol=0;
-
-    unsigned int Nlin=S.nlin;
-    unsigned int Ncol=S.ncol;
+    this->array=NULL;
     
-    if((Nlin==0)||(Ncol==0))    return;
-
-    this->array= new Datum*[Nlin];
-    if(this->array==NULL) return;
+    if((A.nlin==0)||(A.ncol==0))    return;
     
+    this->array= Pds::Array<Datum>::ArrayAllocate(A.nlin,A.ncol);
+    if(this->array==NULL)       return;
     
-    for (lin = 0; lin < Nlin; lin++)
-    {
-        this->array[lin] = new Datum[Ncol];
-        if(this->array[lin]==NULL)
-        {
-            Pds::Array<Datum>::ArrayRelease(this->array,lin);
-            this->array=NULL;
-            return;
-        }
-        for (col = 0; col < Ncol; col++) this->array[lin][col]=0;
-    }
-
-    this->nlin=Nlin;
-    this->ncol=Ncol;
-    
-    return;
+    this->nlin=A.nlin;
+    this->ncol=A.ncol;
 }
 
 
@@ -147,37 +96,22 @@ Pds::Array<Datum>::Array(const Pds::Array<Datum> &A)
 {
     if(this!=&A) //Comprueba que no se esté intentando igualar un objeto a sí mismo
     {
-        unsigned int lin,col;
-
-        this->array=NULL;
         this->nlin=0;
         this->ncol=0;
+        this->array=NULL;
         
-        if((A.nlin==0)||(A.ncol==0)||(A.array==NULL))    return;
+        if(A.IsEmpty())  return;
 
-        this->array= new Datum*[A.nlin];
-        if(this->array==NULL) return;
-        
-        
-        for (lin = 0; lin < A.nlin; lin++)
-        {
-            this->array[lin] = new Datum[A.ncol];
-            if(this->array[lin]==NULL)
-            {
-                Pds::Array<Datum>::ArrayRelease(this->array,lin);
-                this->array=NULL;
-                return;
-            }
-            for (col = 0; col < A.ncol; col++) this->array[lin][col]=A.array[lin][col];
-        }
 
+        this->array= Pds::Array<Datum>::ArrayAllocate(A);
+        if(this->array==NULL)  return;
+    
         this->nlin=A.nlin;
         this->ncol=A.ncol;
-
-        //this->Print("testeo\n");
-        //std::cout<<"A.nlin:"<<this->nlin<<std::endl;
-        //std::cout<<"A.ncol:"<<this->ncol<<std::endl;
     }
+    //std::cout<<"Copy asignment contructor\n";
+
+    return;
 }
 
 

@@ -39,6 +39,32 @@ Datum** Pds::Array<Datum>::ArrayAllocate(const Pds::Matrix &A)
     return array;
     
 }
+////////////////////////////////////////////////////////////////////////////////
+template <class Datum>
+Datum** Pds::Array<Datum>::ArrayAllocate(const Pds::Array<Datum> &A)
+{
+    Datum **array=NULL;
+    unsigned int lin,col;
+    
+    if((A.nlin==0)||(A.ncol==0)||(A.array==NULL))    return NULL;
+
+    array= new Datum*[A.nlin];
+    if(array==NULL) return NULL;
+    
+    
+    for (lin = 0; lin < A.nlin; lin++)
+    {
+        array[lin] = new Datum[A.ncol];
+        if(array[lin]==NULL)
+        {
+            Pds::Array<Datum>::ArrayRelease(array,lin);
+            return NULL;
+        }
+        for (col = 0; col < A.ncol; col++) array[lin][col]=A.array[lin][col];
+    }
+    return array;
+    
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 

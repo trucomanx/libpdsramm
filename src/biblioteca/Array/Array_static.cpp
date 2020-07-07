@@ -3,6 +3,7 @@
 #include <Pds/Array>
 #include <Pds/RaBmp>
 #include <iostream>
+#include <cmath>
 
 // Instantiate Pds::Array for the supported template type parameters
 template class Pds::Array<double>;
@@ -14,7 +15,7 @@ template <class Datum>
 std::vector<Pds::Array<Datum>>  Pds::Array<Datum>::ImportBmpFile( const char* filename)
 {
     // Limpiando las matrices
-    std::vector<Pds::Array<Datum>> Tmp;
+    std::vector<Pds::Array<Datum>> Tmp(0);
     
     // Abriendo archivos
     FILE* f = fopen(filename, "rb");
@@ -49,13 +50,17 @@ std::vector<Pds::Array<Datum>>  Pds::Array<Datum>::ImportBmpFile( const char* fi
    
     // Cargando datos en data
     unsigned int bytes_by_pixel=Header.bits_per_pixel/8;
-    unsigned int N=Header.width_px * Header.height_px;
-    unsigned int size = bytes_by_pixel * N;
+    unsigned int row_size_bytes= 4*ceil((Header.bits_per_pixel*Header.width_px)/32.0); // pading of row
+    unsigned int size =  bytes_by_pixel*Header.width_px* abs(Header.height_px);
+
     unsigned char* data = new unsigned char[size]; // allocate 3 bytes per pixel
+    unsigned char* rowdata = new unsigned char[row_size_bytes]; // allocate 3 bytes per pixel
     
     fseek(f, Header.offset, SEEK_SET);
     size_t numel=fread(data, sizeof(unsigned char), size, f); // read the rest of the data at once
-    if(numel!=size) {free(data); return Tmp;}
+    if(numel!=size) {delete[] data; return Tmp;}
+
+    delete[] rowdata;
     fclose(f);
     
     // Copiando los datos dentro de las matrices de colores

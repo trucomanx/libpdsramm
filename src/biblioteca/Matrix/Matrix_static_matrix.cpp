@@ -36,10 +36,11 @@ bool Pds::Matrix::ExportBmpFile(const Pds::Matrix &R,const Pds::Matrix &G,const 
 
 std::vector<Pds::Matrix>  Pds::Matrix::ImportBmpFile( const char* filename)
 {
-    std::vector<Pds::Array<double>> Block;
-    std::vector<Pds::Matrix> Tmp;
+    std::vector<Pds::Array<unsigned char>> Block;
+    std::vector<Pds::Matrix> Tmp(0);
+
     
-    Block=Pds::Array<double>::ImportBmpFile(filename);
+    Block=Pds::Array<unsigned char>::ImportBmpFile(filename);
     if(Block.size()==0) return Tmp;
 
     std::vector<Pds::Matrix> Out(Block.size());

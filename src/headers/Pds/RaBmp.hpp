@@ -34,8 +34,8 @@
 #include <cstdio>
 #include <list>
 
-/** \defgroup PdsRaBmpGroup Extras Pds::Ra -- File
- *  \brief Funciones con archivos: Pds::Ra::ReadBmpHead(), etc
+/** \defgroup PdsRaBmpGroup Extras Pds::Ra -- BMP files
+ *  \brief Funciones con archivos: Pds::Ra::ReadBmpHeader(), etc
  *  <div class="fragment"> \#include <Pds/RaBmp> </div>
  *  
  *  
@@ -87,12 +87,22 @@ typedef struct {             // Total: 54 bytes
     Pds::Ra::BmpHeader ReadBmpHeader(FILE *fd);
 
     /** 
+     *  \brief Retorna una estructura con los datos de cabecera de un archivo bmp.
+     *
+     *  \param[in] filename Nombre completo de un archivo BMP.
+     *  \return Retorna una estructura con los datos de cabecera de un archivo bmp.
+     *  \ingroup PdsRaBmpGroup
+     */
+    Pds::Ra::BmpHeader ReadBmpHeader(const std::string &filename);
+
+    /** 
      *  \brief Imprime los datos de una estructura con los datos de cabecera de un archivo bmp.
      *
      *  \param[in] Header Estructura con los datos de cabecera de un archivo bmp.
      *  \ingroup PdsRaBmpGroup
      */
     void PrintBmpHeader(Pds::Ra::BmpHeader Header);
+
 
 
 /**

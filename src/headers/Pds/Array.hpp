@@ -384,6 +384,16 @@ public:
      *  \ingroup ArrayGroup
      */
     static Datum** ArrayAllocate(const Pds::Matrix &A);
+
+    /** 
+     *  \brief crea dinámicamente un arreglo de A.Nlin() lineas y A.Ncol() columnas,
+     *  con los datos copiados de una matriz A.
+     *  \param[in] A Array de donde se copiaran datos.
+     *  \return Retorna un puntero al arreglo, o NULL si no consiguió reservar
+     * la memoria. Esta memoria debe ser liberada siempre com ArrayRelease
+     *  \ingroup ArrayGroup
+     */
+    static Datum** ArrayAllocate(const Pds::Array<Datum> &A);
     
     /** 
      *  \brief crea dinámicamente un arreglo de Nlin lineas y Ncol columnas,

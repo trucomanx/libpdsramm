@@ -2190,7 +2190,7 @@ STRUCTURE=load("-v4","matfile.mat","B");
      *  \return Retorna true si todo fue bien o false si no.
      *  \ingroup MatrixGroup
      */
-    bool ExportBmpFile(const unsigned char colormap[256][3],const char* filepath) const;
+    bool ExportBmpFile(const unsigned char colormap[256][3],const std::string &filepath) const;
 /**
  * @}
  */

@@ -59,7 +59,7 @@ int main(void)
     A.FillRandU(-2.0,2.0);
     A.Print("\nA:\n");
 
-    A=255*Pds::Zeros(1000,500);
+    A=255*Pds::Zeros(1007,507);
     A.InitRegion(Pds::RegionRect(0,0,100,100),255);
     
     A.ExportBmpFile(Pds::Colormap::Jet,"test.bmp");

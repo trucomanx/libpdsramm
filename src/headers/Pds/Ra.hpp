@@ -58,7 +58,9 @@
 #include <Pds/MathMatrix>
 #include <Pds/FuncMatrix>
 #include <Pds/FuncMatrixRotation>
-    
+#include <Pds/FuncMatrixImage>
+#include <Pds/FuncArrayLabeling>
+#include <Pds/FuncArrayDataset>
     
 #include <Pds/Vector>
 #include <Pds/FuncVector>
