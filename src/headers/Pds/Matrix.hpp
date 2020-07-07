@@ -2226,7 +2226,7 @@ public:
     static bool ExportBmpFile(  const Pds::Matrix &R,
                                 const Pds::Matrix &G,
                                 const Pds::Matrix &B,
-                                const char* bmpfilename);
+                                const std::string &bmpfilename);
 
    /** 
      *  \brief Lee matrices de un archivo binario en formato BMP.
@@ -2242,7 +2242,7 @@ public:
      *  \return Retorna un vector de matrices, una matriz por cada byte en un pixel.
      *  \ingroup MatrixGroup
      */
-    static std::vector<Pds::Matrix>  ImportBmpFile( const char* bmpfilename);
+    static std::vector<Pds::Matrix>  ImportBmpFile( const std::string &bmpfilename);
 
 
 /**

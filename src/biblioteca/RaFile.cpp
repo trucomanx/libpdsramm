@@ -90,13 +90,13 @@ char *Pds::Ra::Fgets(FILE *fd)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-long Pds::Ra::SignificativeLinesInFile(const char*filepath)
+long Pds::Ra::SignificativeLinesInFile(const std::string &filepath)
 {
     long count;
     std::string line;
 
-    if (filepath==NULL)         return -1;
-    if (strlen(filepath)==0)    return -1;
+    if (filepath.size()==0)     return -1;
+    //if (strlen(filepath)==0)    return -1;
 
     std::ifstream ifs(filepath, std::ifstream::in);	
     if (ifs.is_open()==false)   return -1;
@@ -116,15 +116,15 @@ long Pds::Ra::SignificativeLinesInFile(const char*filepath)
 }
 
 
-bool Pds::Ra::ElementsInFile(const char* filepath,unsigned int &Nel)
+bool Pds::Ra::ElementsInFile(const std::string &filepath,unsigned int &Nel)
 {
     unsigned int count;
     int N;
 
     std::string line;
 
-    if (filepath==NULL)         return false;
-    if (strlen(filepath)==0)    return false;
+    if (filepath.size()==0)         return false;
+    //if (strlen(filepath)==0)    return false;
 
     std::ifstream ifs(filepath, std::ifstream::in);	
     if (ifs.is_open()==false)   return false;
@@ -149,7 +149,7 @@ bool Pds::Ra::ElementsInFile(const char* filepath,unsigned int &Nel)
     return true;
 }
 
-bool Pds::Ra::ArraySizeInFile(const char*filepath,unsigned int &Nlin,unsigned int &Ncol)
+bool Pds::Ra::ArraySizeInFile(const std::string &filepath,unsigned int &Nlin,unsigned int &Ncol)
 {
     unsigned int count;
     int N;
@@ -157,8 +157,8 @@ bool Pds::Ra::ArraySizeInFile(const char*filepath,unsigned int &Nlin,unsigned in
 
     std::string line;
 
-    if (filepath==NULL)         return false;
-    if (strlen(filepath)==0)    return false;
+    if (filepath.size()==0)         return false;
+    //if (strlen(filepath)==0)    return false;
 
     std::ifstream ifs(filepath, std::ifstream::in);	
     if (ifs.is_open()==false)   return false;

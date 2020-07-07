@@ -33,12 +33,8 @@ int main(void)
     Pds::Matrix::ExportBmpFile(Z.Scale(0,255),Z.Scale(0,255),Z.Scale(0,255),"ColormapRGB.bmp");
     
     std::vector<Pds::Matrix> Block;
-    Block=Pds::Matrix::ImportBmpFile("imagen2.bmp");
-    //Block=Pds::Matrix::ImportBmpFile("IMG-20200503-WA0011.bmp");
+    Block=Pds::Matrix::ImportBmpFile("IMG-20200503-WA0011.bmp");
     //Block=Pds::Matrix::ImportBmpFile("ColormapRGB.bmp");
-
-    Pds::Ra::BmpHeader Header=Pds::Ra::ReadBmpHeader("imagen2.bmp");
-    Pds::Ra::PrintBmpHeader(Header);
 
     std::vector<Pds::Matrix> CC;
     CC=Pds::Image::ChromaticityCoordinates(Block,255);
@@ -47,14 +43,12 @@ int main(void)
 
     std::vector<Pds::Matrix> WPI;
     WPI=Pds::Image::WhitePatch(Block);
-    if(WPI.size()!=0)
+    if(WPI.size()==3)
     Pds::Matrix::ExportBmpFile(WPI[0],WPI[1],WPI[2],"ColormapRGB_wp.bmp");
 
 
     if(Block.size()==1)
     Block[0].Scale(0,255).ExportBmpFile(Pds::Colormap::Jet,"ColormapRGB_new.bmp");
-
-
 
     if(Block.size()==3)
     Pds::Matrix::ExportBmpFile(Block[0],Block[1],Block[2],"ColormapRGB_new.bmp");

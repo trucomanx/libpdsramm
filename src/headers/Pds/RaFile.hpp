@@ -74,7 +74,7 @@ namespace Ra{
      *  o negativo en caso de error
      *  \ingroup PdsRaFileGroup
      */
-    long SignificativeLinesInFile(const char*filepath);
+    long SignificativeLinesInFile(const std::string &filepath);
 
 
     /** 
@@ -96,7 +96,7 @@ namespace Ra{
      *  entonces Nel no es modificado.
      *  \ingroup PdsRaFileGroup
      */
-    bool ElementsInFile(const char*filepath,unsigned int &Nel);
+    bool ElementsInFile(const std::string &filepath,unsigned int &Nel);
 
     /** 
      *  \brief Retorna el número de lineas significativas y columnas de un archivo.
@@ -119,7 +119,7 @@ namespace Ra{
      *  entonces Nlin y Ncol no son modificados. 
      *  \ingroup PdsRaFileGroup
      */
-    bool ArraySizeInFile(const char*filepath,unsigned int &Nlin,unsigned int &Ncol);
+    bool ArraySizeInFile(const std::string &filepath,unsigned int &Nlin,unsigned int &Ncol);
 
     /** 
      *  \brief Retorna una linea leida desde un desriptor de fichero de texto.

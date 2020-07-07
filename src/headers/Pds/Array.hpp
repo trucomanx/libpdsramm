@@ -358,11 +358,11 @@ public:
     <tr><td>Number of planes equal to 1
     <tr><td>8,16,24 o 32 bits by pixel.
 </table> 
-     *  \param[in] bmpfilename Nombre del archivo donde se leeran los datos.
+     *  \param[in] bmpfilepath Nombre del archivo donde se leeran los datos.
      *  \return Retorna un vector de matrices, una matriz por cada byte en un pixel.
      *  \ingroup ArrayGroup
      */
-    static std::vector<Pds::Array<Datum>>  ImportBmpFile(const char* bmpfilename);
+    static std::vector<Pds::Array<Datum>>  ImportBmpFile(const std::string &bmpfilepath);
 
 /**
  * @}
@@ -492,16 +492,16 @@ public:
      *  \param[in] Nlin Número de lineas del arreglo, equivalente a la altura de la imagen.
      *  \param[in] Ncol Número de columnas del arreglo, equivalente al ancho de la imagen.
      *  \param[in] colormap Mapa de colores. Ejemplo: Pds::Colormap::Jet, Pds::Colormap::Bone,
-     *  \param[in] bmpfilename Nombre del archivo donde se escribirán los datos 
+     *  \param[in] bmpfilepath Nombre del archivo donde se escribirán los datos 
      *  Pds::Colormap::Hot,Pds::Colormap::Jolly.
-     *  \return true si todo fue bien o false si no. (ej. array,bmpfilename==NULL)
+     *  \return true si todo fue bien o false si no. (ej. array,bmpfilepath==NULL)
      *  \ingroup ArrayGroup
      */
     static bool ArrayWriteBmpWithColormap(  Datum **array,
                                             unsigned int Nlin,
                                             unsigned int Ncol,
                                             const unsigned char colormap[256][3],
-                                            const char *bmpfilename);
+                                            const std::string &bmpfilepath);
 
     /** 
      *  \brief Escribe los datos de una matriz en un archivo de en formato BMP.
@@ -511,8 +511,8 @@ public:
      *  \param[in] arrayb Arreglo donde se leerán los datos de escala de gris. \f$0\leq b_{ij} \leq 255\f$
      *  \param[in] Nlin Número de lineas del arreglo, equivalente a la altura de la imagen.
      *  \param[in] Ncol Número de columnas del arreglo, equivalente al ancho de la imagen.
-     *  \param[in] bmpfilename Nombre del archivo donde se escribirán los datos.
-     *  \return true si todo fue bien o false si no. (ej. array,bmpfilename==NULL)
+     *  \param[in] bmpfilepath Nombre del archivo donde se escribirán los datos.
+     *  \return true si todo fue bien o false si no. (ej. array,bmpfilepath==NULL)
      *  \ingroup ArrayGroup
      */
     static bool ArrayWriteBmp(  Datum **arrayr,
@@ -520,7 +520,7 @@ public:
                                 Datum **arrayb,
                                 unsigned int Nlin,
                                 unsigned int Ncol,
-                                const char *bmpfilename);
+                                const std::string &bmpfilepath);
 
     
    /** 
@@ -534,7 +534,7 @@ public:
      *  \return Retorna true si todo fue bien o false si no.
      *  \ingroup ArrayGroup
      */
-    static bool ArrayWriteCsvFile(const char* filepath,Datum **array,unsigned int Nlin,unsigned int Ncol,char delimitador=',');
+    static bool ArrayWriteCsvFile(const std::string &filepath,Datum **array,unsigned int Nlin,unsigned int Ncol,char delimitador=',');
 
    /** 
      *  \brief Escribe en un archivo binario en formato de octave un
@@ -597,7 +597,7 @@ STRUCTURE=load("-v4","matfile.mat","B");
      *  \return Retorna true si todo fue bien o false si no.
      *  \ingroup ArrayGroup
      */
-    static bool ArraySave(const char* filepath,Datum **array,unsigned int Nlin,unsigned int Ncol);
+    static bool ArraySave(const std::string &filepath,Datum **array,unsigned int Nlin,unsigned int Ncol);
 
    /** 
      *  \brief Lee de un archivo un arreglo de Nlin lineas y Ncol columnas (arreglo de arreglos).
@@ -609,7 +609,7 @@ STRUCTURE=load("-v4","matfile.mat","B");
      *  de entrada Nlin e Ncol no son alterados.
      *  \ingroup ArrayGroup
      */
-    static Datum** ArrayLoad(const char* filepath,unsigned int& Nlin,unsigned int& Ncol);
+    static Datum** ArrayLoad(const std::string &filepath,unsigned int& Nlin,unsigned int& Ncol);
 
    /** 
      *  \brief Lee de un archivo un arreglo de Nlin lineas y Ncol=1 columna (arreglo de arreglos).
@@ -624,7 +624,7 @@ STRUCTURE=load("-v4","matfile.mat","B");
      *  siempre es cargado con 1.
      *  \ingroup ArrayGroup
      */
-    static Datum** ArrayColLoad(const char* filepath,unsigned int& Nlin,unsigned int& Ncol);
+    static Datum** ArrayColLoad(const std::string &filepath,unsigned int& Nlin,unsigned int& Ncol);
 
 
 

@@ -16,15 +16,15 @@ template class Pds::Array<unsigned char>;
 template class Pds::Array<unsigned int >;
 
 template <class Datum>
-bool Pds::Array<Datum>::ArrayWriteCsvFile(const char* filepath,Datum **array,unsigned int Nlin,unsigned int Ncol, char delimitador)
+bool Pds::Array<Datum>::ArrayWriteCsvFile(const std::string &filepath,Datum **array,unsigned int Nlin,unsigned int Ncol, char delimitador)
 {
     std::ofstream myfile;
     unsigned int lin,col;
 
-    if(filepath==NULL)  return false;
+    if(filepath.size()==0)  return false;
     if(array==NULL)     return false;
 
-    myfile.open(filepath);
+    myfile.open(filepath.c_str());
     if(myfile.is_open()==false)    return false;
 
     //if(delimitador!=',')    myfile<<"sep="<<delimitador<<"\n";

@@ -15,12 +15,12 @@ template class Pds::Array<unsigned char>;
 template class Pds::Array<unsigned int >;
 
 template <class Datum>
-bool Pds::Array<Datum>::ArraySave(const char* filepath,Datum **array,unsigned int Nlin,unsigned int Ncol)
+bool Pds::Array<Datum>::ArraySave(const std::string &filepath,Datum **array,unsigned int Nlin,unsigned int Ncol)
 {
     std::ofstream myfile;
     unsigned int lin,col;
 
-    if(filepath==NULL)  return false;
+    if(filepath.size()==0)  return false;
     if(array==NULL)     return false;
 
     myfile.open(filepath);
@@ -48,21 +48,21 @@ bool Pds::Array<Datum>::ArraySave(const char* filepath,Datum **array,unsigned in
 #include <cstdlib>
 
 template <class Datum>
-Datum** Pds::Array<Datum>::ArrayLoad(const char* filepath,unsigned int& Nlin,unsigned int& Ncol)
+Datum** Pds::Array<Datum>::ArrayLoad(const std::string &filepath,unsigned int& Nlin,unsigned int& Ncol)
 {
     unsigned int nlin,ncol;
     unsigned int i,j;
 
-    if(filepath==NULL)  return NULL;
+    if(filepath.size()==0)  return NULL;
     //if(array!=NULL)     return false;
 
-    if(Pds::Ra::ArraySizeInFile(filepath,nlin,ncol)==false) return NULL;
+    if(Pds::Ra::ArraySizeInFile(filepath.c_str(),nlin,ncol)==false) return NULL;
 
     Datum **arr=Pds::Array<Datum>::ArrayAllocate(nlin,ncol);
     if(arr==NULL)   return NULL;
 
 
-    std::ifstream ifs(filepath, std::ifstream::in);	
+    std::ifstream ifs(filepath.c_str(), std::ifstream::in);	
     if(ifs.is_open()==false)
     {
         Pds::Array<Datum>::ArrayRelease(arr,nlin);
@@ -94,14 +94,14 @@ Datum** Pds::Array<Datum>::ArrayLoad(const char* filepath,unsigned int& Nlin,uns
 #include <cstdlib>
 
 template <class Datum>
-Datum** Pds::Array<Datum>::ArrayColLoad(const char* filepath,unsigned int& Nlin,unsigned int& Ncol)
+Datum** Pds::Array<Datum>::ArrayColLoad(const std::string &filepath,unsigned int& Nlin,unsigned int& Ncol)
 {
     unsigned int nlin,ncol;
     unsigned int i;
 
-    if(filepath==NULL)  return NULL;
+    if(filepath.size()==0)  return NULL;
 
-    if(Pds::Ra::ElementsInFile(filepath,nlin)==false) return NULL;
+    if(Pds::Ra::ElementsInFile(filepath.c_str(),nlin)==false) return NULL;
     ncol=1;
 
     Datum **arr=Pds::Array<Datum>::ArrayAllocate(nlin,ncol);

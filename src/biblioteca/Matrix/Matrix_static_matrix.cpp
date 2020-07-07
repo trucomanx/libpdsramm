@@ -19,12 +19,12 @@ Pds::Matrix Pds::Matrix::FromString(const std::string &str)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-bool Pds::Matrix::ExportBmpFile(const Pds::Matrix &R,const Pds::Matrix &G,const Pds::Matrix &B,const char* bmpfilename)
+bool Pds::Matrix::ExportBmpFile(const Pds::Matrix &R,const Pds::Matrix &G,const Pds::Matrix &B,const std::string &bmpfilename)
 {
     if(R.IsEmpty())         return false;
     if(R.IsNotSimilarTo(G)) return false;
     if(R.IsNotSimilarTo(B)) return false;
-    if(bmpfilename==NULL)   return false;
+    if(bmpfilename.size()==0)   return false;
 
     
     bool ret=Pds::Array<double>::ArrayWriteBmp(R.array,G.array,B.array,R.nlin,R.ncol,bmpfilename);
@@ -34,13 +34,13 @@ bool Pds::Matrix::ExportBmpFile(const Pds::Matrix &R,const Pds::Matrix &G,const 
 
 ////////////////////////////////////////////////////////////////////////////////
 
-std::vector<Pds::Matrix>  Pds::Matrix::ImportBmpFile( const char* filename)
+std::vector<Pds::Matrix>  Pds::Matrix::ImportBmpFile( const std::string &filename)
 {
     std::vector<Pds::Array<unsigned char>> Block;
     std::vector<Pds::Matrix> Tmp(0);
 
     
-    Block=Pds::Array<unsigned char>::ImportBmpFile(filename);
+    Block=Pds::Array<unsigned char>::ImportBmpFile(filename.c_str());
     if(Block.size()==0) return Tmp;
 
     std::vector<Pds::Matrix> Out(Block.size());

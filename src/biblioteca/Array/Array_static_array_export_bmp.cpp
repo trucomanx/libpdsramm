@@ -25,7 +25,7 @@ bool Pds::Array<Datum>::ArrayWriteBmp(  Datum **arrayr,
                                         Datum **arrayb,
                                         unsigned int Nlin,
                                         unsigned int Ncol,
-                                        const char *bmpfilename)
+                                        const std::string &bmpfilename)
 {
     FILE *bmpfd=NULL;
 
@@ -35,7 +35,7 @@ bool Pds::Array<Datum>::ArrayWriteBmp(  Datum **arrayr,
     if(arrayr==NULL)        return false;
     if(arrayg==NULL)        return false;
     if(arrayb==NULL)        return false;
-    if(bmpfilename==NULL)   return false;
+    if(bmpfilename.size()==0)   return false;
 
     int x,y,i,j;
     int WIDTH  = Ncol;
@@ -91,7 +91,7 @@ bool Pds::Array<Datum>::ArrayWriteBmp(  Datum **arrayr,
 
     unsigned char bmppad[3] = {0,0,0};
 
-    bmpfd = fopen(bmpfilename,"wb");
+    bmpfd = fopen(bmpfilename.c_str(),"wb");
     if(bmpfd==NULL)
     {
         free(img);
@@ -114,7 +114,7 @@ bool Pds::Array<Datum>::ArrayWriteBmpWithColormap(Datum **array,
                                             unsigned int Nlin,
                                             unsigned int Ncol,
                                             const unsigned char colormap[256][3],
-                                            const char *bmpfilename)
+                                            const std::string &bmpfilename)
 {
     FILE * bmpfd=NULL;
 
@@ -125,7 +125,7 @@ bool Pds::Array<Datum>::ArrayWriteBmpWithColormap(Datum **array,
     unsigned int lin,col;
 
     if(array==NULL)         return false;
-    if(bmpfilename==NULL)   return false;
+    if(bmpfilename.size()==0)   return false;
     
     int WIDTH  = Ncol;
     int HEIGHT = Nlin;
@@ -202,7 +202,7 @@ bool Pds::Array<Datum>::ArrayWriteBmpWithColormap(Datum **array,
 
     unsigned char bmppad[3] = {0,0,0};
 
-    bmpfd = fopen(bmpfilename, "wb");
+    bmpfd = fopen(bmpfilename.c_str(), "wb");
     if (bmpfd == NULL) 
     {
         free(img);
