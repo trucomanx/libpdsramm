@@ -67,6 +67,41 @@ Datum** Pds::Array<Datum>::ArrayAllocate(const Pds::Array<Datum> &A)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+template <class Datum>
+Datum** Pds::Array<Datum>::ArrayReshape(const Pds::Array<Datum> &A,unsigned int Nlin,unsigned int Ncol)
+{
+    Datum **array=NULL;
+    unsigned int lin,col;
+    
+    if((A.nlin==0)||(A.ncol==0)||(A.array==NULL))    return NULL;
+
+    array= new Datum*[Nlin];
+    if(array==NULL) return NULL;
+    
+    
+    for (lin = 0; lin < Nlin; lin++)
+    {
+        array[lin] = new Datum[Ncol];
+        if(array[lin]==NULL)
+        {
+            Pds::Array<Datum>::ArrayRelease(array,lin);
+            return NULL;
+        }   
+    }
+
+    unsigned int id=0;
+    unsigned int N=A.nlin*A.ncol;
+    for (col = 0; col < Ncol; col++)
+    for (lin = 0; lin < Nlin; lin++)
+    {
+        if(id<N)    array[lin][col]=A.array[id%A.nlin][id/A.nlin];
+        else        array[lin][col]=0;
+        id++;
+    }
+    return array;
+    
+}
+////////////////////////////////////////////////////////////////////////////////
 
 template <class Datum>
 Datum** Pds::Array<Datum>::ArrayAllocate(unsigned int Nlin,unsigned int Ncol, Datum val)

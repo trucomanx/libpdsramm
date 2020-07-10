@@ -2,6 +2,7 @@
 #include <iostream>
 #include <Pds/Array>
 #include <Pds/RaBmp>
+#include <cstring>
 
 // Instantiate Pds::Array for the supported template type parameters
 template class Pds::Array<double>;
@@ -224,4 +225,127 @@ bool Pds::Array<Datum>::ArrayWriteBmpWithColormap(Datum **array,
 
     return true;
 }
+
+////////////////////////////////////////////////////////////////////////////////
+template <class Datum>
+bool Pds::Array<Datum>::ArrayWriteBmpWithColormap(Datum **array,
+                                            unsigned int Nlin,
+                                            unsigned int Ncol,
+                                            const Pds::Array<unsigned char> &Colormap,
+                                            const std::string &bmpfilename)
+{
+    FILE * bmpfd=NULL;
+
+    unsigned char *img = NULL;
+    unsigned char UCHAR;
+
+    int i;
+    unsigned int lin,col;
+
+    if(array==NULL)             return false;
+    if(bmpfilename.size()==0)   return false;
+    if(Colormap.IsEmpty())      return false;
+    if(Colormap.Ncol()!=3)      return false;
+    if(Colormap.Nlin()==0)      return false;
+    
+    int WIDTH  = Ncol;
+    int HEIGHT = Nlin;
+
+    int FILESIZE=54+(int)WIDTH*HEIGHT+1024;
+    
+    img = (unsigned char *)calloc(WIDTH*HEIGHT,sizeof(unsigned char));
+    if(img==NULL)   return false;
+
+    for(lin=0; lin<(unsigned int)HEIGHT; lin++)
+    for(col=0; col<(unsigned int)WIDTH ; col++)
+    {
+
+        if      ((unsigned char)array[lin][col] > 255)  UCHAR = 255;
+        else if ((unsigned char)array[lin][col] <   0)  UCHAR = 0;
+        else                                            UCHAR = (unsigned char)array[lin][col];
+        
+        //img[col+lin*WIDTH] = UCHAR;
+        img[col+(HEIGHT-1-lin)*WIDTH] = UCHAR;
+    }
+
+    ///////////////////////////////// Paleta ///////////////////////////////////
+    unsigned char paleta[1024];
+    memset(paleta,0,1024);
+    
+    for(unsigned j=0;(j<Colormap.Nlin())&&(j<256);j++)
+    {
+        paleta[j*4+0]=Colormap.array[j][2];
+        paleta[j*4+1]=Colormap.array[j][1];
+        paleta[j*4+2]=Colormap.array[j][0];
+        paleta[j*4+3]=0;
+    }
+    ////////////////////////////////////////////////////////////////////////////
+
+
+    ///////////////////////////////// Cabecera //////////////////////////////////
+    // [ 2, 6> tamaño total del archivo (calculalo luego)
+    // [ 6,10> puros cero
+    // [10,14> Tamanho total de la cabecera (1024+54)
+    unsigned char bmpfileheader[14] = {'B','M',  0,0,0,0,  0,0,0,0,  54,4,0,0};
+   
+    bmpfileheader[ 2] = (unsigned char)(FILESIZE    );
+    bmpfileheader[ 3] = (unsigned char)(FILESIZE>> 8);
+    bmpfileheader[ 4] = (unsigned char)(FILESIZE>>16);
+    bmpfileheader[ 5] = (unsigned char)(FILESIZE>>24);
+    ////////////////////////////////////////////////////////////////////////////
+
+
+    /////////////////////////// Cabecera informativa ////////////////////////////
+    // [ 0, 4> Tamanho total de informacion de la cabecera
+    // [ 4, 8> Ancho en pixels de la imagen
+    // [ 8,12> Alto en pixels de la imagen
+    // [12,14> Numero de Planos ¿?
+    // [14,16> Numero de bits por pixel (1, 4, 8, 16, 24 o 32.)
+    // [16,20> Sin compresion
+    unsigned char bmpinfoheader[40] = {40,0,0,0,    0,0,0,0,    0,0,0,0,    1,0,    8,0,    0,0,0,0};
+    // [32,36> 0100h=256 numero de colores
+    // [36,40> 0100h=256 numero de colores
+    
+    bmpinfoheader[ 4] = (unsigned char)(WIDTH    );
+    bmpinfoheader[ 5] = (unsigned char)(WIDTH>> 8);
+    bmpinfoheader[ 6] = (unsigned char)(WIDTH>>16);
+    bmpinfoheader[ 7] = (unsigned char)(WIDTH>>24);
+
+    bmpinfoheader[ 8] = (unsigned char)(HEIGHT    );
+    bmpinfoheader[ 9] = (unsigned char)(HEIGHT>> 8);
+    bmpinfoheader[10] = (unsigned char)(HEIGHT>>16);
+    bmpinfoheader[11] = (unsigned char)(HEIGHT>>24);
+
+    bmpinfoheader[32] = (unsigned char)(0);
+    bmpinfoheader[33] = (unsigned char)(1);
+
+    bmpinfoheader[36] = (unsigned char)(0);
+    bmpinfoheader[37] = (unsigned char)(1);
+    ////////////////////////////////////////////////////////////////////////////
+
+    unsigned char bmppad[3] = {0,0,0};
+
+    bmpfd = fopen(bmpfilename.c_str(), "wb");
+    if (bmpfd == NULL) 
+    {
+        free(img);
+        return false;
+    }
+    
+    fwrite(bmpfileheader, 1,  14, bmpfd);
+    fwrite(bmpinfoheader, 1,  40, bmpfd);
+    fwrite(paleta       , 1,1024, bmpfd);
+
+
+    for(i=0;i<HEIGHT;i++)
+    {
+        fwrite(img+(WIDTH*i),1,WIDTH          ,bmpfd);
+        fwrite(bmppad       ,1,(4-(WIDTH%4))%4,bmpfd);
+    }
+
+    fclose(bmpfd);
+
+    return true;
+}
+
 

@@ -35,7 +35,11 @@ V=A.Multiindex(ID) :
     
 int main(void)
 {
-    Pds::Matrix A("1 2 1\n-3 -2 1\n1 1 2");
+    Pds::Matrix A("1 2 1\n1 -2 1\n1 1 2");
+    std::vector<Pds::Matrix> Block(3);
+    Block[0]=Pds::Ones(2,2);
+    Block[1]=Pds::Ones(2,2);
+    Block[2]=Pds::Ones(2,2);
     A.Print("\nA:\n");
     
     Pds::Vector ID({1,3,2});    
@@ -46,6 +50,9 @@ int main(void)
     V.Print("\nV=A.Multiindex(ID) :\n");
     
     std::cout<<"A.Det():\t"<<A.Det()<<std::endl;
+
+    A.Print("\nA:\n");
+    A.MultipleMse(Block).Print("A.MultipleMse(Block):\n");
     
     return 0;
 }

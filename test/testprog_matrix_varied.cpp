@@ -19,6 +19,10 @@ int main(void)
     
     Pds::Matrix B(Pds::Ra::TextFormat,"filedat.txt");
     B.Print("B\n");
+
+    A.Print("A\n");
+    A.Reshape(4,2);
+    A.Print("A\n");
     
     return 0;
 }

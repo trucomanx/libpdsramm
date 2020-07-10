@@ -65,6 +65,18 @@ Datum Pds::Array<Datum>::Get(unsigned int lin,unsigned int col) const
 }
 
 template <class Datum>
+Datum Pds::Array<Datum>::Get(unsigned int id) const
+{
+    unsigned int lin=id%this->nlin;
+    unsigned int col=id/this->nlin;
+
+    if(col>=this->ncol) return 0;
+
+    return this->array[lin][col];    
+
+}
+
+template <class Datum>
 bool Pds::Array<Datum>::Set(unsigned int lin,unsigned int col,Datum val)
 {
     if(lin>=this->nlin) return false;

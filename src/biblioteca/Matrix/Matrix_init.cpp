@@ -41,6 +41,23 @@ bool Pds::Matrix::FillRandN(void)
     return true;
 }
 
+bool Pds::Matrix::FillRandN(double U, double Sigma)
+{
+    if(this->IsEmpty())   return false;
+    
+    unsigned int lin,col;
+
+    for(lin=0;lin<this->nlin;lin++)
+    for(col=0;col<this->ncol;col++)
+    {
+        double cos_2piU=cos(2.0*M_PI*rand()/(RAND_MAX+1.0));
+        double sqrt_m2lnV=sqrt(-2.0*log((RAND_MAX+1.0-rand())/(RAND_MAX+1.0)));
+        this->array[lin][col]=cos_2piU*sqrt_m2lnV*Sigma+U;
+    }
+
+    return true;
+}
+
 bool Pds::Matrix::FillRandU(void)
 {
     if(this->IsEmpty())   return false;

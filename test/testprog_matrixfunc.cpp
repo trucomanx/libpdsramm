@@ -37,6 +37,15 @@ int main(void)
     Pds::Matrix I = Pds::MergeVer({A,B,C});
     I.Print("\nI=[A;B;C]:\n");
     
+    I.MakeEmpty();
+    std::list<Pds::Matrix> List={A,B,C};
+    I.FusionVer(List);
+    I.Print("\nI.FusionVer(List):\n");
+    std::cout<<"List.size(): "<<List.size()<<"\n";
+    for (auto pmat = List.begin(); pmat != List.end(); pmat++) 
+    pmat->Print("\nList{0}:\n");
+
+    
     std::cout<<"\n((3,3)): "<<Pds::NmultichooseK(3,3)<<std::endl;
     Pds::Matrix J = Pds::MultisetIndexSum(3,3);
     J.Print("J=MultisetIndexSum(3,3):\n");

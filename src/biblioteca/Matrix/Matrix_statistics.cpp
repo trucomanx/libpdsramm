@@ -93,6 +93,65 @@ double Pds::Matrix::Min(unsigned int *id) const
 }
 
 ////////////////////////////////////////////////////////////////////////
+Pds::Matrix Pds::Matrix::MinInCols(std::vector<unsigned int> &Lin) const
+{
+    unsigned int lin,col;
+    
+    if((this->nlin==0)||(this->ncol==0)||(this->array==NULL))
+    {
+        Lin.clear();
+        return Pds::Matrix();
+    }
+
+    Pds::Matrix S(1,this->ncol);
+    Lin.resize(this->ncol);
+        
+    for(col=0;col<this->ncol;col++)
+    {
+        S.array[0][col]=this->array[0][col];
+        Lin[col]=0;
+        
+        for(lin=1;lin<this->nlin;lin++)
+        if(this->array[lin][col]<S.array[0][col])
+        {
+            S.array[0][col]=this->array[lin][col];
+            Lin[col]=lin;
+        }
+    }
+
+    return S;
+}
+////////////////////////////////////////////////////////////////////////
+Pds::Matrix Pds::Matrix::MinInCols(Pds::Array<unsigned int> &Lin) const
+{
+    unsigned int lin,col;
+    
+    if((this->nlin==0)||(this->ncol==0)||(this->array==NULL))
+    {
+        Lin.MakeEmpty();
+        return Pds::Matrix();
+    }
+
+    Pds::Matrix S(1,this->ncol);
+    Lin=Pds::Array<unsigned int>(1,this->ncol);
+        
+    for(col=0;col<this->ncol;col++)
+    {
+        S.array[0][col]=this->array[0][col];
+        Lin.array[0][col]=0;
+        
+        for(lin=1;lin<this->nlin;lin++)
+        if(this->array[lin][col]<S.array[0][col])
+        {
+            S.array[0][col]=this->array[lin][col];
+            Lin.array[0][col]=lin;
+        }
+    }
+
+    return S;
+}
+
+////////////////////////////////////////////////////////////////////////
 double Pds::Matrix::Sum(void) const
 {
     unsigned int lin,col;

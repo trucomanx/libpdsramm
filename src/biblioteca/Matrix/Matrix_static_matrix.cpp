@@ -1,7 +1,52 @@
 #include <Pds/Matrix>
 #include <Pds/RaBmp>
 
+Pds::Matrix Pds::Matrix::GetSamples(const std::vector<Pds::Matrix> &Block)
+{
+    if(Block.size()==0)     return Pds::Matrix(); 
+    if(Block[0].IsEmpty())  return Pds::Matrix();
+    for(unsigned int i=1;i<Block.size();i++)
+    if(Block[0].IsNotSimilarTo(Block[i]))
+    return Pds::Matrix();
 
+    unsigned int L=Block[0].Nel();
+    unsigned int l=0;
+    unsigned int Nlin=Block[0].nlin;
+    unsigned int Ncol=Block[0].ncol;
+    unsigned int N=Block.size();
+    Pds::Matrix A(L,N);
+    
+
+    for(unsigned int col=0;col<Ncol;col++)
+    for(unsigned int lin=0;lin<Nlin;lin++)
+    {
+        for(unsigned int n=0;n<N;n++)
+        A.array[l][n]=Block[n].array[lin][col];
+     
+        l++;
+    }
+
+    return A;
+}
+
+Pds::Matrix Pds::Matrix::GetSamples(const std::vector<Pds::Matrix> &Block,const std::vector<unsigned int> Id)
+{
+    if(Block.size()==0)     return Pds::Matrix(); 
+    if(Block[0].IsEmpty())  return Pds::Matrix();
+    for(unsigned int i=1;i<Block.size();i++)
+    if(Block[0].IsNotSimilarTo(Block[i]))
+    return Pds::Matrix();
+
+    unsigned int L=Id.size();
+    unsigned int N=Block.size();
+    Pds::Matrix A(L,N);
+    for(unsigned int l=0;l<L;l++)
+    for(unsigned int n=0;n<N;n++)
+    A.array[l][n]=Block[n].Get(Id[l]);
+
+    return A;
+}
+////////////////////////////////////////////////////////////////////////////////
 Pds::Matrix Pds::Matrix::FromString(const std::string &str)
 {
     Pds::Matrix A;

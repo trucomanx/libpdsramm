@@ -53,13 +53,11 @@ bool Pds::Matrix::ExportMatFile(const char* pname,const char* filepath) const
 bool Pds::Matrix::ExportBmpFile(const unsigned char colormap[256][3],const std::string &filepath) const
 {
     if(filepath.size()==0)  return false;
-    const char *cstr_filepath=filepath.c_str();
-    if(cstr_filepath==NULL)  return false;
 
     if(this->IsEmpty()) return false;
     if(colormap==NULL)  return false;
     
-    bool ret=Pds::Array<double>::ArrayWriteBmpWithColormap(this->array,this->nlin,this->ncol,colormap,cstr_filepath);
+    bool ret=Pds::Array<double>::ArrayWriteBmpWithColormap(this->array,this->nlin,this->ncol,colormap,filepath.c_str());
     return ret;
 }
 

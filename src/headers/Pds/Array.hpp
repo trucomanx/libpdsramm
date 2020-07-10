@@ -137,6 +137,40 @@ public:
      */
     Array(const Pds::Array<Datum> &B);
 
+    /** 
+     *  \brief Crea un objeto de tipo Pds::Array copiando datos desde 
+     *  std::vector. 
+     * 
+   Para crear una array A con copia de datos de una array B:
+\code{.cpp}
+    std::vector<unsigned int> b={1,2,4,6};
+    Pds::Array<unsigned int> A(b);
+    
+    if(A.IsEmpty()) std::cout<<"Yes,possible memory allocation problem\n";
+    else            std::cout<<"No,all fine\n";
+\endcode
+     *  \param[in] b Vetor a copiar.
+     *  \ingroup ArrayGroup
+     */
+    Array(const std::vector<Datum> &b);
+
+    /** 
+     *  \brief Crea un objeto de tipo Pds::Array copiando datos desde 
+     *  un Pds::Matrix.
+     * 
+   Para crear una array A con copia de datos de una array B:
+\code{.cpp}
+    Pds::Matrix B(4,3,1.0);
+    Pds::Array A(B);
+    
+    if(A.IsEmpty()) std::cout<<"Yes,possible memory allocation problem\n";
+    else            std::cout<<"No,all fine\n";
+\endcode
+     *  \param[in] B Matriz a copiar, redondea con floor si necesario y convierte cuando necesario.
+     *  \ingroup ArrayGroup
+     */
+    Array(const Pds::Matrix &B);
+
     ~Array(); 
 
 /**
@@ -295,7 +329,7 @@ public:
  */
     /** 
      *  \brief Retorna una variable Datum en la posición (lin,col) de la array. 
-     *  Hace una verificación para evitar leer o escribir fuera de la memoria, 
+     *  Hace una verificación para evitar leer fuera de la memoria, 
      *  si no está retorna zero 
      *  \param[in] lin La linea en consulta.
      *  \param[in] col La columna en consulta.
@@ -303,6 +337,17 @@ public:
      *  \ingroup ArrayGroup
      */
     Datum Get(unsigned int lin,unsigned int col) const;
+
+    /** 
+     *  \brief Retorna una variable Datum en la posición (id) de la array. 
+     *  Hace una verificación para evitar leer fuera de la memoria, 
+     *  si no está retorna zero 
+     *  \param[in] id La posicion en consulta.
+     *  \return Retorna una variable Datum en la posición (lin,col). 
+     *  \ingroup ArrayGroup
+     */
+    Datum Get(unsigned int id) const;
+
 
     /** 
      *  \brief Establece una variable Datum en la posición (lin,col) de la array. 
@@ -394,6 +439,7 @@ public:
      *  \ingroup ArrayGroup
      */
     static Datum** ArrayAllocate(const Pds::Array<Datum> &A);
+
     
     /** 
      *  \brief crea dinámicamente un arreglo de Nlin lineas y Ncol columnas,
@@ -426,6 +472,17 @@ public:
      */
     static void ArrayRelease(Datum** &array,unsigned int Nlin);
 
+    /** 
+     *  \brief crea dinámicamente un arreglo de Nlin lineas y Ncol columnas,
+     *  con los datos copiados de una matriz A copiando en orden hasta donde sea posible.
+     *  \param[in] A Array de donde se copiaran datos.
+     *  \param[in] Nlin Número de lineas.
+     *  \param[in] Ncol Número de columnas.
+     *  \return Retorna un puntero al arreglo, o NULL si no consiguió reservar
+     * la memoria. Esta memoria debe ser liberada siempre com ArrayRelease
+     *  \ingroup ArrayGroup
+     */
+    static Datum** ArrayReshape(const Pds::Array<Datum> &A,unsigned int Nlin,unsigned int Ncol);
 
    /** 
      *  \brief Convierte a un arreglo unidimensional un arreglo de Nlin
@@ -469,7 +526,41 @@ public:
      */
     static Datum **ArrayColFromString(const std::string &str,unsigned int &Nlin,unsigned int &Ncol);
 
+/**
+ * @}
+ */
 
+
+public:
+
+/** @name Métodos para export Pds::Array
+ *  Herramientas genéricas que pueden ser usadas desde Pds::Array
+ * @{
+ */
+   
+
+   /** 
+     *  \brief Escribe en una matriz en un archivo binario en formato BMP.
+     *  Losdatos deben ir de 0 a 255, valores superiores o inferiores serán truncados.
+     * 
+     *  \param[in] colormap Mapa de colores. Ejemplo: Pds::Colormap::Jet, Pds::Colormap::Bone,
+     *  \param[in] filepath Nombre del archivo donde se escribirán los datos 
+     *  Pds::Colormap::Hot,Pds::Colormap::Jolly.
+     *  \return Retorna true si todo fue bien o false si no.
+     *  \ingroup ArrayGroup
+     */
+    bool ExportBmpFile(const unsigned char colormap[256][3],const std::string &filepath) const;
+
+   /** 
+     *  \brief Escribe en una matriz en un archivo binario en formato BMP.
+     *  Losdatos deben ir de 0 a 255, valores superiores o inferiores serán truncados.
+     * 
+     *  \param[in] Colormap Mapa de colores debe tener 3 columnas obligatoriamente y 1 linea como mínimo.
+     *  \param[in] filepath Nombre del archivo donde se escribirán los datos.
+     *  \return Retorna true si todo fue bien o false si no.
+     *  \ingroup ArrayGroup
+     */
+    bool ExportBmpFile(const Pds::Array<unsigned char> &Colormap,const std::string &filepath) const;
 /**
  * @}
  */
@@ -501,6 +592,27 @@ public:
                                             unsigned int Nlin,
                                             unsigned int Ncol,
                                             const unsigned char colormap[256][3],
+                                            const std::string &bmpfilepath);
+
+   
+    /** 
+     *  \brief Escribe los datos de una matriz en un archivo de en formato BMP.
+     *
+     *  <center>
+     *  \image html pds_matrix_save_bmp_with_colormap_jet.bmp "grafico usando el colormap Pds::Colormap::Jet."
+     *  </center>
+     *  \param[in] array Arreglo donde se leerán los datos de escala de gris. \f$0\leq a_{ij} \leq 255\f$
+     *  \param[in] Nlin Número de lineas del arreglo, equivalente a la altura de la imagen.
+     *  \param[in] Ncol Número de columnas del arreglo, equivalente al ancho de la imagen.
+     *  \param[in] Colormap Mapa de colores debe tener 3 columnas obligatoriamente y 1 linea como mínimo.
+     *  \param[in] bmpfilepath Nombre del archivo donde se escribirán los datos 
+     *  \return true si todo fue bien o false si no. (ej. array,bmpfilepath==NULL)
+     *  \ingroup ArrayGroup
+     */
+    static bool ArrayWriteBmpWithColormap(  Datum **array,
+                                            unsigned int Nlin,
+                                            unsigned int Ncol,
+                                            const Pds::Array<unsigned char> &Colormap,
                                             const std::string &bmpfilepath);
 
     /** 
@@ -634,7 +746,7 @@ STRUCTURE=load("-v4","matfile.mat","B");
     
 public:
 
-/** @name Imprimir datos Pds::Array.
+/** @name Metodos variados datos Pds::Array.
  *  Muestra los datos
  * @{
  */
@@ -661,6 +773,39 @@ public:
      *  \ingroup ArrayGroup
      */
     void Print(void) const;
+
+
+    /** 
+     *  \brief Remodela los datos internos de la array y la convierte en una array de tamaño diferente,
+     *  los datos que faltan se rellenan con cero.
+     * 
+     *  \param[in] Nlin Número de lineas.
+     *  \param[in] Ncol Número de columnas.
+     *  \ingroup ArrayGroup
+     */
+    bool Reshape(unsigned int Nlin,unsigned int Ncol);
+
+
+    /** 
+     *  \brief calcula los centroides de las muestras en el bloque Block.
+     *  EL bloque Block tiene L muestras de N elementos.
+     *  La matriz A tambien deve tener L elementos.
+     * 
+     *  \param[in] Block Vector de N matrices.
+     *  \return Los centroides.
+     *  \ingroup ArrayGroup
+     */
+    Pds::Matrix Centroids(const std::vector<Pds::Matrix> &Block) const;
+
+    /** 
+     *  \brief calcula los centroides de las muestras en X.
+     *  La matriz tiene L muestras (lineas) de N elementos (columnas).
+     * 
+     *  \param[in] X Matriz de L muestras (lineas) y Ncolumans.
+     *  \return Los centroides.
+     *  \ingroup ArrayGroup
+     */
+    Pds::Matrix Centroids(const Pds::Matrix &X) const;
 /**
  * @}
  */

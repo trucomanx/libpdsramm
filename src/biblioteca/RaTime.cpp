@@ -51,6 +51,12 @@ double Pds::Ra::Toc(void)
 }
 
 
+void Pds::Ra::Tic(clock_t &start_time)
+{
+    start_time = clock();
+}
+
+
 double Pds::Ra::Toc(clock_t start_time)
 {
     double T=(clock() - start_time) / (double)CLOCKS_PER_SEC;

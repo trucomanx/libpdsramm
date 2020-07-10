@@ -14,12 +14,22 @@ int main(void)
 
     std::srand(std::time(0));
     
-    std::list<unsigned int> List=Pds::Ra::IndicesRand(2,7,4);
+    ////////////////////////////////////////////////////////////////////////////
+    std::vector<unsigned int> Vec=Pds::Ra::IndicesRandVector(2,7,4);
+        
+    std::cout<<std::endl;
+    for (auto pmat = Vec.begin(); pmat != Vec.end(); pmat++) 
+    std::cout<<*pmat<<"\t";
+    std::cout<<std::endl;
+    
+    ////////////////////////////////////////////////////////////////////////////
+    std::list<unsigned int> List=Pds::Ra::IndicesRandList(2,7,4);
         
     std::cout<<std::endl;
     for (auto pmat = List.begin(); pmat != List.end(); pmat++) 
     std::cout<<*pmat<<"\t";
     std::cout<<std::endl;
+    ////////////////////////////////////////////////////////////////////////////
 
     Pds::Matrix B=A.GetRows(List);
     B.Print("\nB:\n");

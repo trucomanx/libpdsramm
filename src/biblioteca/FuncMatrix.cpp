@@ -400,7 +400,7 @@ std::list<unsigned int>  Pds::Find(const Pds::Matrix &A)
 }
 
 ////////////////////////////////////////////////////////////////////////
-Pds::Matrix  Pds::MergeVer(const std::list<Pds::Matrix> list)
+Pds::Matrix  Pds::MergeVer(const std::list<Pds::Matrix> &list)
 {
     unsigned int Ncol=0;
     unsigned int Nlin=0;
@@ -469,7 +469,7 @@ Pds::Matrix  Pds::MergeVer(const std::initializer_list<Pds::Matrix> list)
     return A;
 }
 
-Pds::Matrix  Pds::MergeHor(const std::list<Pds::Matrix> list)
+Pds::Matrix  Pds::MergeHor(const std::list<Pds::Matrix> &list)
 {
     unsigned int Ncol=0;
     unsigned int Nlin=0;

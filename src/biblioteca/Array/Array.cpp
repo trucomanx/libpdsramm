@@ -23,7 +23,7 @@
 
 #include <Pds/Array>
 #include <iostream>
-
+#include <Pds/Matrix>
 
 // Instantiate Pds::Array for the supported template type parameters
 template class Pds::Array<double>;
@@ -41,6 +41,7 @@ Pds::Array<Datum>::Array(void)
 template <class Datum>
 Pds::Array<Datum>::Array(unsigned int nlin,unsigned int ncol)
 {
+
     this->nlin=0;
     this->ncol=0;
     this->array=NULL;
@@ -114,6 +115,51 @@ Pds::Array<Datum>::Array(const Pds::Array<Datum> &A)
     return;
 }
 
+template <class Datum>
+Pds::Array<Datum>::Array(const std::vector<Datum> &b)
+{
+
+    this->nlin=0;
+    this->ncol=0;
+    this->array=NULL;
+    
+    if(b.size()==0)  return;
+
+    this->array= Pds::Array<Datum>::ArrayAllocate(b.size(),1);
+    if(this->array==NULL)  return;
+
+    for(unsigned int lin=0;lin<b.size();lin++)
+    this->array[lin][0]=b[lin];
+
+    this->nlin=b.size();
+    this->ncol=1;
+
+    return;
+}
+
+
+
+template <class Datum>
+Pds::Array<Datum>::Array(const Pds::Matrix &A)
+{
+
+    this->nlin=0;
+    this->ncol=0;
+    this->array=NULL;
+    
+    if(A.IsEmpty())  return;
+
+
+    this->array= Pds::Array<Datum>::ArrayAllocate(A);
+    if(this->array==NULL)  return;
+
+    this->nlin=A.nlin;
+    this->ncol=A.ncol;
+
+    //std::cout<<"Copy asignment contructor\n";
+
+    return;
+}
 
 template <class Datum>
 Pds::Array<Datum>::~Array(void)
@@ -139,7 +185,6 @@ Pds::Array<Datum>& Pds::Array<Datum>::operator = (const Pds::Array<Datum> &A)
 template <class Datum>
 bool Pds::Array<Datum>::Copy(const Pds::Array<Datum> &A)
 {
-   
     if(this!=&A) //Comprueba que no se esté intentando igualar un objeto a sí mismo
     {
         unsigned int lin,col;
@@ -166,7 +211,7 @@ bool Pds::Array<Datum>::Copy(const Pds::Array<Datum> &A)
             for (col = 0; col < A.ncol; col++) tmparray[lin][col]=A.array[lin][col];
         }
 
-        Pds::Array<Datum>::ArrayRelease(this->array,A.nlin);
+        Pds::Array<Datum>::ArrayRelease(this->array,this->nlin);
         this->array=tmparray;
         this->nlin=A.nlin;
         this->ncol=A.ncol;

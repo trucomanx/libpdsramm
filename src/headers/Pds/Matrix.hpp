@@ -834,6 +834,23 @@ public:
      *  \ingroup MatrixGroup
      */
     bool FillRandN(void);
+
+    /** 
+     *  \brief Inicializa la matriz con números aleatórios, distribuidos usando una distribución
+     * Gaussiana con media U y desvío padrón Sigma.
+     *  \warning La función usa internamente la función rand(), 
+     *  si se desea esta puede ser aleatoriamente inicializada usando la funcíón Pds::Ra::Randomize(),
+     *  de lo contrario los números pseudo aleatórios siempre seguirán la misma secuencia.
+     * 
+   \f[ f_{X}(x)=\frac {1}{\sigma \sqrt {2\pi }} e^{-{\frac {(x-\mu)^{2}}{2\sigma^2}}},~~x \in R \f]
+   \f[ \mathbf{A}\equiv [a_{i,j}]_{M,N} \f]
+   \f[ a_{i,j}\leftarrow X_{l} \in X \f]
+     *  \param[in] U Valor da media \f$\mu\f$.
+     *  \param[in] Sigma Valor do desvio padron \f$\sigma\f$.
+     *  \return Retorna true si todo fue bien o false si no.
+     *  \ingroup MatrixGroup
+     */
+    bool FillRandN(double U, double Sigma);
     
     /** 
      *  \brief Inicializa la matriz con números aleatórios, distribuidos uniformemente,
@@ -1504,6 +1521,26 @@ public:
     double Min(unsigned int *id=NULL) const;
     
     /** 
+     *  \brief Calcula el mínimo en cada columna de la matriz.
+     *
+     *  \param[in] Lin La linea del valor mínimo en cada columna.
+     *  \return Retorna el mínimo valor en cada columna de la matriz. En caso de que la matriz sea vacía
+     *  se retorna Pds::Matrix() y Lin tiene tamaño cero.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix MinInCols(std::vector<unsigned int> &Lin) const;
+    
+    /** 
+     *  \brief Calcula el mínimo en cada columna de la matriz.
+     *
+     *  \param[in] Lin La linea del valor mínimo en cada columna.
+     *  \return Retorna el mínimo valor en cada columna de la matriz. En caso de que la matriz sea vacía
+     *  se retorna Pds::Matrix() y Lin tiene tamaño cero.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix MinInCols(Pds::Array<unsigned int> &Lin) const;
+
+    /** 
      *  \brief Calcula el coeficiente de determinación o \f$R^2\f$.
      *
      *  \f[ R^2\equiv A.R2(Y)\quad =\quad 1-\frac{\sigma_r^2}{\sigma^2}\quad =\quad 1-\frac{\frac{1}{L}|| \mathbf{A}_{ij}-\mathbf{Y}_{ij}||^2}{Var(\mathbf{A})}\f]
@@ -1662,6 +1699,78 @@ public:
      *  \ingroup MatrixGroup
      */
     double SumSquare(void) const;
+ 
+    /** 
+     *  \brief Calcula el error quadrático medio de cada linea de A con cada linea de B.
+     *
+\f[ 
+C=A.MultipleMse(B) \equiv [c_{ij}]
+\f]
+El elemento \f$c_{ij}\f$ indica el error quadrático medio de la linea \f$i\f$ de 
+\f$A\f$ con la linea \f$j\f$ de \f$B\f$.
+\f[
+c_{ij}=\frac{1}{Ncol} \sum \limits_{k}^{Ncol} {|a_{ik}-b_{jk}|}^2 
+\f]
+     *  \param[in] B Matriz a comparar.
+     *  \return Retorna una matriz \f$C\equiv [c_{ij}]\f$ con los valores de error cuadrático medio
+     *  de cada linea de A con cada linea de B.  En caso de que la matriz sea vacía
+     *  se retorna una matriz vazia
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix MultipleMse(const Pds::Matrix &B) const;
+ 
+    /** 
+     *  \brief Calcula el error quadrático medio de cada linea de A con cada muestra en el bloque Block.
+     *
+\f[ 
+C=A.MultipleMse(Block) \equiv [c_{ij}]
+\f]
+El elemento \f$c_{ij}\f$ indica el error quadrático medio de la linea \f$i\f$ de 
+\f$A\f$ con la muestra \f$j\f$ de \f$Block\f$.
+\f[
+c_{ij}=\frac{1}{N} \sum \limits_{n}^{N} {|a_{in}-block[n]_{j}|}^2 
+\f]
+La matriz A debe tener N columnas y el bloque Block debe estar compuesto de N matrices.
+     *  \param[in] Block Bloque de N matrices a comparar.
+     *  \return Retorna una matriz \f$C\equiv [c_{ij}]\f$ con los valores de error cuadrático medio
+     *  de cada linea de A con cada muestra en el bloque Block.  En caso de que la matriz sea vacía
+     *  se retorna una matriz vazia
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix MultipleMse(const std::vector<Pds::Matrix> &Block) const;
+ 
+    /** 
+     *  \brief Calcula que linea de A es mas cercana a cada linea de B.
+     *
+\f[ 
+C=A.IdInMultipleMse(B) \equiv [c_{ij}]
+\f]
+El elemento \f$c_{i}\f$ constiene la linea A que esta mas cercana a la linea \f$i\f$ de \f$B\f$.
+La lineas son comparadas usando distancia euclidiana.
+     *  \param[in] B Matriz a comparar.
+     *  \return Retorna una matriz \f$C\equiv [c_{i}]\f$ con los valores de las lineas de A
+     *  mas cercanas a cada linea de B.  En caso de que la matriz sea vacía
+     *  se retorna una matriz vazia
+     *  \ingroup MatrixGroup
+     */
+    Pds::Array<unsigned int> IdInMultipleMse(const Pds::Matrix &B) const;
+
+    /** 
+     *  \brief Calcula que linea de A es mas cercana a cada muestra de Block.
+     *
+\f[ 
+C=A.IdInMultipleMse(Block) \equiv [c_{ij}]
+\f]
+El elemento \f$c_{i}\f$ constiene la linea A que esta mas cercana a la muestra \f$i\f$ de \f$Block\f$.
+La lineas son comparadas usando distancia euclidiana.
+     *  \param[in] Block Bloque de N matrices a comparar.
+     *  \return Retorna una matriz \f$C\equiv [c_{i}]\f$ con los valores de las lineas de A
+     *  mas cercanas a cada muestra de Block.  En caso de que la matriz sea vacía
+     *  se retorna una matriz vazia
+     *  \ingroup MatrixGroup
+     */
+    Pds::Array<unsigned int> IdInMultipleMse(const std::vector<Pds::Matrix> &Block) const;
+
 
     /** 
      *  \brief Calcula la 2-norm de una matriz (Frobenius norm).
@@ -2075,6 +2184,7 @@ public:
  *  Herramientas genéricas
  * @{
  */
+
     /** 
      *  \brief Rescala linearmente los datos desde minval a maxval.
      * 
@@ -2084,6 +2194,15 @@ public:
      *  \ingroup MatrixGroup
      */
     Pds::Matrix Scale(double minval,double maxval) const;
+
+    /** 
+     *  \brief Retorna una matriz con los valores redondeados.
+     * 
+     *  \param[in] decimal Núros decimales usados.
+     *  \return Retorna la matriz con los valores redondeados si todo fue bien o una vacia si no.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix Round(unsigned int decimal=0) const;
 
     /** 
      *  \brief libera los datos internos de la matriz y la convierte en una matriz nula.
@@ -2116,6 +2235,42 @@ public:
      */
     void Print(void) const;
 
+
+    /** 
+     *  \brief Remodela los datos internos de la array y la convierte en una array de tamaño diferente,
+     *  los datos que faltan se rellenan con cero.
+     * 
+     *  \param[in] Nlin Número de lineas.
+     *  \param[in] Ncol Número de columnas.
+     *  \ingroup MatrixGroup
+     */
+    bool Reshape(unsigned int Nlin,unsigned int Ncol);
+
+
+    /** 
+     *  \brief Concatena verticalmente varias matrices.  
+     *  Si las matrices no tienen el mismo número de columnas se considera um error.
+     *  Destruye las matrices en list.
+     *  Este metodo es mas rapido que Pds::MergeVer(list) pues transplanta memoria.
+     *
+     *  \param[in] list La lista de matrices a concatenar.
+     *  \return Retorna true en caso de enxito en la matriz concatenada o false y una matriz vacía en caso de error.
+     *  \ingroup FuncMatrixGroup
+     */
+    bool FusionVer(std::list<Pds::Matrix> &list);
+
+
+    /** 
+     *  \brief Concatena verticalmente varias matrices.  
+     *  Si las matrices no tienen el mismo número de columnas se considera um error.
+     *  Destruye las matrices en list.
+     *  Este metodo es mas rapido que Pds::MergeVer(list) pues transplanta memoria.
+     *
+     *  \param[in] list La lista de matrices a concatenar.
+     *  \return Retorna true en caso de enxito en la matriz concatenada o false y una matriz vacía en caso de error.
+     *  \ingroup FuncMatrixGroup
+     */
+    bool FusionVer(std::initializer_list<Pds::Matrix> &list);
 
 /**
  * @}
@@ -2203,6 +2358,25 @@ public:
  * @{
  */
     
+    /** 
+     *  \brief Convierte algunas muestras de un bloque (std::vector<Pds::Matrix>)
+     *  de N matrices (Pds::Matrix) de L elementos, en una matriz Pds::Matrix(L,N).
+     *  \param[in] Block Un bloque (std::vector<Pds::Matrix>) de N matrices (Pds::Matrix) de L elementos.
+     *  \return Retorna una matriz de L lineas y N columnas. en caso de error se retorna una matriz vacía.
+     *  \ingroup MatrixGroup
+     */
+    static Pds::Matrix GetSamples(const std::vector<Pds::Matrix> &Block);
+    
+    /** 
+     *  \brief Convierte M muestras de un bloque (std::vector<Pds::Matrix>)
+     *  de N matrices (Pds::Matrix) de L elementos, en una matriz Pds::Matrix(M,N).
+     *  \param[in] Block Un bloque (std::vector<Pds::Matrix>)
+     *  de N matrices (Pds::Matrix) de L elementos.
+     *  \param[in] Id Vector con M indices que representan las muestras a ser seleccionadas.
+     *  \return Retorna una matriz de M lineas y N columnas. en caso de error se retorna una matriz vacía.
+     *  \ingroup MatrixGroup
+     */
+    static Pds::Matrix GetSamples(const std::vector<Pds::Matrix> &Block,const std::vector<unsigned int> Id);
 
     /** 
      *  \brief Convierte un sdt::string a una Matriz de Nlin lineas y Ncol columnas.

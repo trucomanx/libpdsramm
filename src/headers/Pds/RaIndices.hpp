@@ -32,6 +32,7 @@
     
 #include <string>
 #include <list>
+#include <vector>
 
 /** \defgroup PdsRaIndicesGroup Extras Pds::Ra -- Indices
  *  \brief Funciones con indices: Pds::Ra::IndicesRand(), etc
@@ -68,7 +69,22 @@ namespace Ra{
      *  Si N>(End-Init+1) los elementos en la lista no se repetiran, caso contrario si.
      *  \ingroup PdsRaIndicesGroup
      */
-    std::list<unsigned int> IndicesRand(unsigned int Init,unsigned int End, unsigned int N);
+    std::list<unsigned int> IndicesRandList(unsigned int Init,unsigned int End, unsigned int N);
+
+    /**
+     *  \brief Retorna una lista aleatoria de indices
+     *  
+     *  \warning La función usa internamente la función rand(), 
+     *  si se desea esta puede ser aleatoriamente inicializada usando la funcíón Pds::Ra::Randomize(),
+     *  de lo contrario los números pseudo aleatórios siempre seguirán la misma secuencia.
+     *  \param[in] Init Menor posible valor de los indices en la lista.
+     *  \param[in] End Maior posible valor de los indices en la lista.
+     *  \param[in] N Numero de elementos de la lista
+     *  \return Retorna una std::vector con datos aleatórios con indices.
+     *  Si N>(End-Init+1) los elementos en la lista no se repetiran, caso contrario si.
+     *  \ingroup PdsRaIndicesGroup
+     */
+    std::vector<unsigned int> IndicesRandVector(unsigned int Init,unsigned int End, unsigned int N);
 
     /**
      *  \brief Convierte una lista de indices a un std::string.
