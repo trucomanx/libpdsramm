@@ -394,7 +394,7 @@ Pds::Matrix Pds::Monomials(const Pds::Matrix &X,unsigned int M)
 }
 ////////////////////////////////////////////////////////////////////////////////
 
-std::list<unsigned int>  Pds::Find(const Pds::Matrix &A)
+std::vector<unsigned int>  Pds::Find(const Pds::Matrix &A)
 {
     return A.Find();
 }

@@ -63,5 +63,18 @@ std::string Pds::Ra::IndicesToString(std::list<unsigned int> IDs, std::string se
     }
     return str;
 }
+
+////////////////////////////////////////////////////////////////////////////////
+std::string Pds::Ra::IndicesToString(std::vector<unsigned int> IDs, std::string separator)
+{
+    std::string str;
+    
+    for (unsigned int i=0;i<IDs.size();i++)
+    { 
+        if(i==0)    str=std::to_string(IDs[i]);
+        else        str=str+separator+std::to_string(IDs[i]);
+    }
+    return str;
+}
 ////////////////////////////////////////////////////////////////////////////////
 

@@ -95,6 +95,15 @@ namespace Ra{
      */
     std::string IndicesToString(std::list<unsigned int> IDs, std::string separator="");
 
+    /**
+     *  \brief Convierte una lista de indices a un std::string.
+     *  
+     *  \param[in] IDs Vector de indices.
+     *  \param[in] separator Separador de elementos.
+     *  \ingroup PdsRaIndicesGroup
+     */
+    std::string IndicesToString(std::vector<unsigned int> IDs, std::string separator="");
+
 /**
  * @}
  */

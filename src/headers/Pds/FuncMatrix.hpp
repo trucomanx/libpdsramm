@@ -664,7 +664,7 @@ La funcion calcula los exponentes en los monomios usando Pds::MultisetIndexSum(N
      *  \return Retorna  una lista de indices donde existe un 1 en la matriz A.
      *  \ingroup FuncMatrixGroup
      */
-    std::list<unsigned int>  Find(const Pds::Matrix &A);
+    std::vector<unsigned int>  Find(const Pds::Matrix &A);
 
 
 /**

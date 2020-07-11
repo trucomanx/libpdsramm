@@ -217,6 +217,30 @@ Pds::Matrix Pds::Matrix::GetRows(std::list<unsigned int> List) const
     return A;
 }
 
+Pds::Matrix Pds::Matrix::GetRows(std::vector<unsigned int> Vec) const
+{
+    if((this->ncol==0)||(this->nlin==0)||(this->array==NULL)) return Pds::Matrix();
+
+    unsigned int L=Vec.size();
+
+    // verifica si el vector de indices existe en la matriz
+    for (unsigned int i=0; i<L; i++) 
+    {
+        if( Vec[i]>=this->nlin )   return Pds::Matrix();
+    }
+    
+    Pds::Matrix A(L,this->ncol);
+    
+    
+    for (unsigned int lin=0; lin<L; lin++) 
+    {
+        for(unsigned int col=0;col<this->ncol;col++)
+        A.array[lin][col]=this->array[Vec[lin]][col];
+    }
+    
+    return A;
+}
+
 Pds::Matrix Pds::Matrix::GetCols(std::list<unsigned int> List) const
 {
     if((this->ncol==0)||(this->nlin==0)||(this->array==NULL)) return Pds::Matrix();
@@ -242,6 +266,29 @@ Pds::Matrix Pds::Matrix::GetCols(std::list<unsigned int> List) const
     return A;
 }
 
+
+Pds::Matrix Pds::Matrix::GetCols(std::vector<unsigned int> Vec) const
+{
+    if((this->ncol==0)||(this->nlin==0)||(this->array==NULL)) return Pds::Matrix();
+
+    unsigned int L=Vec.size();
+
+    // verifica si el vector de indices existe en la matriz
+    for (unsigned int i=0;i<L;i++) 
+    {
+        if( Vec[i]>=this->ncol )   return Pds::Matrix();
+    }
+    
+    Pds::Matrix A(this->nlin,L);
+    
+    for (unsigned int col=0;col<L;col++) 
+    {
+        for(unsigned int lin=0;lin<this->nlin;lin++)
+        A.array[lin][col]=this->array[lin][Vec[col]];
+    }
+    
+    return A;
+}
 
 #include <set>
 Pds::Matrix Pds::Matrix::GetRowsRand(unsigned int N) const

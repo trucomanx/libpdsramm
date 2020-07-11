@@ -820,6 +820,21 @@ public:
  *  Establecen los valores de las matrices.
  * @{
  */
+
+    
+    /** 
+     *  \brief Inicializa la matriz con números aleatórios unos y ceros,
+     *  la probabilidad de 1 es p1.
+     *  \warning La función usa internamente la función rand(), 
+     *  si se desea esta puede ser aleatoriamente inicializada usando la funcíón Pds::Ra::Randomize(),
+     *  de lo contrario los números pseudo aleatórios siempre seguirán la misma secuencia.
+     * 
+     *  \param[in] p1 Probabilidad de acontecer un 1.
+     *  \return Retorna true si todo fue bien o false si no.
+     *  \ingroup MatrixGroup
+     */
+    bool FillRandC(double p1);
+    
     /** 
      *  \brief Inicializa la matriz con números aleatórios, distribuidos usando una distribución
      * Gaussiana normalizada con media 0 y desvío padrón 1.0.
@@ -867,20 +882,6 @@ public:
      */
     bool FillRandU(void);
 
-    
-    /** 
-     *  \brief Inicializa la matriz con números aleatórios unos y ceros,
-     *  la probabilidad de 1 es p1.
-     *  \warning La función usa internamente la función rand(), 
-     *  si se desea esta puede ser aleatoriamente inicializada usando la funcíón Pds::Ra::Randomize(),
-     *  de lo contrario los números pseudo aleatórios siempre seguirán la misma secuencia.
-     * 
-     *  \param[in] p1 Probabilidad de acontecer un 1.
-     *  \return Retorna true si todo fue bien o false si no.
-     *  \ingroup MatrixGroup
-     */
-    bool FillRandC(double p1);
-    
     /** 
      *  \brief Inicializa la matriz con números aleatórios, distribuidos uniformemente,
      *  desde a a b, incluyendo a y b.
@@ -1253,6 +1254,25 @@ public:
     Pds::Matrix GetCols(std::list<unsigned int> List) const;
     
     /** 
+     *  \brief Retorna una sub matriz escojida desde una lista de indices de lineas. 
+     *  Hace una verificación si los indices existen, si alguno no existe devuelve una matriz vacia. 
+     *  \param[in] Vec El vector de indices de lineas.
+     *  \return Retorna una sub matriz. Si no existe algun elemento en la lista se devuelve una matriz vacia.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix GetRows(std::vector<unsigned int> Vec) const;
+    
+    /** 
+     *  \brief Retorna una sub matriz escojida desde una lista de indices de columnas. 
+     *  Hace una verificación si los indices existen, si alguno no existe devuelve una matriz vacia. 
+     *  \param[in] Vec El vector de indices de columnas.
+     *  \return Retorna una sub matriz. Si no existe algun elemento en la lista se devuelve una matriz vacia.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix GetCols(std::vector<unsigned int> Vec) const;
+
+    
+    /** 
      *  \brief Retorna una sub matriz escojiendo N lineas aleatoriamente (sin repetición). 
      *  \warning La función usa internamente la función rand(), 
      *  si se desea esta puede ser aleatoriamente inicializada usando la funcíón Pds::Ra::Randomize(),
@@ -1599,33 +1619,63 @@ public:
     /** 
      *  \brief Calcula la correlacion cruzada entre A y B. 
      * 
-     * \f[ \mathbf{A}\equiv [a_{i,j}]  \overset{func}{\equiv} a(i,j),\qquad 0 \leq i< Nlin,\qquad 0 \leq j< Ncol \f]
-     * \f[ \mathbf{B}\equiv [b_{i,j}]  \overset{func}{\equiv} b(i,j),\qquad 0 \leq i< Mlin,\qquad 0 \leq j< Mcol \f]
-     * \f[ \mathbf{C}\equiv [c_{i,j}]  \overset{func}{\equiv} c(i-(Mlin-1),j-(Mcol-1)),\qquad 0 \leq i < Mlin+Nlin-1 ,\qquad  0 \leq j < Mcol+Ncol-1\f]
-   \f[
-\mathbf{C}=\left(\begin{matrix}
-c(1-Mlin,1-Mcol)     & c(1-Mlin,2-Mcol)  & \hdots & c(1-Mlin,0)  & \hdots & c(1-Mlin,Ncol-1)\\ 
-c(2-Mlin,1-Mcol)     & c(2-Mlin,2-Mcol)  & \hdots & c(2-Mlin,0)  & \hdots & c(2-Mlin,Ncol-1)\\
-\vdots               & \vdots            & \vdots & \vdots       & \vdots & \vdots \\
-c(0,1-Mcol)          & c(0,2-Mcol)       & \hdots & c(0,0)       & \hdots & c(0,Ncol-1)\\
-\vdots               & \vdots            & \vdots & \vdots       & \vdots & \vdots \\
-c(Nlin-2,1-Mcol)     & c(Nlin-2,2-Mcol)  & \hdots & c(Nlin-2,0)  & \hdots & c(Nlin-2,Ncol-1) \\ 
-c(Nlin-1,1-Mcol)     & c(Nlin-1,2-Mcol)  & \hdots & c(Nlin-1,0)  & \hdots & c(Nlin-1,Ncol-1) \\
-\end{matrix}\right) 
-   \f] 
+     * \f[ \mathbf{A}\equiv [a_{i,j}]  \overset{func}{\equiv} a(i,j),\qquad \mathbf{A}.Size()\equiv \{L_A,C_A\} \f]
+     * \f[ \mathbf{B}\equiv [b_{i,j}]  \overset{func}{\equiv} b(i,j),\qquad \mathbf{B}.Size()\equiv \{L_B,C_B\}\f]
+     * \f[ \mathbf{D}\equiv [d_{i,j}]  \overset{func}{\equiv} d(i-(L_B-1),j-(C_B-1)),\qquad \mathbf{D}.Size()\equiv \{L_B+L_A-1,C_B+C_A-1\} \f] 
      *  De modo que
-     * \f[ c(k,l) \leftarrow \sum \limits_{q=-\infty}^{+\infty} \sum \limits_{r=-\infty}^{+\infty} a(q,r) b(q-k,r-l) \f]
-     * \f[ c(k,l) \leftarrow \sum \limits_{q=max(0,k)}^{min(Nlin-1,Mlin-1+k)}~~ \sum \limits_{r=max(0,l)}^{min(Ncol-1,Mcol-1+l)} a(q,r) b(q-k,r-l) \f]
-     *  Esta funcion no usa FFT para economizar el tiempo.
+\f[ 
+d(k,l) 
+=
+\sum \limits_{q=-\infty}^{+\infty} \sum \limits_{r=-\infty}^{+\infty} a(q,r) b(q-k,r-l)
+\equiv 
+\sum \limits_{q=max(0,k)}^{min(L_A-1,L_B-1+k)}~~ \sum \limits_{r=max(0,l)}^{min(C_A-1,C_B-1+l)} a(q,r) b(q-k,r-l) 
+\f]
+<center>
+<table>
+<caption id="multi_row_xcorr">XCorr</caption>
+    <tr><td>Image <td>Formulation 
+    <tr><td><img src="DiagramaXcorr.png"  alt="Original">  <td>
+\f$ 
+d(k,l)=\sum \limits_{q=-\infty}^{+\infty} \sum \limits_{r=-\infty}^{+\infty} a(q,r) b(q-k,r-l) 
+\f$ <br>
+\f$ 
+d(k,l)=\sum \limits_{q=-\infty}^{+\infty} \sum \limits_{r=-\infty}^{+\infty} a(q+k,r+l) b(q,r)
+\f$   
+</table> 
+</center>
+     * Exemplo:
+     * \f[ \mathbf{A}.Size()\equiv \{6,6\} \quad \mathbf{B}.Size()\equiv \{3,3\}\f]
+   \f[
+\mathbf{D}=\left(\begin{array}{cc|cccccc}
+d(-2,-2)  & d(-2,-1)  & d(-2,0) & d(-2,1)  & d(-2,2)  & d(-2,3) & d(-2,4)  & d(-2,5) \\
+d(-1,-2)  & d(-1,-1)  & d(-1,0) & d(-1,1)  & d(-1,2)  & d(-1,3) & d(-1,4)  & d(-1,5) \\ \hline
+d(0,-2)   & d(0,-1)   & d(0,0)  & d(0,1)   & d(0,2)   & d(0,3)  & d(0,4)   & d(0,5) \\ 
+d(1,-2)   & d(1,-1)   & d(1,0)  & d(1,1)   & d(1,2)   & d(1,3)  & d(1,4)   & d(1,5) \\ 
+d(2,-2)   & d(2,-1)   & d(2,0)  & d(2,1)   & d(2,2)   & d(2,3)  & d(2,4)   & d(2,5) \\ 
+d(3,-2)   & d(3,-1)   & d(3,0)  & d(3,1)   & d(3,2)   & d(3,3)  & d(3,4)   & d(3,5) \\ 
+d(4,-2)   & d(4,-1)   & d(4,0)  & d(4,1)   & d(4,2)   & d(4,3)  & d(4,4)   & d(4,5) \\ 
+d(5,-2)   & d(5,-1)   & d(5,0)  & d(5,1)   & d(5,2)   & d(5,3)  & d(5,4)   & d(5,5) \\ 
+\end{array}\right) 
+   \f]
+\f[ 
+d(k,l) 
+=\sum \limits_{q=-\infty}^{+\infty} \sum \limits_{r=-\infty}^{+\infty} a(q,r) b(q-k,r-l) 
+\equiv 
+\sum \limits_{q=-\infty}^{+\infty} \sum \limits_{r=-\infty}^{+\infty} a(q+k,r+l) b(q,r)
+\f]
+     *  \warning Esta funcion no usa FFT para economizar el tiempo.
      * 
      *  \param[in] B Matriz a aplicar la correlacion cruzada.
      *  \param[in] Same indica si la correlación cruzada tendrá el mismo 
-     *  tamaño que A, si Same es igual a true entonces,\f$[c_{i,j}]  \overset{func}{\equiv} c(i,j), ~0 \leq i \leq Nlin-1, ~0 \leq j \leq Ncol-1\f$.
+     *  tamaño que A, si Same es igual a true entonces,
+     *  \f$[c_{i,j}]  \overset{func}{\equiv} d(i,j), \quad \mathbf{C}.Size()\equiv \{Nlin,Ncol\}\f$.
      *  Por defecto Same es igual a false.
      * \return retorna la correlacion cruzada.
      *  \ingroup VectorGroup
      */
     Pds::Matrix XCorr(const Pds::Matrix &B, bool Same=false) const;
+
+
 /**
  * @}
  */
@@ -1701,78 +1751,6 @@ public:
     double SumSquare(void) const;
  
     /** 
-     *  \brief Calcula el error quadrático medio de cada linea de A con cada linea de B.
-     *
-\f[ 
-C=A.MultipleMse(B) \equiv [c_{ij}]
-\f]
-El elemento \f$c_{ij}\f$ indica el error quadrático medio de la linea \f$i\f$ de 
-\f$A\f$ con la linea \f$j\f$ de \f$B\f$.
-\f[
-c_{ij}=\frac{1}{Ncol} \sum \limits_{k}^{Ncol} {|a_{ik}-b_{jk}|}^2 
-\f]
-     *  \param[in] B Matriz a comparar.
-     *  \return Retorna una matriz \f$C\equiv [c_{ij}]\f$ con los valores de error cuadrático medio
-     *  de cada linea de A con cada linea de B.  En caso de que la matriz sea vacía
-     *  se retorna una matriz vazia
-     *  \ingroup MatrixGroup
-     */
-    Pds::Matrix MultipleMse(const Pds::Matrix &B) const;
- 
-    /** 
-     *  \brief Calcula el error quadrático medio de cada linea de A con cada muestra en el bloque Block.
-     *
-\f[ 
-C=A.MultipleMse(Block) \equiv [c_{ij}]
-\f]
-El elemento \f$c_{ij}\f$ indica el error quadrático medio de la linea \f$i\f$ de 
-\f$A\f$ con la muestra \f$j\f$ de \f$Block\f$.
-\f[
-c_{ij}=\frac{1}{N} \sum \limits_{n}^{N} {|a_{in}-block[n]_{j}|}^2 
-\f]
-La matriz A debe tener N columnas y el bloque Block debe estar compuesto de N matrices.
-     *  \param[in] Block Bloque de N matrices a comparar.
-     *  \return Retorna una matriz \f$C\equiv [c_{ij}]\f$ con los valores de error cuadrático medio
-     *  de cada linea de A con cada muestra en el bloque Block.  En caso de que la matriz sea vacía
-     *  se retorna una matriz vazia
-     *  \ingroup MatrixGroup
-     */
-    Pds::Matrix MultipleMse(const std::vector<Pds::Matrix> &Block) const;
- 
-    /** 
-     *  \brief Calcula que linea de A es mas cercana a cada linea de B.
-     *
-\f[ 
-C=A.IdInMultipleMse(B) \equiv [c_{ij}]
-\f]
-El elemento \f$c_{i}\f$ constiene la linea A que esta mas cercana a la linea \f$i\f$ de \f$B\f$.
-La lineas son comparadas usando distancia euclidiana.
-     *  \param[in] B Matriz a comparar.
-     *  \return Retorna una matriz \f$C\equiv [c_{i}]\f$ con los valores de las lineas de A
-     *  mas cercanas a cada linea de B.  En caso de que la matriz sea vacía
-     *  se retorna una matriz vazia
-     *  \ingroup MatrixGroup
-     */
-    Pds::Array<unsigned int> IdInMultipleMse(const Pds::Matrix &B) const;
-
-    /** 
-     *  \brief Calcula que linea de A es mas cercana a cada muestra de Block.
-     *
-\f[ 
-C=A.IdInMultipleMse(Block) \equiv [c_{ij}]
-\f]
-El elemento \f$c_{i}\f$ constiene la linea A que esta mas cercana a la muestra \f$i\f$ de \f$Block\f$.
-La lineas son comparadas usando distancia euclidiana.
-     *  \param[in] Block Bloque de N matrices a comparar.
-     *  \return Retorna una matriz \f$C\equiv [c_{i}]\f$ con los valores de las lineas de A
-     *  mas cercanas a cada muestra de Block.  En caso de que la matriz sea vacía
-     *  se retorna una matriz vazia
-     *  \ingroup MatrixGroup
-     */
-    Pds::Array<unsigned int> IdInMultipleMse(const std::vector<Pds::Matrix> &Block) const;
-
-
-    /** 
      *  \brief Calcula la 2-norm de una matriz (Frobenius norm).
      *
      *  \f[ ||A||_2=\sqrt{\sum \limits_{i} \sum \limits_{j} {|a_{ij}|}^2} \f]
@@ -1835,7 +1813,7 @@ public:
      *  \return Retorna  una lista de indices donde existe un 1 en la matriz A.
      *  \ingroup MatrixGroup
      */
-    std::list<unsigned int> Find(void) const;
+    std::vector<unsigned int> Find(void) const;
 
 
 /**
@@ -1887,6 +1865,19 @@ public:
      */
     bool ApplyInCol(unsigned int col, double (*func)(double,double), double var);
 
+
+/**
+ * @}
+ */
+
+
+public:
+
+/** @name Métodos para operar Pds::Matrix
+ *  Herramientas genéricas
+ * @{
+ */
+
     /** 
      *  \brief Opera la función func usando como entrada cada fila de la matriz.
      * \param[in] func Función a aplicar, esta debe tener a forma double func(const Pds::Matrix &Row).
@@ -1903,13 +1894,32 @@ public:
      */
     Pds::Matrix OperateCols(double (*func)(const Pds::Matrix &Col)) const;
 
+
+    /** 
+     *  \brief Rescala linearmente los datos desde minval a maxval.
+     * 
+     *  \param[in] minval Valor menor de la escala.
+     *  \param[in] maxval Valor maior de la escala.
+     *  \return Retorna la matriz escalada si todo fue bien o una vacia si no.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix Scale(double minval,double maxval) const;
+
+    /** 
+     *  \brief Retorna una matriz con los valores redondeados.
+     * 
+     *  \param[in] decimal Núros decimales usados.
+     *  \return Retorna la matriz con los valores redondeados si todo fue bien o una vacia si no.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix Round(unsigned int decimal=0) const;
 /**
  * @}
  */
 
 public:
 
-/** @name Métodos con regiones
+/** @name Métodos con regiones con Pds::Matrix.
  *  Herramientas genéricas
  * @{
  */
@@ -2180,38 +2190,11 @@ S_0 \equiv {M_0}_{R_0}, \qquad S_1 \equiv {M_1}_{R_1}
 
 public:
 
-/** @name Métodos variados
+/** @name Métodos variados con Pds::Matrix.
  *  Herramientas genéricas
  * @{
  */
 
-    /** 
-     *  \brief Rescala linearmente los datos desde minval a maxval.
-     * 
-     *  \param[in] minval Valor menor de la escala.
-     *  \param[in] maxval Valor maior de la escala.
-     *  \return Retorna la matriz escalada si todo fue bien o una vacia si no.
-     *  \ingroup MatrixGroup
-     */
-    Pds::Matrix Scale(double minval,double maxval) const;
-
-    /** 
-     *  \brief Retorna una matriz con los valores redondeados.
-     * 
-     *  \param[in] decimal Núros decimales usados.
-     *  \return Retorna la matriz con los valores redondeados si todo fue bien o una vacia si no.
-     *  \ingroup MatrixGroup
-     */
-    Pds::Matrix Round(unsigned int decimal=0) const;
-
-    /** 
-     *  \brief libera los datos internos de la matriz y la convierte en una matriz nula.
-     *  es decir con lineas y columnas cero.
-     * 
-     *  Una matriz\f$\mathbf{A}\f$ está vacía si  \f$ \mathbf{A}=[]_{0,0}\f$.
-     *  \ingroup MatrixGroup
-     */
-    void MakeEmpty(void);
     
     /** 
      *  \brief Convierte los datos de la matriz en un std::string.
@@ -2235,6 +2218,26 @@ public:
      */
     void Print(void) const;
 
+/**
+ * @}
+ */
+
+public:
+
+/** @name Métodos para reordenar memoria con Pds::Matrix.
+ *  Herramientas genéricas
+ * @{
+ */
+
+
+    /** 
+     *  \brief libera los datos internos de la matriz y la convierte en una matriz nula.
+     *  es decir con lineas y columnas cero.
+     * 
+     *  Una matriz\f$\mathbf{A}\f$ está vacía si  \f$ \mathbf{A}=[]_{0,0}\f$.
+     *  \ingroup MatrixGroup
+     */
+    void MakeEmpty(void);
 
     /** 
      *  \brief Remodela los datos internos de la array y la convierte en una array de tamaño diferente,
@@ -2260,18 +2263,6 @@ public:
     bool FusionVer(std::list<Pds::Matrix> &list);
 
 
-    /** 
-     *  \brief Concatena verticalmente varias matrices.  
-     *  Si las matrices no tienen el mismo número de columnas se considera um error.
-     *  Destruye las matrices en list.
-     *  Este metodo es mas rapido que Pds::MergeVer(list) pues transplanta memoria.
-     *
-     *  \param[in] list La lista de matrices a concatenar.
-     *  \return Retorna true en caso de enxito en la matriz concatenada o false y una matriz vacía en caso de error.
-     *  \ingroup FuncMatrixGroup
-     */
-    bool FusionVer(std::initializer_list<Pds::Matrix> &list);
-
 /**
  * @}
  */
@@ -2279,7 +2270,7 @@ public:
 
 public:
 
-/** @name Métodos para exportar e importar datos
+/** @name Métodos para exportar e importar datos con Pds::Matrix.
  *  Herramientas genéricas que pueden ser usadas desde Pds::Matrix
  * @{
  */
@@ -2353,7 +2344,7 @@ STRUCTURE=load("-v4","matfile.mat","B");
 
 public:
 
-/** @name Métodos Static con Matrices
+/** @name Métodos Static con Matrices con Pds::Matrix.
  *  Herramientas genéricas que pueden ser usadas desde Pds::Matrix
  * @{
  */
@@ -2426,134 +2417,7 @@ public:
 
 public:
 
-/** @name Métodos Static con arrays
- *  Herramientas genéricas que pueden ser usadas desde Pds::Matrix
- * @{
- */
-    /** 
-     *  \brief crea dinámicamente un arreglo de A.Nlin() lineas y A.Ncol() columnas,
-     *  con los datos copiados de aplicar func(A).
-     *  \param[in] func Función a aplicar, esta debe tener a forma double func(double).
-     *  \param[in] A Matriz de donde se copiaran datos.
-     *  \return Retorna un puntero al arreglo, o NULL si no consiguió reservar
-     * la memoria. Esta memoria debe ser liberada siempre com ArrayRelease
-     *  \ingroup MatrixGroup
-     */
-    static double** ArrayAllocate(double (*func)(double),const Pds::Matrix &A);
-
-    /** 
-     *  \brief crea dinámicamente un arreglo de A.Nlin() lineas y A.Ncol() columnas,
-     *  con los datos copiados de aplicar func(A,var).
-     *  \param[in] func Función a aplicar, esta debe tener a forma double func(double).
-     *  \param[in] A Matriz de donde se copiaran datos.
-     *  \param[in] var Variable a evaluar.
-     *  \return Retorna un puntero al arreglo, o NULL si no consiguió reservar
-     * la memoria. Esta memoria debe ser liberada siempre com ArrayRelease
-     *  \ingroup MatrixGroup
-     */
-    static double** ArrayAllocate(double (*func)(double,double),const Pds::Matrix &A,double var);
-
-    /** 
-     *  \brief crea dinámicamente un arreglo de A.Nlin() lineas y A.Ncol() columnas,
-     *  con los datos copiados de aplicar func(A,B).
-     *  Los tamaño de A y B son similares.
-     *  \param[in] func Función a aplicar, esta debe tener a forma double func(double,double).
-     *  \param[in] A Matriz de donde se copiaran datos.
-     *  \param[in] B Matriz de donde se copiaran datos.
-     *  \return Retorna un puntero al arreglo, o NULL si no consiguió reservar
-     * la memoria. Esta memoria debe ser liberada siempre com ArrayRelease
-     *  \ingroup MatrixGroup
-     */
-    static double** ArrayAllocate(double (*func)(double,double),const Pds::Matrix &A,const Pds::Matrix &B);
-
-    /** 
-     *  \brief crea dinámicamente un arreglo de A.Nlin() lineas y A.Ncol() columnas,
-     *  con los datos copiados de aplicar func(A,B,var).
-     *  Los tamaño de A y B son similares.
-     *  \param[in] func Función a aplicar, esta debe tener a forma double func(double,double,double).
-     *  \param[in] A Matriz de donde se copiaran datos.
-     *  \param[in] B Matriz de donde se copiaran datos.
-     *  \param[in] var Tercer valor a evaluar.
-     *  \return Retorna un puntero al arreglo, o NULL si no consiguió reservar
-     * la memoria. Esta memoria debe ser liberada siempre com ArrayRelease
-     *  \ingroup MatrixGroup
-     */
-    static double** ArrayAllocate(double (*func)(double,double,double),const Pds::Matrix &A,const Pds::Matrix &B,double var);
-    
-    /** 
-     *  \brief crea dinámicamente un arreglo de A.Nlin() lineas y A.Ncol() columnas,
-     *  con los datos copiados de aplicar func(A,B,C).
-     *  Los tamaño de A, B y C son similares.
-     *  \param[in] func Función a aplicar, esta debe tener a forma double func(double,double,double).
-     *  \param[in] A Matriz de donde se copiaran datos.
-     *  \param[in] B Matriz de donde se copiaran datos.
-     *  \param[in] C Matriz de donde se copiaran datos.
-     *  \return Retorna un puntero al arreglo, o NULL si no consiguió reservar
-     * la memoria. Esta memoria debe ser liberada siempre com ArrayRelease
-     *  \ingroup MatrixGroup
-     */
-    static double** ArrayAllocate(double (*func)(double,double,double),
-                                    const Pds::Matrix &A,
-                                    const Pds::Matrix &B,
-                                    const Pds::Matrix &C);
-    
-    /** 
-     *  \brief crea dinámicamente un arreglo de A.Nlin() lineas y A.Ncol() columnas,
-     *  con los datos copiados de aplicar func(A,B,C,var).
-     *  Los tamaño de A, B y C son similares.
-     *  \param[in] func Función a aplicar, esta debe tener a forma double func(double,double,double,double).
-     *  \param[in] A Matriz de donde se copiaran datos.
-     *  \param[in] B Matriz de donde se copiaran datos.
-     *  \param[in] C Matriz de donde se copiaran datos.
-     *  \param[in] var Cuarto valor a evaluar.
-     *  \return Retorna un puntero al arreglo, o NULL si no consiguió reservar
-     * la memoria. Esta memoria debe ser liberada siempre com ArrayRelease
-     *  \ingroup MatrixGroup
-     */
-    static double** ArrayAllocate(double (*func)(double,double,double,double),
-                                    const Pds::Matrix &A,
-                                    const Pds::Matrix &B,
-                                    const Pds::Matrix &C,
-                                    double var);
-    
-    /** 
-     *  \brief crea dinámicamente un arreglo de A.Nlin() lineas y A.Ncol() columnas,
-     *  con los datos copiados de aplicar func(A,B,C,D).
-     *  Los tamaño de A, B, C y D son similares.
-     *  \param[in] func Función a aplicar, esta debe tener a forma double func(double,double,double,double).
-     *  \param[in] A Matriz de donde se copiaran datos.
-     *  \param[in] B Matriz de donde se copiaran datos.
-     *  \param[in] C Matriz de donde se copiaran datos.
-     *  \param[in] D Matriz de donde se copiaran datos.
-     *  \return Retorna un puntero al arreglo, o NULL si no consiguió reservar
-     * la memoria. Esta memoria debe ser liberada siempre com ArrayRelease
-     *  \ingroup MatrixGroup
-     */
-    static double** ArrayAllocate(double (*func)(double,double,double,double),
-                                    const Pds::Matrix &A,
-                                    const Pds::Matrix &B,
-                                    const Pds::Matrix &C,
-                                    const Pds::Matrix &D);
-    
-    /** 
-     *  \brief crea dinámicamente un arreglo de A.Nlin() lineas y A.Ncol() columnas,
-     *  con los datos copiados de una matriz A.
-     *  \param[in] A Matriz de donde se copiaran datos.
-     *  \return Retorna un puntero al arreglo, o NULL si no consiguió reservar
-     * la memoria. Esta memoria debe ser liberada siempre com ArrayRelease
-     *  \ingroup MatrixGroup
-     */
-    //static double** ArrayAllocate(const Pds::Matrix &A);
-    
-
-
-/**
- * @}
- */
-
-public:
-
-/** @name Operadores unarios y sus métodos equivalentes
+/** @name Operadores unarios y sus métodos equivalentes con Pds::Matrix.
  *  Descripción de algunos operadores habilitados a trabajar con Pds::Matrix.
  * @{
  */
@@ -2726,7 +2590,7 @@ public:
  */
     
     
-/** @name Operadores binarios y sus métodos equivalentes
+/** @name Operadores binarios y sus métodos equivalentes con Pds::Matrix.
  *  Descripción de algunos operadores habilitados a trabajar con Pds::Matrix.
  * @{
  */
@@ -3576,7 +3440,7 @@ public:
  */
     
     
-/** @name Operadores binarios acumuladores y sus métodos equivalentes
+/** @name Operadores binarios acumuladores y sus métodos equivalentes con Pds::Matrix.
  *  Descripción de algunos operadores habilitados a trabajar con Pds::Matrix.
  * @{
  */
@@ -3934,6 +3798,206 @@ public:
      */
     template <class Datum>
     bool Copy(const Pds::Array<Datum> &B);
+
+
+/**
+ * @}
+ */
+    
+    
+/** @name Métodos exoticos con Pds::Matrix
+ *  Descripción de algunos operadores habilitados a trabajar con Pds::Matrix.
+ * @{
+ */
+    
+
+    /** 
+     *  \brief Calcula el error quadrático medio de cada linea de A con cada linea de B.
+     *
+\f[ 
+C=A.MultipleMse(B) \equiv [c_{ij}]
+\f]
+El elemento \f$c_{ij}\f$ indica el error quadrático medio de la linea \f$i\f$ de 
+\f$A\f$ con la linea \f$j\f$ de \f$B\f$.
+\f[
+c_{ij}=\frac{1}{Ncol} \sum \limits_{k}^{Ncol} {|a_{ik}-b_{jk}|}^2 
+\f]
+     *  \param[in] B Matriz a comparar.
+     *  \return Retorna una matriz \f$C\equiv [c_{ij}]\f$ con los valores de error cuadrático medio
+     *  de cada linea de A con cada linea de B.  En caso de que la matriz sea vacía
+     *  se retorna una matriz vazia
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix MultipleMse(const Pds::Matrix &B) const;
+ 
+    /** 
+     *  \brief Calcula el error quadrático medio de cada linea de A con cada muestra en el bloque Block.
+     *
+\f[ 
+C=A.MultipleMse(Block) \equiv [c_{ij}]
+\f]
+El elemento \f$c_{ij}\f$ indica el error quadrático medio de la linea \f$i\f$ de 
+\f$A\f$ con la muestra \f$j\f$ de \f$Block\f$.
+\f[
+c_{ij}=\frac{1}{N} \sum \limits_{n}^{N} {|a_{in}-block[n]_{j}|}^2 
+\f]
+La matriz A debe tener N columnas y el bloque Block debe estar compuesto de N matrices.
+     *  \param[in] Block Bloque de N matrices a comparar.
+     *  \return Retorna una matriz \f$C\equiv [c_{ij}]\f$ con los valores de error cuadrático medio
+     *  de cada linea de A con cada muestra en el bloque Block.  En caso de que la matriz sea vacía
+     *  se retorna una matriz vazia
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix MultipleMse(const std::vector<Pds::Matrix> &Block) const;
+ 
+    /** 
+     *  \brief Calcula que linea de A es mas cercana a cada linea de B.
+     *
+\f[ 
+C=A.IdInMultipleMse(B) \equiv [c_{ij}]
+\f]
+El elemento \f$c_{i}\f$ constiene la linea A que esta mas cercana a la linea \f$i\f$ de \f$B\f$.
+La lineas son comparadas usando distancia euclidiana.
+     *  \param[in] B Matriz a comparar.
+     *  \return Retorna una matriz \f$C\equiv [c_{i}]\f$ con los valores de las lineas de A
+     *  mas cercanas a cada linea de B.  En caso de que la matriz sea vacía
+     *  se retorna una matriz vazia
+     *  \ingroup MatrixGroup
+     */
+    Pds::Array<unsigned int> IdInMultipleMse(const Pds::Matrix &B) const;
+
+    /** 
+     *  \brief Calcula que linea de A es mas cercana a cada muestra de Block.
+     *
+\f[ 
+C=A.IdInMultipleMse(Block) \equiv [c_{ij}]
+\f]
+El elemento \f$c_{i}\f$ constiene la linea A que esta mas cercana a la muestra \f$i\f$ de \f$Block\f$.
+La lineas son comparadas usando distancia euclidiana.
+     *  \param[in] Block Bloque de N matrices a comparar.
+     *  \return Retorna una matriz \f$C\equiv [c_{i}]\f$ con los valores de las lineas de A
+     *  mas cercanas a cada muestra de Block.  En caso de que la matriz sea vacía
+     *  se retorna una matriz vazia
+     *  \ingroup MatrixGroup
+     */
+    Pds::Array<unsigned int> IdInMultipleMse(const std::vector<Pds::Matrix> &Block) const;
+
+
+/**
+ * @}
+ */
+
+
+public:
+
+/** @name Métodos Static con arrays 
+ *  Herramientas genéricas que pueden ser usadas desde Pds::Matrix
+ * @{
+ */
+    /** 
+     *  \brief crea dinámicamente un arreglo de A.Nlin() lineas y A.Ncol() columnas,
+     *  con los datos copiados de aplicar func(A).
+     *  \param[in] func Función a aplicar, esta debe tener a forma double func(double).
+     *  \param[in] A Matriz de donde se copiaran datos.
+     *  \return Retorna un puntero al arreglo, o NULL si no consiguió reservar
+     * la memoria. Esta memoria debe ser liberada siempre com ArrayRelease
+     *  \ingroup MatrixGroup
+     */
+    static double** ArrayAllocate(double (*func)(double),const Pds::Matrix &A);
+
+    /** 
+     *  \brief crea dinámicamente un arreglo de A.Nlin() lineas y A.Ncol() columnas,
+     *  con los datos copiados de aplicar func(A,var).
+     *  \param[in] func Función a aplicar, esta debe tener a forma double func(double).
+     *  \param[in] A Matriz de donde se copiaran datos.
+     *  \param[in] var Variable a evaluar.
+     *  \return Retorna un puntero al arreglo, o NULL si no consiguió reservar
+     * la memoria. Esta memoria debe ser liberada siempre com ArrayRelease
+     *  \ingroup MatrixGroup
+     */
+    static double** ArrayAllocate(double (*func)(double,double),const Pds::Matrix &A,double var);
+
+    /** 
+     *  \brief crea dinámicamente un arreglo de A.Nlin() lineas y A.Ncol() columnas,
+     *  con los datos copiados de aplicar func(A,B).
+     *  Los tamaño de A y B son similares.
+     *  \param[in] func Función a aplicar, esta debe tener a forma double func(double,double).
+     *  \param[in] A Matriz de donde se copiaran datos.
+     *  \param[in] B Matriz de donde se copiaran datos.
+     *  \return Retorna un puntero al arreglo, o NULL si no consiguió reservar
+     * la memoria. Esta memoria debe ser liberada siempre com ArrayRelease
+     *  \ingroup MatrixGroup
+     */
+    static double** ArrayAllocate(double (*func)(double,double),const Pds::Matrix &A,const Pds::Matrix &B);
+
+    /** 
+     *  \brief crea dinámicamente un arreglo de A.Nlin() lineas y A.Ncol() columnas,
+     *  con los datos copiados de aplicar func(A,B,var).
+     *  Los tamaño de A y B son similares.
+     *  \param[in] func Función a aplicar, esta debe tener a forma double func(double,double,double).
+     *  \param[in] A Matriz de donde se copiaran datos.
+     *  \param[in] B Matriz de donde se copiaran datos.
+     *  \param[in] var Tercer valor a evaluar.
+     *  \return Retorna un puntero al arreglo, o NULL si no consiguió reservar
+     * la memoria. Esta memoria debe ser liberada siempre com ArrayRelease
+     *  \ingroup MatrixGroup
+     */
+    static double** ArrayAllocate(double (*func)(double,double,double),const Pds::Matrix &A,const Pds::Matrix &B,double var);
+    
+    /** 
+     *  \brief crea dinámicamente un arreglo de A.Nlin() lineas y A.Ncol() columnas,
+     *  con los datos copiados de aplicar func(A,B,C).
+     *  Los tamaño de A, B y C son similares.
+     *  \param[in] func Función a aplicar, esta debe tener a forma double func(double,double,double).
+     *  \param[in] A Matriz de donde se copiaran datos.
+     *  \param[in] B Matriz de donde se copiaran datos.
+     *  \param[in] C Matriz de donde se copiaran datos.
+     *  \return Retorna un puntero al arreglo, o NULL si no consiguió reservar
+     * la memoria. Esta memoria debe ser liberada siempre com ArrayRelease
+     *  \ingroup MatrixGroup
+     */
+    static double** ArrayAllocate(double (*func)(double,double,double),
+                                    const Pds::Matrix &A,
+                                    const Pds::Matrix &B,
+                                    const Pds::Matrix &C);
+    
+    /** 
+     *  \brief crea dinámicamente un arreglo de A.Nlin() lineas y A.Ncol() columnas,
+     *  con los datos copiados de aplicar func(A,B,C,var).
+     *  Los tamaño de A, B y C son similares.
+     *  \param[in] func Función a aplicar, esta debe tener a forma double func(double,double,double,double).
+     *  \param[in] A Matriz de donde se copiaran datos.
+     *  \param[in] B Matriz de donde se copiaran datos.
+     *  \param[in] C Matriz de donde se copiaran datos.
+     *  \param[in] var Cuarto valor a evaluar.
+     *  \return Retorna un puntero al arreglo, o NULL si no consiguió reservar
+     * la memoria. Esta memoria debe ser liberada siempre com ArrayRelease
+     *  \ingroup MatrixGroup
+     */
+    static double** ArrayAllocate(double (*func)(double,double,double,double),
+                                    const Pds::Matrix &A,
+                                    const Pds::Matrix &B,
+                                    const Pds::Matrix &C,
+                                    double var);
+    
+    /** 
+     *  \brief crea dinámicamente un arreglo de A.Nlin() lineas y A.Ncol() columnas,
+     *  con los datos copiados de aplicar func(A,B,C,D).
+     *  Los tamaño de A, B, C y D son similares.
+     *  \param[in] func Función a aplicar, esta debe tener a forma double func(double,double,double,double).
+     *  \param[in] A Matriz de donde se copiaran datos.
+     *  \param[in] B Matriz de donde se copiaran datos.
+     *  \param[in] C Matriz de donde se copiaran datos.
+     *  \param[in] D Matriz de donde se copiaran datos.
+     *  \return Retorna un puntero al arreglo, o NULL si no consiguió reservar
+     * la memoria. Esta memoria debe ser liberada siempre com ArrayRelease
+     *  \ingroup MatrixGroup
+     */
+    static double** ArrayAllocate(double (*func)(double,double,double,double),
+                                    const Pds::Matrix &A,
+                                    const Pds::Matrix &B,
+                                    const Pds::Matrix &C,
+                                    const Pds::Matrix &D);
 
 /**
  * @}

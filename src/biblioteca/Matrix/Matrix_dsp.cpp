@@ -1,6 +1,8 @@
 #include <Pds/Matrix>
 #include <cmath>
 ////////////////////////////////////////////////////////////////////////
+
+
 double Pds::Matrix::Corr(const Pds::Matrix &B) const
 {
     unsigned int lin,col;
@@ -24,6 +26,20 @@ double Pds::Matrix::Corr(const Pds::Matrix &B) const
     
     return S/(this->nlin*this->ncol*std1*std2);
 }
+////////////////////////////////////////////////////////////////////////////////
+
+
+/*
+\mathbf{C}=\left(\begin{matrix}
+c(1-Mlin,1-Mcol)     & c(1-Mlin,2-Mcol)  & \hdots & c(1-Mlin,0)  & \hdots & c(1-Mlin,Ncol-1)\\ 
+c(2-Mlin,1-Mcol)     & c(2-Mlin,2-Mcol)  & \hdots & c(2-Mlin,0)  & \hdots & c(2-Mlin,Ncol-1)\\
+\vdots               & \vdots            & \vdots & \vdots       & \vdots & \vdots \\
+c(0,1-Mcol)          & c(0,2-Mcol)       & \hdots & c(0,0)       & \hdots & c(0,Ncol-1)\\
+\vdots               & \vdots            & \vdots & \vdots       & \vdots & \vdots \\
+c(Nlin-2,1-Mcol)     & c(Nlin-2,2-Mcol)  & \hdots & c(Nlin-2,0)  & \hdots & c(Nlin-2,Ncol-1) \\ 
+c(Nlin-1,1-Mcol)     & c(Nlin-1,2-Mcol)  & \hdots & c(Nlin-1,0)  & \hdots & c(Nlin-1,Ncol-1) \\
+\end{matrix}\right) 
+*/
 
 ////////////////////////////////////////////////////////////////////////
 Pds::Matrix Pds::Matrix::XCorr(const Pds::Matrix &B, bool Same) const
