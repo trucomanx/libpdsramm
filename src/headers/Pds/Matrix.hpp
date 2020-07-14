@@ -81,7 +81,7 @@ class Vector;
  */
 class Matrix
 {
-protected:
+private:
     /*! Un arreglo de Nlin lineas y Ncol elementos por linea. */
     double **array;
     /*! Número de lineas. */
@@ -90,6 +90,7 @@ protected:
     unsigned int ncol;
     
     friend class CMatrix; 
+    friend class Vector; 
     friend class Array<double>;
     friend class Array<unsigned int>;
     friend class Array<unsigned char>;
@@ -2243,8 +2244,8 @@ public:
      *  \brief Remodela los datos internos de la array y la convierte en una array de tamaño diferente,
      *  los datos que faltan se rellenan con cero.
      * 
-     *  \param[in] Nlin Número de lineas.
-     *  \param[in] Ncol Número de columnas.
+     *  \param[in] Nlin Número de lineas. Da error si el valor es cero.
+     *  \param[in] Ncol Número de columnas. Da error si el valor es cero.
      *  \ingroup MatrixGroup
      */
     bool Reshape(unsigned int Nlin,unsigned int Ncol);
@@ -2470,6 +2471,7 @@ public:
      * rcond es:
      *  \f[ rcond \leftarrow \frac{1.0}{||A||_1 ||A^{-1}||_1} \f]
      *
+     *  \warning Internamente es usado el método de eliminación Gaussiana para obtener la inversa.
      *  \param[out] rcond Esta variable es cargada con el valor del
      *  reciproco del condicional de la matriz. Si esta es la matriz A.
      * Si la matriz esta bien condicionada entonces rcond es próximo a 1.0 y si la matriz
@@ -2489,6 +2491,7 @@ public:
      *  \f[ B \leftarrow (A^T A)^{-1}A^T \f]
      *  \f[ rcond \leftarrow \frac{1.0}{||A^T A||_1 ||(A^T A)^{-1}||_1} \f]
      *
+     *  \warning Internamente es usado el método de eliminación Gaussiana para en el cáculo de la inversa.
      *  \param[out] rcond Esta variable es cargada con el valor del
      *  reciproco del condicional de la matriz \f$A^T A\f$.
      * Si la matriz está bien condicionada entonces rcond es próximo a 1.0 y si la matriz

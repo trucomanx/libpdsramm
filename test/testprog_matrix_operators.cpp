@@ -56,7 +56,7 @@ int main(void)
     // Inv operator
     std::cout<<std::endl;
     
-    C.FillRandU();
+    C=Pds::Matrix::FromString("117 822.2940998481383\n 822.2940998481383 5783.818979511911");
     C.Print("C\n");
     double rcond;
     Pds::Matrix D=C.Inv(&rcond);

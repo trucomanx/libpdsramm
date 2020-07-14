@@ -67,6 +67,9 @@
 #include <Pds/FuncVectorPoly>
 
 #include <Pds/Array>
+
+#include <Pds/Buffer>
+#include <Pds/Fir>
     
     
 #endif /* __PDS_RA_HPP__ */

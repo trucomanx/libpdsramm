@@ -62,16 +62,6 @@ namespace Ra{
  */
 clock_t Tic(void);
 
-
-/** 
- *  \brief Retorna el número de clocks actual. Este valor tambien es salvado internamente.
- *
- *  \param[out] start_time Tiempo actual.
- *  \return Retorna el número de clocks actual.
- *  \ingroup PdsRaTimeGroup
- */
-void Tic(clock_t &start_time);
-
 /** 
  *  \brief Retorna e imprime en pantalla el tiempo transcurrido desde Pds::Ra::Tic()
  *
@@ -79,6 +69,16 @@ void Tic(clock_t &start_time);
  *  \ingroup PdsRaTimeGroup
  */
 double Toc(void);
+
+
+/** 
+ *  \brief Retorna el número de clocks actual. Este valor NO es salvado internamente.
+ *
+ *  \param[out] start_time Tiempo actual.
+ *  \return Retorna el número de clocks actual.
+ *  \ingroup PdsRaTimeGroup
+ */
+void Tic(clock_t &start_time);
 
 
 /** 

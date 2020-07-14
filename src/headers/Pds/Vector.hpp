@@ -354,6 +354,73 @@ B_{Nlin~Ncol,1} \leftarrow func(\mathbf{B(:)})
      */
     Pds::Vector Unit(void) const;
     
+    
+/**
+ * @}
+ */
+    
+    
+/** @name Métodos para reordenar memoria con Pds::Vector.
+ * @{
+ */
+
+    /** 
+     *  \brief Remodela los datos internos de la array y la convierte en una array de tamaño diferente,
+     *  los datos que faltan se rellenan con cero.
+     * 
+     *  |warning Este método cambiar .Reshape(Nlin,Ncol) por .Reshape(Nlin*Ncol,1) 
+     *  \param[in] Nlin Número de lineas. Da error si el valor es cero.
+     *  \param[in] Ncol Número de columnas. Da error si el valor es cero.
+     *  \ingroup VectorGroup
+     */
+    bool Reshape(unsigned int Nlin,unsigned int Ncol);
+
+    /** 
+     *  \brief Remodela los datos internos de la array y la convierte en una array de tamaño diferente,
+     *  los datos que faltan se rellenan con cero.
+     * 
+     *  \param[in] Nel Número de lineas. Da error si el valor es cero.
+     *  \ingroup VectorGroup
+     */
+    bool Reshape(unsigned int Nel);
+
+
+    /** 
+     *  \brief Concatena verticalmente varias matrices.  
+     *  Si las matrices no tienen el mismo número de columnas se considera um error.
+     *  Si las matrices no tienen un número de columnas igual a 1 da un error.
+     *  Destruye las matrices en list.
+     *  Este metodo es mas rapido que Pds::MergeVer(list) pues transplanta memoria.
+     *
+     *  \param[in] list La lista de matrices a concatenar.
+     *  \return Retorna true en caso de enxito en la matriz concatenada o false y una matriz vacía en caso de error.
+     *  \ingroup VectorGroup
+     */
+    bool FusionVer(std::list<Pds::Matrix> &list);
+
+    
+/**
+ * @}
+ */
+    
+    
+/** @name Métodos get set con Pds::Vector.
+ * @{
+ */
+
+    /** 
+     *  \brief Retorna el valor en cada posicion del vector (solo lectura).
+     *
+     *  \warning NO hace una verificación si el indice existe!!!!
+     *  \param[in] id Indice del vector.
+     *  \return Retorna el valor en cada posicion del vector.
+     *  \ingroup VectorGroup
+     */
+    const double &operator[](const unsigned int &id) const
+    {
+        return this->array[id][0];
+    }
+
 /**
  * @}
  */
