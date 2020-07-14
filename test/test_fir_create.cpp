@@ -17,7 +17,7 @@ int main(void)
 
     double Tmax=10;
     double fs=1.0;
-    Pds::Vector T=Pds::Linspace(0,Tmax,N);
+    Pds::Vector T=Pds::LinSpace(0,Tmax,N);
     Pds::Vector V=Pds::Sin((2*Pds::Ra::Pi*fs)*T);
 
     Pds::Ra::Tic();
