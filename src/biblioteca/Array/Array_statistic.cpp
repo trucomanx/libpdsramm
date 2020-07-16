@@ -1,5 +1,5 @@
 /*
- * Fir_varied.cpp
+ * Array_statistic.cpp
  * 
  * Copyright 2018 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
  * 
@@ -20,35 +20,27 @@
  * 
  */
 
+#include <cstdlib>
+#include <cmath>
+#include <Pds/Array>
+#include <Pds/Vector>
+#include <Pds/Matrix>
 
-#include <Pds/Fir>
-#include <iostream>
+// Instantiate Pds::Array for the supported template type parameters
+template class Pds::Array<double>;
+template class Pds::Array<unsigned char>;
+template class Pds::Array<unsigned int >;
 
-
-bool Pds::Fir::IsEmpty(void) const
+template <class Datum>
+Datum Pds::Array<Datum>::Sum(void) const
 {
-    if((this->M==0)||(this->H==NULL)||(this->X==NULL))    return true;
-    return false;
-}
+    if((this->array==NULL)||(this->nlin==0)||(this->ncol==0))    return 0;
+    unsigned int lin,col;
+    
+    Datum sum=0;
+    for(lin=0;lin<this->nlin;lin++)
+    for(col=0;col<this->ncol;col++)
+    sum+=this->array[lin][col];
 
-void Pds::Fir::Print(std::string str) const
-{
-    unsigned int i=0;
-    if((this->M==0)||(this->H==NULL)||(this->X==NULL))    return;
-
-    std::cout<<str;
-
-    std::cout<<"M:\t"<<M<<std::endl;
-
-    std::cout<<"H:";
-    for(i=0;i<this->M;i++)  
-    std::cout<<"\t"<<this->H[i];
-    std::cout<<std::endl;
-
-    std::cout<<"X:";
-    for(i=0;i<this->M;i++)  
-    std::cout<<"\t"<<this->X[i];
-    std::cout<<std::endl;
-
-    return;
+    return sum;
 }

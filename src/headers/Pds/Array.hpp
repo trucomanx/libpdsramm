@@ -45,6 +45,7 @@
 
 #include <string>
 #include <Pds/Size>
+#include <Pds/RegionRect>
 #include <vector>
 
 
@@ -52,6 +53,7 @@
 namespace Pds{
 
 class Matrix;
+class Vector;
 
 /*! \class Array
  *  \brief La clase tipo  Array .
@@ -277,6 +279,39 @@ public:
      *  \ingroup ArrayGroup
      */
     bool FillRandC(double p1);
+
+    /** 
+     *  \brief Inicializa la array con números enteros desde min a max.
+     *
+     *  \warning La función usa internamente la función rand(), 
+     *  si se desea esta puede ser aleatoriamente inicializada usando la funcíón Pds::Ra::Randomize(),
+     *  de lo contrario los números pseudo aleatórios siempre seguirán la misma secuencia.
+     * 
+     *  \param[in] min Valor mínimo.
+     *  \param[in] max Valor máximo.
+     *  \return Retorna true si todo fue bien o false si no.
+     *  \ingroup ArrayGroup
+     */
+    bool FillRandI(unsigned int min,unsigned int max);
+
+/**
+ * @}
+ */
+
+public:
+
+/** @name Métodos estatisticos básicos de Pds::Array
+ *  Herramientas genéricas para lectura y escritura de datos.
+ * @{
+ */
+
+    /** 
+     *  \brief Retorna la suma de todos los elementos del array.
+     *  \return Retorna la suma de todos los elementos del array.
+     *  \ingroup ArrayGroup
+     */
+    Datum Sum(void) const;
+
 /**
  * @}
  */
@@ -339,17 +374,6 @@ public:
     Datum Get(unsigned int lin,unsigned int col) const;
 
     /** 
-     *  \brief Retorna una variable Datum en la posición (id) de la array. 
-     *  Hace una verificación para evitar leer fuera de la memoria, 
-     *  si no está retorna zero 
-     *  \param[in] id La posicion en consulta.
-     *  \return Retorna una variable Datum en la posición (lin,col). 
-     *  \ingroup ArrayGroup
-     */
-    Datum Get(unsigned int id) const;
-
-
-    /** 
      *  \brief Establece una variable Datum en la posición (lin,col) de la array. 
      *  Hace una verificación para evitar escribir fuera de la memoria, 
      *  si no está retorna false y no escribe nada. 
@@ -360,6 +384,46 @@ public:
      *  \ingroup ArrayGroup
      */
     bool Set(unsigned int lin,unsigned int col,Datum val);
+
+    /** 
+     *  \brief Retorna una variable Datum en la posición (id) de la array. 
+     *  Hace una verificación para evitar leer fuera de la memoria, 
+     *  si no está retorna zero 
+     *  \param[in] id La posicion en consulta.
+     *  \return Retorna una variable Datum en la posición (lin,col). 
+     *  \ingroup ArrayGroup
+     */
+    Datum Get(unsigned int id) const;
+
+    /** 
+     *  \brief Retorna una variable Datum en la posición (lin,col) de la array. 
+     *  \warning NO hace una verificación para evitar leer fuera de la memoria, 
+     *  por lo que dará errores de acceso si pedimos una posición inexistente. 
+     *  \param[in] lin La linea en consulta.
+     *  \param[in] col La columna en consulta.
+     *  \return Retorna una variable Datum en la posición (lin,col). 
+     *  \ingroup ArrayGroup
+     */
+    const Datum &GetRaw(unsigned int lin,unsigned int col) const
+    {
+        return this->array[lin][col];
+    }
+
+
+    /** 
+     *  \brief Establece una variable Datum en la posición (lin,col) de la array. 
+     *  \warning NO hace una verificación para evitar leer fuera de la memoria, 
+     *  por lo que dará errores de acceso si pedimos una posición inexistente. 
+     *  \param[in] lin La linea en consulta.
+     *  \param[in] col La columna en consulta.
+     *  \param[in] val valor a escribir.
+     *  \return Retorna true si todo fue bien o false si no. 
+     *  \ingroup ArrayGroup
+     */
+    void SetRaw(unsigned int lin,unsigned int col,const Datum &val)
+    {
+        this->array[lin][col]=val;
+    }
 
     /** 
      *  \brief Retorna una variable Datum en la posición (lin,col) de la array. 
@@ -381,6 +445,35 @@ public:
      *  \ingroup ArrayGroup
      */
     Datum &At(unsigned int id);
+/**
+ * @}
+ */
+
+public:
+
+/** @name Métodos con regiones con Pds::Array.
+ *  Herramientas genéricas
+ * @{
+ */
+
+    /** 
+     *  \brief Retorna un vector con el histograma. 
+     *  \param[in] R Region de busca.
+     *  \param[in] min Valor mínimo del histograma.
+     *  \param[in] max Valor máximo del histograma.
+     *  \return Retorna una vector con un histograma. 
+     *  \ingroup ArrayGroup
+     */
+    Pds::Vector HistogramNorm(const Pds::RegionRect &R,unsigned int min,unsigned int max) const;
+
+
+    /** 
+     *  \brief Retorna una variable Pds::RegionRect desde la posicion (0,0), con ancho y alto (Mat.Nlin(),Mat.Ncol()).
+     *  \return La region si todo fue bien, sino se retorna una region donde IsEmpty() == true.
+     *  \ingroup MatrixGroup
+     */
+    Pds::RegionRect GetRegion(void) const;
+
 /**
  * @}
  */

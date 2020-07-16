@@ -1,5 +1,5 @@
 /*
- * Array_init.cpp
+ * Array_region.cpp
  * 
  * Copyright 2018 Fernando Pujaico Rivera <fernando.pujaico.rivera@gmail.com>
  * 
@@ -23,6 +23,8 @@
 #include <cstdlib>
 #include <cmath>
 #include <Pds/Array>
+#include <Pds/Vector>
+#include <Pds/Matrix>
 
 // Instantiate Pds::Array for the supported template type parameters
 template class Pds::Array<double>;
@@ -30,39 +32,35 @@ template class Pds::Array<unsigned char>;
 template class Pds::Array<unsigned int >;
 
 template <class Datum>
-bool Pds::Array<Datum>::FillRandC(double p1)
+Pds::Vector Pds::Array<Datum>::HistogramNorm(const Pds::RegionRect &R,unsigned int min,unsigned int max) const
 {
-    if(this->IsEmpty()) return false;
-    if((p1>1)||(p1<0))  return false;
-    
+    if(min>max)                     return Pds::Vector();
+    if(R.IsInside(*this)==false)    return Pds::Vector();
+
+    unsigned int L=max-min+1;
+    Pds::Vector H(L);
     unsigned int lin,col;
-
-    for(lin=0;lin<this->nlin;lin++)
-    for(col=0;col<this->ncol;col++)
+    unsigned int LinEnd=R.L0+R.Nlin-1;
+    unsigned int ColEnd=R.C0+R.Ncol-1;
+    unsigned int id;
+    
+    for(lin=R.L0;lin<=LinEnd;lin++)
+    for(col=R.C0;col<=ColEnd;col++)
     {
-        if(rand()>(RAND_MAX*p1))
-        this->array[lin][col]=0;
-        else
-        this->array[lin][col]=1;
+        id=this->array[lin][col];
+        if((id>=min)&&(id<=max))
+        H.ElementAddAssigRaw(id-min,1);
     }
-
-    return true;
+    double Sum=H.Sum();
+    if(Sum!=0)  H.MulAssig(1.0/Sum);
+    return H;
 }
 
-
 template <class Datum>
-bool Pds::Array<Datum>::FillRandI(unsigned int min,unsigned int max)
+Pds::RegionRect Pds::Array<Datum>::GetRegion(void) const
 {
-    if(this->IsEmpty()) return false;
-    if(min>max)         return false;
-    
-    unsigned int lin,col,N=(max-min)+1;
 
-    for(lin=0;lin<this->nlin;lin++)
-    for(col=0;col<this->ncol;col++)
-    {
-        this->array[lin][col]=min+(rand()%N);
-    }
+	if(this->IsEmpty()) return Pds::RegionRect();
 
-    return true;
+    return Pds::RegionRect(0,0,this->nlin,this->ncol);
 }

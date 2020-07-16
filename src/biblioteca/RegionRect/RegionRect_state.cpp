@@ -23,6 +23,7 @@
 
 #include <Pds/RegionRect>
 #include <Pds/Matrix>
+#include <Pds/Array>
 
 bool Pds::RegionRect::IsEmpty(void) const
 {
@@ -53,4 +54,24 @@ bool Pds::RegionRect::IsInside(const Pds::Matrix &A) const
 
     return true;
 }
+
+template <class Datum>
+bool Pds::RegionRect::IsInside(const Pds::Array<Datum> &A) const
+{
+    if(A.IsEmpty()) return false;
+    if(this->L0<0)  return false;
+    if(this->C0<0)  return false;
+
+    if( (this->L0+this->Nlin)>A.Nlin() ) return false;
+    if( (this->C0+this->Ncol)>A.Ncol() ) return false;
+
+    return true;
+}
+
+
+// Instantiate Pds::Array for the supported template type parameters
+template bool Pds::RegionRect::IsInside<unsigned int >(const Pds::Array<unsigned int > &A) const;
+template bool Pds::RegionRect::IsInside<unsigned char>(const Pds::Array<unsigned char> &A) const;
+template bool Pds::RegionRect::IsInside<double       >(const Pds::Array<double       > &A) const;
+
 

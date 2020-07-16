@@ -50,6 +50,7 @@
 namespace Pds{
 
 class Matrix;
+template <class Datum> class Array;
 
 /*! 
  *  \brief La estructura tipo  Pds::RegionRect .
@@ -164,6 +165,17 @@ public:
      *  \ingroup RegionRectGroup
      */
     bool IsInside(const Pds::Matrix &A) const;
+
+    /** 
+     *  \brief Indica si la region Rin está dentro de la region de una matriz.
+
+     *  \param[in] A Matriz a analizar.
+     *  \return true si Rin está adentro de A, o false si no.
+     *  \ingroup RegionRectGroup
+     */
+    template <class Datum>
+    bool IsInside(const Pds::Array<Datum> &A) const;
+
 
 /**
  * @}

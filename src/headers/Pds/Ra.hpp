@@ -58,9 +58,9 @@
 #include <Pds/MathMatrix>
 #include <Pds/FuncMatrix>
 #include <Pds/FuncMatrixRotation>
-#include <Pds/FuncMatrixImage>
-#include <Pds/FuncArrayLabeling>
-#include <Pds/FuncArrayDataset>
+
+
+
     
 #include <Pds/Vector>
 #include <Pds/FuncVector>
@@ -68,8 +68,6 @@
 
 #include <Pds/Array>
 
-#include <Pds/Buffer>
-#include <Pds/Fir>
     
     
 #endif /* __PDS_RA_HPP__ */

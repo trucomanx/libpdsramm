@@ -24,6 +24,7 @@ Retornando por consola:
 int main(void)
 {
     Pds::Matrix A(12);
+    Pds::Array<unsigned int> B(12);
     Pds::RegionRect R0;
     Pds::RegionRect R1(3,3,8,8);
     Pds::RegionRect R2(5,5,8,8);
@@ -46,6 +47,12 @@ int main(void)
 
     if(R2.IsInside(A))  std::cout<<"R2 is inside A"<<std::endl;
     else                std::cout<<"R2 is not inside A"<<std::endl;
+
+    if(R1.IsInside(B))  std::cout<<"R1 is inside B"<<std::endl;
+    else                std::cout<<"R1 is not inside B"<<std::endl;
+
+    if(R2.IsInside(B))  std::cout<<"R2 is inside B"<<std::endl;
+    else                std::cout<<"R2 is not inside B"<<std::endl;
     
     std::cout<<std::endl;
     

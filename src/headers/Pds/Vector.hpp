@@ -421,6 +421,34 @@ B_{Nlin~Ncol,1} \leftarrow func(\mathbf{B(:)})
         return this->array[id][0];
     }
 
+
+    /** 
+     *  \brief Retorna una variable Datum en la posición (lin,0) de vector. 
+     *  \warning NO hace una verificación para evitar leer fuera de la memoria, 
+     *  por lo que dará errores de acceso si pedimos una posición inexistente. 
+     *  \param[in] lin La linea en consulta.
+     *  \return Retorna una variable Datum en la posición (lin,0). 
+     *  \ingroup VectorGroup
+     */
+    const double &GetRaw(unsigned int lin) const
+    {
+        return this->array[lin][0];
+    }
+
+
+    /** 
+     *  \brief Establece una variable Datum en la posición (lin,0) del vector. 
+     *  \warning NO hace una verificación para evitar leer fuera de la memoria, 
+     *  por lo que dará errores de acceso si pedimos una posición inexistente. 
+     *  \param[in] lin La linea en consulta.
+     *  \param[in] val valor a escribir.
+     *  \return Retorna true si todo fue bien o false si no. 
+     *  \ingroup VectorGroup
+     */
+    void SetRaw(unsigned int lin,const double &val)
+    {
+        this->array[lin][0]=val;
+    }
 /**
  * @}
  */
@@ -455,7 +483,19 @@ B_{Nlin~Ncol,1} \leftarrow func(\mathbf{B(:)})
      */
     Pds::Vector& operator = (const Pds::Vector &B);
 
-
+    /** 
+     *  \brief Suma un valor al contenido de un elemento lin (acumula). Elem+=val. 
+     *  \warning NO hace una verificación para evitar leer fuera de la memoria, 
+     *  por lo que dará errores de acceso si pedimos una posición inexistente. 
+     *  \param[in] lin La linea en consulta.
+     *  \param[in] val valor a acumular.
+     *  \return Retorna true si todo fue bien o false si no. 
+     *  \ingroup VectorGroup
+     */
+    void ElementAddAssigRaw(unsigned int lin,const double &val)
+    {
+        this->array[lin][0]+=val;
+    }
 /**
  * @}
  */
