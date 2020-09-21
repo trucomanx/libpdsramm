@@ -46,6 +46,7 @@
 
 
 #include <sstream>      // std::ostringstream
+#include <vector>
 
 namespace Pds{
 
@@ -210,7 +211,7 @@ public:
  */
 
 
-/** @name Intersecta
+/** @name Operaciones de conjunto en regiones
  *   
  * @{
  */
@@ -223,6 +224,53 @@ public:
      */
     Pds::RegionRect Intersection(const Pds::RegionRect &B) const;
 
+    /** 
+     *  \brief Retorna la region superior a la actual y a la region B.
+     *  
+     *  Si alguna region es vacia no es tomada en conta.
+     *  \param[in] B Segunda region.
+     *  \return R Region superior, una region .IsEmpty() igual a true si todas las regiones son vacias.
+     *  \ingroup RegionRectGroup
+     */
+    Pds::RegionRect Superior(const Pds::RegionRect &B) const;
+
+/**
+ * @}
+ */
+
+
+/** @name Funciones static com regiones
+ *   
+ * @{
+ */
+
+    /** 
+     *  \brief Intersecta las regiones en el vector de regiones B.
+     *  \param[in] B Vector de regiones.
+     *  \return R Region de interesecion si existe, una region .IsEmpty() igual a true en caso de no existir.
+     *  \ingroup RegionRectGroup
+     */
+    static Pds::RegionRect Intersection(const std::vector<Pds::RegionRect> &B);
+
+    /** 
+     *  \brief Retorna la region superior a todas las regiones en el vector B.
+     *  
+     *  Si alguna region es vacia no es tomada en conta.
+     *  \param[in] B Vector de regiones.
+     *  \return R Region superior, una region .IsEmpty() igual a true si todas las regiones son vacias.
+     *  \ingroup RegionRectGroup
+     */
+    static Pds::RegionRect Superior(const std::vector<Pds::RegionRect> &B);
+
+    /** 
+     *  \brief Retorna la region media de todas las regiones en el vector B.
+     *  
+     *  Si alguna region es vacia no es tomada en conta.
+     *  \param[in] B Vector de regiones.
+     *  \return R Region media, una region .IsEmpty() igual a true si todas las regiones son vacias.
+     *  \ingroup RegionRectGroup
+     */
+    static Pds::RegionRect Mean(const std::vector<Pds::RegionRect> &B);
 /**
  * @}
  */

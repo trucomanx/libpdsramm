@@ -102,7 +102,7 @@ double Pds::Matrix::Bilinear(double lin,double col) const
             (    beta)*(1.0-alpha)*P3+
             (    beta)*(    alpha)*P4;
 }
-    
+ 
 
 unsigned int Pds::Matrix::Nlin(void) const
 {

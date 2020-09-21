@@ -256,6 +256,17 @@ public:
      */
     bool IsNotSimilarTo(const Pds::Array<Datum> &B) const;
 
+    /** 
+     *  \brief Verifica si las matrices son similares en tamaño.
+     * 
+     *  Una array\f$A_{M,N}\f$ es similar a \f$B_{P,Q}\f$ 
+     *  si  \f$M=P\f$ y \f$N=Q\f$.
+     *  \param[in] B Matriz en consulta.
+     *  \return Retorna false si son similares y true si no.
+     *  \ingroup ArrayGroup
+     */
+    bool IsNotSimilarTo(const Pds::Matrix &B) const;
+
 
 /**
  * @}
@@ -470,9 +481,78 @@ public:
     /** 
      *  \brief Retorna una variable Pds::RegionRect desde la posicion (0,0), con ancho y alto (Mat.Nlin(),Mat.Ncol()).
      *  \return La region si todo fue bien, sino se retorna una region donde IsEmpty() == true.
-     *  \ingroup MatrixGroup
+     *  \ingroup ArrayGroup
      */
     Pds::RegionRect GetRegion(void) const;
+
+/**
+ * @}
+ */
+
+
+public:
+
+/** @name Métodos DSP con Array
+ *  Herramientas genéricas que pueden ser usadas desde Pds::Array
+ * @{
+ */
+
+    /** 
+     *  \brief Procesa la matriz A usando un filtro mean de radio 1.
+     *
+\f[
+B[i,j]=\frac{1}{9}
+\left(
+\begin{matrix}
+A[i-1,j-1]&+&A[i-1,j]&+&A[i-1,j+1]&+\\
+A[i  ,j-1]&+&A[i  ,j]&+&A[i  ,j+1]&+\\
+A[i+1,j-1]&+&A[i+1,j]&+&A[i+1,j+1]&~
+\end{matrix}
+\right)
+\f]
+\warning Este filtro tambien es llamado: Mean filtering, Smoothing, Averaging, Box filtering 
+     *  \return Retorna la matriz B resultado de procesar la matriz A con un filtro mean de radio 1.
+     *  \ingroup ArrayGroup
+     */
+    Pds::Array<Datum> FilterMean3(void) const;
+
+    /** 
+     *  \brief Procesa la matriz A usando un filtro mean de radio 1.
+     *
+\f[
+B[i,j]=\frac{1}{10}
+\left(
+\begin{matrix}
+A[i-1,j-1]&+&A[i-1,j]&+&A[i-1,j+1]&+\\
+A[i  ,j-1]&+&2~A[i  ,j]&+&A[i  ,j+1]&+\\
+A[i+1,j-1]&+&A[i+1,j]&+&A[i+1,j+1]&~
+\end{matrix}
+\right)
+\f]
+\warning Este filtro tambien es llamado: Mean filtering, Smoothing, Averaging, Box filtering 
+     *  \return Retorna la matriz B resultado de procesar la matriz A con un filtro mean de radio 1.
+     *  \ingroup ArrayGroup
+     */
+    Pds::Array<Datum> FilterMean3b(void) const;
+
+
+    /** 
+     *  \brief Retorna una matriz B (size: NlinB,NcolB) 
+     *  resultado de aplicar un subsampling de la matriz A (size: Nlin,Ncol) por un factor.
+     *
+\f[
+1 \leq factor \leq 2
+\f]
+\f[
+NlinB=\left\lfloor\frac{Nlin}{factor}\right\rfloor,\qquad NcolB=\left\lfloor\frac{Ncol}{factor}\right\rfloor.
+\f]
+     *  Es aplicado el método de bilinear y luego linear entre la aproximacion espacial y la version reduzida por 2.
+     *  
+     *  \param[in] factor Este factor debe estar entre 1 y 2 inclusive, de lo contrario da error.
+     *  \return Retorna la matriz B resultado de procesar la matriz A. o una vacia en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Array<Datum> Resize(double factor) const;
 
 /**
  * @}
@@ -502,6 +582,17 @@ public:
      */
     static std::vector<Pds::Array<Datum>>  ImportBmpFile(const std::string &bmpfilepath);
 
+   /** 
+     *  \brief Calcula A,la matriz media de un conjunto de N matrizes agrupadas en un std::vector.
+     * 
+\f[
+A=(datatype)\frac{Block[0]+Block[1]+...+Block[N-1]}{N}
+\f]
+     *  \param[in] Block Vector std::vector con N elementos Pds::Matrix.
+     *  \return Retorna la matriz media de un conjunto de N matrizes agrupadas en un std::vector.
+     *  \ingroup ArrayGroup
+     */
+    static Pds::Array<Datum> MeanBlock( const std::vector<Pds::Array<Datum>> &Block);
 /**
  * @}
  */

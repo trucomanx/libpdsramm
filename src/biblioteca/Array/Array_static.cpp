@@ -86,3 +86,34 @@ std::vector<Pds::Array<Datum>>  Pds::Array<Datum>::ImportBmpFile( const std::str
     delete[] data;
     return Block;
 }
+
+////////////////////////////////////////////////////////////////////////////////
+template <class Datum>
+Pds::Array<Datum>  Pds::Array<Datum>::MeanBlock( const std::vector<Pds::Array<Datum>> &Block)
+{
+    unsigned int N=Block.size();
+    
+    if(N==0) return Pds::Array<Datum>();
+    
+    for(unsigned int n=1;n<N;n++)   
+    if(Block[0].IsNotSimilarTo(Block[n]))   return Pds::Array<Datum>();
+        
+    unsigned int Nlin=Block[0].Nlin();
+    unsigned int Ncol=Block[0].Ncol();
+    unsigned int lin,col,n;
+    double S;
+    
+    Pds::Array<Datum> Gray(Nlin,Ncol);
+
+    for(lin=0;lin<Nlin;lin++)
+    for(col=0;col<Ncol;col++)
+    {
+        S=0;
+        for(n=0;n<N;n++)    
+        S+=Block[n].array[lin][col];
+        
+        Gray.array[lin][col]=(S/N);
+    }
+    return Gray;
+}
+

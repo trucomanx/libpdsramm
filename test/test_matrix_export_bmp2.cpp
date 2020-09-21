@@ -36,8 +36,10 @@ int main(void)
     {double z=2*x*exp(-x*x-y*y); return 126.0*z+127.0;};
     Z=Pds::Operate(func,X,Y);
     
-    Z.Scale(0,255).ExportBmpFile(Pds::Colormap::Jet,"ColormapJet.bmp");
+    Z.ExportBmpFile(Pds::Colormap::Jet,"ColormapJet.bmp");
     Z.Scale(0,255).ExportBmpFile(Pds::Colormap::Steps,"ColormapSteps.bmp");
+
+    Z.Resize(1.2).ExportBmpFile(Pds::Colormap::Jet,"ColormapJet_resize.bmp");
 
     Pds::Matrix::ExportBmpFile(Z.Scale(0,255),Z.Scale(0,255),Z.Scale(0,255),"ColormapRGB.bmp");
     

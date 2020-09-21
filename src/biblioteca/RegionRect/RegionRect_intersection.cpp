@@ -22,6 +22,18 @@
 
 
 #include <Pds/RegionRect>
+Pds::RegionRect Pds::RegionRect::Superior(const Pds::RegionRect &B) const
+{
+    if(this->IsEmpty()) return B;
+    if(B.IsEmpty())     return *this;
+
+    unsigned int C0=std::min(this->C0,B.C0);
+    unsigned int L0=std::min(this->L0,B.L0);
+    unsigned int CE=std::max(this->C0+this->Ncol,B.C0+B.Ncol);
+    unsigned int LE=std::max(this->L0+this->Nlin,B.L0+B.Nlin);
+
+    return Pds::RegionRect(L0,C0,LE-L0,CE-C0);
+}
 
 Pds::RegionRect Pds::RegionRect::Intersection(const Pds::RegionRect &B) const
 {

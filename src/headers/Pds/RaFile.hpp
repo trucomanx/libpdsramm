@@ -57,6 +57,18 @@ namespace Ra{
  */
 
     /** 
+     *  \brief std::string con un separador de fichero.
+     *
+     *  \ingroup PdsRaToolsGroup
+     */
+    const std::string FileSep =
+    #if defined(WIN32) || defined(_WIN32) 
+                                "\\";
+    #else
+                                "/";
+    #endif
+
+    /** 
      *  \brief Retorna el número de lineas significativas de un archivo.
      *  Se asume que es un archivo de texto.
      *

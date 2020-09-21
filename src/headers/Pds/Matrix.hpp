@@ -1067,6 +1067,37 @@ public:
      */
     double Get(unsigned int lin,unsigned int col) const;
     
+
+    /** 
+     *  \brief Retorna una variable double en la posición (lin,col) de la array. 
+     *  \warning NO hace una verificación para evitar leer fuera de la memoria, 
+     *  por lo que dará errores de acceso si pedimos una posición inexistente. 
+     *  \param[in] lin La linea en consulta.
+     *  \param[in] col La columna en consulta.
+     *  \return Retorna una variable double en la posición (lin,col). 
+     *  \ingroup MatrixGroup
+     */
+    const double &GetRaw(unsigned int lin,unsigned int col) const
+    {
+        return this->array[lin][col];
+    }
+
+
+    /** 
+     *  \brief Establece una variable double en la posición (lin,col) de la array. 
+     *  \warning NO hace una verificación para evitar leer fuera de la memoria, 
+     *  por lo que dará errores de acceso si pedimos una posición inexistente. 
+     *  \param[in] lin La linea en consulta.
+     *  \param[in] col La columna en consulta.
+     *  \param[in] val valor a escribir.
+     *  \return Retorna true si todo fue bien o false si no. 
+     *  \ingroup MatrixGroup
+     */
+    void SetRaw(unsigned int lin,unsigned int col,const double &val)
+    {
+        this->array[lin][col]=val;
+    }
+
     /** 
      *  \brief Escribe el valor en la posición del índice id, hace una verificación
      *  si la posición existe. 
@@ -1672,10 +1703,66 @@ d(k,l)
      *  \f$[c_{i,j}]  \overset{func}{\equiv} d(i,j), \quad \mathbf{C}.Size()\equiv \{Nlin,Ncol\}\f$.
      *  Por defecto Same es igual a false.
      * \return retorna la correlacion cruzada.
-     *  \ingroup VectorGroup
+     *  \ingroup MatrixGroup
      */
     Pds::Matrix XCorr(const Pds::Matrix &B, bool Same=false) const;
 
+    /** 
+     *  \brief Procesa la matriz A usando un filtro mean de radio 1.
+     *
+\f[
+B[i,j]=\frac{1}{9}
+\left(
+\begin{matrix}
+A[i-1,j-1]&+&A[i-1,j]&+&A[i-1,j+1]&+\\
+A[i  ,j-1]&+&A[i  ,j]&+&A[i  ,j+1]&+\\
+A[i+1,j-1]&+&A[i+1,j]&+&A[i+1,j+1]&~
+\end{matrix}
+\right)
+\f]
+\warning Este filtro tambien es llamado: Mean filtering, Smoothing, Averaging, Box filtering 
+     *  \return Retorna la matriz B resultado de procesar la matriz A con un filtro mean de radio 1.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix FilterMean3(void) const;
+
+
+    /** 
+     *  \brief Procesa la matriz A usando un filtro mean de radio 1.
+     *
+\f[
+B[i,j]=\frac{1}{10}
+\left(
+\begin{matrix}
+A[i-1,j-1]&+&A[i-1,j]&+&A[i-1,j+1]&+\\
+A[i  ,j-1]&+&2~A[i  ,j]&+&A[i  ,j+1]&+\\
+A[i+1,j-1]&+&A[i+1,j]&+&A[i+1,j+1]&~
+\end{matrix}
+\right)
+\f]
+\warning Este filtro tambien es llamado: Mean filtering, Smoothing, Averaging, Box filtering 
+     *  \return Retorna la matriz B resultado de procesar la matriz A con un filtro mean de radio 1.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix FilterMean3b(void) const;
+
+    /** 
+     *  \brief Retorna una matriz B (size: NlinB,NcolB) 
+     *  resultado de aplicar un subsampling de la matriz A (size: Nlin,Ncol) por un factor.
+     *
+\f[
+1 \leq factor \leq 2
+\f]
+\f[
+NlinB=\left\lfloor\frac{Nlin}{factor}\right\rfloor,\qquad NcolB=\left\lfloor\frac{Ncol}{factor}\right\rfloor.
+\f]
+     *  Es aplicado el método de bilinear y luego linear entre la aproximacion espacial y la version reduzida por 2.
+     *  
+     *  \param[in] factor Este factor debe estar entre 1 y 2 inclusive, de lo contrario da error.
+     *  \return Retorna la matriz B resultado de procesar la matriz A. o una vacia en caso de error.
+     *  \ingroup MatrixGroup
+     */
+    Pds::Matrix Resize(double factor) const;
 
 /**
  * @}
@@ -2410,7 +2497,17 @@ public:
      */
     static std::vector<Pds::Matrix>  ImportBmpFile( const std::string &bmpfilename);
 
-
+   /** 
+     *  \brief Calcula A,la matriz media de un conjunto de N matrizes agrupadas en un std::vector.
+     * 
+\f[
+A=\frac{Block[0]+Block[1]+...+Block[N-1]}{N}
+\f]
+     *  \param[in] Block Vector std::vector con N elementos Pds::Matrix.
+     *  \return Retorna la matriz media de un conjunto de N matrizes agrupadas en un std::vector.
+     *  \ingroup MatrixGroup
+     */
+    static Pds::Matrix MeanBlock( const std::vector<Pds::Matrix> &Block);
 /**
  * @}
  */

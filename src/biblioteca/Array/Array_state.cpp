@@ -22,6 +22,7 @@
 
 
 #include <Pds/Array>
+#include <Pds/Matrix>
 
 
 
@@ -42,6 +43,19 @@ bool Pds::Array<Datum>::IsEmpty(void) const
 
 template <class Datum>
 bool Pds::Array<Datum>::IsNotSimilarTo(const Pds::Array<Datum> &B) const
+{
+    if((this->nlin)!=B.nlin)    return true;
+    if((this->ncol)!=B.ncol)    return true;
+    
+    if( ((this->array)==NULL)&&(B.array==NULL) )    return false;
+    if( ((this->array)!=NULL)&&(B.array==NULL) )    return true;
+    if( ((this->array)==NULL)&&(B.array!=NULL) )    return true;
+ 
+    return false;
+}
+
+template <class Datum>
+bool Pds::Array<Datum>::IsNotSimilarTo(const Pds::Matrix &B) const
 {
     if((this->nlin)!=B.nlin)    return true;
     if((this->ncol)!=B.ncol)    return true;
