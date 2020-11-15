@@ -57,9 +57,9 @@ namespace Ra{
  */
 
     /** 
-     *  \brief std::string con un separador de fichero.
+     *  \brief std::string con un separador de fichero "\\" para WINDOWS y "/" para linux.
      *
-     *  \ingroup PdsRaToolsGroup
+     *  \ingroup PdsRaFileGroup
      */
     const std::string FileSep =
     #if defined(WIN32) || defined(_WIN32) 
@@ -67,7 +67,18 @@ namespace Ra{
     #else
                                 "/";
     #endif
-
+    
+    /** 
+     *  \brief std::string con un separador de fichero "\\" para WINDOWS y "/" para linux.
+     *
+     *  \ingroup PdsRaFileGroup
+     */
+    const char CharFileSep =
+    #if defined(WIN32) || defined(_WIN32) 
+                                '\\';
+    #else
+                                '/';
+    #endif
     /** 
      *  \brief Retorna el número de lineas significativas de un archivo.
      *  Se asume que es un archivo de texto.
@@ -141,9 +152,172 @@ namespace Ra{
      *  \param[in] fd Descriptor de fichero de texto a analizar.
      *  \return Retorna una nueva cadena de texto con una copia de la linea leida 
      *  incluyendo los caracteres de control finales exepto EOF.
-     *  \ingroup PdsRaToolsGroup
+     *  \ingroup PdsRaFileGroup
      */
     char *Fgets(FILE *fd);
+    
+    /** 
+     *  \brief Retorna una nueva cadena con un filepath creado por la union de 
+     *  las cadenas de entrada, usando para concatenar Pds::Ra::FileSep.
+     *
+    \code{.h}
+     std::string str_out=FullFile({"/usr","share","program_name","icons"});
+     std::cout<<str_out<<std::endl;
+    \endcode
+     *  
+     *  \param[in] str_text_list Lista de argumentos a concatenar.
+     *  \return Retorna una nueva cadena con un filepath creado por la union de 
+     *  las cadenas de entrada, usando para concatenar Pds::Ra::FileSep.
+     *  \ingroup PdsRaFileGroup
+     */
+    std::string FullFile( std::initializer_list<std::string> str_text_list );
+
+    /** \brief Retorna una nueva cadena de texto con la dirección del directorio de 
+     *  usuario. HOME en gnu-linux y {HOMEDRIVE,HOMEPATH} en Windows.
+     *  \return Retorna el directorio de usuario o NULL en caso de problemas en la
+     *  reserva de memoria.
+     *  \ingroup PdsRaFileGroup
+     */
+    std::string HomeDir(void);
+    
+    /** \brief Retorna un std::string con la ruta del programa que lo invoca.
+     *  \return Retorna un std::string con la ruta del programa que lo invoca.
+     *  \ingroup PdsRaFileGroup
+     */
+    std::string Programpath(void);
+    
+    /** \brief Retorna un std::string con la ruta actual.
+     *  \return Retorna un std::string con la ruta actual.
+     *  \ingroup PdsRaFileGroup
+     */
+    std::string Pwd(void);
+
+    /** \brief Retorna un std::string con el directorio de un filepath.
+     *
+    \code{.h}
+     std::string filepath="/usr/share/program_name/icons/image.png";
+     std::cout<<Pds::Ra::Dirname(filepath)<<std::endl;
+    \endcode
+     * Retorna:
+    \code{.sh}
+     /usr/share/program_name/icons
+    \endcode
+     *  \return Retorna un std::string con el directorio de un filepath.
+     *  \ingroup PdsRaFileGroup
+     */
+    std::string Dirname(std::string filepath);
+    
+    /** \brief Retorna un std::string con el basename de un filepath.
+     *
+    \code{.h}
+     std::string filepath="/usr/share/program_name/icons/image.png";
+     std::cout<<Pds::Ra::Basename(filepath)<<std::endl;
+    \endcode
+     * Retorna:
+    \code{.sh}
+     image.png
+    \endcode
+     *  \return Retorna un std::string con el basename de un filepath.
+     *  \ingroup PdsRaFileGroup
+     */
+    std::string Basename(std::string filepath);
+    
+    /** \brief Retorna un std::string con el extension de un filepath.
+     *
+    \code{.h}
+     std::string filepath="/usr/share/program_name/icons/image.png";
+     std::cout<<Pds::Ra::Extension(filepath)<<std::endl;
+    \endcode
+     * Retorna:
+    \code{.sh}
+    .png
+    \endcode
+     *  \return Retorna un std::string con el extension de un filepath.
+     *  \ingroup PdsRaFileGroup
+     */
+    std::string Extension(std::string filepath);
+    
+    /** \brief Retorna un std::string con el filename de un filepath.
+     *
+    \code{.h}
+     std::string filepath="/usr/share/program_name/icons/image.png";
+     std::cout<<Pds::Ra::Filename(filepath)<<std::endl;
+    \endcode
+     * Retorna:
+    \code{.sh}
+    image
+    \endcode
+     *  \return Retorna un std::string con el filename de un filepath.
+     *  \ingroup PdsRaFileGroup
+     */ 
+    std::string Filename(std::string filepath);
+    
+    /** \brief Retorna un std::string con un filepath con otra extension de un filepath.
+     *
+    \code{.h}
+     std::string filepath="/usr/share/program_name/icons/image.png";
+     std::cout<<Pds::Ra::ReplaceExtension(filepath,".bmp")<<std::endl;
+    \endcode
+     * Retorna:
+    \code{.sh}
+    /usr/share/program_name/icons/image.bmp
+    \endcode
+     *  \return Retorna un std::string con un filepath con otra extension de un filepath.
+     *  \ingroup PdsRaFileGroup
+     */ 
+    std::string ReplaceExtension(std::string filepath,std::string new_ext);
+    
+    /** \brief Retorna true si es un fichero existenteste (simbólico o real) no directorio, 
+     * o false si no.
+     *
+     *  \param[in] path Dirección de fichero a testar.
+     *  \return Retorna true si es un fichero existenteste (simbólico o real) no directorio, 
+     * o false si no.
+     *  \ingroup PdsRaFileGroup
+     */
+    bool IsFile(std::string path);
+    
+    /** \brief Retorna true si es un directorio existenteste (simbólico o real) no fichero, 
+     * o false si no.
+     *
+     *  \param[in] path Dirección de directorio a testar.
+     *  \return Retorna true si es un directorio existenteste (simbólico o real) no fichero, 
+     * o false si no.
+     *  \ingroup PdsRaFileGroup
+     */
+    bool IsDir(std::string path);
+    
+    /** \brief Obtiene el dato de tipo std::string que va después del 
+     *  parámetro param en una cadena de parámetros argv de argc elementos. si el 
+     *  parámetro param no es encontrado la función retorna default_data. 
+     *  Si existen parámetros data repetidos, solo se atiende al primero.
+    \code{.h}
+    std::string data;
+    std::string default_data="/home/user/data.dat";
+    data=GetParamString(argc,argv,"--input-file",default_data);
+    \endcode
+     *  \retu
+     *  \param[in] argc Cantidad de elementos de argv.
+     *  \param[in] argv Cadenas de caracteres con  parámetros de entrada.
+     *  \param[in] param Parametro a buscar en las cadenas argv.
+     *  \param[in] default_data Dato por defecto. 
+     *  \return El dato correspondiente ou default_data.
+     *  \ingroup PdsRaFileGroup
+     */
+    std::string GetParamString( int argc,
+                                char* const argv[],
+                                std::string param,
+                                std::string default_data);
+                                
+
+    /** \brief Retorna true si existe el parámetro param.
+     *  \param[in] argc Cantidad de elementos de argv.
+     *  \param[in] argv Cadenas de caracteres con  parámetros de entrada.
+     *  \param[in] param Dato a buscar en las cadenas argv.
+     *  \return Retorna true si todo fue bien o false si no.
+     *  \ingroup PdsRaFileGroup
+     */
+    bool ExistParam(int argc, char* const argv[], std::string param);
 
 /**
  * @}
